@@ -1,0 +1,62 @@
+name: Lint
+
+on:
+  - pull_request
+
+jobs:
+  textlint:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        node-version:
+          - 14.x
+
+    defaults:
+      run:
+        working-directory: web
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2.3.0
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Get the number of processors currently available
+        id: processors
+        run: echo "::set-output name=number::$(getconf _NPROCESSORS_ONLN)"
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Setup reviewdog
+        run: |
+          mkdir -p $HOME/bin && curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b $HOME/bin
+          echo "$HOME/bin" >> $GITHUB_PATH
+          echo "$(go env GOPATH)/bin" >> $GITHUB_PATH # for Go projects
+      - name: Install dependencies
+        run: npm install
+        env:
+          CHILD_CONCURRENCY: ${{ steps.processors.outputs.number }}
+          NETWORK_CONCURRENCY: ${{ steps.processors.outputs.number }}
+
+      - name: textlint
+        run: npm run text:lint:full -- ${FILES} -f checkstyle --experimental --parallel --max-concurrency ${{ steps.processors.outputs.number }} | reviewdog -f=checkstyle -name="textlint" -reporter=github-pr-review -level=${LEVEL}
+        env:
+          FILES: docs/**/*.{md,mdx}
+          LEVEL: error
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ github.token }}
