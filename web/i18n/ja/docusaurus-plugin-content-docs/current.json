@@ -1,0 +1,118 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.supabaseClient.category.Javascript": {
+    "message": "Javascript",
+    "description": "The label for category Javascript in sidebar supabaseClient"
+  },
+  "sidebar.supabaseClient.category.Getting Started": {
+    "message": "Getting Started",
+    "description": "The label for category Getting Started in sidebar supabaseClient"
+  },
+  "sidebar.supabaseClient.category.Auth": {
+    "message": "Auth",
+    "description": "The label for category Auth in sidebar supabaseClient"
+  },
+  "sidebar.supabaseClient.category.Database": {
+    "message": "Database",
+    "description": "The label for category Database in sidebar supabaseClient"
+  },
+  "sidebar.supabaseClient.category.Realtime": {
+    "message": "Realtime",
+    "description": "The label for category Realtime in sidebar supabaseClient"
+  },
+  "sidebar.supabaseClient.category.Storage": {
+    "message": "Storage",
+    "description": "The label for category Storage in sidebar supabaseClient"
+  },
+  "sidebar.supabaseClient.category.Modifiers": {
+    "message": "Modifiers",
+    "description": "The label for category Modifiers in sidebar supabaseClient"
+  },
+  "sidebar.supabaseClient.category.Filters": {
+    "message": "Filters",
+    "description": "The label for category Filters in sidebar supabaseClient"
+  },
+  "sidebar.supabaseClient.category.Dart": {
+    "message": "Dart",
+    "description": "The label for category Dart in sidebar supabaseClient"
+  },
+  "sidebar.supabaseClient.category.CLI": {
+    "message": "CLI",
+    "description": "The label for category CLI in sidebar supabaseClient"
+  },
+  "sidebar.supabaseClient.category.About": {
+    "message": "About",
+    "description": "The label for category About in sidebar supabaseClient"
+  },
+  "sidebar.supabaseClient.category.Local Development": {
+    "message": "Local Development",
+    "description": "The label for category Local Development in sidebar supabaseClient"
+  },
+  "sidebar.docs.category.Overview": {
+    "message": "Overview",
+    "description": "The label for category Overview in sidebar docs"
+  },
+  "sidebar.docs.category.Tutorials": {
+    "message": "Tutorials",
+    "description": "The label for category Tutorials in sidebar docs"
+  },
+  "sidebar.docs.category.See Also": {
+    "message": "See Also",
+    "description": "The label for category See Also in sidebar docs"
+  },
+  "sidebar.guides.category.Guides": {
+    "message": "Guides",
+    "description": "The label for category Guides in sidebar guides"
+  },
+  "sidebar.guides.category.Database": {
+    "message": "Database",
+    "description": "The label for category Database in sidebar guides"
+  },
+  "sidebar.guides.category.Extensions": {
+    "message": "Extensions",
+    "description": "The label for category Extensions in sidebar guides"
+  },
+  "sidebar.guides.category.Connecting to Postgres": {
+    "message": "Connecting to Postgres",
+    "description": "The label for category Connecting to Postgres in sidebar guides"
+  },
+  "sidebar.guides.category.Configuration": {
+    "message": "Configuration",
+    "description": "The label for category Configuration in sidebar guides"
+  },
+  "sidebar.guides.category.Auth": {
+    "message": "Auth",
+    "description": "The label for category Auth in sidebar guides"
+  },
+  "sidebar.guides.category.Authentication": {
+    "message": "Authentication",
+    "description": "The label for category Authentication in sidebar guides"
+  },
+  "sidebar.guides.category.Authorization": {
+    "message": "Authorization",
+    "description": "The label for category Authorization in sidebar guides"
+  },
+  "sidebar.guides.category.Deep Dive": {
+    "message": "Deep Dive",
+    "description": "The label for category Deep Dive in sidebar guides"
+  },
+  "sidebar.guides.category.Self Hosting": {
+    "message": "Self Hosting",
+    "description": "The label for category Self Hosting in sidebar guides"
+  },
+  "sidebar.postgresServer.category.Postgres": {
+    "message": "Postgres",
+    "description": "The label for category Postgres in sidebar postgresServer"
+  },
+  "sidebar.postgresServer.category.Self hosting": {
+    "message": "Self hosting",
+    "description": "The label for category Self hosting in sidebar postgresServer"
+  },
+  "sidebar.postgresApi.category.Postgres API": {
+    "message": "Postgres API",
+    "description": "The label for category Postgres API in sidebar postgresApi"
+  }
+}
