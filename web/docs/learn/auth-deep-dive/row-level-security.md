@@ -1,20 +1,20 @@
 ---
 id: auth-row-level-security
-title: 'Part Two: Row Level Security'
+title: 'パート2：行レベルセキュリティー'
 description: Supabase Auth Deep Dive Part Two - Row Level Security
 ---
 
-### About
+### 概要
 
-Learn how to restrict access to your database tables by enabling Row Level Security and writing Postgres Policies in the Supabase Dashboard.
+Supabaseダッシュボードで行レベルセキュリティーを有効にし、Postgresポリシーを記述することで、データベース・テーブルへのアクセスを制限する方法を紹介します。
 
-### Watch
+### 視聴
 
 <iframe className="w-full video-with-border" width="640" height="385" src="https://www.youtube-nocookie.com/embed/qY_iQ10IUhs" frameBorder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
-### Securing Your Tables
+### テーブルをセキュアにする
 
-In Supabase, you can access your data directly from the client (often the web browser), you do this by passing your Supabase URL and Anon key to supabase-js like so:
+Supabaseでは、クライアント（多くの場合、Webブラウザ）から直接データにアクセスできます。そのためには、SupabaseのURLとAnonキーを以下のようにsupabase-jsに渡します。
 
 ```js
 const supabase = createClient(
@@ -23,15 +23,15 @@ const supabase = createClient(
 )
 ```
 
-This raises an interesting question however: "if my anon key is in the client, then can't someone read my javascript and steal my key?", the answer is yes. And this is where Postgres policies come in.
+しかし、これは興味深い問題を提起しています。「もし私のanonキーがクライアントにあるならば、誰かが私のjavascriptを読んでキーを盗むことができるではないか」、答えはイエスです。ここで、Postgresのポリシーが登場します。
 
-Using Postgres's "Row-Level-Security" policies, we can set rules on what data the anon key is allowed or not allowed to access by default.
+Postgresの「行レベルセキュリティー」ポリシーを使用して、anonキーがどのデータに対してアクセスを許可するかしないかのルールをデフォルトで設定できます。
 
-We can say for example that the anon key should only be able to read from a particular table, but not write, update, nor delete.
+例えば、anonキーは特定のテーブルからを許可し、書き込み、更新、削除はできないようにできます。
 
-And these rules can be as complex as we want. We could say that the anon key can only delete rows which were inserted on a thursday afternoon between 4 and 6pm, and where the id column is an even number. Pretty strange, but it shows the power of policies.
+また、これらのルールは必要に応じて複雑にできます。例えば、anonキーは木曜日の午後4時から6時の間に挿入され、id列が偶数である行のみを削除できる、といったことです。かなり奇妙ですが、これはポリシーの威力を示しています。
 
-Let's say we create a leaderboard table. We want people on our website to be able to read the leaderboard, but not write, update, or delete from it. We start by defining our table in SQL and adding some dummy data:
+例えば、リーダーボードのテーブルを作成するとします。ウェブサイトの利用者は、リーダーボードを読むことはできますが、書き込み、更新、削除はできないようにしたいと思います。まず、SQLでテーブルを定義し、いくつかのダミーデータを追加します。
 
 ```sql
 create table leaderboard (
@@ -43,9 +43,9 @@ insert into leaderboard(name, score)
 values ('Paul', 100), ('Leto', 50), ('Chani', 200);
 ```
 
-Now let's set up a client to read the data, I've created a repl here to show a living example: [https://replit.com/@awalias/supabase-leaderboard-demo#index.js](https://replit.com/@awalias/supabase-leaderboard-demo#index.js). If you copy the snippet you can plug in your own Supabase URL and anon key.
+では、データを読むためのクライアントを設定しましょう。ここでは、実際に動作する例を示すためにreplを作成しました。[https://replit.com/@awalias/supabase-leaderboard-demo#index.js](https://replit.com/@awalias/supabase-leaderboard-demo#index.js)です。このスニペットをコピーすれば、自分のSupabaseのURLとanonキーを入力できます。
 
-You can see that it's possible to freely read from and write to the table by using:
+次のコードを使うことで、テーブルから自由に読みこみができて、書きこみもできることがわかります。
 
 ```js
 // Writing
@@ -58,17 +58,17 @@ let { data, error } = await supabase
   .order('score', { ascending: false })
 ```
 
-Now let's restrict access. We'll start by fully restricting the table. We can do this in the SQL editor by making a query:
+それでは、アクセスを制限してみましょう。まずは、テーブルを完全に制限することから始めます。これは、SQLエディタでクエリを作成して行います。
 
 ```sql
 ALTER TABLE leaderboard ENABLE ROW LEVEL SECURITY;
 ```
 
-or via the Supabase Dashboard, by navigating to Auth > Policies, and clicking the red padlock on the leaderboard table, so that it turns white.
+または、Supabaseのダッシュボードから、「Auth」→「Policies」と進み、リーダーボード・テーブルにのある赤い錠をクリックして白にしてください。
 
-![Enable row level security in Supabase](/img/auth-deep-dive-2.png)
+![Supabaseで行レベルセキュリティーを有効にする](/img/auth-deep-dive-2.png)
 
-You'll notice that both reading and writing now fail with an error like:
+読み込みも書き込みも、次のようなエラーで失敗してしまうことでしょう。
 
 ```jsx
 {
@@ -79,9 +79,9 @@ You'll notice that both reading and writing now fail with an error like:
 }
 ```
 
-Now we need to add a policy to enable reading of the table, for everyone who sends the anon key (JWT) in the `Authorization: Bearer` header.
+次に、`Authorization: Bearer`ヘッダーにanonキー（JWT）を送信してきたユーザに対して、テーブルの読み取りを可能にするポリシーを追加する必要があります。
 
-In SQL this can be done with:
+SQLで次のように実行します。
 
 ```sql
 CREATE POLICY anon_read_leaderboard ON leaderboard
@@ -91,39 +91,42 @@ CREATE POLICY anon_read_leaderboard ON leaderboard
 
 `anon_read_leaderboard` here is just a name that you choose for your policy. `leaderboard` is the table name. `FOR SELECT` says that we only want this policy to apply for reads (or rather "selects" in SQL). And finally the rule itself is `auth.role() = 'anon'`.
 
-`auth.role()` is referring to a SQL function `role` that Supabase injects into the `auth` schema in your database. The function actually looks like this:
+ここでの`anon_read_leaderboard`は、ポリシーの内容に合わせて選んだ名前です。`leaderboard`はテーブル名です。`FOR SELECT`は、このポリシーを読み取り（SQLでいうところの「select」）にのみ適用させたいということです。そして最後に、ルール自体は`auth.role() = 'anon'`です。
+
+
+`auth.role()`とは、Supabaseがデータベースの`auth`スキーマに注入するSQL関数`role`のことです。この関数は実際には次のようなものです。
 
 ```sql
--- Gets the User Role from the request cookie
+-- リクエスト・クッキーからユーザ・ロールを取得
 create or replace function auth.role() returns text as $$
   select nullif(current_setting('request.jwt.claim.role', true), '')::text;
 $$ language sql stable;
 ```
 
-The purpose of the function is to extract the `role` claim from any JWTs that are passed to your API via the `Authorization: Bearer` header.
+この関数の目的は、`Authorization: Bearer`ヘッダーを介してAPIに渡されたJWTから`role`属性情報（claim）を抽出することです。
 
-Other available functions for use here include: `auth.email()` and `auth.uid()` which will fetch the `email` and `sub` claims respectively.
+ここで使用できる他の関数は、`auth.email()`と`auth.uid()`があります。それぞれ`email`と`sub`の属性情報を取得します。
 
-If you'd prefer to use the dashboard to add your policy you can do so by clicking "Add Policy" in the Policies tab and making a policy like this:
+ダッシュボードを使ってポリシーを追加したい場合は、「Policy」タブの「Add Policy」をクリックして、以下のようにポリシーを作成します。
 
-![Add a read only policy in Supabase](/img/auth-deep-dive-2-2.png)
+![Supabaseで読み取りのみのポリシーを追加](/img/auth-deep-dive-2-2.png)
 
-You should now be able to read from your leaderboard, but will still not be able to write, update, or delete from it, which is exactly what we wanted!
+これで、リーダーボードの読み込みはできるようになりましたが、書き込み、更新、削除はできません。これはまさに私たちが望んでいたことです。
 
-A quick reminder that you can always use your `service_role` API key to bypass these row level security policies. But be extra careful that you don't leak this key by including it in the client. This can be useful if you're building internal admin tools, or if you need to bulk insert or delete data via the API.
+これらの行レベルのセキュリティポリシーを回避するには、常に`service_role` APIキーを使用できることを覚えておいてください。ただし、このキーをクライアントに含めることでリークしないように細心の注意を払ってください。これは、内部の管理ツールを構築している場合や、API経由でデータを一括挿入または削除する必要がある場合に便利です。
 
-In the next guide we will look at using Policies in combination with User Accounts, so that you can restrict access to data on a User by User basis: Watch [Part Three: Policies](/docs/learn/auth-deep-dive/auth-policies)
+次のガイドでは、ポリシーをユーザーアカウントと組み合わせて使用し、ユーザーごとにデータへのアクセスを制限する方法を見ていきます。[パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)をみる。
 
-### Resources
+### リソース
 
-- JWT debugger: https://jwt.io/
-- RESTED: https://github.com/RESTEDClient/RESTED
+- JWTデバッガー：https://jwt.io/
+- RESTED：https://github.com/RESTEDClient/RESTED
 
-### Next steps
+### 次のステップ
 
-- Watch [Part One: JWTs](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)
+- [パート1：JWTs](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)をみる
 <!-- - Watch [Part Two: Row Level Security](/docs/learn/auth-deep-dive/auth-row-level-security) -->
-- Watch [Part Three: Policies](/docs/learn/auth-deep-dive/auth-policies)
-- Watch [Part Four: GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)
-- Watch [Part Five: Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)
-- Sign up for Supabase: [app.supabase.io](https://app.supabase.io)
+- [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)をみる
+- [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)をみる
+- [パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)をみる
+- Supabaseにサインアップ：[app.supabase.io](https://app.supabase.io)
