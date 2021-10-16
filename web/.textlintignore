@@ -58,7 +58,6 @@ docs/learn/auth-deep-dive/google-oauth.md
 docs/learn/auth-deep-dive/gotrue.md
 docs/learn/auth-deep-dive/jwts.md
 docs/learn/auth-deep-dive/policies.md
-docs/learn/auth-deep-dive/row-level-security.md
 docs/postgres/server/about.md
 docs/postgres/server/digitalocean.md
 docs/postgres/server/docker.md
