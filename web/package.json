@@ -11,7 +11,8 @@
     "gen:supabase": "ts-node ReferenceGenerator.ts -o docs/reference/javascript spec/supabase.yml",
     "gen:cli": "ts-node ReferenceGenerator.ts -o docs/reference/cli spec/cli.yml",
     "gen:dart": "ts-node ReferenceGenerator.ts -o docs/reference/dart spec/dart.yml",
-    "gen:postgres": "ts-node ReferenceGenerator.ts -o docs/reference/postgres spec/postgres.yml"
+    "gen:postgres": "ts-node ReferenceGenerator.ts -o docs/reference/postgres spec/postgres.yml",
+    "write-translations": "docusaurus write-translations"
   },
   "dependencies": {
     "@docusaurus/core": "^2.0.0-beta.6",

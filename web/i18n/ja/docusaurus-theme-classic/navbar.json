@@ -1,0 +1,18 @@
+{
+  "item.label.Overview": {
+    "message": "Overview",
+    "description": "Navbar item with label Overview"
+  },
+  "item.label.Guides": {
+    "message": "Guides",
+    "description": "Navbar item with label Guides"
+  },
+  "item.label.Reference": {
+    "message": "Reference",
+    "description": "Navbar item with label Reference"
+  },
+  "item.label.Login": {
+    "message": "Login",
+    "description": "Navbar item with label Login"
+  }
+}
