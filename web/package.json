@@ -15,7 +15,7 @@
     "write-translations": "docusaurus write-translations",
     "text:lint": "textlint --cache $(git diff master --name-only | sed s#web/##) -f pretty-error",
     "text:lint:fix": "textlint --cache $(git diff master --name-only | sed s#web/##) --fix",
-    "text:lint:full": "textlint --cache \"docs/**/*.{md,mdx}\" -f unix",
+    "text:lint:full": "textlint --cache \"docs/**/*.{md,mdx}\" -f pretty-error",
     "text:lint:full:fix": "textlint --cache \"docs/**/*.{md,mdx}\" --fix",
     "prepare": "cd .. && husky install web/.husky",
     "lint-staged": "lint-staged"
