@@ -1,24 +1,24 @@
 ---
 id: auth-deep-dive-jwts
-title: 'Part One: JWTs'
-description: Supabase Auth Deep Dive Part 1 - JWTs
+title: 'パート1：JWT'
+description: Supabase Authを深く学ぶ パート1 - JWT
 ---
 
-### About
+### 概要
 
-An introduction to JWTs and how they are used in Supabase Auth
+JWTの紹介とSupabase Authでの使われ方を解説します。
 
-### Watch
+### 視聴
 
 <iframe className="w-full video-with-border" width="640" height="385" src="https://www.youtube-nocookie.com/embed/v3Exg5YpJvE" frameBorder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
-### What are JSON Web Tokens (JWTs)?
+### JSON Web Tokens (JWTs)とは
 
-JWTs are JSON objects that are encoded and signed and sent around as a string. They are distributed to users of a service or website, who can later show the JWT to the website or service as proof that they have the right to access certain content.
+JWTは、エンコードされ、署名されたJSONオブジェクトで、文字列として送信されます。サービスやウェブサイトの利用者に配布され、利用者は後に、特定のコンテンツにアクセスする権利があることの証明として、ウェブサイトやサービスにJWTを提示できます。
 
-What exactly do we mean when we say "encoded" and "signed"?
+「エンコード」や「署名」とは、具体的にどのようなことを指すのでしょうか。
 
-Well, the JSON object starts out looking something like this:
+例えば、JSONオブジェクトは、最初は次のような形をしています。
 
 ```js
 {
@@ -29,7 +29,7 @@ Well, the JSON object starts out looking something like this:
 }
 ```
 
-`sub` is the "subject", which is usually the UUID of the user. `name` is self-explanatory, and `iat` is the Unix timestamp at which the token was created. Many JWTs will also have an `exp`, which is the date at which the token is set to expire and can no longer be used. These are some of the standard fields you may find in a JWT, but you can pretty much store whatever you want in there, for example:
+`sub`は「subject」で、通常はユーザーのUUIDを表しています。`name`は説明不要で、`iat`はトークンが作成されたときのUnixのタイムスタンプです。また、多くのJWTには`exp`があり、これはトークンが期限切れになって使用できなくなる日を表しています。これらはJWTに含まれる標準的なフィールドの一部ですが、例えば、必要なものは何でも格納できます。
 
 ```js
 {
@@ -44,16 +44,16 @@ Well, the JSON object starts out looking something like this:
 }
 ```
 
-Just note that the more data you store in your token, the longer the encoded string will be.
+ただし、トークンに保存するデータ量が多いほど、エンコードされる文字列は長くなることに注意してください。
 
-When we want to send the JWT to the user, we first encode the data using an algorithm such as `HS256`. There are many libraries (and several different algorithms) that can be used to do this encoding/decoding, such as [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken). I made a repl [here](https://replit.com/@awalias/jsonwebtokens#index.js) so you can try it for yourself. The signing is as simple as:
+JWTをユーザーに送信したいときは、まず`HS256`などのアルゴリズムを使ってデータをエンコードします。[jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)のように、このエンコード/デコードに使用できる多くのライブラリー（そしていくつかの異なるアルゴリズム）があります。私は[ここ](https://replit.com/@awalias/jsonwebtokens#index.js)にreplを作ったので、自分で試してみてください。署名は以下のように簡単です。
 
 ```js
 // from https://replit.com/@awalias/jsonwebtokens#index.js
 let token = jwt.sign({ name: 'Sam Vimes' }, 'some-secret')
 ```
 
-And the resulting string will look like this:
+その結果、文字列は次のようになります。
 
 ```js
 eyJhbGciOiJIUzI1NiJ9
@@ -61,9 +61,9 @@ eyJhbGciOiJIUzI1NiJ9
   .zMcHjKlkGhuVsiPIkyAkB2rjXzyzJsMMgpvEGvGtjvA
 ```
 
-You will notice that the string is actually made up of three components, which we'll address one by one:
+文字列は実際には3つの部品で構成されていることがわかりますが、それを1つずつ説明していきます。
 
-The first segment `eyJhbGciOiJIUzI1NiJ9` is known as the "header", and when decoded just tells us which algorithm was used to do the encoding:
+最初のセグメント`eyJhbGciOiJIUzI1NiJ9`は「ヘッダー」として知られており、デコードするとどのアルゴリズムでエンコードされたかがわかります。
 
 ```js
 {
@@ -71,7 +71,9 @@ The first segment `eyJhbGciOiJIUzI1NiJ9` is known as the "header", and when deco
 }
 ```
 
-The second segment `eyJzdWIiOiIwMDAxIiwibmFtZSI6IlNhbSBWaW1lcyIsImlhdCI6MTUxNjIzOTAyMiwiZXhwIjoxNTE4MjM5MDIyfQ` contains our original payload:
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+2番目のセグメント`eyJzdWIiOiwMDAxIiwibmFtZSI6IlNhbSBWaW1lcyIsImlhdCI6MTUxNjIzOTAyMiwiZXhwIjoxNTE4MjM5MDIyfQ`には、オリジナルのペイロードが入っています。
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
 ```js
 {
@@ -82,7 +84,9 @@ The second segment `eyJzdWIiOiIwMDAxIiwibmFtZSI6IlNhbSBWaW1lcyIsImlhdCI6MTUxNjIz
 }
 ```
 
-The last segment `zMcHjKlkGhuVsiPIkyAkB2rjXzyzJsMMgpvEGvGtjvA` is the signature itself, which is the part used by the website or service provider to verify that a token sent by some user is legitimate. It is produced in the first instance by running the cryptographic function HS256 on the following input:
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+最後のセグメント`zMcHjKlkGhuVsiPIkyAkB2rjXzyzJsMMgpvEGvGtjvA`は、署名そのものであり、ウェブサイトやサービスプロバイダーが、あるユーザーから送られてきたトークンが正当なものであることを確認するために使用する部分です。この署名は、まず最初に、以下の入力に対して暗号化関数HS256を実行することで生成されます。
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
 ```js
 HMACSHA256(
@@ -92,32 +96,32 @@ HMACSHA256(
 )
 ```
 
-You can test out minting your own tokens on [https://jwt.io](https://jwt.io).
+[https://jwt.io](https://jwt.io)で自分のトークンの鋳造をテストできます。
 
-It is important to note that anyone who possesses the `jwt_secret` here can create new tokens, and also verify existing ones. More advanced JWT algorithms use two secrets: one for the creation of tokens, and a separate one to verify the validity of signed tokens.
+ここで重要なのは、`jwt_secret`を持っている人は誰でも、新しいトークンを作成したり、既存のトークンを検証したりできるということです。より高度なJWTアルゴリズムでは、2つのシークレットを使用します。1つはトークンの作成用で、もう1つは署名されたトークンの有効性を検証するためのものです。
 
-You might wonder why JWTs are so popular all of a sudden. The answer is that with the mass adoption of microservice architecture, we were in a situation where several distinct microservices (APIs, websites, servers, etc.) want to easily validate that a user is who they say they are, or are in other words a "logged-in" user. Traditional session tokens are no use here, since they would require each microservice to either maintain a record of currently valid session tokens or to query a central database each time a user wants to access a resource in order to check the validity of the session token – very inefficient indeed. JWT-based auth in this sense is decentralised, since anyone with the `jwt_secret` can verify a token without needing access to a centralised database.
+なぜ突然JWTが流行るのか、不思議に思われたことでしょう。その答えは、マイクロサービス・アーキテクチャーの大量導入に伴うものです。複数の異なるマイクロサービス（API、Webサイトやサーバーなど）において、ユーザーが自分の言うとおりの人物（つまり「ログインした」ユーザー）であることを簡単に検証したいという状況になったからです。従来のセッショントークンはここでは使えません。なぜなら、各マイクロサービスが現在有効なセッショントークンの記録を維持する必要があります。もしくは、ユーザーがリソースにアクセスしようとするたび、セッショントークンの有効性を中央のデータベースに問い合わせる必要があるからです。この意味で、JWTベースの認証は非中央集権的です。`jwt_secret`を持つ誰もが、中央のデータベースにアクセスすることなく、トークンを検証できます。
 
-Note: One downside of JWTs is that they are not easily voidable, like session tokens. If a JWT is leaked to a malicious actor, they will be able to redeem it anywhere until the expiry date is reached – unless of course the system owner updates the `jwt_secret` (which will of course invalidate _everyone's_ existing tokens).
+注：JWTの欠点の1つは、セッション・トークンのように簡単には無効化できないことです。JWTが悪意のあるアクターにリークされた場合、彼らは有効期限に達するまで、どこでもそれを利用できます。もちろん、システムオーナーが`jwt_secret`を更新しない限りは（もちろん、誰もが既存のトークンを無効にしますが）。
 
-### JWTs in Supabase
+### SupabaseでのJWTs
 
-In Supabase we issue JWTs for three different purposes:
+Supabaseでは、3つの異なる目的のためにJWTを発行しています。
 
-1. `anon key`: This key is used to bypass the Supabase API gateway and can be used in your client-side code.
-2. `service role key`: This key has super admin rights and can bypass your Row Level Security. Do not put it in your client-side code. Keep it private.
-3. `user specific jwts`: These are tokens we issue to users who log into your project/service/website. It's the modern equivalent of a session token, and can be used by a user to access content or permissions specific to them.
+1. `anon key`：このキーはSupabase APIゲートウェイをバイパスするために使用され、クライアントサイドのコードで使用できます。
+2. `service role key`：このキーはスーパー・アドミン権限を持ち、行レベルセキュリティーを回避できます。このキーをクライアントサイドのコードに入れないでください。秘密にしておいてください。
+3. `user specific jwts`：これは、あなたのプロジェクトやサービス、ウェブサイトへログインしたユーザーに発行するトークンです。これは現代のセッション・トークンに相当するもので、ユーザーは自分固有のコンテンツやパーミッションへアクセスするために使用できます。
 
-The first token here, the `anon key` token, is for developers to send along with their API requests whenever they want to interact with their Supabase database.
+最初のトークンである`anon key`トークンは、開発者がSupabaseのデータベースとやり取りする際に、APIリクエストと一緒に送信するためのものです。
 
-Let's say you want to read the names of all the rows in a table `colors`. We would make a request like:
+例えば、テーブル`colors`のすべての行の名前（name）をselectしたいします。次のようなリクエストをします。
 
 ```bash
 curl 'https://xscduanzzfseqszwzhcy.supabase.co/rest/v1/colors?select=name' \
 -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNDIwNTE3NCwiZXhwIjoxOTI5NzgxMTc0fQ.-NBR1WnZyQGpRLdXJfgfpszoZ0EeE6KHatJsDPLIX8c"
 ```
 
-If we put this token into https://jwt.io, we see it decodes to:
+このトークンを[https://jwt.io](https://jwt.io)に入れると、次のようにデコードされることがわかります。
 
 ```js
 {
@@ -127,13 +131,13 @@ If we put this token into https://jwt.io, we see it decodes to:
 }
 ```
 
-This JWT is signed by a `jwt_secret` specific to the developer's Supabase token (you can find this secret alongside this encoded "anon key" on your Dashboard under Settings > API page) and is required to get past the Supabase API gateway and access the developer's project.
+このJWTは、開発者のSupabaseトークンに固有の`jwt_secret`で署名されています。このsecretは、ダッシュボードの「Settings」→「API」ページで、エンコードされた「anon key」と一緒に確認できます。Supabase APIゲートウェイを通過して、開発者のプロジェクトへアクセスするために必要となります。
 
-The idea with this particular key is that it's safe to put into your client, meaning it's okay if your end users see this key – but _only_ if you first enable Row Level Security, which is the topic of [Part Two](/docs/learn/auth-deep-dive/auth-row-level-security) in this series.
+しかし、このシリーズの[パート2](/docs/learn/auth-deep-dive/auth-row-level-security)のテーマである「行レベルセキュリティー」を有効にした場合、このキーをエンドユーザーが見ても問題ないことになります。
 
-The second key, `service role key`, should only ever be used on one of your own servers or environments, and should never be shared with end users. You might use this token to do things like make batch inserts of data.
+2つ目のキーである`service role key`は、自分のサーバーや環境でのみ使用し、エンドユーザーとは決して共有してはいけません。このトークンを使って、データの一括挿入などを行うことができます。
 
-The `user access token` is the JWT issued when you call for example:
+`user access token`とは、例えば、次のようにAPIを呼び出したとき発行されるJWTのことです。
 
 ```js
 supabase.auth.signIn({ email: 'lao.gimmie@gov.sg', password: 'They_Live_1988!' })
@@ -147,7 +151,7 @@ curl 'https://xscduanzzfseqszwzhcy.supabase.co/rest/v1/colors?select=name' \
 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNjE1ODI0Mzg4LCJzdWIiOiIwMzM0NzQ0YS1mMmEyLTRhYmEtOGM4YS02ZTc0OGY2MmExNzIiLCJlbWFpbCI6InNvbWVvbmVAZW1haWwuY29tIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwifSwidXNlcl9tZXRhZGF0YSI6bnVsbCwicm9sZSI6ImF1dGhlbnRpY2F0ZWQifQ.I-_oSsJamtinGxniPETBf-ezAUwDW2sY9bJIThvdX9s"
 ```
 
-You'll notice that this token is quite a bit longer, since it contains information specific to the user such as:
+このトークンは、`apikey`ヘッダーに加えて、`Authorization Bearer`ヘッダーにも渡す必要があります。
 
 ```js
 {
@@ -163,18 +167,19 @@ You'll notice that this token is quite a bit longer, since it contains informati
 }
 ```
 
-Now that you understand what JWTs are and where they're used in Supabase, you can explore how to use them in combination with Row Level Security to start restricting access to certain tables, rows, and columns in your Postgres database: [Part Two: Row Level Security](/docs/learn/auth-deep-dive/auth-row-level-security)
+JWTとは何か、そしてSupabaseのどこで使われているかを理解します。その上で、Postgresデータベースの特定のテーブル、行、列へのアクセスを制限するために、行レベルセキュリティーと組み合わせてJWTを使用する方法を探ってみましょう。[「パート2：行レベルセキュリティー」](/docs/learn/auth-deep-dive/auth-row-level-security)
 
-### Resources
+### リソース
 
-- JWT debugger: https://jwt.io/
+- JWTデバッガ：https://jwt.io/
 
-### Next steps
+### 次のステップ
 
 <!-- - Watch [Part One: JWTs](/docs/learn/auth-deep-dive/auth-deep-dive-jwts) -->
 
-- [Part Two: Row Level Security](/docs/learn/auth-deep-dive/auth-row-level-security)
-- [Part Three: Policies](/docs/learn/auth-deep-dive/auth-policies)
-- [Part Four: GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)
-- [Part Five: Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)
-- Sign up for Supabase: [app.supabase.io](https://app.supabase.io)
+<!-- - [パート2：Part Two: Row Level Security](/docs/learn/auth-deep-dive/auth-row-level-security) -->
+- [パート2：行レベルセキュリティー](/docs/learn/auth-deep-dive/auth-row-level-security)
+- [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)
+- [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)
+- [パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)
+- Supabaseにサインアップ：[app.supabase.io](https://app.supabase.io)
