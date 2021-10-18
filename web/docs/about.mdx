@@ -1,10 +1,12 @@
 ---
 id: about
-title: Introduction
-description: 'What is Supabase?'
+title: イントロダクション
+description: 'Supabaseとは'
 slug: /
 hide_table_of_contents: true
 ---
+
+<!-- textlint-disable -->
 
 import Link from '@docusaurus/Link'
 import Tabs from '@theme/Tabs'
@@ -32,9 +34,12 @@ const frameworks = [
   { name: 'Vue', logo: '/img/libraries/vuejs-icon.svg', href: '/docs/guides/with-vue-3' },
 ]
 
-Supabase is an open source Firebase alternative.
+<!-- textlint-enable -->
 
-It provides all the backend services you need to build a product. You can use it completely, or just the services you require:
+Supabaseは、Firebaseに代わるオープンソースのソフトウェアです。
+
+
+プロダクトを作るために必要なバックエンドサービスをすべて提供します。すべてを利用することも、必要なサービスだけを利用できます。
 
 <div class="container" style={{ padding: 0 }}>
   <div class="row is-multiline">
@@ -42,8 +47,8 @@ It provides all the backend services you need to build a product. You can use it
     <div class="col col--6">
       <Link class="card" to="/docs/guides/database" style={{ height: '100%' }}>
         <div class="card__body">
-          <h4>Database</h4>
-          <p>A dedicated, scalable Postgres database.</p>
+          <h4>データベース</h4>
+          <p>スケーラブルな専用のPostgresデータベース</p>
         </div>
       </Link>
     </div>
@@ -51,8 +56,8 @@ It provides all the backend services you need to build a product. You can use it
     <div class="col col--6">
       <Link class="card" to="/docs/guides/auth" style={{ height: '100%' }}>
         <div class="card__body">
-          <h4>Auth</h4>
-          <p>User management with Row Level Security.</p>
+          <h4>認証</h4>
+          <p>行レベルセキュリティーによるユーザ管理</p>
         </div>
       </Link>
     </div>
@@ -60,8 +65,8 @@ It provides all the backend services you need to build a product. You can use it
     <div class="col col--6">
       <Link class="card" to="/docs/guides/storage" style={{ height: '100%' }}>
         <div class="card__body">
-          <h4>File Storage</h4>
-          <p>Store, organize, and serve large files.</p>
+          <h4>ファイルストレージ</h4>
+          <p>大容量のファイルを保存、整理、提供可能</p>
         </div>
       </Link>
     </div>
@@ -69,19 +74,19 @@ It provides all the backend services you need to build a product. You can use it
     <div class="col col--6">
       <Link class="card" to="/docs/guides/api" style={{ height: '100%' }}>
         <div class="card__body">
-          <h4>Auto-generated APIs</h4>
-          <p>Instantly APIs for your database.</p>
+          <h4>APIを自動生成</h4>
+          <p>データベースのためのAPIを即座に提供</p>
         </div>
       </Link>
     </div>
   </div>
 </div>
 
-## Getting started
+## はじめに
 
-Visit [app.supabase.io](https://app.supabase.io) to get started with the hosted platform or visit the [self-hosting](/docs/guides/hosting/overview) docs to learn how to host Supabase yourself.
+ホスティングされたプラットフォームを使い始めるには、[app.supabase.io](https://app.supabase.io)をご覧ください。また、Supabaseを自分でホスティングする方法を学ぶには、[self-hosting](/docs/guides/hosting/overview)のドキュメントをご覧ください。
 
-Supabase is just Postgres, which makes it compatible with a large number of tools and frameworks.
+SupabaseはただのPostgresなので、多くのツールやフレームワークと互換性があります。
 
 <div class="container" style={{}}>
   <div class="row is-multiline">
@@ -100,9 +105,9 @@ Supabase is just Postgres, which makes it compatible with a large number of tool
   </div>
 </div>
 
-## How to use these docs
+## このドキュメントの使い方
 
-The documentation is divided into 3 sections.
+ドキュメントは3つのセクションに分かれています。
 
 <div class="container" style={{ padding: 0 }}>
   <div class="row is-multiline">
@@ -110,8 +115,8 @@ The documentation is divided into 3 sections.
     <div class="col col--4">
       <Link class="card" to="/docs/architecture" style={{ height: '100%' }}>
         <div class="card__body">
-          <h4>Overview</h4>
-          <p>A summary of the tools and how to get started.</p>
+          <h4>概要</h4>
+          <p>ツールの概要と導入方法について</p>
         </div>
       </Link>
     </div>
@@ -119,8 +124,8 @@ The documentation is divided into 3 sections.
     <div class="col col--4">
       <Link class="card" to="/docs/guides" style={{ height: '100%' }}>
         <div class="card__body">
-          <h4>Guides</h4>
-          <p>In-depth explanations for each tool.</p>
+          <h4>ガイド</h4>
+          <p>各ツールの詳細な解説</p>
         </div>
       </Link>
     </div>
@@ -128,8 +133,8 @@ The documentation is divided into 3 sections.
     <div class="col col--4">
       <Link class="card" to="/docs/reference/javascript/supabase-client" style={{ height: '100%' }}>
         <div class="card__body">
-          <h4>Reference Docs</h4>
-          <p>Technical documentation for Client Libraries and Systems.</p>
+          <h4>参考資料</h4>
+          <p>クライアントライブラリやシステムの技術資料</p>
         </div>
       </Link>
     </div>
