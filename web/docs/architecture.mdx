@@ -1,17 +1,17 @@
 ---
 id: architecture
-title: Architecture
-description: 'Supabase design and architecture'
+title: アーキテクチャー
+description: 'Supabaseの設計とアーキテクチャー'
 # hide_table_of_contents: true
 ---
 
-Supabase is open source. Wherever possible, we use and support existing tools rather than developing from scratch. 
-We choose open source tools which are scalable and we make them simple to use.
+Supabaseはオープンソースです。可能な限り、ゼロから開発するのではなく、既存のツールを使用し、サポートしています。 
+拡張性のあるオープンソースのツールを選び、シンプルに使えるようにしています。
 
-![Supabase Architecture](/img/supabase-architecture.png)
+![Supabaseアーキテクチャー](/img/supabase-architecture.png)
 
-Supabase is not a 1-to-1 mapping of Firebase. While we are building many of the features that Firebase offers, we are not going about it the same way.
+SupabaseはFirebaseを1対1でマッピングしたものではありません。私たちはFirebaseが提供する機能の多くを構築していますが、同じ方法ではありません。
 
-Our technological choices are quite different to Firebase. Everything we use is open source. Wherever possible, we use and support existing tools in the ecosystem, rather than developing from scratch.
+私たちの技術的な選択は、Firebaseとは全く異なります。私たちが使っているものはすべてオープンソースです。可能な限り、ゼロから開発するのではなく、エコシステム内の既存のツールを使用し、サポートしています。
 
-Most notably, we use Postgres rather than a NoSQL store. This was a deliberate choice. We believe that no other database on the market offers the scalability and functionality required to legitimately compete with Firebase.
+最も重要な点は、NoSQLストアではなくPostgresを使用していることです。これは意図的な選択でした。Firebaseへ対抗するために必要なスケーラビリティと機能性を備えたデータベースは、市場には存在しないと考えたからです。
