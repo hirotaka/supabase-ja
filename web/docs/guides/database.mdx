@@ -1,120 +1,119 @@
 ---
 id: database
-title: Database
-description: Use Supabase to manage your data.
+title: データベース
+description: Supabaseでデータを管理します。
 ---
 
 import ExtensionsComponent from '../../src/components/Extensions'
 
-Supabase is built on top of [Postgres](/docs/postgres/server/about), an extremely scalable Relational Database.
+Supabaseは、非常にスケーラブルなリレーショナルデータベースである[Postgres](/docs/postgres/server/about)の上に構築されています。
 
-## Features
+## 機能
 
-### Table View 
+### テーブル・ビュー 
 
-You don't have to be a database expert to start using Supabase. Our table view makes Postgres as easy to use as a spreadsheet.
+Supabaseは、データベースの専門家でなくても使い始めることができます。Supabaseのテーブル・ビューは、Postgresを表計算ソフトのように簡単な操作で使えます。
 
-![Table View.](/img/table-view.png)
+![テーブル・ビュー](/img/table-view.png)
 
 
-### Relationships
+### 関連
 
-Dig into the relationships within your data. 
-
+データ同士の関連を掘り下げます。
 
 <video width="99%" loop="" muted="" playsInline="" controls="true">
 <source src="/videos/relational-drilldown-zoom.mp4" type="video/mp4" />
 </video>
 
 
-### Clone tables
+### テーブルの複製
 
-You can duplicate your tables, just like you would inside a spreadsheet.
+表計算ソフトのように、テーブルを複製できます。
 
 <video width="99%" muted playsInline controls={true}>
 <source src="/videos/duplicate-tables.mp4" type="video/mp4" muted playsInline />
 </video>
 
 
-### The SQL Editor
+### SQLエディタ
 
-Supabase comes with a SQL Editor. You can also save your favorite queries to run later! 
+Supabaseには、SQLエディターが付属しています。お気に入りのクエリを保存して、後で実行できます。 
 
 <video width="99%" muted playsInline controls={true}>
 <source src="/videos/favorites.mp4" type="video/mp4" muted playsInline />
 </video>
 
 
-### Additional features
+### その他の機能
 
-- Supabase extends Postgres with realtime functionality using our [Realtime Server](https://github.com/supabase/realtime).
-- Every project is a full Postgres database, with `postgres` level access.
-- Managed backups - Supabase handles all your database backups.[^backups]
-- Data imports - import directly from a CSV or excel spreadsheet.
+- Supabaseは、弊社の[リアルタイム・サーバー](https://github.com/supabase/realtime)を使用して、Postgresをリアルタイム機能で拡張しています。
+- すべてのプロジェクトは完全なPostgresデータベースであり、`postgres`レベルのアクセス権を持っています。
+<!-- textlint-disable jtf-style/1.1.3.箇条書き -->
+- 管理されたバックアップ：データベースのバックアップはすべてSupabaseが行います。[^backups]
+<!-- textlint-enable jtf-style/1.1.3.箇条書き -->
+- データのインポート：CSVやExcelのスプレッドシートから直接インポートできます。
 
-[^backups] Database backups do _NOT_ include objects stored via the Storage API, as the database only includes metadata about these objects. Restoring an old backup will not restore objects that have been deleted since then.
+[^backups]Storage APIを介して保存されたオブジェクトは、データーベースにはオブジェクトのメタデータしか保存されないため、バックアップには含まれません。古いバックアップを復元しても、それ以降に削除されたオブジェクトは復元されません。
 
-### Extensions
+### 拡張機能
 
-To expand the functionality of your Postgres database, you can use extensions.
-You can enable Postgres extensions with the click of a button within the Supabase dashboard.
+Postgresデータベースの機能を拡張するために、拡張機能を使用できます。
+Supabaseのダッシュボード内のボタンをクリックすることで、Postgresの拡張機能を有効にできます。
 
 <video width="99%" muted playsInline controls={true}>
 <source src="/videos/toggle-extensions.mp4" type="video/mp4" muted playsInline />
 </video>
 
-[Learn more](/docs/guides/database/extensions) about all the extensions provided on Supabase.
+Supabaseで提供されているすべての拡張機能については、[こちら](/docs/guides/database/extensions)を参照してください。
 
 ## Tips
 
-### Realtime 
+### リアルタイム
 
-Supabase provides a realtime engine on top of Postgres, so that you can listen to changes as they happen. 
-Our realtime engine uses the built-in replication functionality of Postgres. 
-You can manage the realtime system, simply by 
-[updating](/docs/guides/database/replication) the `supabase_realtime` publication.
+SupabaseはPostgres上にリアルタイム・エンジンを提供しており、変更が発生したときにそれを検知できます。 
+Supabaseのリアルタイム・エンジンは、Postgresに組み込まれたレプリケーション機能を使用しています。 
+リアルタイムなシステムを管理するには、`supabase_realtime`パブリケーションを[更新](/docs/guides/database/replication)するだけです。
 
-For example to enable realtime only for individual tables:
+例えば、次のように個別のテーブルにのみリアルタイム性を持たせることができます。
 
 ```sql
 begin; 
-  -- remove the realtime publication
+  -- リアルタイム・パブリケーションを削除
   drop publication if exists supabase_realtime; 
 
-  -- re-create the publication but don't enable it for any tables
+  -- パブリケーションを再作成しますが、どのテーブルに対しても有効にしません
   create publication supabase_realtime;  
 commit;
 
--- add a table to the publication
+-- テーブルにパブリケーションを追加
 alter publication supabase_realtime add table products;
 
--- add other tables to the publication
+-- 他のテーブルにパブリケーションを追加
 alter publication supabase_realtime add table posts;
 ```
 
-| SECURITY WARNING |
+| セキュリティー上の注意 |
 | - |
-| Please check [Disable realtime for private tables](https://supabase.io/docs/guides/auth#disable-realtime-for-private-tables) for the current state of Realtime security. |
+| リアルタイム・セキュリティーの現在の状態については、[プライベートなテーブルのリアルタイムを無効化](https://supabase.io/docs/guides/auth#disable-realtime-for-private-tables)をご確認ください。 |
 
-By default only "new" values are sent, but if you want to receive the old record (previous values) whenever you `update` or `delete` a record, 
-you can update the replica identity of your tables, setting it to `full`:
+デフォルトでは「新しい」値のみが送信されますが、レコードを`update`や`delete`したときに古いレコード（以前の値）も受信したい場合は、テーブルのレプリカIDを更新して `full` に設定します。
 
 ```sql
 alter table your_table replica identity full;
 ```
 
-### Migrating between projects
+### プロジェクト間の移行
 
-If you have an existing Supabase Project and you want to migrate it into a new (fresh) Project, you can simply follow these steps:
+既存のSupabaseプロジェクトがあって、それを新しい（出来たての）プロジェクトに移行したい場合は、以下の手順を踏むだけでOKです。
 
-#### Before you begin
+#### はじめる前に
 
-- Make sure [Realtime is disabled](/docs/guides/api#managing-realtime). This will improve the performance of inserts on your new database.
-- Make sure you have [`psql`](https://www.postgresql.org/docs/13/app-psql.html) installed on your computer so that you can run `pg_dump`.
+- [リアルタイムを無効化](/docs/guides/api#managing-realtime)しているか確認してください。これにより、新しいデータベースへの挿入のパフォーマンスが向上します。
+- [`psql`](https://www.postgresql.org/docs/13/app-psql.html)がコンピューターにインストールされていることを確認して、`pg_dump`を実行します。
 
-#### Migrate the database
+#### データベースの移行
 
-First we want to grab the database structure only:
+まず、データベースの構造だけを取得します。
 
 ```sh
 pg_dump \
@@ -125,9 +124,9 @@ pg_dump \
 > supabase_schema.sql
 ```
 
-This command creates a file on your computer called `supabase_schema.sql`. 
+このコマンドを実行すると、コンピューター上に`supabase_schema.sql`というファイルが作成されます。 
 
-After creating a new Supabase project we can use it to restore the database structure:
+新しいSupabaseプロジェクトを作成したら、それを使ってデータベース構造を復元します。
 
 ```sh
 psql \
@@ -136,15 +135,13 @@ psql \
 < supabase_schema.sql
 ```
 
-You may see some errors - the restore will attempt to drop any tables if they are present, 
-and if they aren't present then an error will be displayed. These errors are informative only and nothing to worry about.
+エラー表示される場合があります。リストアでは、テーブルが存在する場合はドロップを試み、存在しない場合はエラーが表示されます。これらのエラーは情報提供のみであり、心配する必要はありません。
 
 
-#### (Optionally) Migrate the data
+#### データを移行（オプション）
 
-We can migrate everything in our database, however we don't want to migrate 
-the data in our `storage` schema because the files exist outside of the database. 
-For now, we can just get all the data inside the `public` and `auth` schemas:
+データベース内のすべてのデータを移行できますが、`storage`スキーマ内のデータはデータベースの外に存在するため、移行しないようにします。 
+今のところは、`public`と`auth`スキーマ内のすべてのデータを取得します。
 
 ```sh
 pg_dump \
@@ -156,7 +153,7 @@ pg_dump \
 > supabase_data.sql
 ```
 
-This command creates a file on your computer called `supabase_data.sql`.  We can use this file to restore the data in our new database:
+このコマンドを実行すると、コンピューター上に`supabase_data.sql`というファイルが作成されます。このファイルを使って、新しいデータベースのデータを復元できます。
 
 ```sh
 psql \
@@ -166,36 +163,35 @@ psql \
 ```
 
 
-### Resetting your project password
+### プロジェクトのパスワードをリセット
 
-When you create a new project in Supabase we ask for a password. You can use this password to connect directly to your Postgres database.
+Supabaseで新規プロジェクトを作成する際に、パスワードの入力を求められます。このパスワードを使って、Postgresデータベースに直接接続できます。
 
-If you forget your password, you can reset it from the Dashboard SQL editor:
+パスワードを忘れてしまった場合は、ダッシュボードのSQLエディターからパスワードを再設定できます。
 
-For example:
+以下のように実行します。
 
 ```sql
 alter user postgres 
 with password 'new_password';
 ```
 
-Read more in [Database Configuration](/docs/guides/database/managing-passwords).
+詳しくは[データベースの設定](/docs/guides/database/managing-passwords)をご覧ください。
 
-### Changing the timezone of your server.
+### サーバーのタイムゾーンを変更
 
-Your database is initialized with the UTC timezone. We recommend keeping it this way, as it is helpful for time calculations.
-If, however, you want to update the timezone, you can do so using any of the [database timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+データベースはUTCタイムゾーンで初期化されます。時刻の計算に便利なので、このままにしておくことをお勧めします。しかし、タイムゾーンを更新したい場合は、[データベースのタイムゾーン](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)のいずれかを使って更新できます。
 
-For example:
+以下のように実行します。
 
 ```sql
 alter database postgres set timezone to 'America/New_York';
 ```
 
-Read more in [Database Configuration](/docs/guides/database/managing-timezones).
+詳しくは[データベースの設定](/docs/guides/database/managing-passwords)をご覧ください。
 
-## Next steps
+## 次のステップ
 
-- Read more about [Postgres](/docs/postgres/server/about)
-- Sign in: [app.supabase.io](https://app.supabase.io)
+- [Postgres](/docs/postgres/server/about)についてもっと理解する
+- サインイン：[app.supabase.io](https://app.supabase.io)
 
