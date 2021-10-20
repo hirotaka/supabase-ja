@@ -1,30 +1,33 @@
 ---
 id: auth
-title: Auth
+title: 認証
 description: Use Supabase to Authenticate and Authorize your users.
 ---
+
+<!-- textlint-disable -->
 
 import Link from '@docusaurus/Link'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import providers from '@site/src/data/authProviders'
 
-## User Management
+<!-- textlint-enable -->
 
-Supabase makes it simple to manage your users.
+## ユーザー管理
+
+Supabaseでは、ユーザーの管理を簡単に行うことができます。
 
 <video width="99%" muted playsInline controls="true">
   <source src="/videos/auth-zoom2.mp4" type="video/mp4" muted playsInline />
 </video>
 
-When users sign up, Supabase assigns them a unique ID. You can reference this ID anywhere in your database. For example, you might create a `profiles` table referencing `id` in the `auth.users` table using a `user_id` field.
+ユーザーがサインアップすると、SupabaseはユーザーにユニークなIDを割り当てます。このIDはデータベース内のどこでも参照できます。例えば、`user_id`フィールドを使って、`auth.users`テーブルの`id`を参照する`profiles`テーブルを作成できます。
 
-Supabase provides the routes to [sign up](/docs/reference/javascript/auth-signup), [log in](/docs/reference/javascript/auth-signin),
-[log out](/docs/reference/javascript/auth-signout), and manage users in your apps and websites.
+Supabaseは、アプリやWebサイトのユーザーを[サインアップ](/docs/reference/javascript/auth-signup)、[ログイン](/docs/reference/javascript/auth-signin)、[ログアウト](/docs/reference/javascript/auth-signout)し、管理するための手段を提供します。
 
-## Third Party Logins
+## サードパーティーのログイン
 
-We currently support the following OAuth providers:
+現在、以下のOAuthプロバイダをサポートしています。
 
 <div class="container" style={{}}>
   <div class="row is-multiline">
@@ -41,27 +44,27 @@ We currently support the following OAuth providers:
   </div>
 </div>
 
-You can enable providers by navigating to Authentication > Settings > External OAuth Providers and inputting your `Client ID` and `Secret` for each.
+「Authentication」→「Settings」→「External OAuth Providers」と進みます。それぞれに「Client ID」と「Secret」を入力することで、プロバイダーを有効できます。
 
-![OAuth Logins.](/img/supabase-oauth-logins.png)
+![OAuthログイン](/img/supabase-oauth-logins.png)
 
-## Row Level Security
+## 行レベルセキュリティー
 
-Authentication only gets you so far. When you need granular authorization rules, nothing beats PostgreSQL's [Row Level Security (RLS)](https://www.postgresql.org/docs/current/ddl-rowsecurity.html). Supabase makes it simple to turn RLS on and off.
+認証はそこまでしかできません。緻密な認証ルールが必要な場合、PostgreSQLの[行レベルセキュリティー（Row Level Security - RLS）](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)に勝るものはありません。SupabaseではRLSのオン・オフを簡単に設定できます。
 
 <video width="99%" muted playsInline controls="true">
   <source src="/videos/rls-zoom2.mp4" type="video/mp4" muted playsInline />
 </video>
 
-## Policies
+## ポリシー
 
-[Policies](https://www.postgresql.org/docs/current/sql-createpolicy.html) are PostgreSQL's rule engine. They are incredibly powerful and flexible, allowing you to write complex SQL rules which fit your unique business needs.
+[ポリシー](https://www.postgresql.org/docs/current/sql-createpolicy.html)はPostgreSQLのルールエンジンです。非常に強力で柔軟性があり、固有のビジネスニーズに合った複雑なSQLルールを書くことができます。
 
 <video width="99%" muted playsInline controls="true">
   <source src="/videos/policies-zoom2.mp4" type="video/mp4" muted playsInline />
 </video>
 
-With policies, your database becomes the rules engine. Instead of repetitively filtering your queries, like this ...
+ポリシーを使えば、データベースがルールエンジンとなります。このように、クエリを繰り返しフィルタリングする必要はなくなります。
 
 ```js
 const loggedInUserId = 'd0714948'
@@ -74,7 +77,7 @@ let { data, error } = await supabase
 // => { id: 'd0714948', name: 'Jane' }
 ```
 
-... you can simply define a rule on your database table, `auth.uid() = user_id`, and your request will return the rows which pass the rule, even when you remove the filter from your middleware:
+データベースのテーブルに`auth.uid() = user_id`というルールを定義するだけで、ミドルウェアからフィルターを削除しても、リクエストはルールを通過した行を返してくれます。
 
 ```js
 let user = await supabase.from('users').select('user_id, name')
@@ -84,46 +87,47 @@ let user = await supabase.from('users').select('user_id, name')
 ```
 
 
-## How It Works
+## 仕組み
 
-1. A user signs up. Supabase creates a new user in the `auth.users` table.
-2. Supabase returns a new JWT, which contains the user's `UUID`.
-3. Every request to your database also sends the JWT.
-4. Postgres inspects the JWT to determine the user making the request.
-5. The user's UID can be used in policies to restrict access to rows.
+1. ユーザーがサインアップします。Supabaseは、`auth.users`テーブルに新しいユーザーを作成します。
+2. Supabaseは、ユーザーの`UUID`を含む新しいJWTを返します。
+3. データベースへのすべてのリクエストに、JWTも一緒に送信します。
+4. PostgresはJWTを検査して、リクエストを行ったユーザーを特定します。
+5. ユーザーのUIDは、行へのアクセスを制限するポリシーで使用できます。
 
-Supabase provides a special function in Postgres, `auth.uid()`, which extracts the user's UID from the JWT. This is especially useful when creating policies.
+Supabaseは、JWTからユーザーのUIDを抽出するPostgresの特別な関数、`auth.uid()`を提供しています。これは特にポリシーを作成する際に便利です。
 
 ## Tips
 
-#### Disable realtime for private tables
+#### プライベートテーブルのリアルタイム機能を無効化
 
-Our realtime server doesn't provide per-user security. Until we build a more robust auth system for WebSockets, you can disable realtime functionality for any private tables. To do this, you can manage the underlying Postgres replication publication:
+当社のリアルタイムサーバーは、ユーザーごとのセキュリティーを提供していません。WebSocket用のより強固な認証システムを構築するまでは、プライベートテーブルのリアルタイム機能を無効できます。これを行うには、Postgresのレプリケーションのパブリケーションの管理で行います。
 
 ```sql
 /**
- * REALTIME SUBSCRIPTIONS
- * Only allow realtime listening on public tables.
+ * リアルタイム・サブスクリプション
+ * 公開されたテーブルでのみ、リアルタイムでのリスニングを許可する。
  */
 
 begin;
-  -- remove the realtime publication
+  -- リアルタイム・パブリケーションを削除
   drop publication if exists supabase_realtime;
 
-  -- re-create the publication but don't enable it for any tables
+  -- パブリケーションを再作成しますが、どのテーブルに対しても有効にしません
   create publication supabase_realtime;
 commit;
 
--- add a table to the publication
+-- パブリケーションにテーブルを追加
 alter publication supabase_realtime add table products;
 
--- add other tables to the publication
+-- 他のテーブルをパブリケーションに追加
 alter publication supabase_realtime add table posts;
 ```
 
-We're in the process of building [enhanced realtime security](https://github.com/supabase/walrus).
+現在、[リアルタイムのセキュリティーの拡張](https://github.com/supabase/walrus)の開発を進めています。
 
-## Next Steps
 
-- Read more about Auth in the [Guides](/docs/guides/auth/intro).
-- Sign in: [app.supabase.io](https://app.supabase.io)
+## 次のステップ
+
+- 認証については、[ガイド](/docs/guides/auth/intro)で詳しく解説
+- サインイン：[app.supabase.io](https://app.supabase.io)

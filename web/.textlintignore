@@ -7,7 +7,6 @@ docs/going-into-prod.mdx
 docs/gotrue/server/about.md
 docs/guides.md
 docs/guides/api.mdx
-docs/guides/auth.mdx
 docs/guides/auth/auth-apple.mdx
 docs/guides/auth/auth-bitbucket.mdx
 docs/guides/auth/auth-discord.mdx
