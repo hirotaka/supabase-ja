@@ -6,7 +6,6 @@ docs/faq.md
 docs/going-into-prod.mdx
 docs/gotrue/server/about.md
 docs/guides.md
-docs/guides/api.mdx
 docs/guides/auth/auth-apple.mdx
 docs/guides/auth/auth-bitbucket.mdx
 docs/guides/auth/auth-discord.mdx
@@ -21,7 +20,6 @@ docs/guides/auth/intro.mdx
 docs/guides/auth/managing-user-data.mdx
 docs/guides/auth/row-level-security.mdx
 docs/guides/client-libraries.mdx
-docs/guides/database.mdx
 docs/guides/database/arrays.mdx
 docs/guides/database/connecting/connecting-to-postgres.mdx
 docs/guides/database/connecting/connection-pooling.mdx
