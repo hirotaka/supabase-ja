@@ -38,4 +38,4 @@
 
 ### 用語の統一
 
-textlintで[text-rule-prh](https://github.com/textlint-rule/textlint-rule-prh)を使用しています。[prh.yml](prh.hml)に記載しています。
+textlintで[text-rule-prh](https://github.com/textlint-rule/textlint-rule-prh)を使用しています。[prh.yml](web/prh.hml)に記載しています。
