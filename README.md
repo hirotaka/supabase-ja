@@ -4,6 +4,10 @@
 
 ---
 
+This repo contains the source code and documentation powering supabase-ja.vercel.app/docs.
+
+> 以下はオリジナル（英語版）リポジトリの README です。日本語版Suapbaドキュメントへの貢献（翻訳・修正など）に興味がある方は[TRANSLATION.md](TRANSLATION.md)を参照してください。
+
 # Supabase
 
 [Supabase](https://supabase.io) is an open source Firebase alternative. We're building the features of Firebase using enterprise-grade open source tools.
