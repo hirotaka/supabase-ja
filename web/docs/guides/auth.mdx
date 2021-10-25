@@ -44,7 +44,7 @@ Supabaseは、アプリやWebサイトのユーザーを[サインアップ](/do
   </div>
 </div>
 
-「Authentication」→「Settings」→「External OAuth Providers」と進みます。それぞれに「Client ID」と「Secret」を入力することで、プロバイダーを有効できます。
+「Authentication」→「Settings」→「External OAuth Providers」と進みます。それぞれに「Client ID」と「Secret」を入力することで、プロバイダーを有効にできます。
 
 ![OAuthログイン](/img/supabase-oauth-logins.png)
 
@@ -99,14 +99,14 @@ Supabaseは、JWTからユーザーのUIDを抽出するPostgresの特別な関�
 
 ## Tips
 
-#### プライベートテーブルのリアルタイム機能を無効化
+#### プライベートなテーブルのリアルタイム機能を無効化
 
-当社のリアルタイムサーバーは、ユーザーごとのセキュリティーを提供していません。WebSocket用のより強固な認証システムを構築するまでは、プライベートテーブルのリアルタイム機能を無効できます。これを行うには、Postgresのレプリケーションのパブリケーションの管理で行います。
+私たちのリアルタイム・サーバーは、ユーザーごとのセキュリティーを提供していません。WebSocket用のより強固な認証システムを構築するまでは、プライベートテーブルのリアルタイム機能を無効にできます。これを行うには、Postgresレプリケーションのパブリケーション管理で行います。
 
 ```sql
 /**
  * リアルタイム・サブスクリプション
- * 公開されたテーブルでのみ、リアルタイムでのリスニングを許可する。
+ * パブリックなテーブルでのみ、リアルタイムでのリスニングを許可する。
  */
 
 begin;
@@ -124,7 +124,7 @@ alter publication supabase_realtime add table products;
 alter publication supabase_realtime add table posts;
 ```
 
-現在、[リアルタイムのセキュリティーの拡張](https://github.com/supabase/walrus)の開発を進めています。
+現在、[拡張したリアルタイムのセキュリティー](https://github.com/supabase/walrus)を開発しています。
 
 
 ## 次のステップ

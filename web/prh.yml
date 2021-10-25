@@ -1,6 +1,81 @@
 version: 1
 rules:
-  - expected: Next.js
+  - expected: Supabase
     pattern:
-      - nextjs
-      - next.js
+      - supabase
+      - スーバーベース
+
+  - expected: Postgres
+    pattern:
+      - postgre
+
+  - expected: Firebase
+    pattern:
+      - firebase
+      - ファイアーベース
+
+  # 製品名として使われる場合はこのまま
+  - expected: Supabase Storage
+    pattern:
+      - Supabaseストレージ
+
+  # 機能として使われている場合はカタカナ
+  - expected: ストレージ
+    pattern:
+      - storage
+      # 上記の製品名の場合とコンフリクトするのでコメントアウト
+      # - Storage
+
+  # 製品名として使われる場合はこのまま
+  - expected: Supabase Auth
+    pattern:
+      - Supabase認証
+
+  # 機能として使われている場合はカタカナ
+  - expected: 認証
+    pattern:
+      - auth
+      # 上記の製品名の場合とコンフリクトするのでコメントアウト
+      # - Auth
+
+  # プロジェクト名を指す場合
+  # https://github.com/supabase/realtime
+  - expected: Realtime
+    # 機能などを表現する場合はカタカナにしたいのでコメントアウト
+    # pattern:
+    #   - リアルタイム
+
+  # 機能として使われている場合はカタカナ
+  - expected: リアルタイム
+    pattern:
+      - realtime
+      # 上記のプロジェクト名の場合とコンフリクトするのでコメントアウト
+      # - Realtime
+
+  - expected: 行レベルセキュリティー
+    pattern:
+      - Row Level Security
+      - ロウレベルセキュリティー
+      - ロウ・レベル・セキュリティー
+
+  - expected: バケット
+    pattern:
+      - Bucket
+      - bucket
+      - バケツ
+
+  - expected: Excel
+    pattern:
+      - エクセル
+
+  - expected: パブリック
+    pattern:
+      - 公開
+
+  - expected: プライベート
+    pattern:
+      - 非公開
+
+  - expected: RESTful API
+    pattern:
+      - レストフルAPI

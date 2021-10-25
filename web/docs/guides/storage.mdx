@@ -21,7 +21,7 @@ Supabase Storageは、大容量のファイルを簡単に保存して利用で�
 
 ### バケット
 
-バケットとは、ファイルやフォルダーを入れる独立した容器のことです。一般的には、セキュリティールールやアクセスルールごとに異なるバケットを作成します。例えば、すべての公開ファイルは「公開」バケットに入れ、ログインしてアクセスする必要のあるファイルは「制限」バケットに入れるといった具合です。
+バケットとは、ファイルやフォルダーを入れる独立した容器のことです。一般的には、セキュリティールールやアクセスルールごとに異なるバケットを作成します。例えば、すべてのパブリックなファイルは「public（パブリック）」バケットに入れ、ログインしてアクセスする必要のあるファイルは「restricted（制限された）」バケットに入れるといった具合です。
 
 ## はじめに
 
@@ -183,7 +183,7 @@ values={[
 <!-- textlint-enable -->
 
 ```sh
-1. 「Storage」のセクションに移動します。
+1. 「Storage」セクションに移動します。
 2. ファイルが入っているバケットを選択します。
 3. ダウンロードしたいファイルを選択します。
 4. 「Download」ボタンをクリックします。
@@ -234,7 +234,7 @@ values={[
 <TabItem value="UI">
 
 ```sh
-1. 「Storage」のセクションに移動します。
+1. 「Storage」セクションに移動します。
 2. サイドバーの「Policy」をクリックします。
 3. 「OBJECTS」テーブルの「Add Policies」をクリックすると、ファイルのポリシーが追加されます。また、バケットのポリシーも作成できます。
 4. ポリシーを、ダウンロード（SELECT）、アップロード（INSERT）、アップデート（UPDATE）、削除（DELETE）のいずれに適用するかを選択します。
@@ -283,7 +283,7 @@ from storage.objects;
 
 #### `storage.foldername()`
 
-ファイルが属するすべてのサブフォルダーを配列パスで返します。
+ファイルが属するすべてのサブフォルダーをパスの配列で返します。
 
 ```sql
 select storage.foldername(name)
@@ -313,7 +313,7 @@ from storage.objects;
 
 ## オブジェクトへのアクセス
 
-プライベートバケットの場合は、[download](https://supabase.io/docs/reference/javascript/storage-from-download)メソッドでオブジェクトにアクセスできます。これは`/object/auth/` APIエンドポイントに対応します。あるいは、[createSignedUrl](https://supabase.io/docs/reference/javascript/storage-from-createsignedurl)メソッドを使って、有効期限のあるパブリックに共有可能なURLを作成できます。このメソッドは、`/object/sign/` APIを呼び出します。
+プライベートなバケットの場合、[download](https://supabase.io/docs/reference/javascript/storage-from-download)メソッドでオブジェクトにアクセスできます。これは`/object/auth/` APIエンドポイントに対応します。あるいは、[createSignedUrl](https://supabase.io/docs/reference/javascript/storage-from-createsignedurl)メソッドを使って、有効期限のあるパブリックに共有可能なURLを作成できます。このメソッドは、`/object/sign/` APIを呼び出します。
 
 パブリックなバケットでは、トークンやAuthorisationヘッダーなしでアセットに直接アクセスできます。[getPublicUrl](https://supabase.io/docs/reference/javascript/storage-from-getpublicurl)ヘルパーメソッドは、アセットの完全なパブリックURLを返します。これは、`/object/public/` APIエンドポイントを内部的に呼び出します。
 
@@ -321,20 +321,16 @@ from storage.objects;
 
 ## セキュリティー
 
-Supabase Storage is integrated with your [Postgres Database](/docs/guides/database).
-This means that you can use the same [Policy](/docs/guides/auth#policies) engine
-for managing access to your files.
-
 Supabase Storageは、[Postgresデータベース](/docs/guides/database)と統合されています。つまり、ファイルへのアクセスを管理するために、同じ[ポリシー](/docs/guides/auth#policies)エンジンを使用できるのです。
 
 ## ポリシーの例
 
 ここでは、PostgreSQLの行レベルセキュリティーの威力を示す例を紹介します。各ポリシーはテーブルに添付され、テーブルがアクセスされるたびにポリシーが実行されます。
 
-### バケットへのパブリックアクセスを許可する
+### バケットへのパブリックなアクセスを許可する
 
 ```sql
--- 1. 「public（公開）」バケット内のすべてのファイルへのアクセスを許可
+-- 1. 「public（パブリック）」バケット内のすべてのファイルへのアクセスを許可
 create policy "Public Access"
 on storage.objects for select
 using ( bucket_id = 'public' );

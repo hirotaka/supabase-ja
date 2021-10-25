@@ -56,7 +56,7 @@ jobs:
           NETWORK_CONCURRENCY: ${{ steps.processors.outputs.number }}
 
       - name: textlint
-        run: npm run text:lint:full -- ${FILES} -f checkstyle --experimental --parallel --max-concurrency ${{ steps.processors.outputs.number }} | reviewdog -f=checkstyle -name="textlint" -reporter=github-pr-review -level=${LEVEL} -fail-on-error
+        run: npm run lint:text:full -- ${FILES} -f checkstyle --experimental --parallel --max-concurrency ${{ steps.processors.outputs.number }} | reviewdog -f=checkstyle -name="textlint" -reporter=github-pr-review -level=${LEVEL} -fail-on-error
         env:
           FILES: docs/**/*.{md,mdx}
           LEVEL: error
