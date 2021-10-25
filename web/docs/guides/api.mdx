@@ -1,6 +1,6 @@
 ---
 id: api
-title: APIs
+title: API
 description: APIの自動生成とリアルタイムAPI
 ---
 
@@ -10,9 +10,9 @@ import TabItem from '@theme/TabItem';
 
 ## 概要
 
-SupabaseはDatabaseスキーマから直接APIを生成します。そのAPIは以下の特徴があります。
+Supabaseはデータベースのスキーマから直接APIを生成します。そのAPIは以下の特徴があります。
 
-- 即時性と自動生成：データベースを更新すると、その変更内容がAPIを通じてすぐにアクセス可能になります。
+- 即時性と自動生成：データベースを更新すると、その変更内容がAPIを通じてすぐアクセス可能になります。
 - ドキュメントの生成：Supabaseは、データベースを変更した際、ダッシュボードに更新されたドキュメントを生成します。
 - セキュア：APIはPostgreSQLの行レベルセキュリティーと連動するように設定されており、APIゲートウェイの背後でキーによる認証が有効になっています。
 - 高速： 基本的な読み込みのベンチマークでは、Firebaseと比較して300%以上の高速化を実現しています。APIはPostgres上の非常に薄い層であり、Postgresがほとんどの力仕事をします。
@@ -22,19 +22,19 @@ SupabaseはDatabaseスキーマから直接APIを生成します。そのAPIは�
 ### RESTful API
 
 Supabaseは、[PostgREST](https://postgrest.org/)を用いたRESTfulなAPIを提供しています。これは、Postgresの上の非常に薄いAPI層です。
-これは、CRUD APIに必要なすべてを提供します。
+これは、CRUDのAPIに必要なすべてを提供します。
 
 - 基本的なCRUD操作
 - 深くネストされたジョインにより、1回のフェッチで複数のテーブルからデータを取得可能
 - Potgresのビューと連動
 - Postgresの関数と連動
-- 行レベルセキュリティ、ロール、およびGRANTなどの、Postgresセキュリティモデルと連動用
+- 行レベルセキュリティー、ロール、およびGRANTなどの、Postgresのセキュリティモデルと連動
 
 
 ### リアルタイムAPI
 
-Supabaseは[リアルタイム](https://github.com/supabase/realtime)を使って、リアルタイムAPIを提供しています。これを利用して、データベースの変更をWebSocketで待ち受けることができます。
-リアルタイムはPostgreSQLに組み込まれた論理的なレプリケーションを利用しています。Postgresのパブリケーションを管理するだけで、リアルタイムAPIを管できますす。
+Supabaseは[Realtime](https://github.com/supabase/realtime)を使って、リアルタイムAPIを提供しています。これを利用して、データベースの変更をWebSocketで待ち受けることができます。
+RealtimeはPostgreSQLに組み込まれた論理的なレプリケーションを利用しています。Postgresのパブリケーションを管理するだけで、リアルタイムAPIを管できますす。
 
 
 ## はじめに
@@ -61,7 +61,7 @@ values={[
 <!-- textlint-enable -->
 
 ```sh
-1. 「Table Editor」のセクションに移動します。
+1. 「Table Editor」セクションに移動します。
 2. 「New Table」をクリックします。
 3. 「todos」というテーブル名を入力します。
 4. 「Save」をクリックします。
@@ -105,7 +105,7 @@ values={[
 
 ```sh
 1. 「Settings」セクションに移動します。
-2. サイドバーの「API」をクリックします。Click "API" in the sidebar.
+2. サイドバーの「API」をクリックします。
 3. そのページ内で、API URLを探します。
 4. そのページ内で、「anon」と「service_role」キーを探します。
 ```
@@ -151,7 +151,7 @@ values={[
 
 ### APIの利用
 
-HTTPリクエストを介してAPIを直接操作できますし、当社が提供するクライアントライブラリーを使用できます。
+HTTPリクエストを介してAPIを直接操作できますし、当社が提供するクライアント・ライブラリーを使用できます。
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 それでは、最初のステップで作成した`todos`テーブルに、取得したAPI URL（`[SUPABASE_URL]`）とキー（`[SUPABASE_ANON_KEY]`）を使ってリクエストする方法を見てみましょう。
@@ -196,7 +196,7 @@ curl '[SUPABASE_URL]/rest/v1/todos' \
 #### 詳細とリンク集
 
 - Postgresでテーブルを作成すると、デフォルトでは行レベルセキュリティー（RLS）が無効になっています。[RLSを有効にする](/docs/guides/api#securing-your-routes)ことでセキュリティーを確保してください。
-- `service_role`キーをブラウザやユーザーが見られる場所に公開しないでください。
+- `service_role`キーをブラウザやユーザーが見られる場所にさらさないでください。
 <!-- textlint-disable ja-technical-writing/max-comma -->
 - JSリファレンス：[select()](/docs/reference/javascript/select),
 [insert()](/docs/reference/javascript/insert),
@@ -210,7 +210,7 @@ curl '[SUPABASE_URL]/rest/v1/todos' \
 
 
 リアルタイムAPIは、PostgreSQLのレプリケーション機能を介して動作します。Postgresはデータベースの変更を、`supabase_realtime`と呼ばれる「パブリケーション」に送信します。
-このパブリケーションを管理することで、どのデータをブロードキャストするかを制できますす。
+このパブリケーションを管理することで、どのデータをブロードキャストするかを制御できますす。
 
 デフォルトでは、データベースのリアルタイムは無効になっています。それでは、`todos`テーブルのリアルタイムを有効にしてみましょう。
 
@@ -250,10 +250,10 @@ alter publication supabase_realtime add table products;
 #### 詳細とリンク集
 
 - リアルタイムを有効にするのは、パブリックテーブル（すべてのデータにアクセスできる必要がある）のみです。
-- [JSリファレンス](/docs/reference/javascript/subscribe)：リアルタイム・クライアントを使ってデータベースの変更を受信する。
+- [JSリファレンス](/docs/reference/javascript/subscribe)：リアルタイム・クライアントを使ってデータベースの変更を受信します。
 
 
-### ルートをセキュアにする
+### ルートのセキュア化
 
 <!-- textlint-disable -->
 
