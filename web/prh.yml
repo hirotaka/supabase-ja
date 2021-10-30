@@ -68,9 +68,8 @@ rules:
     pattern:
       - エクセル
 
-  - expected: パブリック
-    pattern:
-      - 公開
+  - expected: パブリック・テーブル
+    pattern: /公開・テーブル/
 
   - expected: プライベート
     pattern:
