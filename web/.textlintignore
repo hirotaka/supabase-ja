@@ -43,7 +43,6 @@ docs/guides/local-development.mdx
 docs/guides/with-angular.mdx
 docs/guides/with-flutter.mdx
 docs/guides/with-svelte.mdx
-docs/guides/with-vue-3.mdx
 docs/handbook/contributing.mdx
 docs/handbook/supasquad.mdx
 docs/learn/auth-deep-dive/google-oauth.md
