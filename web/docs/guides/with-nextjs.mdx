@@ -188,6 +188,7 @@ NEXT_PUBLIC_SUPABASE_URL=YOUR_SUPABASE_URL
 NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
 ```
 
+API認証ができたので、Supabaseクライアントを初期化するためのヘルパーファイルを作成しましょう。
 これらの変数はブラウザー上で公開されますが、データベースに[行レベルセキュリティー](/docs/guides/auth#row-level-security)が設定されているので、全く問題ありません。
 
 ```js title="utils/supabaseClient.js"
@@ -199,7 +200,8 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 ```
 
-また、オプションとして、[こちら](https://raw.githubusercontent.com/supabase/supabase/master/examples/react-user-management/src/index.css)のCSSファイルで`styles/globals.css`を更新して、アプリの外観を整えます。
+また、オプションとして、CSSファイルの`styles/globals.css`を更新して、アプリの外観を整えます。
+[こちら](https://raw.githubusercontent.com/supabase/supabase/master/examples/react-user-management/src/index.css)にあるファイルを参照してください。
 
 ### ログイン・コンポーネントの設定
 
