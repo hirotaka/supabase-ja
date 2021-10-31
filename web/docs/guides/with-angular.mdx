@@ -1,25 +1,27 @@
 ---
 id: with-angular
-title: "Quickstart: Angular"
-description: Learn how to use Supabase in your Angular App.
+title: "クイックスタート：Angular"
+description: AngularアプリでSupabaseを使用する方法をご紹介します。
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-## Intro
+## イントロ
 
-This example provides the steps to build a simple user management app (from scratch!) using Supabase and Angular. It includes:
+この例では、SupabaseとAngularを使って、シンプルなユーザー管理アプリを（ゼロから）構築する手順を紹介します。内容は以下のとおりです。
 
-- Supabase [Database](/docs/guides/database): a Postgres database for storing your user data.
-- Supabase [Auth](/docs/guides/auth): users can sign in with magic links (no passwords, only email).
-- Supabase [Storage](/docs/guides/storage): users can upload a photo.
-- [Row Level Security](/docs/guides/auth#row-level-security): data is protected so that individuals can only access their own data.
-- Instant [APIs](/docs/guides/api): APIs will be automatically generated when you create your database tables.
+- Supabase [Database](/docs/guides/database)：ユーザーデータを保存するためのPostgresデータベースです。
+- Supabase [Auth](/docs/guides/auth)：ユーザーはマジックリンクでサインインできます（パスワードは不要、メールのみ）。
+- Supabase [Storage](/docs/guides/storage)：ユーザーは写真をアップロードできます。
+- [行レベルセキュリティー](/docs/guides/auth#row-level-security)：データは保護されており、個人が自分のデータにしかアクセスできないようになっています。
+- インスタント[API](/docs/guides/api)：データベースのテーブルを作成すると、APIが自動的に生成されます。
 
-By the end of this guide you'll have an app which allows users to login and update some basic profile details:
+このガイドの最後には、ユーザーがログインして基本的なプロフィール情報を更新できるアプリが完成します。
 
-![Supabase User Management example](/img/user-management-demo.png)
+![Supabaseユーザー管理の例](/img/user-management-demo.png)
+
+<!--
 
 Clicking this button the application will:
 
@@ -28,29 +30,29 @@ Clicking this button the application will:
 - Fork the example into your own GitHub account.
 - Prepare the deployed application with all the necessary environment variables.
 
-If you want to do it yourself, let's get started!
+If you want to do it yourself, let's get started! -->
 
 ### Github
 
-Whenever you get stuck at any point, take a look at [this repo](https://github.com/angular-supa/supabase-angular-user-management).
+どこかで行き詰ったら、[このリポジトリー](https://github.com/angular-supa/supabase-angular-user-management)を見てみましょう。
 
-## Project set up
+## プロジェクトのセットアップ
 
-Before we start building we're going to set up our Database and API. This is as simple as starting a new Project in Supabase
-and then creating a "schema" inside the database.
+ビルドを開始する前に、データベースとAPIをセットアップします。Supabaseで新しいプロジェクトを立ち上げ、データベース内に「スキーマ」を作成するだけです。
 
-### Create a project
+### プロジェクトの作成
 
-1. Go to [app.supabase.io](https://app.supabase.io).
-1. Click on "New Project".
-1. Enter your project details.
-1. Wait for the new database to launch.
+1. [app.supabase.io](https://app.supabase.io)にアクセスします。
+1. 「New Project」をクリックします。
+1. プロジェクトの詳細を入力します。
+1. 新しいデータベースが起動するのを待ちます。
 
 
-### Set up the database schema
+### データベース・スキーマの設定
 
-Now we are going to set up the database schema. We can use the "User Management Starter" quickstart in the SQL Editor,
-or you can just copy/paste the SQL from below and run it yourself.
+これからデータベース・スキーマを設定します。SQLエディターの「User Management Starter」クイック・スターターを使用するか、下記のSQLをコピー/ペーストして自分で実行できます。
+
+<!-- textlint-disable -->
 
 <Tabs
 defaultValue="UI"
@@ -61,9 +63,9 @@ values={[
 <TabItem value="UI">
 
 ```sh
-1. Go to the "SQL" section.
-2. Click "User Management Starter".
-3. Click "Run".
+1. 「SQL」セクションに移動します。
+2. 「User Management Starter」をクリックします。
+3. 「Run」をクリックします。
 ```
 
 <video width="99%" muted playsInline controls="true">
@@ -74,7 +76,7 @@ values={[
 <TabItem value="SQL">
 
 ```sql
--- Create a table for public "profiles"
+-- パブリックで「profiles」テーブルを作成
 create table profiles (
   id uuid references auth.users not null,
   updated_at timestamp with time zone,
@@ -101,14 +103,14 @@ create policy "Users can update own profile."
   on profiles for update
   using ( auth.uid() = id );
 
--- Set up Realtime!
+-- リアルタイムをセットアップ
 begin;
   drop publication if exists supabase_realtime;
   create publication supabase_realtime;
 commit;
 alter publication supabase_realtime add table profiles;
 
--- Set up Storage!
+-- ストレージをセットアップ
 insert into storage.buckets (id, name)
 values ('avatars', 'avatars');
 
@@ -125,10 +127,9 @@ create policy "Anyone can upload an avatar."
 </Tabs>
 
 
-### Get the API Keys
+### APIキーの取得
 
-Now that you've created some database tables, you are ready to insert data using the auto-generated API.
-We just need to get the URL and `anon` key from the API settings.
+データベースのテーブルをいくつか作成したので、自動生成されたAPIを使ってデータを挿入する準備ができました。API設定からURLと`anon`キーを取得する必要があります。
 
 <Tabs
 defaultValue="UI"
@@ -138,10 +139,10 @@ values={[
 <TabItem value="UI">
 
 ```sh
-1. Go to the "Settings" section.
-2. Click "API" in the sidebar.
-3. Find your API URL in this page.
-4. Find your "anon" and "service_role" keys on this page.
+1. 「Settings」セクションに移動します。
+2. サイドバーの「API」をリックします。
+3. そのページでAPI URLを探します。
+4. 「anon」と「service_role」キーを探します。
 ```
 
 <video width="99%" muted playsInline controls="true">
@@ -151,30 +152,28 @@ values={[
 </TabItem>
 </Tabs>
 
-## Building the App
+## アプリの構築
 
-Let's start building the Angular app from scratch.
+それでは、Angularアプリを一から作ってみましょう。
 
-### Initialize a Angular app
+### Angularアプリの初期化
 
-We can use the [Angular CLI](https://angular.io/cli) to initialize
-an app called `supabase-angular`:
+[Angular CLI](https://angular.io/cli)を使って、`supabase-angular`というアプリを初期化します。
 
 ```bash
 npx ng new supabase-angular --routing false --style css
 cd supabase-angular
 ```
 
-Then let's install the only additional dependency: [supabase-js](https://github.com/supabase/supabase-js)
+そして、唯一追加する必要がある依存関係の[supbase-js](https://github.com/supabase/supabase-js)をインストールしましょう。
 
 ```bash
 npm install @supabase/supabase-js
 ```
 
-And finally we want to save the environment variables in the `environment.ts` file.
-All we need are the API URL and the `anon` key that you copied [earlier](#get-the-api-keys).
-These variables will be exposed on the browser, and that's completely fine since we have [Row Level Security](/docs/guides/auth#row-level-security) enabled on our Database.
-
+最終的には、`environment.ts`ファイルに環境変数を保存します。
+必要なのはAPIのURLと[先ほど](#apiキーを取得)コピーした`anon`keyだけです。
+これらの変数はブラウザ上で公開されますが、データベースでは[行レベルのセキュリティ](/docs/guides/auth#row-level-security)が有効になっているので、全く問題ありません。
 
 ```ts title="environment.ts"
 export const environment = {
@@ -184,7 +183,7 @@ export const environment = {
 };
 ```
 
-Now that we have the API credentials in place, let's create a **SupabaseService** with `ng g s supabase` to initialize the Supabase client and implement functions to communicate with the Supabase API.
+API認証ができたので、Supabaseクライアントを初期化し、Supabase APIと通信するための関数を実装するために、`ng g s supabase`で**SupabaseService**を作成しましょう。
 
 ```ts title="src/app/supabase.service.ts"
 import { Injectable } from '@angular/core';
@@ -260,13 +259,12 @@ export class SupabaseService {
 
 ```
 
-And one optional step is to update the CSS file `src/index.css` to make the app look nice.
-You can find the full contents of this file [here](https://raw.githubusercontent.com/angular-supa/supabase-angular-user-management/main/src/styles.css).
+また、オプションとして、CSSファイルの`src/index.css`を更新して、アプリの外観を整えます。
+[こちら](https://raw.githubusercontent.com/supabase/supabase/master/examples/react-user-management/src/index.css)にあるファイルを参照してください。
 
-### Set up a Login component
+### ログイン・コンポーネントの設定
 
-Let's set up a Angular component to manage logins and sign ups. We'll use Magic Links, so users can sign in with their email without using passwords.
-Create an **AuthComponent** with `ng g c auth` Angular CLI command.
+ログインとサインアップを管理するAngularコンポーネントを設定してみましょう。ここではマジック・リンクを使い、ユーザーはパスワードを使わずにメールでサインインできます。 Angular CLIコマンドの`ng g c auth`で**AuthComponent**を作成します。
 
 ```ts title="src/app/auth.component.ts"
 import { Component } from '@angular/core';
@@ -320,10 +318,9 @@ export class AuthComponent {
 }
 ```
 
-### Account page
+### アカウントページ
 
-After a user is signed in we can allow them to edit their profile details and manage their account.
-Create an **AccountComponent** with `ng g c account` Angular CLI command.
+ユーザーがサイン・インした後、プロフィールの詳細を編集したり、アカウントを管理したりできるようにします。Angular CLIコマンドの`ng g c account`で**AccountComponent**を作成します。
 
 ```ts title="src/app/account.component.ts"
 import {Component, Input, OnInit} from '@angular/core';
@@ -425,9 +422,9 @@ export class AccountComponent implements OnInit {
 
 
 
-### Launch!
+### ローンチ
 
-Now that we have all the components in place, let's update **AppComponent**:
+すべてのコンポーネントがそろったところで、**AppComponent**を更新しましょう。
 
 ```ts title="src/app/app.component.ts"
 import {Component, OnInit} from '@angular/core';
@@ -455,25 +452,25 @@ export class AppComponent implements OnInit {
 }
 ```
 
-Once that's done, run this in a terminal window:
+更新が完了したら、ターミナル・ウィンドウでこれを実行します。
 
 ```bash
 npm run start
 ```
 
-And then open the browser to [localhost:4200](http://localhost:4200) and you should see the completed app.
+そして、ブラウザーで[localhost:3000](http://localhost:3000)を開くと、完成したアプリを見ることができます。
 
 
 ![Supabase Angular](/img/supabase-angular-demo.png)
 
-## Bonus: Profile photos
+## おまけ：プロフィール写真
 
-Every Supabase project is configured with [Storage](/docs/guides/storage) for managing large files like photos and videos.
+Supabaseのプロジェクトには、写真や動画などの大容量ファイルを管理するための[ストレージ](/docs/guides/storage)が用意されています。
 
-### Create an upload widget
+### アップロード・ウィジェットの作成
 
-Let's create an avatar for the user so that they can upload a profile photo.
-Create an **AvatarComponent** with `ng g c avatar` Angular CLI command.
+ユーザーがプロフィール写真をアップロードできるように、ユーザーのアバターを作成しましょう。
+Angular CLIコマンド`ng g c avatar`で**AvatarComponent**を作成します。
 
 ```ts title="src/app/avatar.component.ts"
 import {Component, EventEmitter, Input, Output} from '@angular/core';
@@ -558,9 +555,9 @@ export class AvatarComponent {
 ```
 
 
-### Add the new widget
+### 新しいウィジェットの追加
 
-And then we can add the widget on top of the **AccountComponent** html template:
+そして、このウィジェットを**AccountComponent** htmlテンプレートの上に追加します。
 
 ```ts title="src/app/account.component.ts"
 template: `
@@ -573,9 +570,9 @@ template: `
 `
 ```
 
-## Next steps
+## 次のステップ
 
-At this stage you have a fully functional application!
+この段階で、完全に機能するアプリケーションが完成しました。
 
-- Got a question? [Ask here](https://github.com/supabase/supabase/discussions).
-- Sign in: [app.supabase.io](https://app.supabase.io)
+- 何か疑問がありましたら、[こちら](https://github.com/supabase/supabase/discussions)で質問してください
+- サインイン：[app.supabase.io](https://app.supabase.io)
