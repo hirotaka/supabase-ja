@@ -50,6 +50,8 @@ values={[
 ]}>
 <TabItem value="UI">
 
+<!-- textlint-enable -->
+
 ```sh
 1. 「SQL」セクションに移動します。
 2. 「User Management Starter」をクリックします。
@@ -228,7 +230,7 @@ Webの場合は、追加の設定はありません。
 ### main関数
 
 ディープリンクの準備ができたので、[先ほど](#apiキーを取得)コピーしたAPI認証情報を使って、`main`関数内でSupabaseクライアントを初期化します。
-これらの変数はブラウザ上で公開されますが、データベースでは[行レベル・セキュリティ](/docs/guides/auth#row-level-security)が有効になっているので、全く問題ありません。
+これらの変数はブラウザー上で公開されますが、データベースでは[行レベル・セキュリティ](/docs/guides/auth#row-level-security)が有効になっているので、全く問題ありません。
 
 ```dart title="lib/main.dart"
 Future<void> main() async {
@@ -245,7 +247,7 @@ Future<void> main() async {
 ### AuthStateの設定
 
 AndroidとiOSでディープ・リンクを扱うために、そのためのクラスを作ってみましょう。
-`supabase_flutter`プラグインには`SupabaseAuthState`クラスが用意されており、これを継承することで様々なディープ・リンク・イベントに対応することができます。
+`supabase_flutter`プラグインには`SupabaseAuthState`クラスが用意されており、これを継承することで様々なディープ・リンク・イベントに対応ができます。
 
 ```dart title="lib/components/auth_state.dart"
 import 'package:flutter/material.dart';
@@ -360,7 +362,7 @@ class _SplashPageState extends AuthState<SplashPage> {
 ### ログインページの作成
 
 ログインやサイン・アップを管理するためのFlutterウィジェットを作成しましょう。
-マジック・リンクを使用することで、ユーザーはパスワードを使わずにメールでサイン・インすることができます。
+マジック・リンクを使用することで、ユーザーはパスワードを使わずにメールでサイン・インができます。
 このページは、ユーザーのログインを処理するので、`AuthState`も継承します。
 
 ```dart title="lib/pages/login_page.dart"
@@ -902,7 +904,7 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
 }
 ```
 
-おめでとうございます！これで完成です。これで、FlutterとSupabaseを使った、完全に機能するユーザー管理アプリが完成しました。
+おめでとうございます。これで完成です。これで、FlutterとSupabaseを使った、完全に機能するユーザー管理アプリが完成しました。
 
 ## 次のステップ
 
