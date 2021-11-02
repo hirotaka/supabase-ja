@@ -1,46 +1,46 @@
 ---
 id: with-flutter
-title: 'Quickstart: Flutter'
-description: Learn how to use Supabase in your Flutter App.
+title: 'クイックスタート：Flutter'
+description: FlutterアプリでSupabaseを使用する方法をご紹介します。
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-## Intro
+## イントロ
 
-This example provides the steps to build a simple user management app (from scratch!) using Supabase and Flutter. It includes:
+この例では、SupabaseとFlutterを使って、シンプルなユーザー管理アプリを（ゼロから）構築する手順を紹介します。内容は以下のとおりです。
 
-- Supabase [Database](/docs/guides/database): a Postgres database for storing your user data.
-- Supabase [Auth](/docs/guides/auth): users can sign in with magic links (no passwords, only email).
+- Supabase [Database](/docs/guides/database)：ユーザーデータを保存するためのPostgresデータベースです。
+- Supabase [Auth](/docs/guides/auth)：ユーザーはマジックリンクでサインインできます（パスワードは不要、メールのみ）。
 <!-- - Supabase [Storage](/docs/guides/storage): users can upload a photo. -->
-- [Row Level Security](/docs/guides/auth#row-level-security): data is protected so that individuals can only access their own data.
-- Instant [APIs](/docs/guides/api): APIs will be automatically generated when you create your database tables.
+- [行レベルセキュリティー](/docs/guides/auth#row-level-security)：データは保護されており、個人が自分のデータにしかアクセスできないようになっています。
+- インスタント[API](/docs/guides/api)：データベースのテーブルを作成すると、APIが自動的に生成されます。
 
-By the end of this guide you'll have an app which allows users to login and update some basic profile details:
+このガイドの最後には、ユーザーがログインして基本的なプロフィール情報を更新できるアプリが完成します。
 
 <img src="/img/supabase-flutter-demo.png" alt="Supabase User Management example" />
 
 ### Github
 
-Whenever you get stuck at any point, take a look at [this repo](https://github.com/supasquad/supabase-flutter-quickstart).
+どこかで行き詰ったら、[このリポジトリー](https://github.com/supasquad/supabase-flutter-quickstart)を見てみましょう。
 
-## Project set up
+## プロジェクトのセットアップ
 
-Before we start building we're going to set up our Database and API. This is as simple as starting a new Project in Supabase
-and then creating a "schema" inside the database.
+ビルドを開始する前に、データベースとAPIをセットアップします。Supabaseで新しいプロジェクトを立ち上げ、データベース内に「スキーマ」を作成するだけです。
 
-### Create a project
+### プロジェクトの作成
 
-1. Go to [app.supabase.io](https://app.supabase.io).
-1. Click on "New Project".
-1. Enter your project details.
-1. Wait for the new database to launch.
+1. [app.supabase.io](https://app.supabase.io)にアクセスします。
+1. 「New Project」をクリックします。
+1. プロジェクトの詳細を入力します。
+1. 新しいデータベースが起動するのを待ちます。
 
-### Set up the database schema
+### データベーススキーマの設定
 
-Now we are going to set up the database schema. We can use the "User Management Starter" quickstart in the SQL Editor,
-or you can just copy/paste the SQL from below and run it yourself.
+これからデータベース・スキーマを設定します。SQLエディターの「User Management Starter」クイック・スターターを使用するか、下記のSQLをコピー/ペーストして自分で実行できます。
+
+<!-- textlint-disable -->
 
 <Tabs
 defaultValue="UI"
@@ -50,10 +50,12 @@ values={[
 ]}>
 <TabItem value="UI">
 
+<!-- textlint-enable -->
+
 ```sh
-1. Go to the "SQL" section.
-2. Click "User Management Starter".
-3. Click "Run".
+1. 「SQL」セクションに移動します。
+2. 「User Management Starter」をクリックします。
+3. 「Run」をクリックします。
 ```
 
 <video width="99%" muted playsInline controls="true">
@@ -64,7 +66,7 @@ values={[
 <TabItem value="SQL">
 
 ```sql
--- Create a table for public "profiles"
+-- パブリックで「profiles」テーブルを作成
 create table profiles (
   id uuid references auth.users not null,
   updated_at timestamp with time zone,
@@ -91,14 +93,14 @@ create policy "Users can update own profile."
   on profiles for update
   using ( auth.uid() = id );
 
--- Set up Realtime!
+-- リアルタイムをセットアップ
 begin;
   drop publication if exists supabase_realtime;
   create publication supabase_realtime;
 commit;
 alter publication supabase_realtime add table profiles;
 
--- Set up Storage!
+-- ストレージをセットアップ
 insert into storage.buckets (id, name, public)
 values ('avatars', 'avatars', true);
 
@@ -111,10 +113,9 @@ create policy "Anyone can upload an avatar."
 </TabItem>
 </Tabs>
 
-### Get the API Keys
+### APIキーの取得
 
-Now that you've created some database tables, you are ready to insert data using the auto-generated API.
-We just need to get the URL and `anon` key from the API settings.
+データベースのテーブルをいくつか作成したので、自動生成されたAPIを使ってデータを挿入する準備ができました。API設定からURLと`anon`キーを取得する必要があります。
 
 <Tabs
 defaultValue="UI"
@@ -137,45 +138,44 @@ values={[
 </TabItem>
 </Tabs>
 
-## Building the App
+## アプリの構築
 
-Let's start building the Flutter app from scratch.
+それでは、Flutterアプリを一から作ってみましょう。
 
-### Initialize a Flutter app
+### Flutterアプリの初期化
 
-We can use [`flutter create`](https://flutter.dev/docs/get-started/test-drive) to initialize
-an app called `supabase_quickstart`:
+[`flutter create`](https://flutter.dev/docs/get-started/test-drive)を使って`supabase_quickstart`というアプリを初期化します。
 
 ```bash
 flutter create supabase_quickstart
 ```
 
-Then let's install the only additional dependency: [`supabase_flutter`](https://github.com/supabase/supabase-flutter)
+そして、唯一追加する必要がある依存関係の[`supabase_flutter`](https://github.com/supabase/supabase-flutter)をインストールしましょう。
 
-Run the following command to get the newest version of `supabase_flutter` to your project. 
+以下のコマンドを実行して、最新バージョンの`supabase_flutter`をプロジェクトに導入します。
 
 ```bash
 flutter pub add supabase_flutter
 ```
 
-Run `flutter pub get` to install the dependencies.
+`flutter pub get`を実行して、依存関係をインストールします。
 
-### Setup deep links
+### ディープ・リンクの設定
 
-Now that we have the dependencies installed let's setup deep links so users who have logged in via magic link or OAuth can come back to the app.
+依存関係のインストールが完了したので、マジック・リンクやOAuthでログインしたユーザーがアプリに戻ってこれるように、ディープ・リンクを設定しましょう。
 
 ```sh
-1. Go to the "Authentication" section.
-2. Click "Settings" in the sidebar.
-3. Type `io.supabase.flutterquickstart://login-callback/` in the Additional Redirect URLs input field.
-4. Hit save.
+1. 「Authentication」セクションに移動します。
+2. サイドバーの「Settings」セクションをクリックします。
+3. 「Additional Redirect URLs」入力フィールドに`io.supabase.flutterquickstart://login-callback/`と入力します。
+4. 保存します。
 ```
 
 ![Supabase console deep link setting](/img/deeplink-setting.png)
 
-That is it on Supabase's end and the rest are platform specific settings:
+Supabase側の設定はここまでで、あとはプラットフォームごとの設定です。
 
-For Android, add an intent-filter to enable deep linking:
+Androidの場合は、ディープ・リンクを有効にするためのインテント・フィルターを追加します。
 
 ```xml title="android/app/src/main/AndroidManifest.xml"
 <manifest ...>
@@ -200,7 +200,7 @@ For Android, add an intent-filter to enable deep linking:
 </manifest>
 ```
 
-For iOS add CFBundleURLTypes to enable deep linking:
+iOSの場合、CFBundleURLTypesを追加してディープ・リンクを有効にします。
 
 ```xml title="ios/Runner/Info.plist"
 <!-- ... other tags -->
@@ -225,15 +225,12 @@ For iOS add CFBundleURLTypes to enable deep linking:
 </plist>
 ```
 
-For web:
+Webの場合は、追加の設定はありません。
 
-There are no additional configurations.
+### main関数
 
-### Main function
-
-Now that we have deep links ready let's initialize the Supabase client inside our `main` function with the API credentials that you copied [earlier](#get-the-api-keys).
-These variables will be exposed on the app, and that's completely fine since we have
-[Row Level Security](/docs/guides/auth#row-level-security) enabled on our Database.
+ディープリンクの準備ができたので、[先ほど](#apiキーを取得)コピーしたAPI認証情報を使って、`main`関数内でSupabaseクライアントを初期化します。
+これらの変数はブラウザー上で公開されますが、データベースでは[行レベル・セキュリティ](/docs/guides/auth#row-level-security)が有効になっているので、全く問題ありません。
 
 ```dart title="lib/main.dart"
 Future<void> main() async {
@@ -247,10 +244,10 @@ Future<void> main() async {
 }
 ```
 
-### Set up AuthState
+### AuthStateの設定
 
-In order to handle deep links for Android and iOS, let's create a class that will do just that.
-`supabase_flutter` plugin comes with `SupabaseAuthState` class where we can inherit from to react to various deep link events.
+AndroidとiOSでディープ・リンクを扱うために、そのためのクラスを作ってみましょう。
+`supabase_flutter`プラグインには`SupabaseAuthState`クラスが用意されており、これを継承することで様々なディープ・リンク・イベントに対応ができます。
 
 ```dart title="lib/components/auth_state.dart"
 import 'package:flutter/material.dart';
@@ -284,11 +281,11 @@ class AuthState<T extends StatefulWidget> extends SupabaseAuthState<T> {
 }
 ```
 
-### Set up AuthRequiredState
+### AuthRequiredStateの設定
 
-We might want to show certain pages to the users only if they are signed in.
-For that we can create a handy `AuthRequiredState` class that we can inherit from for pages where the users need to be authenticated.
-`AuthRequiredState` will inherit `SupabaseAuthRequiredState` which is provided by `supabase_flutter` package.
+ユーザーがサイン・インしている場合にのみ、特定のページを表示したい場合があります。
+そのためには、便利な`AuthRequiredState`クラスを作成し、ユーザーの認証が必要なページに継承させることができます。
+`AuthRequiredState`は、`supabase_flutter`パッケージで提供されている`SupabaseAuthRequiredState`を継承します。
 
 ```dart title="lib/components/auth_required_state.dart"
 import 'package:flutter/material.dart';
@@ -304,8 +301,8 @@ class AuthRequiredState<T extends StatefulWidget>
 }
 ```
 
-Let's also create a constant file to make it easier to use Supabase client. 
-We will also include an extension method delaration to call `showSnackBar` with one line of code. 
+Supabaseクライアントを使いやすくするために、定数ファイルを作成します。
+また、`showSnackBar`を1行で呼び出せるように拡張メソッドの定義も行います。
 
 ```dart title="lib/utils/constants.dart"
 import 'package:flutter/material.dart';
@@ -330,10 +327,10 @@ extension ShowSnackBar on BuildContext {
 }
 ```
 
-### Set up Splash Screen
+### スプラッシュ画面の作成
 
-Let's create a splash screen that will be shown to users right after they open the app.
-This splash screen inherits `AuthState` to redirect users to the appropriate pages depending on their authentication state.
+ユーザーがアプリを開いた直後に表示されるスプラッシュ画面を作ってみましょう。
+このスプラッシュスクリーンは`AuthState`を継承しており、ユーザーの認証状態に応じて適切なページにリダイレクトします。
 
 ```dart title="lib/pages/splash_page.dart"
 import 'package:flutter/material.dart';
@@ -362,11 +359,11 @@ class _SplashPageState extends AuthState<SplashPage> {
 }
 ```
 
-### Set up a Login page
+### ログインページの作成
 
-Let's create a Flutter widget to manage logins and sign ups.
-We'll use Magic Links, so users can sign in with their email without using passwords.
-This page will also inherit `AuthState` as it will handle user login.
+ログインやサイン・アップを管理するためのFlutterウィジェットを作成しましょう。
+マジック・リンクを使用することで、ユーザーはパスワードを使わずにメールでサイン・インができます。
+このページは、ユーザーのログインを処理するので、`AuthState`も継承します。
 
 ```dart title="lib/pages/login_page.dart"
 import 'package:flutter/foundation.dart';
@@ -446,11 +443,11 @@ class _LoginPageState extends AuthState<LoginPage> {
 }
 ```
 
-### Set up Account page
+### アカウント設定ページ
 
-After a user is signed in we can allow them to edit their profile details and manage their account.
-Let's create a new widget called `account_page.dart` for that.
-Note that this page will inherit `AuthRequiredState` as user needs to be authenticated to view this page.
+ユーザーがサイン・インした後、プロフィールの詳細を編集したり、アカウントを管理できるようにします。
+そのために`account_page.dart`という新しいウィジェットを作成します。
+このページを表示するにはユーザーの認証が必要なので、このページは`AuthRequiredState`を継承することに注意してください。
 
 ```dart title="lib/pages/account_page.dart"
 import 'package:flutter/material.dart';
@@ -579,9 +576,9 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
 }
 ```
 
-### Launch!
+### ローンチ
 
-Now that we have all the components in place, let's update `lib/main.dart`:
+すべてのコンポーネントがそろったところで、`lib/main.dart`を更新しましょう。
 
 ```dart title="lib/main.dart"
 import 'package:flutter/material.dart';
@@ -626,47 +623,45 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-Once that's done, run this in a terminal window to launch on Android or iOS:
+更新が完了したら、ターミナルウィンドウでこれを実行し、AndroidまたはiOSで起動します。
 
 ```bash
 flutter run
 ```
 
-Or for web, run the following command to launch it on `localhost:3000`
+Webの場合は、以下のコマンドを実行して、`localhost:3000`で起動します。
 
 ```bash
 flutter run -d web-server --web-hostname localhost --web-port 3000
 ```
 
-And then open the browser to [localhost:3000](http://localhost:3000) and you should see the completed app.
+そして、ブラウザを[localhost:3000](http://localhost:3000)に開くと、完成したアプリが表示されるはずです。
 
-<img src="/img/supabase-flutter-account-page.png" alt="Supabase User Management example" />
+<img src="/img/supabase-flutter-account-page.png" alt="Supabase User Management example"/>
 
 
-## Bonus: Profile photos
+## おまけ：プロフィール写真
 
-Every Supabase project is configured with [Storage](/docs/guides/storage) for managing large files like 
-photos and videos.
+Supabaseのプロジェクトには、写真や動画などの大容量ファイルを管理するための[ストレージ](/docs/guides/storage)が設定されています。
 
-### Adding image uploading feature to Account page
+### アカウントページへの画像アップロード機能の追加
 
-We will use [`image_picker`](https://pub.dev/packages/image_picker) plugin to select an image form the device.
+ここでは[`image_picker`](https://pub.dev/packages/image_picker)プラグインを使って、デバイスから画像を選択します。
 
-Run the following command to install it.
+以下のコマンドを実行してインストールしてください。
 
 ```bash
 flutter pub add image_picker
 ```
 
-Using [`image_picker`](https://pub.dev/packages/image_picker) requires some additional preparation depending on the platform. 
-Follow the instruction on README.md of [`image_picker`](https://pub.dev/packages/image_picker) on how to set it up for the platform you are using. 
+[`image_picker`](https://pub.dev/packages/image_picker)を使用するには、プラットフォームによっていくつかの追加準備が必要です。[`image_picker`](https://pub.dev/packages/image_picker)のREADME.mdに記載されている指示に従って、使用しているプラットフォームに合わせて設定してください。
 
-Once you are done with all of the above, it is time to dive into coding.
+以上の準備が完了したら、いよいよコーディングに入ります。
 
-### Create an upload widget
+### アップロードウィジェットの作成
 
-Let's create an avatar for the user so that they can upload a profile photo. 
-We can start by creating a new component:
+ユーザーがプロフィール写真をアップロードできるように、ユーザーのアバターを作成しましょう。
+新しくコンポーネントを作成することからはじめます。
 
 ```dart title="lib/components/avatar.dart"
 import 'package:flutter/material.dart';
@@ -752,9 +747,9 @@ class _AvatarState extends State<Avatar> {
 ```
 
 
-### Add the new widget
+### 新しいウィジェットの追加
 
-And then we can add the widget to the Account page as well as some logic to update the `avatar_url` whenever the user uploads a new avatar.
+そして、アカウントページにウィジェットを追加し、ユーザーが新しいアバターをアップロードするたびに`avatar_url`を更新するロジックを追加します。
 
 ```dart title="lib/pages/account_page.dart"
 import 'package:flutter/material.dart';
@@ -909,11 +904,11 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
 }
 ```
 
-Congratulations, that is it! You have now built a fully functional user management app using Flutter and Supabase!
+おめでとうございます。これで完成です。これで、FlutterとSupabaseを使った、完全に機能するユーザー管理アプリが完成しました。
 
-## Next steps
+## 次のステップ
 
-At this stage you have a fully functional application!
+この段階で、完全に機能するアプリケーションが完成しました。
 
-- Got a question? [Ask here](https://github.com/supabase/supabase/discussions).
-- Sign in: [app.supabase.io](https://app.supabase.io)
+- 何か疑問がありましたら、[こちら](https://github.com/supabase/supabase/discussions)で質問してください
+- サインイン：[app.supabase.io](https://app.supabase.io)

@@ -40,8 +40,7 @@ docs/guides/hosting/docker.mdx
 docs/guides/hosting/overview.mdx
 docs/guides/hosting/platform.mdx
 docs/guides/local-development.mdx
-docs/guides/with-angular.mdx
-docs/guides/with-flutter.mdx
+docs/guides/with-redwoodjs.mdx
 docs/guides/with-svelte.mdx
 docs/handbook/contributing.mdx
 docs/handbook/supasquad.mdx
@@ -117,6 +116,7 @@ docs/reference/dart/update.mdx
 docs/reference/dart/upsert.mdx
 docs/reference/javascript/auth-onauthstatechange.mdx
 docs/reference/javascript/auth-session.mdx
+docs/reference/javascript/auth-setauth.mdx
 docs/reference/javascript/auth-signin.mdx
 docs/reference/javascript/auth-signout.mdx
 docs/reference/javascript/auth-signup.mdx
