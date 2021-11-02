@@ -29,6 +29,7 @@ docs/guides/database/extensions/pgtap.mdx
 docs/guides/database/extensions/plv8.mdx
 docs/guides/database/extensions/uuid-ossp.mdx
 docs/guides/database/full-text-search.mdx
+docs/guides/database/functions.mdx
 docs/guides/database/intro.mdx
 docs/guides/database/json.mdx
 docs/guides/database/managing-passwords.mdx
@@ -43,6 +44,7 @@ docs/guides/local-development.mdx
 docs/guides/with-angular.mdx
 docs/guides/with-flutter.mdx
 docs/guides/with-svelte.mdx
+docs/guides/with-redwoodjs.mdx
 docs/handbook/contributing.mdx
 docs/handbook/supasquad.mdx
 docs/learn/auth-deep-dive/google-oauth.md
@@ -117,6 +119,7 @@ docs/reference/dart/update.mdx
 docs/reference/dart/upsert.mdx
 docs/reference/javascript/auth-onauthstatechange.mdx
 docs/reference/javascript/auth-session.mdx
+docs/reference/javascript/auth-setauth.mdx
 docs/reference/javascript/auth-signin.mdx
 docs/reference/javascript/auth-signout.mdx
 docs/reference/javascript/auth-signup.mdx
