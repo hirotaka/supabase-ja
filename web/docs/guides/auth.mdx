@@ -28,7 +28,7 @@ import providers from '@site/src/data/authProviders'
 Supabaseでは、ユーザーの管理を簡単に行うことができます。
 
 <video width="99%" muted playsInline controls="true">
-  <source src="/videos/auth-zoom2.mp4" type="video/mp4" muted playsInline />
+  <source src="/docs/videos/auth-zoom2.mp4" type="video/mp4" muted playsInline />
 </video>
 
 ユーザーがサインアップすると、SupabaseはユーザーにユニークなIDを割り当てます。このIDはデータベース内のどこでも参照できます。例えば、`user_id`フィールドを使って、`auth.users`テーブルの`id`を参照する`profiles`テーブルを作成できます。
@@ -63,7 +63,7 @@ Supabaseは、アプリやWebサイトのユーザーを[サインアップ](/do
 認証はそこまでしかできません。緻密な認証ルールが必要な場合、PostgreSQLの[行レベルセキュリティー（Row Level Security - RLS）](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)に勝るものはありません。SupabaseではRLSのオン・オフを簡単に設定できます。
 
 <video width="99%" muted playsInline controls="true">
-  <source src="/videos/rls-zoom2.mp4" type="video/mp4" muted playsInline />
+  <source src="/docs/videos/rls-zoom2.mp4" type="video/mp4" muted playsInline />
 </video>
 
 ## ポリシー
@@ -71,7 +71,7 @@ Supabaseは、アプリやWebサイトのユーザーを[サインアップ](/do
 [ポリシー](https://www.postgresql.org/docs/current/sql-createpolicy.html)はPostgreSQLのルールエンジンです。非常に強力で柔軟性があり、固有のビジネスニーズに合った複雑なSQLルールを書くことができます。
 
 <video width="99%" muted playsInline controls="true">
-  <source src="/videos/policies-zoom2.mp4" type="video/mp4" muted playsInline />
+  <source src="/docs/videos/policies-zoom2.mp4" type="video/mp4" muted playsInline />
 </video>
 
 ポリシーを使えば、データベースがルールエンジンとなります。このように、クエリを繰り返しフィルタリングする必要はなくなります。
