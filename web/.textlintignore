@@ -29,6 +29,7 @@ docs/guides/database/extensions/pgtap.mdx
 docs/guides/database/extensions/plv8.mdx
 docs/guides/database/extensions/uuid-ossp.mdx
 docs/guides/database/full-text-search.mdx
+docs/guides/database/functions.mdx
 docs/guides/database/intro.mdx
 docs/guides/database/json.mdx
 docs/guides/database/managing-passwords.mdx
@@ -42,6 +43,7 @@ docs/guides/hosting/platform.mdx
 docs/guides/local-development.mdx
 docs/guides/with-redwoodjs.mdx
 docs/guides/with-svelte.mdx
+docs/guides/with-redwoodjs.mdx
 docs/handbook/contributing.mdx
 docs/handbook/supasquad.mdx
 docs/learn/auth-deep-dive/google-oauth.md
