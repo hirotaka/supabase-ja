@@ -8,7 +8,7 @@ module.exports = {
   title: 'Supabase',
   tagline: 'The open source Firebase alternative.',
   url: 'https://supabase.io',
-  baseUrl: '/',
+  baseUrl: '/docs/',
   favicon: '/favicon.ico',
   organizationName: 'supabase', // Usually your GitHub org/user name.
   projectName: 'Supabase Docs', // Usually your repo name.
@@ -205,7 +205,7 @@ module.exports = {
   scripts: [{ src: '/scripts/telemetry.js' }],
   i18n: {
     defaultLocale: 'ja',
-    locales: ['en', 'ja'],
+    locales: ['ja'],
   },
   // plugins: [
   //   // [
