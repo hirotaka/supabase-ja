@@ -41,9 +41,7 @@ docs/guides/hosting/docker.mdx
 docs/guides/hosting/overview.mdx
 docs/guides/hosting/platform.mdx
 docs/guides/local-development.mdx
-docs/guides/with-redwoodjs.mdx
 docs/guides/with-svelte.mdx
-docs/guides/with-redwoodjs.mdx
 docs/handbook/contributing.mdx
 docs/handbook/supasquad.mdx
 docs/learn/auth-deep-dive/google-oauth.md

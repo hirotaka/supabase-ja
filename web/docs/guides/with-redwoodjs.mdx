@@ -1,44 +1,50 @@
 ---
 id: with-redwoodjs
-title: 'Quickstart: RedwoodJS'
-description: Learn how to use Supabase in your RedwoodJS App.
+title: 'クイックスタート：RedwoodJS'
+description: RedwoodJSアプリでSupabaseを使用する方法をご紹介します。
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-## Intro
+## イントロ
 
-For the sake of consistency with the other framework Quickstart examples, we'll build a RedwoodJS a little differently than normal.
+他のフレームワークのクイックスタート例との一貫性を保つために、RedwoodJSを通常とは少し違った方法で構築します。
 
-We **_won't use_** use Prisma to connect to the Supabase Postgres database or [Prisma migrations](https://redwoodjs.com/docs/cli-commands#prisma-migrate) as one typically might in a Redwood app.
-Instead, we'll rely on the Supabase client to do some of the work on the **web** side and use the client again on the **api** side to do data fetching as well.
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+Prismaを使ってSupabaseのPostgresデータベースに接続しません。また、Redwoodアプリで一般的に行われるような[Prismaのマイグレーション](https://redwoodjs.com/docs/cli-commands#prisma-migrate)は**_使用しません_**。
+その代わりに、Supabaseクライアントに頼って**web**サイドで作業の一部を行い、**api**サイドで再びクライアントを使ってデータの取得をします。
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
-That means, you will want to refrain from running any `yarn rw prisma migrate` commands and also double check your build commands on deployment to ensure Prisma won't reset your database.
+つまり、`yarn rw prisma migrate`コマンドの実行を控えます。また、Prismaがデータベースをリセットしないように、デプロイ時のビルド・コマンドを再確認する必要があります。
 
+<!-- textlint-disable ja-technical-writing/ja-no-mixed-period -->
 :::note
-TLDR; Prisma currently doesn't support cross-schema foreign keys, so introspecting the schema fails due to how your Supabase `public` schema references the `auth.users`.
+TLDR; Prismaは現在、スキーマ間の外部キーをサポートしていません。そのため、Supabaseの`public`スキーマが`auth.users`を参照しているため、PrismaでスキーマをIntrospectすると失敗します。
 :::
+<!-- textlint-enable ja-technical-writing/ja-no-mixed-period -->
 
-This example provides the steps to build a simple user management app (from scratch!) using Supabase and [RedwoodJS](https://redwoodjs.com/docs/introduction). It includes:
+この例では、Supabaseと[RedwoodJS](https://redwoodjs.com/docs/introduction)を使って、シンプルなユーザー管理アプリを（ゼロから）構築する手順を紹介します。内容は以下のとおりです。
 
-- Supabase [Database](/docs/guides/database): a Postgres database for storing your user data.
-- Supabase [Auth](/docs/guides/auth): users can sign in with magic links (no passwords, only email).
-- Supabase [Storage](/docs/guides/storage): users can upload a photo.
-- Instant [APIs](/docs/guides/api): APIs will be automatically generated when you create your database tables.
-- [Row Level Security](/docs/guides/auth#row-level-security): data is protected so that individuals can only access their own data.
+- Supabase [Database](/docs/guides/database)：ユーザーデータを保存するためのPostgresデータベースです。
+- Supabase [Auth](/docs/guides/auth)：ユーザーはマジックリンクでサインインできます（パスワードは不要、メールのみ）。
+- Supabase [Storage](/docs/guides/storage)：ユーザーは写真をアップロードできます。
+- インスタント[API](/docs/guides/api)：データベースのテーブルを作成すると、APIが自動的に生成されます。
+- [行レベルセキュリティー](/docs/guides/auth#row-level-security)：データは保護されており、個人が自分のデータにしかアクセスできないようになっています。
 
-By the end of this guide you'll have an app which allows users to login and update some basic profile details:
+このガイドの最後には、ユーザーがログインして基本的なプロフィール情報を更新できるアプリが完成します。
 
 ![Supabase User Management example](/img/user-management-demo.png)
 
+<!-- textlint-disable ja-technical-writing/ja-no-mixed-period -->
 :::note
-Note: For RedwoodJS apps, port will be 8910
+注：RedwoodJSアプリの場合、ポートは8910になります。
 :::
+<!-- textlint-enable ja-technical-writing/ja-no-mixed-period -->
 
 ### Github
 
-If you get stuck at any point, take a look at [this repo](https://github.com/dthyresson/redwoodjs-supabase-quickstart).
+どこかで行き詰ったら、[このリポジトリー](https://github.com/dthyresson/redwoodjs-supabase-quickstart)を見てみましょう。
 
 <!-- ## Video demo
 
@@ -61,50 +67,57 @@ Clicking this button the application will:
 
 If you want to do it yourself, let's get started: -->
 
-## About RedwoodJS
+## RedwoodJSについて
 
-A Redwood application is split into two parts: a frontend and a backend. This is represented as two node projects within a single monorepo.
+Redwoodのアプリケーションは、フロントエンドとバックエンドの2つの部分に分かれています。これは1つのモノレポの中の2つのノード・プロジェクトとして表現されます。
 
-The frontend project is called **`web`** and the backend project is called **`api`**. For clarity, we will refer to these in prose as **"sides"**, i.e. the "web side" and the "api side".
-They are separate projects because code on the `web side` will end up running in the user's browser while code on the `api side` will run on a server somewhere.
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+フロントエンドのプロジェクトは**`web`**、バックエンドのプロジェクトは**`api`**と呼ばれています。 わかりやすくするために、これらを「**サイド**」と呼ぶことにします。 つまり、「webサイド」と「apiサイド」です。 `webサイド`のコードは最終的にユーザーのブラウザー上で実行されます。 `apiサイド`のコードはどこかのサーバー上で実行されるため、これらは**別々**のプロジェクトとなります。
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
+<!-- textlint-disable ja-technical-writing/ja-no-mixed-period -->
 :::note
-Important: When this guide refers to "API", that means the Supabase API and when it refers to "api side", that means the RedwoodJS `api side`.
+重要：このガイドで「API」としたときはSupabase APIを指します。「apiサイド」としたときはRedwoodJSでの`apiサイド`を意味します。
 :::
+<!-- textlint-enable ja-technical-writing/ja-no-mixed-period -->
 
-The **`api side`** is an implementation of a GraphQL API. The business logic is organized into "services" that represent their own internal API and can be called both from external GraphQL requests and other internal services.
+**`apiサイド`**は、GraphQL APIの実装です。ビジネス・ロジックは、独自の内部APIを表す「サービス」に整理されており、外部のGraphQLリクエストからも、他の内部サービスからも呼びだすことができます。
 
-The **`web side`** is built with React. Redwood's router makes it simple to map URL paths to React "Page" components (and automatically code-split your app on each route).
-Pages may contain a "Layout" component to wrap content. They also contain "Cells" and regular React components.
-Cells allow you to declaratively manage the lifecycle of a component that fetches and displays data.
+**`webサイド`**はReactで構築されています。Redwoodのルーターは、URLパスをReactの「ページ」コンポーネントへ簡単にマッピングできます（そして、各ルートでアプリを自動的にコード分割します）。
+ページには、コンテンツを包む「レイアウト」コンポーネントが含まれます。また、「セル」や通常のReactコンポーネントも含まれます。
+セルは、データを取得して表示するコンポーネントのライフサイクルを宣言的に管理できます。
 
+<!-- textlint-disable ja-technical-writing/ja-no-mixed-period,ja-technical-writing/sentence-length -->
 :::note
-For the sake of consistency with the other framework Quickstart examples, we'll build a RedwoodJS a little differently than normal.
-We **_won't use_** use Prisma to connect to the Supabase Postgres database or [Prisma migrations](https://redwoodjs.com/docs/cli-commands#prisma-migrate) as one typically might in a Redwood app.
-Instead, we'll rely on the Supabase client to do some of the work on the **`web`** side and use the client again on the **`api`** side to do data fetching as well.
+他のフレームワークのクイックスタート例との一貫性を保つために、RedwoodJSを通常とは少し違った方法で構築します。
+Prismaを使ってSupabase Postgresデータベースに接続しません。また、Redwoodアプリで一般的に行われるような[Prismaのマイグレーション](https://redwoodjs.com/docs/cli-commands#prisma-migrate)は**_使用しません_**。
+その代わりに、Supabaseクライアントに頼って**web**サイドで作業の一部を行い、**api**サイドで再びクライアントを使ってデータの取得します。
 :::
+<!-- textlint-enable ja-technical-writing/ja-no-mixed-period,ja-technical-writing/sentence-length -->
 
-## Project set up
+## プロジェクトのセットアップ
 
-Before we start building we're going to set up our Database and API. This is as simple as starting a new Project in Supabase
-and then creating a "schema" inside the database.
+ビルドを開始する前に、データベースとAPIをセットアップします。Supabaseで新しいプロジェクトを立ち上げ、データベース内に「スキーマ」を作成するだけです。
 
+<!-- textlint-disable ja-technical-writing/ja-no-mixed-period -->
 :::note
-When setting up Supabase, you'll interact with your project dashboard. However, most of the RedwoodJS setup steps will interact with the [Redwood CLI](https://redwoodjs.com/docs/cli-commands) to generate routes, pages, components and more.
-So be sure to have a terminal at the ready and in your project directory.
+Supabaseを設定する際には、プロジェクトのダッシュボードで操作することになります。しかし、RedwoodJSのセットアップ手順のほとんどは、[Redwood CLI](https://redwoodjs.com/docs/cli-commands)で対話的に、ルート、ページ、コンポーネントなどを生成します。
+そのため、ターミナルを用意して、プロジェクトのディレクトリーで準備しておくようにしてください。
 :::
+<!-- textlint-enable ja-technical-writing/ja-no-mixed-period -->
 
-### Create a project
+### プロジェクトの作成
 
-1. Go to [app.supabase.io](https://app.supabase.io).
-1. Click on "New Project".
-1. Enter your project details.
-1. Wait for the new database to launch.
+1. [app.supabase.io](https://app.supabase.io)にアクセスします。
+1. 「New Project」をクリックします。
+1. プロジェクトの詳細を入力します。
+1. 新しいデータベースが起動するのを待ちます。
 
-### Set up the database schema
+### データベース・スキーマの設定
 
-Now we are going to set up the database schema. We can use the "User Management Starter" quickstart in the SQL Editor,
-or you can just copy/paste the SQL from below and run it yourself.
+これからデータベース・スキーマを設定します。SQLエディターの「User Management Starter」クイック・スターターを使用するか、下記のSQLをコピー/ペーストして自分で実行できます。
+
+<!-- textlint-disable -->
 
 <Tabs
 defaultValue="UI"
@@ -114,10 +127,12 @@ values={[
 ]}>
 <TabItem value="UI">
 
+<!-- textlint-enable -->
+
 ```sh
-1. Go to the "SQL" section.
-2. Click "User Management Starter".
-4. Click "Run".
+1. 「SQL」セクションに移動します。
+2. 「User Management Starter」をクリックします。
+3. 「Run」をクリックします。
 ```
 
 <video width="99%" muted playsInline controls="true">
@@ -128,7 +143,7 @@ values={[
 <TabItem value="SQL">
 
 ```sql
--- Create a table for public "profiles"
+-- パブリックで「profiles」テーブルを作成
 create table profiles (
   id uuid references auth.users not null,
   updated_at timestamp with time zone,
@@ -155,14 +170,14 @@ create policy "Users can update own profile."
   on profiles for update
   using ( auth.uid() = id );
 
--- Set up Realtime!
+-- リアルタイムをセットアップ
 begin;
   drop publication if exists supabase_realtime;
   create publication supabase_realtime;
 commit;
 alter publication supabase_realtime add table profiles;
 
--- Set up Storage!
+-- ストレージをセットアップ
 insert into storage.buckets (id, name)
 values ('avatars', 'avatars');
 
@@ -179,16 +194,18 @@ create policy "Anyone can upload an avatar."
 </TabItem>
 </Tabs>
 
-#### Important Note about Prisma and Migrations
+#### Prismaとマイグレーションに関する重要な注意事項
 
+<!-- textlint-disable ja-technical-writing/ja-no-mixed-period -->
 :::note
-Because this Quick Start does not use Prisma to manage the database schema, seed it, or run mgrations, you **need** to take extra care when running some of the typical Redwood CLI commands.
+このクイックスタートでは、データベーススキーマの管理、シード、マイグレーションの実行にPrismaを使用していません。そのため、典型的なRedwood CLIコマンドのいくつかを実行する際には、特に注意する**必要が**あります。
 :::
+<!-- textlint-enable ja-technical-writing/ja-no-mixed-period -->
 
-### Get the API Keys
+### APIキーの取得
 
-Now that you've created some database tables, you are ready to insert data using the auto-generated API.
-We just need to get the URL as well as the `anon`, `service_role` and `JWT_SECRET` keys from the API settings.
+データベースのテーブルをいくつか作成したので、自動生成されたAPIを使ってデータを挿入する準備ができました。
+API設定からURLと`anon`、`service_role`、`JWT_SECRET`キーを取得する必要があります。
 
 <Tabs
 defaultValue="UI"
@@ -198,10 +215,10 @@ values={[
 <TabItem value="UI">
 
 ```sh
-1. Go to the "Settings" section.
-2. Click "API" in the sidebar.
-3. Find your API URL in this page.
-4. Find your "anon" and "JWT Secret" keys on this page.
+1. 「Settings」セクションに移動します。
+2. サイドバーの「API」をリックします。
+3. そのページでAPI URLを探します。
+4. 「anon」と「JWT Secret」キーを探します。
 ```
 
 <video width="99%" muted playsInline controls="true">
@@ -211,27 +228,28 @@ values={[
 </TabItem>
 </Tabs>
 
-## Building the App
+## アプリの構築
 
-Let's start building the RedwoodJS app from scratch.
+それでは、RedwoodJSアプリを一から作ってみましょう。
 
+<!-- textlint-disable ja-technical-writing/ja-no-mixed-period,jtf-style/4.3.7.山かっこ<> -->
 :::note
-RedwoodJS requires Node.js (>=14.x <=16.x) and Yarn (>=1.15).
+RedwoodJSには、Node.js (>=14.x <=16.x)とYarn (>=1.15)が必要です。
 :::
+<!-- textlint-enable ja-technical-writing/ja-no-mixed-period,jtf-style/4.3.7.山かっこ<> -->
 
-Make sure you have installed yarn since RedwoodJS relies on it to [manage its packages in workspaces](https://classic.yarnpkg.com/lang/en/docs/workspaces/) for its `web` and `api` "sides".
+RedwoodJSは、`web`サイドと`api`サイドを[ワークスペースでパッケージ管理](https://classic.yarnpkg.com/lang/en/docs/workspaces/)するためYarnに依存しているので、Yarnがインストールされていることを確認してください。
 
-### Initialize a RedwoodJS app
+### RedwoodJSアプリの初期化
 
-We can use [Create Redwood App](https://redwoodjs.com/docs/quick-start) command to initialize
-an app called `supabase-redwoodjs`:
+[Redwoodアプリの作成](https://redwoodjs.com/docs/quick-start)コマンドを使って、`supabase-redwoodjs`というアプリを初期化します。
 
 ```bash
 yarn create redwood-app supabase-redwoodjs
 cd supabase-redwoodjs
 ```
 
-While the app is insatlling, you should see:
+アプリが起動している間は、次のように表示されます。
 
 ```bash
 ✔ Creating Redwood app
@@ -245,18 +263,20 @@ While the app is insatlling, you should see:
 Thanks for trying out Redwood!
 ```
 
-Then let's install the only additional dependency [supabase-js](https://github.com/supabase/supabase-js) by runnnig the `setup auth` command:
+そして、唯一追加する必要がある依存関係の[supbase-js](https://github.com/supabase/supabase-js)を`setup auth`コマンドでインストールしましょう。
 
 ```bash
 yarn redwood setup auth supabase
 ```
 
-When prompted:
+プロンプトが表示されます。
 
+<!-- textlint-disable ja-technical-writing/no-exclamation-question-mark,prh -->
 Overwrite existing /api/src/lib/auth.[jt]s?
 :::
+<!-- textlint-enable ja-technical-writing/no-exclamation-question-mark,prh -->
 
-Say, **yes** and it will setup the Supabase client in your app and also provide hooks used with Supabase authentication.
+**yes**と応えると、アプリにSupabaseクライアントが設定され、Supabaseの認証に使用するフックも提供されます。
 
 ```bash
 ✔ Generating auth lib...
@@ -271,8 +291,8 @@ Say, **yes** and it will setup the Supabase client in your app and also provide 
   and JWT SECRET (SUPABASE_KEY, and SUPABASE_JWT_SECRET) to your .env file.
 ```
 
-Next, we want to save the environment variables in a `.env`.
-We need the `API URL` as well as the `anon` and `jwt_secret` keys that you copied [earlier](#get-the-api-keys).
+次に、環境変数を`.env`に保存します。
+必要なのは、`API URL`と、[先ほど](#apiキーの取得)コピーした`anon`と`jwt_secret`キーが必要です。
 
 ```bash title=".env"
 SUPABASE_URL=YOUR_SUPABASE_URL
@@ -280,7 +300,7 @@ SUPABASE_KEY=YOUR_SUPABASE_ANON_KEY
 SUPABASE_JWT_SECRET=YOUR_SUPABASE_JWT_SECRET
 ```
 
-And finally, you will also need to save **just** the `web side` environment variables to the `redwood.toml`.
+そして最後に、`webサイド`の環境変数に**だけ**`redwood.toml`に保存する必要があります。
 
 ```bash title="redwood.toml"
 [web]
@@ -294,11 +314,10 @@ And finally, you will also need to save **just** the `web side` environment vari
   open = true
 ```
 
-These variables will be exposed on the browser, and that's completely fine.
-They allow your web app to initialize the Supabase client with your public anon key
-since we have [Row Level Security](/docs/guides/auth#row-level-security) enabled on our Database.
+これらの変数は、ブラウザー上で公開されますが、それは全く問題ありません。
+これらの変数は、データベースで[行レベルのセキュリティ](/docs/guides/auth#row-level-security)を有効にしているため、WebアプリがパブリックなanonキーでSupabaseクライアントを初期化するために使用されます。
 
-You'll see these being used to configure your Supabase client in `web/src/App.js`:
+`web/src/App.js`でSupabaseクライアントの設定に使用されているのがわかります。
 
 ```js title="web/src/App.js"
 // ... Redwood imports
@@ -324,24 +343,26 @@ const App = () => (
 export default App
 ```
 
-And one optional step is to update the CSS file `web/src/index.css` to make the app look nice.
-You can find the full contents of this file [here](https://raw.githubusercontent.com/supabase/supabase/master/examples/react-user-management/src/index.css).
+また、オプションとして、アプリの外観を整えるためにCSSファイル`web/src/index.css`を更新します。
+[こちら](https://raw.githubusercontent.com/supabase/supabase/master/examples/react-user-management/src/index.css)でファイルの詳細な内容を確認できます。
 
-### Start RedwoodJS and your first Page
+### RedwoodJSを起動して最初のページを作る
 
-Let's test our setup at the moment by starting up the app:
+アプリを起動して、現時点でのセットアップをテストしてみましょう。
 
 ```bash
 yarn rw dev
 ```
 
+<!-- textlint-disable ja-technical-writing/ja-no-mixed-period -->
 :::note
-Note: You can also use the alias `rw` for `redwood`, as in `yarn rw` to run Redwood CLI commands
+注：RedwoodのCLIコマンドを実行するために`yarn rw`のように`redwood`の`rw`というエイリアスを使うこともできます。
 :::
+<!-- textlint-enable ja-technical-writing/ja-no-mixed-period -->
 
-You should see a "Welcome to RedwoodJS" page and a message abiout not having any pages yet.
+「Welcome to RedwoodJS」というページと、まだページがないというメッセージが表示されるはずです。
 
-So, let's create a "home" page:
+それでは、「Home」ページを作ってみましょう。
 
 ```bash
 yarn rw generate page home /
@@ -354,13 +375,15 @@ yarn rw generate page home /
 ✔ Generating types ...
 ```
 
+<!-- textlint-disable ja-technical-writing/ja-no-mixed-period -->
 :::note
-Note: the slash `/` is important here as it creates a root level route.
+注：ここではスラッシュの`/`が重要で、ルート・レベルのルートを作ります。
 :::
+<!-- textlint-enable ja-technical-writing/ja-no-mixed-period -->
 
-You can stop the `dev` server if you want; to see your changes, just be sure to run`yarn rw dev` again.
+必要であれば、`dev`サーバーを停止しても構いません。変更内容を確認するには、もう一度`yarn rw dev`を実行してください。
 
-You should see the `Home` page route in `web/src/Routes.js`:
+`web/src/Routes.js`に`Home`ページのルートができるはずです。
 
 ```bash title="web/src/Routes.js"
 import { Router, Route } from '@redwoodjs/router'
@@ -377,9 +400,9 @@ const Routes = () => {
 export default Routes
 ```
 
-### Set up a Login component
+### ログイン・コンポーネントの設定
 
-Let's set up a Redwood component to manage logins and sign ups. We'll use Magic Links, so users can sign in with their email without using passwords.
+ログインとサインアップを管理するRedwoodコンポーネントを設定しましょう。ここではマジック・リンクを使い、ユーザーがパスワードを使わずにメールでサインインできるようにします。
 
 ```bash
 yarn rw g component auth
@@ -391,7 +414,7 @@ yarn rw g component auth
 
 ```
 
-Now, update the `Auth.js` component to contain:
+それでは、`Auth.js`コンポーネントをアップデートして次の内容を含むようにします。
 
 ```jsx title="/web/src/components/Auth/Auth.js"
 import { useState } from 'react'
@@ -449,11 +472,11 @@ const Auth = () => {
 export default Auth
 ```
 
-### Set up an Account component
+### アカウント・コンポーネントをセットアップ
 
-After a user is signed in we can allow them to edit their profile details and manage their account.
+ユーザーがサインインした後、プロフィールの詳細を編集したり、アカウントを管理できるようにします。
 
-Let's create a new component for that called `Account.js`.
+そのための新しいコンポーネント、`Account.js`を作りましょう。
 
 ```bash
 yarn rw g component account
@@ -464,7 +487,7 @@ yarn rw g component account
     ✔ Successfully wrote file `./web/src/components/Account/Account.js`
 ```
 
-And then update the file to contain:
+そして、このファイルを更新して、次のようにします。
 
 ```jsx title="web/src/components/Account/Account.js"
 import { useState, useEffect } from 'react'
@@ -590,15 +613,15 @@ const Account = () => {
 export default Account
 ```
 
+<!-- textlint-disable ja-technical-writing/ja-no-mixed-period,prh -->
 :::note
-Note: You'll see the use of `useAuth()` several times in the quickstart. Redwood's `useAuth` hook provides conventient ways to access
-logIn, logOut, currentUser and access the the `supabase` authenticate client. We'll use it to get an instance
-of the supabase client to interact with your API.
+注：クイックスタートでは`useAuth()`を使っているのを何度か目にします。Redwoodの`useAuth`フックは、logIn、logOut、currentUserへのアクセス、および`supabase`認証クライアントへのアクセスに便利な方法を提供します。このフックを使って、supabaseクライアントのインスタンスを取得し、APIと対話することになります。
 :::
+<!-- textlint-enable ja-technical-writing/ja-no-mixed-period,prh-->
 
-### Update Home Page
+### ホームページの更新
 
-Now that we have all the components in place, let's update your`HomePage` page to use them:
+すべてのコンポーネントが揃いましたので、`HomePage`ページを更新して、それらを使用しましょう。
 
 ```jsx title="web/src/pages/HomePage/HomePage.js"
 import { useAuth } from '@redwoodjs/auth'
@@ -621,27 +644,27 @@ const HomePage = () => {
 export default HomePage
 ```
 
-> What we're doing here is show the sign in form if your aren't logged in and your account profile if you are.
+> ここでは、ログインしていない場合はサインインのフォームを表示し、ログインしている場合はアカウントのプロフィールを表示します。
 
-### Launch!
+### ローンチ
 
-Once that's done, run this in a terminal window to launch the `dev` server:
+これが終わったら、ターミナルウィンドウで次を実行して、`dev`サーバーを起動します。
 
 ```bash
 yarn rw dev
 ```
 
-And then open the browser to [localhost:8910](http://localhost:8910) and you should see the completed app.
+そして、ブラウザで[localhost:8910](http://localhost:8910)を開くと、完成したアプリが表示されます。
 
 ![Supabase RedwoodJS](/img/supabase-redwoodjs-demo.png)
 
-## Bonus: Profile photos
+## おまけ：プロフィール写真
 
-Every Supabase project is configured with [Storage](/docs/guides/storage) for managing large files like photos and videos.
+Supabaseのプロジェクトには、写真や動画などの大容量ファイルを管理するための[ストレージ](/docs/guides/storage)が用意されています。
 
-### Create an upload widget
+### アップロード・ウィジェットの作成
 
-Let's create an avatar for the user so that they can upload a profile photo. We can start by creating a new component:
+ユーザーがプロフィール写真をアップロードできるように、ユーザーのアバターを作成しましょう。まず、新しいコンポーネントを作成します。
 
 ```bash
 yarn rw g component avatar
@@ -651,7 +674,7 @@ yarn rw g component avatar
     ✔ Successfully wrote file `./web/src/components/Avatar/Avatar.js`
 ```
 
-Now, update your Avatar component to contain the following widget:
+アバター・コンポーネントを更新して、以下のウィジェットを追加します。
 
 ```jsx title="web/src/components/Avatar/Avatar.js"
 import { useEffect, useState } from 'react'
@@ -742,9 +765,9 @@ const Avatar = ({ url, size, onUpload }) => {
 export default Avatar
 ```
 
-### Add the new widget
+### 新しいウィジェットの追加
 
-And then we can add the widget to the Account component:
+そして、このウィジェットをAccountコンポーネントに追加します。
 
 ```jsx title="web/src/components/Account/Account.js"
 // Import the new component
@@ -768,11 +791,11 @@ return (
 )
 ```
 
-## Next steps
+## 次のステップ
 
-At this stage you have a fully functional application!
+この段階で、完全に機能するアプリケーションが完成しました。
 
-- Got a question? [Ask here](https://github.com/supabase/supabase/discussions).
-- Sign in: [app.supabase.io](https://app.supabase.io)
-- Learn more about [RedwoodJS](https://redwoodjs.com)
-- Visit the [RedwoodJS Discourse Community](https://community.redwoodjs.com)
+- 何か疑問がありましたら、[こちら](https://github.com/supabase/supabase/discussions)で質問してください
+- サインイン：[app.supabase.io](https://app.supabase.io)
+- [RedwoodJS](https://redwoodjs.com)についてさらに詳しく
+- [RedwoodJS Discourseコミュニティ](https://community.redwoodjs.com)へ
