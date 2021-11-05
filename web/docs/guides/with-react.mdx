@@ -81,6 +81,8 @@ values={[
 </TabItem>
 <TabItem value="SQL">
 
+<!-- textlint-enable -->
+
 ```sql
 -- パブリックで「profiles」テーブルを作成
 create table profiles (
@@ -187,7 +189,7 @@ REACT_APP_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
 ```
 
 APIの認証情報が得られたので、次はSupabaseクライアントを初期化するヘルパーファイルを作成しましょう。
-これらの変数はブラウザ上で公開されますが、データベースでは[行レベルのセキュリティ](/docs/guides/auth#row-level-security)が有効になっているので、全く問題ありません。
+これらの変数はブラウザー上で公開されますが、データベースでは[行レベルのセキュリティ](/docs/guides/auth#row-level-security)が有効になっているので、全く問題ありません。
 
 ```js title="src/supabaseClient.js"
 import { createClient } from '@supabase/supabase-js'
