@@ -4,9 +4,11 @@
 
 ---
 
-This repo contains the source code and documentation powering supabase-ja.vercel.app/docs.
+This repository provides Japanese translations of Supabase documentation. It is a community based activity by volunteers. If you have any questions about this repository, please contact [here](https://github.com/hirotaka/supabase-ja/discussions).
 
-> 以下はオリジナル（英語版）リポジトリの README です。日本語版Suapbaドキュメントへの貢献（翻訳・修正など）に興味がある方は[TRANSLATION.md](TRANSLATION.md)を参照してください。
+> 注意：本リポジトリは、Supabaseドキュメントの日本語訳を公開しています。有志によるコミュニティー・ベースでの活動になります。このリポジトリに関するお問い合わせは[こちら](https://github.com/hirotaka/supabase-ja/discussions)にお願いします。
+>
+> 以下はオリジナル（英語版）リポジトリのREADMEです。日本語版Suapbaseドキュメントへの貢献（翻訳・修正など）に興味がある方は[TRANSLATION.md](TRANSLATION.md)を参照してください。
 
 # Supabase
 
