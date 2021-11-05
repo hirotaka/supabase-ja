@@ -50,6 +50,8 @@ values={[
 ]}>
 <TabItem value="UI">
 
+<!-- textlint-enable -->
+
 ```sh
 1. 「SQL」セクションに移動します。
 2. 「User Management Starter」をクリックします。
@@ -174,7 +176,7 @@ VITE_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
 ```
 
 APIの認証情報が得られたので、次はSupabaseクライアントを初期化するヘルパーファイルを作成しましょう。
-これらの変数はブラウザ上で公開されますが、データベースでは[行レベルのセキュリティ](/docs/guides/auth#row-level-security)が有効になっているので、全く問題ありません。
+これらの変数はブラウザー上で公開されますが、データベースでは[行レベルのセキュリティ](/docs/guides/auth#row-level-security)が有効になっているので、全く問題ありません。
 
 ```js title="src/supabase.js"
 import { createClient } from '@supabase/supabase-js'
@@ -262,7 +264,7 @@ export default {
 ```
 
 ### ユーザー・ストア
-他の場所にあるユーザー情報にアクセスするために、リアクティブ・ストアを使用します。`store.js`という新しいファイルを作成し、Vue 3の`リアクティブ`機能を利用します。
+他の場所にあるユーザー情報へアクセスするため、リアクティブ・ストアを使用します。`store.js`という新しいファイルを作成し、Vue 3の`リアクティブ`機能を利用します。
 ```javascript title="src/store.js"
 import { reactive } from "vue"
 

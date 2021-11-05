@@ -62,6 +62,8 @@ values={[
 ]}>
 <TabItem value="UI">
 
+<!-- textlint-enable -->
+
 ```sh
 1. 「SQL」セクションに移動します。
 2. 「User Management Starter」をクリックします。
@@ -173,7 +175,7 @@ npm install @supabase/supabase-js
 
 最終的には、`environment.ts`ファイルに環境変数を保存します。
 必要なのはAPIのURLと[先ほど](#apiキーを取得)コピーした`anon`keyだけです。
-これらの変数はブラウザ上で公開されますが、データベースでは[行レベルのセキュリティ](/docs/guides/auth#row-level-security)が有効になっているので、全く問題ありません。
+これらの変数はブラウザー上で公開されますが、データベースでは[行レベルのセキュリティ](/docs/guides/auth#row-level-security)が有効になっているので、全く問題ありません。
 
 ```ts title="environment.ts"
 export const environment = {
@@ -183,7 +185,7 @@ export const environment = {
 };
 ```
 
-API認証ができたので、Supabaseクライアントを初期化し、Supabase APIと通信するための関数を実装するために、`ng g s supabase`で**SupabaseService**を作成しましょう。
+API認証ができたので、Supabaseクライアントを初期化します。そのため、Supabase APIと通信するための関数を実装するために、`ng g s supabase`で**SupabaseService**を作成しましょう。
 
 ```ts title="src/app/supabase.service.ts"
 import { Injectable } from '@angular/core';

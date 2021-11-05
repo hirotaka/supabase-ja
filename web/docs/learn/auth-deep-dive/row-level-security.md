@@ -14,7 +14,7 @@ Supabaseダッシュボードで行レベルセキュリティーを有効にし
 
 ### テーブルをセキュアにする
 
-Supabaseでは、クライアント（多くの場合、Webブラウザー）から直接データにアクセスできます。そのためには、SupabaseのURLとAnonキーを以下のようにsupabase-jsに渡します。
+Supabaseでは、クライアント（多くの場合、Webブラウザー）から直接データにアクセスできます。そのためには、SupabaseのURLとAnonキーを以下のように`supabase-js`に渡します。
 
 ```js
 const supabase = createClient(
