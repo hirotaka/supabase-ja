@@ -27,7 +27,7 @@ const supabase = createClient(
 
 Postgresの「行レベルセキュリティー」ポリシーを使用して、anonキーがどのデータに対してアクセスを許可するかしないかのルールをデフォルトで設定できます。
 
-例えば、anonキーは特定のテーブルからを許可し、書き込み、更新、削除はできないようにできます。
+例えば、anonキーは特定のテーブルからの読み込みを許可し、書き込み、更新、削除はできないようにできます。
 
 また、これらのルールは必要に応じて複雑にできます。例えば、anonキーは木曜日の午後4時から6時の間に挿入され、id列が偶数である行のみを削除できる、といったことです。かなり奇妙ですが、これはポリシーの威力を示しています。
 
@@ -43,7 +43,7 @@ insert into leaderboard(name, score)
 values ('Paul', 100), ('Leto', 50), ('Chani', 200);
 ```
 
-では、データを読むためのクライアントを設定しましょう。ここでは、実際に動作する例を示すためにreplを作成しました。[https://replit.com/@awalias/supabase-leaderboard-demo#index.js](https://replit.com/@awalias/supabase-leaderboard-demo#index.js)です。このスニペットをコピーすれば、自分のSupabaseのURLとanonキーを入力できます。
+では、データを読むためのクライアントを設定しましょう。ここでは、実際に動作する例を示すためにreplを作成しました。[https://replit.com/@awalias/supabase-leaderboard-demo#index.js](https://replit.com/@awalias/supabase-leaderboard-demo#index.js)にアクセスしてください。このスニペットをコピーすれば、anonキーを入力して、自分のSupabaseのURLと繋ぐことできます。
 
 次のコードを使うことで、テーブルから自由に読みこみができて、書きこみもできることがわかります。
 
@@ -89,8 +89,6 @@ CREATE POLICY anon_read_leaderboard ON leaderboard
     USING (auth.role() = 'anon');
 ```
 
-`anon_read_leaderboard` here is just a name that you choose for your policy. `leaderboard` is the table name. `FOR SELECT` says that we only want this policy to apply for reads (or rather "selects" in SQL). And finally the rule itself is `auth.role() = 'anon'`.
-
 ここでの`anon_read_leaderboard`は、ポリシーの内容に合わせて選んだ名前です。`leaderboard`はテーブル名です。`FOR SELECT`は、このポリシーを読み取り（SQLでいうところの「select」）にのみ適用させたいということです。そして最後に、ルール自体は`auth.role() = 'anon'`です。
 
 
@@ -113,9 +111,9 @@ $$ language sql stable;
 
 これで、リーダーボードの読み込みはできるようになりましたが、書き込み、更新、削除はできません。これはまさに私たちが望んでいたことです。
 
-これらの行レベルのセキュリティポリシーを回避するには、常に`service_role` APIキーを使用できることを覚えておいてください。ただし、このキーをクライアントに含めることでリークしないように細心の注意を払ってください。これは、内部の管理ツールを構築している場合や、API経由でデータを一括挿入または削除する必要がある場合に便利です。
+これらの行レベルのセキュリティポリシーを回避するには、常に`service_role` APIキーを使用できることを覚えておいてください。ただし、このキーをクライアントに含めて漏洩しないように細心の注意を払ってください。これは、内部の管理ツールを構築している場合や、API経由でデータを一括挿入または削除する必要がある場合に便利です。
 
-次のガイドでは、ポリシーをユーザーアカウントと組み合わせて使用し、ユーザーごとにデータへのアクセスを制限する方法を見ていきます。[パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)をみる。
+次のガイドでは、ポリシーをユーザーアカウントと組み合わせて使用します。ユーザーごとにデータへのアクセスを制限する方法を「[パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)」で見ていきましょう。
 
 ### リソース
 
@@ -124,7 +122,7 @@ $$ language sql stable;
 
 ### 次のステップ
 
-- [パート1：JWTs](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)をみる
+- [パート1：JWT](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)をみる
 <!-- - Watch [Part Two: Row Level Security](/docs/learn/auth-deep-dive/auth-row-level-security) -->
 - [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)をみる
 - [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)をみる
