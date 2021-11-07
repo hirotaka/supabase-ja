@@ -46,7 +46,7 @@ JWTは、エンコードされ、署名されたJSONオブジェクトで、文�
 
 ただし、トークンに保存するデータ量が多いほど、エンコードされる文字列は長くなることに注意してください。
 
-JWTをユーザーに送信したいときは、まず`HS256`などのアルゴリズムを使ってデータをエンコードします。[jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)のように、このエンコード/デコードに使用できる多くのライブラリー（そしていくつかの異なるアルゴリズム）があります。私は[ここ](https://replit.com/@awalias/jsonwebtokens#index.js)にreplを作ったので、自分で試してみてください。署名は以下のように簡単です。
+JWTをユーザーに送信したいときは、まず`HS256`などのアルゴリズムを使ってデータをエンコードします。[jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)のように、このエンコード/デコードに使用できる多くのライブラリー（そしていくつかの異なるアルゴリズム）があります。私は[ここ](https://replit.com/@awalias/jsonwebtokens#index.js)にreplを作ったので、自分で試してみてください。署名をするには以下のようにシンプルな記述をします。
 
 ```js
 // from https://replit.com/@awalias/jsonwebtokens#index.js
@@ -61,9 +61,9 @@ eyJhbGciOiJIUzI1NiJ9
   .zMcHjKlkGhuVsiPIkyAkB2rjXzyzJsMMgpvEGvGtjvA
 ```
 
-文字列は実際には3つの部品で構成されていることがわかりますが、それを1つずつ説明していきます。
+文字列は実際には3つの部品で構成されていることがわかります。それを1つずつ説明していきます。
 
-最初のセグメント`eyJhbGciOiJIUzI1NiJ9`は「ヘッダー」として知られており、デコードするとどのアルゴリズムでエンコードされたかがわかります。
+最初のセグメント`eyJhbGciOiJIUzI1NiJ9`は「ヘッダー」として知られており、デコードすると、どのアルゴリズムでエンコードされたかがわかります。
 
 ```js
 {
@@ -84,9 +84,7 @@ eyJhbGciOiJIUzI1NiJ9
 }
 ```
 
-<!-- textlint-disable ja-technical-writing/sentence-length -->
-最後のセグメント`zMcHjKlkGhuVsiPIkyAkB2rjXzyzJsMMgpvEGvGtjvA`は、署名そのものであり、ウェブサイトやサービスプロバイダーが、あるユーザーから送られてきたトークンが正当なものであることを確認するために使用する部分です。この署名は、まず最初に、以下の入力に対して暗号化関数HS256を実行することで生成されます。
-<!-- textlint-enable ja-technical-writing/sentence-length -->
+最後のセグメント`zMcHjKlkGhuVsiPIkyAkB2rjXzyzJsMMgpvEGvGtjvA`は、署名そのものです。ウェブサイトやサービス・プロバイダーが、あるユーザーから送られてきたトークンが正当なものであることを確認するために使用する部分です。この署名は、まず最初に、以下の入力に対して暗号化関数HS256を実行することで生成されます。
 
 ```js
 HMACSHA256(
@@ -100,21 +98,21 @@ HMACSHA256(
 
 ここで重要なのは、`jwt_secret`を持っている人は誰でも、新しいトークンを作成したり、既存のトークンを検証したりできるということです。より高度なJWTアルゴリズムでは、2つのシークレットを使用します。1つはトークンの作成用で、もう1つは署名されたトークンの有効性を検証するためのものです。
 
-なぜ突然JWTが流行るのか、不思議に思われたことでしょう。その答えは、マイクロサービス・アーキテクチャーの大量導入に伴うものです。複数の異なるマイクロサービス（API、Webサイトやサーバーなど）において、ユーザーが自分の言うとおりの人物（つまり「ログインした」ユーザー）であることを簡単に検証したいという状況になったからです。従来のセッショントークンはここでは使えません。なぜなら、各マイクロサービスが現在有効なセッショントークンの記録を維持する必要があります。もしくは、ユーザーがリソースにアクセスしようとするたび、セッショントークンの有効性を中央のデータベースに問い合わせる必要があるからです。この意味で、JWTベースの認証は非中央集権的です。`jwt_secret`を持つ誰もが、中央のデータベースにアクセスすることなく、トークンを検証できます。
+なぜ突然JWTが流行るのか、不思議に思われたことでしょう。その答えは、マイクロサービス・アーキテクチャーの大量導入に伴うものです。複数の異なるマイクロサービス（API、Webサイトやサーバーなど）において、ユーザーが自分の言うとおりの人物（つまり「ログインした」ユーザー）であることを簡単に検証したいという状況になったからです。従来のセッション・トークンはここでは使えません。なぜなら、各マイクロサービスが現在有効なセッション・トークンの記録を維持する必要があります。もしくは、ユーザーがリソースにアクセスしようとするたび、セッション・トークンの有効性を中央のデータベースに問い合わせる必要があるからです。この意味で、JWTベースの認証は非中央集権的です。`jwt_secret`を持つ誰もが、中央のデータベースにアクセスすることなく、トークンを検証できます。
 
-注：JWTの欠点の1つは、セッション・トークンのように簡単には無効化できないことです。JWTが悪意のあるアクターにリークされた場合、彼らは有効期限に達するまで、どこでもそれを利用できます。もちろん、システムオーナーが`jwt_secret`を更新しない限りは（もちろん、誰もが既存のトークンを無効にしますが）。
+注：JWTの欠点の1つは、セッション・トークンのように簡単には無効化できないことです。JWTが悪意のある攻撃者に漏れた場合、彼らは有効期限に達するまで、どこでもそれを利用できます。もちろん、システムのオーナーが`jwt_secret`を更新しない限りは（もちろん、誰もが既存のトークンを無効にしますが）。
 
 ### SupabaseでのJWTs
 
 Supabaseでは、3つの異なる目的のためにJWTを発行しています。
 
-1. `anon key`：このキーはSupabase APIゲートウェイをバイパスするために使用され、クライアントサイドのコードで使用できます。
-2. `service role key`：このキーはスーパー・アドミン権限を持ち、行レベルセキュリティーを回避できます。このキーをクライアントサイドのコードに入れないでください。秘密にしておいてください。
+1. `anon key`：このキーはSupabase APIゲートウェイをバイパスするために使用され、クライアント・サイドのコードで使用できます。
+2. `service role key`：このキーはスーパー・アドミン権限を持ち、行レベルセキュリティーを回避できます。このキーをクライアント・サイドのコードに入れないでください。秘密にしておいてください。
 3. `user specific jwts`：これは、あなたのプロジェクトやサービス、ウェブサイトへログインしたユーザーに発行するトークンです。これは現代のセッション・トークンに相当するもので、ユーザーは自分固有のコンテンツやパーミッションへアクセスするために使用できます。
 
 最初のトークンである`anon key`トークンは、開発者がSupabaseのデータベースとやり取りする際に、APIリクエストと一緒に送信するためのものです。
 
-例えば、テーブル`colors`のすべての行の名前（name）をselectしたいします。次のようなリクエストをします。
+例えば、`colors`テーブルのすべての行の名前（name）をselectしたいします。次のようなリクエストをします。
 
 ```bash
 curl 'https://xscduanzzfseqszwzhcy.supabase.co/rest/v1/colors?select=name' \
@@ -143,7 +141,7 @@ curl 'https://xscduanzzfseqszwzhcy.supabase.co/rest/v1/colors?select=name' \
 supabase.auth.signIn({ email: 'lao.gimmie@gov.sg', password: 'They_Live_1988!' })
 ```
 
-This token should be passed in addition to the `apikey` header as an `Authorization Bearer` header like:
+このトークンは、`apikey`ヘッダーに加えて、`Authorization Bearer`ヘッダーも、次のように渡す必要があります。
 
 ```bash
 curl 'https://xscduanzzfseqszwzhcy.supabase.co/rest/v1/colors?select=name' \
@@ -151,7 +149,7 @@ curl 'https://xscduanzzfseqszwzhcy.supabase.co/rest/v1/colors?select=name' \
 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNjE1ODI0Mzg4LCJzdWIiOiIwMzM0NzQ0YS1mMmEyLTRhYmEtOGM4YS02ZTc0OGY2MmExNzIiLCJlbWFpbCI6InNvbWVvbmVAZW1haWwuY29tIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwifSwidXNlcl9tZXRhZGF0YSI6bnVsbCwicm9sZSI6ImF1dGhlbnRpY2F0ZWQifQ.I-_oSsJamtinGxniPETBf-ezAUwDW2sY9bJIThvdX9s"
 ```
 
-このトークンは、`apikey`ヘッダーに加えて、`Authorization Bearer`ヘッダーにも渡す必要があります。
+このトークンには、以下のようなユーザー固有の情報が含まれているため、かなり長くなっていることがわかります。
 
 ```js
 {
@@ -167,7 +165,7 @@ curl 'https://xscduanzzfseqszwzhcy.supabase.co/rest/v1/colors?select=name' \
 }
 ```
 
-JWTとは何か、そしてSupabaseのどこで使われているかを理解します。その上で、Postgresデータベースの特定のテーブル、行、列へのアクセスを制限するために、行レベルセキュリティーと組み合わせてJWTを使用する方法を探ってみましょう。[「パート2：行レベルセキュリティー」](/docs/learn/auth-deep-dive/auth-row-level-security)
+JWTとは何か、そしてSupabaseのどこで使われているかを解説しました。その上で、Postgresデータベースの特定のテーブル、行、列へのアクセスを制限します。そのために、行レベルセキュリティーと組み合わせてJWTを使用する方法を[「パート2：行レベルセキュリティー」](/docs/learn/auth-deep-dive/auth-row-level-security)で探ってみましょう。
 
 ### リソース
 
