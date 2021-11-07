@@ -1,60 +1,60 @@
 ---
 id: auth-policies
-title: 'Part Three: Policies'
-description: 'Supabase Auth Deep Dive Part 3: User Based Access Policies'
+title: 'パート3：ポリシー'
+description: 'Supabase Auth詳細 パート3：ユーザー・ベースのアクセスポリシー'
 ---
 
-### About
+### 概要
 
-How to restrict table access to authenticated users, row level policies, and email domain based access.
+テーブルへのアクセスを認証されたユーザーに限定する方法、行レベルポリシー、メールアドレスのドメイン・ベースのアクセスについて解説します。
 
-### Watch
+### 視聴
 
-<iframe className="w-full video-with-border" width="640" height="385" src="https://www.youtube-nocookie.com/embed/0LvCOlELs5U" frameBorder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+<iframe classname="w-full video-with-border" width="640" height="385" src="https://www.youtube-nocookie.com/embed/0LvCOlELs5U" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""/>
 
-### User based row level policies
+### ユーザー・ベースの行レベルポリシー
 
-Now that we know how to restrict access to tables based on JWT roles, we can combine this with user management to give us much more control over what data your users can read to and write from your database.
+JWTロールに基づいてテーブルへのアクセスを制限する方法がわかったので、これをユーザー管理と組み合わせて、ユーザーがデータベースに読み書きできるデータをより詳細に制御ができます。
 
-We'll start with how user sessions work in Supabase, and later move onto writing user-centric policies.
+ここでは、Supabaseでのユーザー・セッションの仕組みを説明し、その後、ユーザー中心のポリシーの作成に移ります。
 
-Let's say we're signing a user up to our service for the first time. The typical way to do this is by invoking the following method in supabase-js:
+例えば、あるユーザーが初めて私たちのサービスに登録するとしましょう。一般的には、`supabase-js`で以下のようなメソッドを実行します。
 
 ```jsx
-// see full api reference here: https://supabase.io/docs/reference/javascript/auth-signup
+// 完全なapiリファレンスはを参照するには次のURLを参照してください。https://supabase.io/docs/reference/javascript/auth-signup
 supabase.auth.signUp({ email, password })
 ```
 
-By default this will send a confirmation email to the user. When the user clicks the link in the email, they will be redirected to your site (you need to provide your site url in Auth > Settings on the dashboard. By default this is http://localhost:3000) and the full URL including query params will look something like this:
+デフォルトでは、ユーザーに確認メールが送信されます。ユーザーがメール内のリンクをクリックすると、サイト（ダッシュボードのAuth → SettingsでサイトのURLを指定する必要があります。デフォルトでは、http://localhost:3000 となっています）にリダイレクトされます。クエリー・パラメーターを含む完全なURLは以下のようになります。
 
 ```
 http://localhost:3000/#access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNjE2NDI5MDY0LCJzdWIiOiI1YTQzNjVlNy03YzdkLTRlYWYtYThlZS05ZWM5NDMyOTE3Y2EiLCJlbWFpbCI6ImFudEBzdXBhYmFzZS5pbyIsImFwcF9tZXRhZGF0YSI6eyJwcm92aWRlciI6ImVtYWlsIn0sInVzZXJfbWV0YWRhdGEiOnt9LCJyb2xlIjoiYXV0aGVudGljYXRlZCJ9.4IFzn4eymqUNYYo2AHLxNRL8m08G93Qcg3_fblGqDjo&expires_in=3600&refresh_token=RuioJv2eLV05lgH5AlJwTw&token_type=bearer&type=signup
 ```
 
-Let's break this up so that it's easier to read:
+これを読みやすいように分割してみましょう。
 
 ```jsx
-// the base url - whatever you set in the Auth Settings in app.supabase.io dashboard
+// ベースのurl - app.supabase.ioダッシュボードのAuth Settingsで設定したものになります
 http://localhost:3000/
 
-// note we use the '#' (fragment) instead of '?' query param
-// the access token is a JWT issued to the user
+// クエリ・パラメーターで「?」の代わりに「#（フラグメント）」を使用していることに注意
+// ユーザによって発行されたアクセス・トークンはJWT
 #access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNjE2NDI5MDY0LCJzdWIiOiI1YTQzNjVlNy03YzdkLTRlYWYtYThlZS05ZWM5NDMyOTE3Y2EiLCJlbWFpbCI6ImFudEBzdXBhYmFzZS5pbyIsImFwcF9tZXRhZGF0YSI6eyJwcm92aWRlciI6ImVtYWlsIn0sInVzZXJfbWV0YWRhdGEiOnt9LCJyb2xlIjoiYXV0aGVudGljYXRlZCJ9.4IFzn4eymqUNYYo2AHLxNRL8m08G93Qcg3_fblGqDjo
 
-// valid for 60 minutes by default
+// デフォルトの有効期間は60分
 &expires_in=3600
 
-// use to get a new access_token before 60 minutes expires
+// 60分の期限がきれる前に新しいaccess_token取得に使用
 &refresh_token=RuioJv2eLV05lgH5AlJwTw
 
-// can use as the Authorization: Bearer header in requests to your API
+// APIへリクエストする際のヘッダーにAuthorization: Bearerを使用
 &token_type=bearer
 
-// why was this token issued? was it a signup, login, password reset, or magic link?
+// トークンを何によって発行されたか。サインアップ、ログイン、パスワード・リセットまたはマジック・リンクなのか。
 &type=signup
 ```
 
-If we put the access_token into [https://jwt.io](https://jwt.io) we'll see it decodes to:
+アクセストークンを[https://jwt.io](https://jwt.io)に入れると、次のようにデコードされます。
 
 ```jsx
 {
@@ -70,23 +70,25 @@ If we put the access_token into [https://jwt.io](https://jwt.io) we'll see it de
 }
 ```
 
-The `authenticated` role is special in Supabase, it tells the API that this is an authenticated user and will know to compare the JWT against any polices you've added to the requested resource (table or row).
+`authenticated`ロールはSupabaseでは特別なもので、APIに認証されたユーザーであることを伝え、要求されたリソース（テーブルや行）に追加されたポリシーとJWTを比較することを伝えます。
 
-The `sub` claim is usually what we use to match the JWT to rows in your database, since by default it is the unique identifier of the user in the `auth.users` table (as a sidenote - it's generally not recommended to alter the `auth` schema in any way in your Supabase database since the Auth API relies on it to function correctly).
+`sub`属性情報（claim）は、デフォルトでは`auth.users`テーブル内のユーザーの一意の識別子です。そのため、通常、JWTをデータベース内の行と照合するために使用されます。
+（補足として、認証APIが正しく機能させるのに`auth`スキーマに依存しています。Supabaseデータベース内で`auth`スキーマを何らかの方法で変更することは一般的に推奨されません）。
 
-For the curious, try heading to the SQL editor and querying:
+興味のある方は、SQLエディタでクエリを実行してみてください。
 
 ```sql
 select * from auth.users;
 ```
-
-If supabase-js is loaded on your site (in this case http://localhost:3000) then it will automatically pluck the access_token out of the URL and initiate a session. You can check the [session()](https://supabase.io/docs/reference/javascript/auth-session) method to see if there is a valid session:
+<!-- textlint-disable ja-technical-writing/no-unmatched-pair -->
+もし`supabase-js`があなたのサイト（この場合は、http://localhost:3000）にロードされていれば、自動的にURLからアクセス・トークンを取り出し、セッションを開始します。有効なセッションがあるかどうかは、[session()](https://supabase.io/docs/reference/javascript/auth-session)メソッドで確認できます。
+<!-- textlint-enable ja-technical-writing/no-unmatched-pair -->
 
 ```jsx
 console.log(supabase.auth.session())
 ```
 
-Now that we can use methods like `supabase.auth.signIn({ email, password})` to issue JWTs to users we want to start fetching resources specific to that user. So let's make some. Go to the SQL editor and run:
+`supabase.auth.signIn({ email, password})`のようなメソッドを使ってユーザーにJWTを発行できるようになったので、今度はそのユーザーに固有のリソースを取得します。では、いくつか作ってみましょう。SQLエディターで実行してみましょう。
 
 ```sql
 create table my_scores (
@@ -103,11 +105,11 @@ values
   ('Paul', 200, '5a4365e7-7c7d-4eaf-a8ee-9ec9432917ca'),
   ('Leto', 50,  '9ec94326-2e2d-2ea2-22e3-3a535a4365e7');
 
--- use UUIDs from the auth.users table if you want to try it
--- for yourself
+-- 実際に試してみるには、
+-- auth.usersテーブルにあるUUIDを使用します
 ```
 
-Now we'll write our policy, again in SQL, but note it's also possible to add via the dashboard in Auth > Policies:
+ここで、ポリシーを書きます。やはりSQLで書きますが、ダッシュボードのAuth → Policiesから追加可能です。
 
 ```sql
 CREATE POLICY user_update_own_scores ON my_scores
@@ -115,13 +117,13 @@ CREATE POLICY user_update_own_scores ON my_scores
     USING (auth.uid() = user_id);
 ```
 
-Now, assuming you have an active session in your javascript/supabase-js environment you can do:
+さて、`javascript/supabase-js`の環境でアクティブなセッションがあると仮定すると、次のことができます。
 
 ```jsx
 supabase.from('my_scores').select('*').then(console.log)
 ```
 
-and you should only receive scores belonging to the current logged in user. Alternatively you can use Bash like:
+とすれば、現在ログインしているユーザーのスコアのみを受け取ることができます。また、Bashを使って次のようにもできます。
 
 ```bash
 curl 'https://sjvwsaokcugktsdaxxze.supabase.co/rest/v1/my_scores?select=*' \
@@ -129,11 +131,11 @@ curl 'https://sjvwsaokcugktsdaxxze.supabase.co/rest/v1/my_scores?select=*' \
 -H "Authorization: Bearer <ACCESS_TOKEN>"
 ```
 
-Note that the `anon key` (or `service role key`) is always needed to get past the API gateway. This can be passed in the `apikey` header or in a query param named `apikey`. It is passed automatically in supabase-js as long as you used it to instantiate the client.
+なお、APIゲートウェイを通過するためには、`anonキー`（または`service roleキー`）が必ず必要です。これは、`apikey`ヘッダーまたは`apikey`という名前のクエリパラメーターで渡すことができます。`supabase-js`では、インスタンス化したクライアントを使用した場合自動的に渡されます。
 
-There are some more notes here on how to structure your schema to best integrate with the `auth.users` table.
+`auth.users`テーブルとの統合に最適なスキーマの構造については、ここにもいくつかの注意点があります。
 
-Once you get the hang of polices you can start to get a little bit fancy. Let's say I work at Blizzard and I only want Blizzard staff members to be able to update people's high scores, I can write something like:
+ポリシーのコツを掴んだら、少し派手なことを始めましょう。例えば、私がBlizzard社で働いていて、Blizzard社のスタッフだけが人々のハイスコアを更新できるようにしたい場合、次のように書くことができます。
 
 ```sql
 create or replace function auth.email() returns text as $$
@@ -147,23 +149,23 @@ create policy "Only Blizzard staff can update leaderboard"
   );
 ```
 
-Supabase comes with three built-in helper functions: `auth.email()`, `auth.uid()` and `auth.role()`.
+Supabaseには、`auth.email()`, `auth.uid()`, `auth.role()`という3つのヘルパー関数が組み込まれています。
 
-See the full PostgreSQL policy docs here: [https://www.postgresql.org/docs/12/sql-createpolicy.html](https://www.postgresql.org/docs/12/sql-createpolicy.html)
+PostgreSQLのポリシーに関する完全なドキュメントは次のURLを参照してください。[https://www.postgresql.org/docs/12/sql-createpolicy.html](https://www.postgresql.org/docs/12/sql-createpolicy.html)
 
-You can get as creative as you like with these policies.
+これらのポリシーでいくらでも創造的にできます。
 
-### Resources
+### リソース
 
-- JWT debugger: https://jwt.io​
-- PostgeSQL Policies: https://www.postgresql.org/docs/12/sql-createpolicy.html
-- PostgREST Row Level Security: https://postgrest.org/en/v7.0.0/auth.html
+- JWTデバッガー：[https://jwt.io](https://jwt.io%E2%80%8B)
+- PostgeSQLポリシー：https://www.postgresql.org/docs/12/sql-createpolicy.html
+- PostgREST行レベルセキュリティー：https://postgrest.org/en/v7.0.0/auth.html
 
-### Next steps
+### 次のステップ
 
-- Watch [Part One: JWTs](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)
-- Watch [Part Two: Row Level Security](/docs/learn/auth-deep-dive/auth-row-level-security)
-<!-- - Watch [Part Three: Policies](/docs/learn/auth-deep-dive/auth-policies) -->
-- Watch [Part Four: GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)
-- Watch [Part Five: Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)
-- Sign up for Supabase: [app.supabase.io](https://app.supabase.io)
+- [パート1：JWT](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)をみる
+- [パート2：行レベルセキュリティー](/docs/learn/auth-deep-dive/auth-row-level-security)をみる
+<!-- - [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)をみる -->
+- [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)をみる
+- [パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)をみる
+- Supabaseにサインアップ：[app.supabase.io](https://app.supabase.io)
