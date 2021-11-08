@@ -14,15 +14,13 @@ description: 'Supabase Auth詳細 パート4：Gotrue概要'
 
 ### Gotrueサーバー
 
-Gotrueは、NetlifyチームによってGoで書かれた認証APIサーバーです。Supabaseのフォークは次のURLです。https://github.com/supabase/gotrue。利用可能なAPIエンドポイントのリストは、[こちら](https://github.com/supabase/gotrue#endpoints)でご覧いただけます。
+Gotrueは、NetlifyチームによってGoで書かれた認証APIサーバーです。Supabaseのフォークは次の[URL](https://github.com/supabase/gotrue)です。利用可能なAPIエンドポイントのリストは、[こちら](https://github.com/supabase/gotrue#endpoints)でご覧いただけます。
 
 Supabaseプロジェクトをデプロイすると、このサーバーの新しいインスタンスがデータベースと一緒にデプロイされ、必要な`auth`スキーマがデータベースに注入されます。
 
 これにより、例えば、ユーザーがログインするためのマジック・リンクのメールを簡単に送信ができます。
 
 ```bash
-# replace <project-ref> with your own project reference
-# and SUPABASE_KEY with your anon api key
 # <project-ref> を自身のプロジェクトで置き換えてください
 # SUPABASE_KEYには自身のanon apiキーを入力してください。
 curl -X POST 'https://<project-ref>.supabase.co/auth/v1/magiclink' \
@@ -62,7 +60,7 @@ const { user, session, error } = await supabase.auth.signIn({
 
 もし、あなたが機能をリクエストしたり、プロジェクトに直接貢献したい場合は、https://github.com/supabase/gotrue にアクセスしてください。そして、IssueやPRなどを開いてください。私たちはいつでもお手伝いします。
 
-次回のガイドでは、外部のOAuthプロバイダーを設定する方法をご紹介します。[パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)をご覧ください。
+次回のガイドでは、外部のOAuthプロバイダーを設定する方法をご紹介します。「[パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)」をご覧ください。
 
 ### リソース
 
