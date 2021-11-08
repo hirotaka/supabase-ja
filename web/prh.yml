@@ -1,9 +1,13 @@
 version: 1
 rules:
   - expected: Supabase
-    pattern:
-      - supabase
-      - スーバーベース
+    pattern: /supabase(-js)?/
+    regexpMustEmpty: $1
+    specs:
+     - from: supabase-js
+       to: supabase-js
+     - from: supabase
+       to: Supabase
 
   - expected: Postgres
     pattern:
