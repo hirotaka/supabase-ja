@@ -10,7 +10,7 @@ description: 'Supabase Auth詳細 パート4：Gotrue概要'
 
 ### 視聴 
 
-<iframe classname="w-full video-with-border" width="640" height="385" src="https://www.youtube.com/embed/neqfYym_84k" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe className="w-full video-with-border" width="640" height="385" src="https://www.youtube.com/embed/neqfYym_84k" frameBorder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
 ### Gotrueサーバー
 

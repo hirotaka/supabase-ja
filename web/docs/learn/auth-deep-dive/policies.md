@@ -10,7 +10,7 @@ description: 'Supabase Auth詳細 パート3：ユーザー・ベースのアク
 
 ### 視聴
 
-<iframe classname="w-full video-with-border" width="640" height="385" src="https://www.youtube-nocookie.com/embed/0LvCOlELs5U" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""/>
+<iframe className="w-full video-with-border" width="640" height="385" src="https://www.youtube-nocookie.com/embed/0LvCOlELs5U" frameBorder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen=""/>
 
 ### ユーザー・ベースの行レベルポリシー
 
