@@ -14,6 +14,8 @@ docs/guides/auth/auth-github.mdx
 docs/guides/auth/auth-gitlab.mdx
 docs/guides/auth/auth-google.mdx
 docs/guides/auth/auth-messagebird.mdx
+docs/guides/auth/auth-slack.mdx
+docs/guides/auth/auth-spotify.mdx
 docs/guides/auth/auth-twilio.mdx
 docs/guides/auth/auth-twitch.mdx
 docs/guides/auth/auth-twitter.mdx
@@ -113,6 +115,11 @@ docs/reference/dart/subscribe.mdx
 docs/reference/dart/textsearch.mdx
 docs/reference/dart/update.mdx
 docs/reference/dart/upsert.mdx
+docs/reference/javascript/auth-api-deleteuser.mdx
+docs/reference/javascript/auth-api-generatelink.mdx
+docs/reference/javascript/auth-api-inviteuserbyemail.mdx
+docs/reference/javascript/auth-api-resetpasswordforemail.mdx
+docs/reference/javascript/auth-api-sendmobileotp.mdx
 docs/reference/javascript/auth-onauthstatechange.mdx
 docs/reference/javascript/auth-session.mdx
 docs/reference/javascript/auth-setauth.mdx
