@@ -18,7 +18,7 @@ JWTロールに基づいてテーブルへのアクセスを制限する方法�
 
 ここでは、Supabaseでのユーザー・セッションの仕組みを説明し、その後、ユーザー中心のポリシーの作成に移ります。
 
-例えば、あるユーザーが初めて私たちのサービスに登録するとしましょう。一般的には、`supabase-js`で以下のようなメソッドを実行します。
+例えば、あるユーザーが初めて私たちのサービスに登録するとしましょう。一般的には、supabase-jsで以下のようなメソッドを実行します。
 
 ```jsx
 // 完全なapiリファレンスはを参照するには次のURLを参照してください。https://supabase.io/docs/reference/javascript/auth-signup
@@ -81,7 +81,7 @@ http://localhost:3000/
 select * from auth.users;
 ```
 <!-- textlint-disable ja-technical-writing/no-unmatched-pair -->
-もし`supabase-js`があなたのサイト（この場合は、http://localhost:3000）にロードされていれば、自動的にURLからアクセス・トークンを取り出し、セッションを開始します。有効なセッションがあるかどうかは、[session()](https://supabase.io/docs/reference/javascript/auth-session)メソッドで確認できます。
+もしsupabase-jsがあなたのサイト（この場合は、http://localhost:3000）にロードされていれば、自動的にURLからアクセス・トークンを取り出し、セッションを開始します。有効なセッションがあるかどうかは、[session()](https://supabase.io/docs/reference/javascript/auth-session)メソッドで確認できます。
 <!-- textlint-enable ja-technical-writing/no-unmatched-pair -->
 
 ```jsx
@@ -117,7 +117,7 @@ CREATE POLICY user_update_own_scores ON my_scores
     USING (auth.uid() = user_id);
 ```
 
-さて、`javascript/supabase-js`の環境でアクティブなセッションがあると仮定すると、次のことができます。
+さて、javascript/supabase-jsの環境でアクティブなセッションがあると仮定すると、次のことができます。
 
 ```jsx
 supabase.from('my_scores').select('*').then(console.log)
@@ -131,7 +131,7 @@ curl 'https://sjvwsaokcugktsdaxxze.supabase.co/rest/v1/my_scores?select=*' \
 -H "Authorization: Bearer <ACCESS_TOKEN>"
 ```
 
-なお、APIゲートウェイを通過するためには、`anonキー`（または`service roleキー`）が必ず必要です。これは、`apikey`ヘッダーまたは`apikey`という名前のクエリパラメーターで渡すことができます。`supabase-js`では、インスタンス化したクライアントを使用した場合自動的に渡されます。
+なお、APIゲートウェイを通過するためには、`anonキー`（または`service roleキー`）が必ず必要です。これは、`apikey`ヘッダーまたは`apikey`という名前のクエリパラメーターで渡すことができます。supabase-jsでは、インスタンス化したクライアントを使用した場合自動的に渡されます。
 
 `auth.users`テーブルとの統合に最適なスキーマの構造については、ここにもいくつかの注意点があります。
 

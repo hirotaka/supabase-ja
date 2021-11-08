@@ -1,28 +1,28 @@
 ---
 id: auth-gotrue
-title: 'Part Four: GoTrue'
-description: 'Supabase Deep Dive Part 4: Gotrue Overview'
+title: 'パート4：GoTrue'
+description: 'Supabase Auth詳細 パート4：Gotrue概要'
 ---
 
-### About
+### 概要
 
-How to restrict table access to authenticated users, row level policies, and email domain based access.
+テーブルへのアクセスを認証されたユーザーに限定する方法、行レベルポリシー、メールアドレスのドメイン・ベースのアクセスについて解説します。
 
-### Watch
+### 視聴 
 
-<iframe className="w-full video-with-border" width="640" height="385" src="https://www.youtube.com/embed/neqfYym_84k" frameBorder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+<iframe classname="w-full video-with-border" width="640" height="385" src="https://www.youtube.com/embed/neqfYym_84k" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-### Gotrue Server
+### Gotrueサーバー
 
-Gotrue is an auth API server written in Go by the Netlify team, find the Supabase fork here: https://github.com/supabase/gotrue. The list of available API endpoints is available [here](https://github.com/supabase/gotrue#endpoints).
+Gotrueは、NetlifyチームによってGoで書かれた認証APIサーバーです。Supabaseのフォークは次の[URL](https://github.com/supabase/gotrue)です。利用可能なAPIエンドポイントのリストは、[こちら](https://github.com/supabase/gotrue#endpoints)でご覧いただけます。
 
-When you deploy a new Supabase project, we deploy a new instance of this server alongside your database, and also inject your database with the required `auth` schema.
+Supabaseプロジェクトをデプロイすると、このサーバーの新しいインスタンスがデータベースと一緒にデプロイされ、必要な`auth`スキーマがデータベースに注入されます。
 
-It makes it super easy to, for example, send magic link emails which your users can use to login:
+これにより、例えば、ユーザーがログインするためのマジック・リンクのメールを簡単に送信ができます。
 
 ```bash
-# replace <project-ref> with your own project reference
-# and SUPABASE_KEY with your anon api key
+# <project-ref> を自身のプロジェクトで置き換えてください
+# SUPABASE_KEYには自身のanon apiキーを入力してください。
 curl -X POST 'https://<project-ref>.supabase.co/auth/v1/magiclink' \
 -H "apikey: SUPABASE_KEY" \
 -H "Content-Type: application/json" \
@@ -31,21 +31,25 @@ curl -X POST 'https://<project-ref>.supabase.co/auth/v1/magiclink' \
 }'
 ```
 
-Gotrue is responsible for issuing access tokens for your users, sends confirmation, magic-link, and password recovery emails (by default we send these from a Supabase SMTP server, but you can easily plug in your own inside the dashboard at Auth > Settings) and also transacting with third party OAuth providers to get basic user data.
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+Gotrueはユーザーのアクセストークンを発行し、確認、マジック・リンク、パスワード・リカバリーをメールで送信します（デフォルトではSupabaseのSMTPサーバーから送信されます。しかし、ダッシュボードのAuth → Settingsから簡単に自分の環境に接続できます）。また、サードパーティーのOAuthプロバイダーとやり取りし、基本的なユーザーのデータを取得します。
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
-The community even recently built in the functionality to request custom OAuth scopes, if your users need to interact more closely with the provider. See the scopes parameter here: [https://github.com/supabase/gotrue#get-authorize](https://github.com/supabase/gotrue#get-authorize).
+最近のコミュニティーでは、ユーザーがプロバイダーとより密接にやり取りする必要がある場合に、カスタムOAuthスコープを要求する機能も組み込まれています。スコープのパラメーターは次のURLを参照してください。[https://github.com/supabase/gotrue#get-authorize](https://github.com/supabase/gotrue#get-authorize)。
 
-So let's say you want to send emails on behalf of a user via gmail, you might request the gmail.send scope by directing them to:
+例えば、gmailを使ってユーザーに代わってメールを送信したい場合、gmail.sendスコープをリクエストするように案内ができます。
 
 ```
 https://sjvwsaokcugktsdaxxze.supabase.co/auth/v1/authorize?provider=google&https://www.googleapis.com/auth/gmail.send
 ```
 
-You'll have to make sure your google app is verified of course in order to request these advanced scopes.
+もちろん、このような高度なスコープをリクエストするには、googleアプリが検証されていることを確認する必要があります。
 
-[Gotrue-js](https://github.com/supabase/gotrue-js) (and also [gotrue-csharp](https://github.com/supabase/gotrue-csharp), [gotrue-py](https://github.com/j0/gotrue-py), [gotrue-kt](https://github.com/supabase/gotrue-kt), and [gotrue-dart](https://github.com/supabase/gotrue-dart)) are all wrappers around the gotrue API endpoints, and make for easier session management inside your client.
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+[Gotrue-js](https://github.com/supabase/gotrue-js)（および[gotrue-csharp](https://github.com/supabase/gotrue-csharp), [gotrue-py](https://github.com/j0/gotrue-py), [gotrue-kt](https://github.com/supabase/gotrue-kt), [gotrue-dart](https://github.com/supabase/gotrue-dart)）は、すべてgotrue APIエンドポイントのラッパーであり、クライアント内でのセッション管理を容易にします。
+<!-- textlint-enable ja-technical-writing/sentence-length -->
 
-But all the functionality of gotrue-js is also available in supabase-js, which uses gotrue-js internally when you do things like:
+しかし、gotrue-jsのすべての機能は、supabase-jsでも利用可能です。supabase-jsは、以下のような場合に、内部的にgotrue-jsを使用します。
 
 ```jsx
 const { user, session, error } = await supabase.auth.signIn({
@@ -54,19 +58,19 @@ const { user, session, error } = await supabase.auth.signIn({
 })
 ```
 
-If you want to request a feature, or contribute to the project directly, just head to https://github.com/supabase/gotrue and open some issues/PRs, we're always open to help.
+もし、あなたが機能をリクエストしたり、プロジェクトに直接貢献したい場合は、https://github.com/supabase/gotrue にアクセスしてください。そして、IssueやPRなどを開いてください。私たちはいつでもお手伝いします。
 
-In the next guide we'll be looking at how to setup external OAuth providers: Watch [Part Five: Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)
+次回のガイドでは、外部のOAuthプロバイダーを設定する方法をご紹介します。「[パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)」をご覧ください。
 
-### Resources
+### リソース
 
-- JWT debugger: https://jwt.io​
+- JWTデバッガー：https://jwt.io/
 
-### Next steps
+### 次のステップ
 
-- Watch [Part One: JWTs](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)
-- Watch [Part Two: Row Level Security](/docs/learn/auth-deep-dive/auth-row-level-security)
-- Watch [Part Three: Policies](/docs/learn/auth-deep-dive/auth-policies)
-<!-- - Watch [Part Four: GoTrue](/docs/learn/auth-deep-dive/auth-gotrue) -->
-- Watch [Part Five: Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)
-- Sign up for Supabase: [app.supabase.io](https://app.supabase.io)
+- [パート1：JWT](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)をみる
+- [パート2：行レベルセキュリティー](/docs/learn/auth-deep-dive/auth-row-level-security)をみる
+- [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)をみる
+<!-- - [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)をみる -->
+- [パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)をみる
+- Supabaseにサインアップ：[app.supabase.io](https://app.supabase.io)
