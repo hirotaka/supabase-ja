@@ -94,11 +94,7 @@ alter publication supabase_realtime add table posts;
 
 | セキュリティー上の注意 |
 | - |
-<<<<<<< HEAD
-| リアルタイムのセキュリティーに関する現在の状況は、[プライベートなテーブルのリアルタイムを無効化](https://supabase.io/docs/guides/auth#disable-realtime-for-private-tables)をご確認ください。 |
-=======
-| Please check [Disable realtime for private tables](/docs/guides/auth#disable-realtime-for-private-tables) for the current state of Realtime security. |
->>>>>>> 9fef6857a87627deeecff6563bb64e0460751676
+| リアルタイムのセキュリティーに関する現在の状況は、[プライベートなテーブルのリアルタイムを無効化](/docs/guides/auth#disable-realtime-for-private-tables)をご確認ください。 |
 
 デフォルトでは「新しい」値のみが送信されますが、レコードを`update`や`delete`したときに古いレコード（以前の値）も受信したい場合は、テーブルのレプリカIDを更新して `full` に設定します。
 
