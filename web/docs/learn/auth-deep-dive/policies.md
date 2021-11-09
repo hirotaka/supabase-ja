@@ -21,7 +21,7 @@ JWTロールに基づいてテーブルへのアクセスを制限する方法�
 例えば、あるユーザーが初めて私たちのサービスに登録するとしましょう。一般的には、supabase-jsで以下のようなメソッドを実行します。
 
 ```jsx
-// 完全なapiリファレンスはを参照するには次のURLを参照してください。https://supabase.io/docs/reference/javascript/auth-signup
+// 完全なapiリファレンスはを参照するには次のURLを参照してください。/docs/reference/javascript/auth-signup
 supabase.auth.signUp({ email, password })
 ```
 
@@ -81,7 +81,7 @@ http://localhost:3000/
 select * from auth.users;
 ```
 <!-- textlint-disable ja-technical-writing/no-unmatched-pair -->
-もしsupabase-jsがあなたのサイト（この場合は、http://localhost:3000）にロードされていれば、自動的にURLからアクセス・トークンを取り出し、セッションを開始します。有効なセッションがあるかどうかは、[session()](https://supabase.io/docs/reference/javascript/auth-session)メソッドで確認できます。
+もしsupabase-jsがあなたのサイト（この場合は、http://localhost:3000）にロードされていれば、自動的にURLからアクセス・トークンを取り出し、セッションを開始します。有効なセッションがあるかどうかは、[session()](/docs/reference/javascript/auth-session)メソッドで確認できます。
 <!-- textlint-enable ja-technical-writing/no-unmatched-pair -->
 
 ```jsx
