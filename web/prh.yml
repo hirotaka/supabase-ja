@@ -1,9 +1,12 @@
 version: 1
 rules:
   - expected: Supabase
-    pattern: /supabase(-js)?/
+    pattern:
+      - /supabase(.)?/
     regexpMustEmpty: $1
     specs:
+     - from: supabase.io
+       to: supabase.io
      - from: supabase-js
        to: supabase-js
      - from: supabase
@@ -38,9 +41,12 @@ rules:
   # 機能として使われている場合はカタカナ
   - expected: 認証
     pattern:
-      - auth
-      # 上記の製品名の場合とコンフリクトするのでコメントアウト
-      # - Auth
+      - /auth/
+    options:
+      wordBoundary: true
+    specs:
+      - from: auth
+        to: 認証
 
   # プロジェクト名を指す場合
   # https://github.com/supabase/realtime
@@ -63,6 +69,8 @@ rules:
       - ロウ・レベル・セキュリティー
 
   - expected: バケット
+    options:
+      wordBoundary: true
     pattern:
       - Bucket
       - bucket
