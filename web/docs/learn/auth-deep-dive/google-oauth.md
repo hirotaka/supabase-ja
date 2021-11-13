@@ -1,90 +1,91 @@
 ---
 id: auth-google-oauth
-title: 'Part Five: Google Oauth'
-description: 'Supabase Deep Dive Part 5: Google OAuth Provider'
+title: 'パート5：Google Oauth'
+description: 'Supabase Auth詳細 パート5：Google OAuthプロバイダー'
 ---
 
-### About
+### 概要
 
-How to add Google OAuth Logins to your Supabase Application.
+SupabaseアプリケーションにGoogle OAuthログインを追加する方法を解説します。
 
-### Watch
+### 視聴 
 
 <iframe className="w-full video-with-border" width="640" height="385" src="https://www.youtube-nocookie.com/embed/_XM9ziOzWk4" frameBorder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
-### Logging in with external OAuth providers
+### 外部のOAuthプロバイダでログインする
 
-Connecting social logins such as Google, Github, or Facebook couldn't be easier. In this guide we'll walk you through the process of connecting Google, but the process is basically the same for all of the providers which includes: azure, bitbucket, github, gitlab, facebook, and google.
+<!-- textlint-disable ja-technical-writing/max-comma -->
+Google, Github, Facebookなどのソーシャルログインと接続するのはとても簡単です。このガイドでは、Googleに接続する手順を説明します。基本的にはazure, bitbucket, github, gitlab, facebook, googleを含むすべてのプロバイダーで同じ手順になります。
+<!-- textlint-enable ja-technical-writing/max-comma -->
 
-First you'll need to create a google project inside their [cloud console](https://console.cloud.google.com/home/dashboard), in other providers they may refer to this as an "app" and is usually available on the company's developer portal.
+まず、Googleの[クラウド・コンソール](https://console.cloud.google.com/home/dashboard)内にGoogleプロジェクトを作成する必要があります。他のプロバイダーでは、これを「アプリ」と呼ぶことがあり、通常はそれぞれのプロバイダーの開発者ポータルで利用できます。
 
 ![Create a new Google Project inside cloud console](/img/auth-5-1.png)
 
-Once you have a project, type "OAuth" into the search bar and open up "OAuth Consent Screen"
+プロジェクトを作成したら、検索バーに「OAuth」と入力し、「OAuth同意画面（OAuth content screen）」を開きます。
 
 ![Open the OAuth consent screen](/img/auth-5-2.png)
 
-Select 'External' and proceed to fill out the rest of the form fields
+「外部（External）」を選択して、残りのフォーム・フィールドの入力を進めます。
 
 ![Select External on the OAuth form](/img/auth-5-3.png)
 
-Next open up Credentials page on the left
+次に、左側の「認証情報（Credentials）」ページを開きます。
 
 ![Open up Credentials page](/img/auth-5-4.png)
 
-And click to create a new set of credentials, select OAuth client ID as the option
+「認証情報を作成（CREATE CREDENTIALS）」をクリックし、選択肢から「OAuthクライアントID（OAuth client ID）」を選択します。
 
 ![Create new oauth client id credentials](/img/auth-5-5.png)
 
-Now choose Web Application (assuming you're creating a web app) and in the Authorized redirect URI section you need to add: `https://<your-ref>.supabase.co/auth/v1/callback`. You can find your Supabase URL in Settings > API inside the Supabase dashboard.
+「ウェブアプリケーション」を選択します。「承認済みのリダイレクトURI（Authorized redirect URIs）」セクションに`https://<自身のを参照>.supabase.co/auth/v1/callback`を追加します。SupabaseのURLは、Supabaseのダッシュボード内のSettings → APIで確認できます。
 
 ![Add your redirect URI](/img/auth-5-6.png)
 
-Now you can grab the client ID and secret from the pop up, and insert them into the google section inside the Supabase dashboard in Auth > Settings:
+ポップアップからクライアントID（Your Client ID）とシークレット（Your Client Secret）を取得します。SupabaseダッシュボードのAuth → Settingsにあるgoogleセクションへ挿入します。
 
 ![take client id and secret](/img/auth-5-7.png)
 
 ![insert client id and secret into supabase dashboard in auth > auth](/img/auth-5-8.png)
 
-Hit save. Now you should be able to navigate in the browser to:
+保存します。これで、ブラウザーで以下の場所へ移動できるようになります。
 
 ```
-https://<your-ref>.supabase.co/auth/v1/authorize?provider=google
+https://<自身のを参照>.supabase.co/auth/v1/authorize?provider=google
 ```
 
-And log in to your service using any google or gmail account.
+そして、googleやgmailのアカウントを使って、あなたのサービスにログインしてください。
 
-You can additionally add a query parameter `redirect_to=` to the end of the URL for example:
-
-```
-https://<your-ref>.supabase.co/auth/v1/authorize?provider=google&redirect_to=http://localhost:3000/welcome
-```
-
-But make sure any URL you enter here is on the same host as the site url that you have entered on the Auth > Settings page on the Supabase dashboard. (There is additional functionality coming soon, where you'll be able to add additional URLs to the allow list).
-
-If you want to redirect the user to a specific page in your website or app after a successful authentication.
-
-You also have the option of requesting additional scopes from the oauth provider. Let's say for example you want the ability to send emails on behalf of the user's gmail account. You can do this by adding the query parameter `scopes`, like:
+例えば、URLの最後に`redirect_to=`というクエリパラメーターを追加できます。
 
 ```
-https://<your-ref>.supabase.co/auth/v1/authorize?provider=google&https://www.googleapis.com/auth/gmail.send
+https://<自身のを参照>.supabase.co/auth/v1/authorize?provider=google&redirect_to=http://localhost:3000/welcome
 ```
 
-Note however that your app will usually have to be verified by Google before you can request advanced scopes such as this.
+SupabaseダッシュボードのAuth → Settingsページで入力したサイトURLを確認してください。ここで入力したURLが、同じホスト上にある必要があります（近日中に、許可リストへさらにURLを追加できる機能が追加される予定です）。
 
-The only thing left to implement is the UI, but if you prefer to use something pre-built, we have a handy [Auth Widget](https://github.com/supabase/ui/#using-supabase-ui-auth), where you can enable/disable whichever auth providers you want to support.
+認証に成功した後、ユーザーをウェブサイトやアプリ内の特定のページにリダイレクトできます。
 
-For any support please get in touch at beta at supabase.io or for feature requests open an issue in the [backend](https://github.com/supabase/gotrue) or [frontend](https://github.com/supabase/gotrue-js) repos.
+また、oauthプロバイダーに追加のスコープを要求できます。例えば、ユーザーのgmailアカウントに代わってメールを送信する機能が必要な場合、次のようなクエリパラメータの`scopes`を追加することで実現できます。
 
-### Resources
+```
+https://<自身のを参照>.supabase.co/auth/v1/authorize?provider=google&https://www.googleapis.com/auth/gmail.send
+```
 
-- JWT debugger: https://jwt.io/​
+ただし、このような高度なスコープを要求するには、通常、アプリケーションをGoogleに認証してもらう必要があることに注意してください。
 
-### Next steps
+あとはUIを実装するだけですが、あらかじめ用意されているものを使いたい場合は、便利な[認証ウィジェット](https://github.com/supabase/ui/#using-supabase-ui-auth)を用意していますので、サポートしたい認証プロバイダーを有効/無効にしたりできます。
 
-- Watch [Part One: JWTs](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)
-- Watch [Part Two: Row Level Security](/docs/learn/auth-deep-dive/auth-row-level-security)
-- Watch [Part Three: Policies](/docs/learn/auth-deep-dive/auth-policies)
-- Watch [Part Four: GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)
-<!-- - Watch [Part Five: Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth) -->
-- Sign up for Supabase: [app.supabase.io](https://app.supabase.io)
+サポートが必要な場合は、beta at supabase.ioまでご連絡ください。また、機能リクエストについては、[バックエンド](https://github.com/supabase/gotrue)または[フロントエンド](https://github.com/supabase/gotrue-js)のリポジトリーでissueを開いてください。
+
+### リソース
+
+- JWTデバッガー：https://jwt.io/
+
+### 次のステップ
+- [パート1：JWT](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)をみる
+- [パート2：行レベルセキュリティー](/docs/learn/auth-deep-dive/auth-row-level-security)をみる
+- [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)をみる
+- [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)をみる
+<!-- - [パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)をみる -->
+- Supabaseにサインアップ：[app.supabase.io](https://app.supabase.io)
