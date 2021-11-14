@@ -168,7 +168,7 @@ module.exports = {
         },
         {
           type: 'category',
-          label: 'Deep Dive',
+          label: '詳細',
           collapsed: true,
           items: [
             'learn/auth-deep-dive/auth-deep-dive-jwts',
