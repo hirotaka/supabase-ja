@@ -1,7 +1,7 @@
 ---
 id: auth-gotrue
 title: 'パート4：GoTrue'
-description: 'Supabase Auth詳細 パート4：Gotrue概要'
+description: 'Supabase Auth詳細：パート4 - Gotrue概要'
 ---
 
 ### 概要
@@ -22,7 +22,7 @@ Supabaseプロジェクトをデプロイすると、このサーバーの新し
 
 ```bash
 # <project-ref> を自身のプロジェクトで置き換えてください
-# SUPABASE_KEYには自身のanon apiキーを入力してください。
+# SUPABASE_KEYには自身の匿名apiキー（anon api key）を入力してください。
 curl -X POST 'https://<project-ref>.supabase.co/auth/v1/magiclink' \
 -H "apikey: SUPABASE_KEY" \
 -H "Content-Type: application/json" \

@@ -1,7 +1,7 @@
 ---
 id: auth-deep-dive-jwts
 title: 'パート1：JWT'
-description: Supabase Authを深く学ぶ パート1 - JWT
+description: Supabase Auth詳細：パート1 - JWT
 ---
 
 ### 概要
@@ -12,9 +12,9 @@ JWTの紹介とSupabase Authでの使われ方を解説します。
 
 <iframe className="w-full video-with-border" width="640" height="385" src="https://www.youtube-nocookie.com/embed/v3Exg5YpJvE" frameBorder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
-### JSON Web Tokens (JWTs)とは
+### JSON Web Tokens (JWTs) とは
 
-JWTは、エンコードされ、署名されたJSONオブジェクトで、文字列として送信されます。サービスやウェブサイトの利用者に配布され、利用者は後に、特定のコンテンツにアクセスする権利があることの証明として、ウェブサイトやサービスにJWTを提示できます。
+JWTは、エンコードされ、署名されたJSONオブジェクトで、文字列として送信されます。サービスやウェブサイトのユーザーに配布され、ユーザーは後に、特定のコンテンツにアクセスする権利があることの証明として、ウェブサイトやサービスにJWTを提示できます。
 
 「エンコード」や「署名」とは、具体的にどのようなことを指すのでしょうか。
 
@@ -106,13 +106,13 @@ HMACSHA256(
 
 Supabaseでは、3つの異なる目的のためにJWTを発行しています。
 
-1. `anon key`：このキーはSupabase APIゲートウェイをバイパスするために使用され、クライアント・サイドのコードで使用できます。
-2. `service role key`：このキーはスーパー・アドミン権限を持ち、行レベルセキュリティーを回避できます。このキーをクライアント・サイドのコードに入れないでください。秘密にしておいてください。
-3. `user specific jwts`：これは、あなたのプロジェクトやサービス、ウェブサイトへログインしたユーザーに発行するトークンです。これは現代のセッション・トークンに相当するもので、ユーザーは自分固有のコンテンツやパーミッションへアクセスするために使用できます。
+1. `匿名キー（anon key）`：このキーはSupabase APIゲートウェイをバイパスするために使用され、クライアント・サイドのコードで使用できます。
+2. `サービス・ロール・キー（service role key）`：このキーはスーパー・アドミン権限を持ち、行レベルセキュリティーを回避できます。このキーをクライアント・サイドのコードに入れないでください。秘密にしておいてください。
+3. `ユーザー固有のjwts`：これは、あなたのプロジェクトやサービス、ウェブサイトへログインしたユーザーに発行するトークンです。これは現代のセッション・トークンに相当するもので、ユーザーは自分固有のコンテンツやパーミッションへアクセスするために使用できます。
 
-最初のトークンである`anon key`トークンは、開発者がSupabaseのデータベースとやり取りする際に、APIリクエストと一緒に送信するためのものです。
+最初のトークンである`匿名キー`トークンは、開発者がSupabaseのデータベースとやり取りする際に、APIリクエストと一緒に送信するためのものです。
 
-例えば、`colors`テーブルのすべての行の名前（name）をselectしたいします。次のようなリクエストをします。
+例えば、`colors`テーブルのすべての行の名前（name）をselectしたいとします。次のようなリクエストをします。
 
 ```bash
 curl 'https://xscduanzzfseqszwzhcy.supabase.co/rest/v1/colors?select=name' \
@@ -129,13 +129,13 @@ curl 'https://xscduanzzfseqszwzhcy.supabase.co/rest/v1/colors?select=name' \
 }
 ```
 
-このJWTは、開発者のSupabaseトークンに固有の`jwt_secret`で署名されています。このsecretは、ダッシュボードの「Settings」→「API」ページで、エンコードされた「anon key」と一緒に確認できます。Supabase APIゲートウェイを通過して、開発者のプロジェクトへアクセスするために必要となります。
+このJWTは、開発者のSupabaseトークンに固有の`jwt_secret`で署名されています。このシークレットは、ダッシュボードの「Settings」→「API」ページで、エンコードされた「匿名キー（anon key）」と一緒に確認できます。Supabase APIゲートウェイを通過して、開発者のプロジェクトへアクセスするために必要となります。
 
 しかし、このシリーズの[パート2](/docs/learn/auth-deep-dive/auth-row-level-security)のテーマである「行レベルセキュリティー」を有効にした場合、このキーをエンドユーザーが見ても問題ないことになります。
 
-2つ目のキーである`service role key`は、自分のサーバーや環境でのみ使用し、エンドユーザーとは決して共有してはいけません。このトークンを使って、データの一括挿入などを行うことができます。
+2つ目のキーである`サービス・ロール・キー`は、自分のサーバーや環境でのみ使用し、エンドユーザーとは決して共有してはいけません。このトークンを使って、データの一括挿入などを行うことができます。
 
-`user access token`とは、例えば、次のようにAPIを呼び出したとき発行されるJWTのことです。
+`ユーザー・アクセス・トークン`とは、例えば、次のようにAPIを呼び出したとき発行されるJWTのことです。
 
 ```js
 supabase.auth.signIn({ email: 'lao.gimmie@gov.sg', password: 'They_Live_1988!' })

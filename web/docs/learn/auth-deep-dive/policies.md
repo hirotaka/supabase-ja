@@ -1,7 +1,7 @@
 ---
 id: auth-policies
 title: 'パート3：ポリシー'
-description: 'Supabase Auth詳細 パート3：ユーザー・ベースのアクセスポリシー'
+description: 'Supabase Auth詳細：パート3 - ユーザー・ベースのアクセスポリシー'
 ---
 
 ### 概要
@@ -131,7 +131,7 @@ curl 'https://sjvwsaokcugktsdaxxze.supabase.co/rest/v1/my_scores?select=*' \
 -H "Authorization: Bearer <ACCESS_TOKEN>"
 ```
 
-なお、APIゲートウェイを通過するためには、`anonキー`（または`service roleキー`）が必ず必要です。これは、`apikey`ヘッダーまたは`apikey`という名前のクエリパラメーターで渡すことができます。supabase-jsでは、インスタンス化したクライアントを使用した場合自動的に渡されます。
+なお、APIゲートウェイを通過するためには、`匿名キー（anon key）`、または`サービス・ロール・キー（service role key）`が必ず必要です。これは、`apikey`ヘッダーまたは`apikey`という名前のクエリパラメーターで渡すことができます。supabase-jsでは、インスタンス化したクライアントを使用した場合自動的に渡されます。
 
 `auth.users`テーブルとの統合に最適なスキーマの構造については、ここにもいくつかの注意点があります。
 
