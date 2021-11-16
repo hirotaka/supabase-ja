@@ -118,6 +118,8 @@ rules:
   # 一般用語
   #
   - expected: 私たちの
+    options:
+      wordBoundary: true
     pattern:
       - our
       - 我々の

@@ -159,12 +159,12 @@ PostgreSQLのポリシーに関する完全なドキュメントは次のURLを�
 
 - JWTデバッガー：[https://jwt.io](https://jwt.io%E2%80%8B)
 - PostgeSQLポリシー：https://www.postgresql.org/docs/12/sql-createpolicy.html
-- PostgREST行レベルセキュリティー：https://postgrest.org/en/v7.0.0/auth.html
+- PostgREST行単位セキュリティー：https://postgrest.org/en/v7.0.0/auth.html
 
 ### 次のステップ
 
 - [パート1：JWT](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)をみる
-- [パート2：行レベルセキュリティー](/docs/learn/auth-deep-dive/auth-row-level-security)をみる
+- [パート2：行単位セキュリティー](/docs/learn/auth-deep-dive/auth-row-level-security)をみる
 <!-- - [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)をみる -->
 - [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)をみる
 - [パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)をみる
