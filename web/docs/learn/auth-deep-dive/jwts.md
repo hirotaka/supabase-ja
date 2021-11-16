@@ -107,7 +107,7 @@ HMACSHA256(
 Supabaseでは、3つの異なる目的のためにJWTを発行しています。
 
 1. `匿名キー（anon key）`：このキーはSupabase APIゲートウェイをバイパスするために使用され、クライアント・サイドのコードで使用できます。
-2. `サービス・ロール・キー（service role key）`：このキーはスーパー・アドミン権限を持ち、行レベルセキュリティーを回避できます。このキーをクライアント・サイドのコードに入れないでください。秘密にしておいてください。
+2. `サービス・ロール・キー（service role key）`：このキーはスーパー・アドミン権限を持ち、行単位セキュリティーを回避できます。このキーをクライアント・サイドのコードに入れないでください。秘密にしておいてください。
 3. `ユーザー固有のjwts`：これは、あなたのプロジェクトやサービス、ウェブサイトへログインしたユーザーに発行するトークンです。これは現代のセッション・トークンに相当するもので、ユーザーは自分固有のコンテンツやパーミッションへアクセスするために使用できます。
 
 最初のトークンである`匿名キー`トークンは、開発者がSupabaseのデータベースとやり取りする際に、APIリクエストと一緒に送信するためのものです。
@@ -131,7 +131,7 @@ curl 'https://xscduanzzfseqszwzhcy.supabase.co/rest/v1/colors?select=name' \
 
 このJWTは、開発者のSupabaseトークンに固有の`jwt_secret`で署名されています。このシークレットは、ダッシュボードの「Settings」→「API」ページで、エンコードされた「匿名キー（anon key）」と一緒に確認できます。Supabase APIゲートウェイを通過して、開発者のプロジェクトへアクセスするために必要となります。
 
-しかし、このシリーズの[パート2](/docs/learn/auth-deep-dive/auth-row-level-security)のテーマである「行レベルセキュリティー」を有効にした場合、このキーをエンドユーザーが見ても問題ないことになります。
+しかし、このシリーズの[パート2](/docs/learn/auth-deep-dive/auth-row-level-security)のテーマである「行単位セキュリティー」を有効にした場合、このキーをエンドユーザーが見ても問題ないことになります。
 
 2つ目のキーである`サービス・ロール・キー`は、自分のサーバーや環境でのみ使用し、エンドユーザーとは決して共有してはいけません。このトークンを使って、データの一括挿入などを行うことができます。
 
@@ -165,7 +165,7 @@ curl 'https://xscduanzzfseqszwzhcy.supabase.co/rest/v1/colors?select=name' \
 }
 ```
 
-JWTとは何か、そしてSupabaseのどこで使われているかを解説しました。その上で、Postgresデータベースの特定のテーブル、行、列へのアクセスを制限します。そのために、行レベルセキュリティーと組み合わせてJWTを使用する方法を「[パート2：行レベルセキュリティー](/docs/learn/auth-deep-dive/auth-row-level-security)」で探ってみましょう。
+JWTとは何か、そしてSupabaseのどこで使われているかを解説しました。その上で、Postgresデータベースの特定のテーブル、行、列へのアクセスを制限します。そのために、行単位セキュリティーと組み合わせてJWTを使用する方法を「[パート2：行レベルセキュリティー](/docs/learn/auth-deep-dive/auth-row-level-security)」で探ってみましょう。
 
 ### リソース
 
@@ -176,7 +176,7 @@ JWTとは何か、そしてSupabaseのどこで使われているかを解説し
 <!-- - Watch [Part One: JWTs](/docs/learn/auth-deep-dive/auth-deep-dive-jwts) -->
 
 <!-- - [パート2：Part Two: Row Level Security](/docs/learn/auth-deep-dive/auth-row-level-security) -->
-- [パート2：行レベルセキュリティー](/docs/learn/auth-deep-dive/auth-row-level-security)
+- [パート2：行単位セキュリティー](/docs/learn/auth-deep-dive/auth-row-level-security)
 - [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)
 - [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)
 - [パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)

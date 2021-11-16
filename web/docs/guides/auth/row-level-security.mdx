@@ -1,21 +1,19 @@
 ---
 id: row-level-security
-title: Row Level Security
-description: Secure your data using Postgres Row Level Security.
+title: 行単位セキュリティー
+description: Postgresの行単位セキュリティーを使用してデータを保護します。
 ---
 
-When you need granular authorization rules, nothing beats PostgreSQL's [Row Level Security (RLS)](https://www.postgresql.org/docs/current/ddl-rowsecurity.html). 
+細かな認証ルールが必要な場合、PostgreSQLの[行単位セキュリティー（Row Level Security - RLS）](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)に勝るものはありません。
 
-[Policies](https://www.postgresql.org/docs/current/sql-createpolicy.html) are PostgreSQL's rule engine. They are incredibly powerful and flexible, allowing you to write complex SQL rules which fit your unique business needs.
+[ポリシー](https://www.postgresql.org/docs/current/sql-createpolicy.html)はPostgreSQLのルール・エンジンです。非常に強力で柔軟性があり、固有のビジネス・ニーズに合った複雑なSQLルールを書くことができます。
 
 <iframe className="w-full video-with-border" width="640" height="385" src="https://www.youtube-nocookie.com/embed/Ow_Uzedfohk" frameBorder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
 
-## Policies
+## ポリシー
 
-Policies are easy to understand once you get the hang of them. Each policy is attached to a table, and the policy is executed
-every time a table is accessed.
-You can just think of them as adding a `WHERE` clause to every query. For example a policy like this ...
+ポリシーはコツをつかめば簡単に理解できます。各ポリシーはテーブルに関連付けられており、テーブルにアクセスするたびポリシーが実行されます。ポリシーは、すべての問い合わせに`WHERE`句を追加するようなものだと考えることができます。例えば、次のようなポリシーがあります。
 
 ```sql
 create policy "Individuals can view their own todos." 
@@ -23,86 +21,86 @@ create policy "Individuals can view their own todos."
     using ( auth.uid() = user_id );
 ```
 
-.. would translate to this whenever a user tries to select from the todos table:
+これは、ユーザーがtodosテーブルから選択しようとするたびに、このように変換されます。
 
 ```sql
 select *
 from todos
-where auth.uid() = todos.user_id; -- Policy is implicitly added.
+where auth.uid() = todos.user_id; -- ポリシーが暗黙の内に追加されます。
 ```
 
-## Helper Functions 
+## ヘルパー関数
 
-Supabase provides you with a few easy functions that you can use with your policies.
+Supabaseには、ポリシーで使用できる簡単な関数がいくつか用意されています。
 
 
-### `auth.uid()` 
+### `auth.uid()`
 
-Returns the ID of the user making the request.
+リクエストを行ったユーザーのIDを返します。
 
 ### `auth.role()`
 
-Returns the role of the user making the request. In most cases this is either `authenticated` or `anon`.
+リクエストを行ったユーザーのロールを返します。ほとんどの場合、これは`authenticated`（認証済み）または`anon`（匿名）のいずれかです。
 
 ### `auth.email()`
 
-Returns the email of the user making the request.
+リクエストを行ったユーザーのメール・アドレスを返します。
 
-## Examples
+## 例
 
-Here are some examples to show you the power of PostgreSQL's RLS. 
+以下に、PostgreSQLのRLSの能力を示す例を示します。
 
-### Allow read access
+### 読み取りアクセスの許可
 
 ```sql
--- 1. Create table
+-- 1. テーブルの作成
 create table profiles (
   id uuid references auth.users,
   avatar_url text
 );
 
--- 2. Enable RLS
+-- 2. RLSを有効化
 alter table profiles
   enable row level security;
 
--- 3. Create Policy
+-- 3. ポリシーを作成
 create policy "Public profiles are viewable by everyone."
   on profiles for select using (
     true
   );
 ```
 
-1. Creates a table called `profiles` in the public schema (default schema).
-2. Enables Row Level Security.
-3. Creates a policy which allows all `select` queries to run.
+1. パブリック・スキーマ（デフォルトスキーマ）に`profiles`というテーブルを作成します。
+2. 行単位セキュリティーを有効にします。
+3. すべての`select`クエリの実行を許可するポリシーを作成します。
 
-### Restrict updates
+### 更新の制限
 
 ```sql
--- 1. Create table
+-- 1. テーブルを作成
 create table profiles (
   id uuid references auth.users,
   avatar_url text
 );
 
--- 2. Enable RLS
+-- 2. RLSを有効化
 alter table profiles
   enable row level security;
 
--- 3. Create Policy
+-- 3. ポリシーを作成
 create policy "Users can update their own profiles."
   on profiles for update using (
     auth.uid() = id
   );
 ```
 
-1. Creates a table called `profiles` in the public schema (default schema).
-2. Enables RLS.
-3. Creates a policy which allows logged in users to update their own data.
+1. パブリック・スキーマ（デフォルト・スキーマ）に`profiles`というテーブルを作成します。
+2. RLSを有効にします。
+3. ログインしたユーザーが自分のデータを更新することを許可するポリシーを作成します。
 
-### Policies with joins
+### 結合を含むポリシー
 
-Policies can even include table joins. This example shows how you can query "external" tables to build more advanced rules.
+ポリシーには、テーブルの結合を含めることもできます。この例では、より高度なルールを構築するために、「外部」のテーブルにクエリを実行する方法を示しています。
 
 ```sql
 create table teams (
@@ -110,17 +108,17 @@ create table teams (
   name text
 );
 
--- 2. Create many to many join
+-- 2. 多対多の結合を作成
 create table members (
   team_id bigint references teams,
   user_id uuid references auth.users
 );
 
--- 3. Enable RLS
+-- 3. RLSを有効化
 alter table teams
   enable row level security;
 
--- 4. Create Policy
+-- 4. ポリシーを作成
 create policy "Team members can update team details if they belong to the team."
   on teams
   for update using (
@@ -131,18 +129,18 @@ create policy "Team members can update team details if they belong to the team."
   );
 ```
 
-### Policies with security definer functions
+### security definer関数を使ったポリシー
 
-Policies can also make use of `security definer functions`. This is useful in a many-to-many relationship where you want to restrict access to the linking table. Following the `teams` and `members` example from above, this example shows how you can use security definer function in combination with a policy to control access to the `members` table.
+ポリシーには、`security definer関数`も使用できます。これは、多対多の関係で、リンク先のテーブルへのアクセスを制限したい場合に便利です。この例では、上記の`teams`と`members`の例に続いて、security definer関数をポリシーと組み合わせて使用し、`members`テーブルへのアクセスを制御する方法を示します。
 
 ```sql
--- 1. Follow example for 'Policies with joins' above
+-- 1. 上記の「結合を含むポリシー」の例に従います
 
--- 2.  Enable RLS
+-- 2. RLSを有効化
 alter table members
   enable row level security
 
--- 3.  Create security definer function
+-- 3. security definer関数を作成
 create or replace function get_teams_for_authenticated_user()
 returns setof bigint
 language sql
@@ -155,7 +153,7 @@ as $$
     where user_id = auth.uid()
 $$;
 
--- 4. Create Policy
+-- 4. ポリシーを作成
 create policy "Team members can update team members if they belong to the team."
   on members
   for all using (
@@ -166,23 +164,22 @@ create policy "Team members can update team members if they belong to the team."
 
 ```
 
-### Verifying email domains
+### メール・アドレスのドメインを検証
 
-Postgres has a function `right(string, n)` that returns the rightmost n characters of a string.
-You could use this to match staff member's email domains.
+Postgresには、文字列の右端n文字を返す関数`right(string, n)`があります。これを使用して、スタッフのメール・アドレスのドメインを照合できます。
 
 ```sql
--- 1. Create table
+-- 1. テーブルを作成
 create table leaderboard (
   id uuid references auth.users,
   high_score bigint
 );
 
--- 2. Enable RLS
+-- 2. RLSを有効化
 alter table leaderboard
   enable row level security;
 
--- 3. Create Policy
+-- 3. ポリシーを作成
 create policy "Only Blizzard staff can update leaderboard"
   on leaderboard
   for update using (
@@ -190,24 +187,24 @@ create policy "Only Blizzard staff can update leaderboard"
   );
 ```
 
-### Time to live for rows
+### 行のTTL（Time to live - 生存時間）
 
-Policies can also be used to implement TTL or time to live feature that you see in Instagram stories or Snapchat.
-In the following example, rows of `stories` table are available only if they have been created within the last 24 hours.
+InstagramのストリーズやSnapchatで見られるTTL（Time To Live）機能を実装するためにも利用できます。
+次の例では、`stories`テーブルの行は、過去24時間以内に作成された場合にのみ利用可能です。
 
 ```sql
--- 1. Create table
+-- 1. テーブルを作成
 create table if not exists stories (
   id uuid not null primary key DEFAULT uuid_generate_v4(),
   created_at timestamp with time zone default timezone('utc' :: text, now()) not null,
   content text not null
 );
 
--- 2. Enable RLS
+-- 2. RLSを有効化
 alter table stories
   enable row level security;
 
--- 3. Create Policy
+-- 3. ポリシーを作成
 create policy "Stories are live for a day"
   on stories
   for select using (
@@ -215,12 +212,11 @@ create policy "Stories are live for a day"
   );
 ```
 
-### Advanced policies
+### 高度なポリシー
 
-Use the full power of SQL to build extremely advanced rules.
+SQLの機能をフルに活用して、極めて高度なルールを構築ができます。
 
-In this example, we will create a `posts` and `comments` tables and then create a policy that depends on another policy.
-(In this case, the comments policy depends on the posts policy.)
+この例では、`posts`テーブルと`comments`テーブルを作成し、別のポリシーに依存するポリシーを作成します（この場合、commentsポリシーはpostsポリシーに依存します）。
 
 ```sql
 create table posts (
@@ -268,46 +264,44 @@ using (
 
 ## Tips
 
-### Disable realtime for private tables
+### プライベートなテーブルのリアルタイムを無効化
 
-Our realtime server doesn't provide per-user security. Until we build a more robust auth system for WebSockets, you can disable realtime functionality for any private tables. To do this, you can manage the underlying Postgres replication publication:
+私たちのリアルタイム・サーバーは、ユーザーごとのセキュリティーを提供していません。WebSocket用の、より強固な認証システムを構築するまでの間、プライベートなテーブルのリアルタイム機能を無効にできます。これを行うには、基盤となるPostgresレプリケーションのパブリケーションによって制御します。
 
 ```sql
 /**
- * REALTIME SUBSCRIPTIONS
- * Only allow realtime listening on public tables.
+ * リアルタイム・サブスクリプション
+ * 公開されたテーブルでのみ、リアルタイムでのリスニングを許可する。
  */
 
 begin;
-  -- remove the realtime publication
+  -- リアルタイムのパブリケーションを削除
   drop publication if exists supabase_realtime;
 
-  -- re-create the publication but don't enable it for any tables
+  -- パブリケーションを再作成しますが、どのテーブルに対しても有効にしません
   create publication supabase_realtime;
 commit;
 
--- add a table to the publication
+-- パブリケーションにテーブルを追加
 alter publication supabase_realtime add table products;
 
--- add other tables to the publication
+-- パブリケーションに他のテーブルを追加
 alter publication supabase_realtime add table posts;
 ```
 
-We're in the process of building [enhanced realtime security](https://github.com/supabase/walrus).
+私たちは、[強化したリアルタイムのセキュリティ](https://github.com/supabase/walrus)を実装しているところです。
 
-### You don't have to use policies 
+### ポリシーを使用する必要はありません
 
-You can also put your authorization rules in your middleware, similar to how you would create security rules with any other `backend <-> middleware <-> frontend` architecture.
+他の`バックエンド <-> ミドルウェア <-> フロントエンド`のアーキテクチャでセキュリティ・ルールを作成するのと同じように、ミドルウェアに認証ルールを置くこともできます。
 
-Policies are a tool. In the case of "serverless/Jamstack" setups, they are especially effective because you don't have to deploy any middleware at all.
+ポリシーはツールです。「サーバーレス/Jamstack」による構成の場合は、ミドルウェアを一切導入する必要がないので、特に効果的です。
 
-However, if you want to use another authorization method for your applications, that's also fine. Supabase is "just Postgres", so if your application 
-works with Postgres, then it also works with Supabase. 
+しかし、アプリケーションに別の認証方法を使用したい場合は、それも問題ありません。Supabaseは「単なるPostgres」ですので、Postgresで動作するアプリケーションであれば、Supabaseでも動作します。
 
-Tip: Make sure to enable RLS for all your tables, so that your tables are inaccessible. Then use the "Service" which we provide, which is designed to bypass RLS.
+Tips：すべてのテーブルに対してRLSを有効化して、テーブルへアクセスできないようにしてください。その上で、RLSをバイパスするように設計された私たちの「サービス」をご利用ください。
 
 
-### Never use a service key on the client
+### クライアントでサービス・キーを使用しない
 
-Supabase provides special "Service" keys, which can be used to bypass all RLS. 
-These should never be used in the browser or exposed to customers, but they are useful for administrative tasks.
+Supabaseは、RLSを回避するための特別な「サービス」キーを提供しています。これらのキーは、決してブラウザーで使用したり、ユーザーに公開したりしてはいけませんが、管理作業には便利です。

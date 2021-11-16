@@ -9,10 +9,12 @@ docs/guides.md
 docs/guides/auth/auth-apple.mdx
 docs/guides/auth/auth-bitbucket.mdx
 docs/guides/auth/auth-discord.mdx
+docs/guides/auth/auth-email.mdx
 docs/guides/auth/auth-facebook.mdx
 docs/guides/auth/auth-github.mdx
 docs/guides/auth/auth-gitlab.mdx
 docs/guides/auth/auth-google.mdx
+docs/guides/auth/auth-magic-link.mdx
 docs/guides/auth/auth-messagebird.mdx
 docs/guides/auth/auth-slack.mdx
 docs/guides/auth/auth-spotify.mdx
@@ -21,7 +23,6 @@ docs/guides/auth/auth-twitch.mdx
 docs/guides/auth/auth-twitter.mdx
 docs/guides/auth/intro.mdx
 docs/guides/auth/managing-user-data.mdx
-docs/guides/auth/row-level-security.mdx
 docs/guides/client-libraries.mdx
 docs/guides/database/arrays.mdx
 docs/guides/database/connecting/connecting-to-postgres.mdx

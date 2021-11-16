@@ -84,7 +84,7 @@ https://<自身のを参照>.supabase.co/auth/v1/authorize?provider=google&https
 
 ### 次のステップ
 - [パート1：JWT](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)をみる
-- [パート2：行レベルセキュリティー](/docs/learn/auth-deep-dive/auth-row-level-security)をみる
+- [パート2：行単位セキュリティー](/docs/learn/auth-deep-dive/auth-row-level-security)をみる
 - [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)をみる
 - [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)をみる
 <!-- - [パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)をみる -->
