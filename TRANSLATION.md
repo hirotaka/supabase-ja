@@ -33,6 +33,8 @@
 - 技術文書向けの[textlintルールのプリセット](https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing)に従います。
 - JTFの[スタイルガイド](https://www.jtf.jp/tips/translation_quality_guidelines)に準拠します。textlintの[ルール](https://github.com/textlint-ja/textlint-rule-preset-JTF-style)がはいっておりすべてのチェックが有効になっています。
 - ルールが厳しかったり、他のオープンソースプロジェクトの翻訳で採用しているスタイルと異なる事も多々あるので、随時調整してきます。何か提案がありましたら、[Discussion](https://github.com/hirotaka/supabase-ja/discussions)に投稿してください。
+- PostgreSQLの用語は日本PostgreSQLユーザ会の翻訳ドキュメントに従います。ただし、カタカナ語の語尾の長音はJTFのルールを優先しています。
+  https://www.postgresql.jp/
 
 ### 用語の統一
 

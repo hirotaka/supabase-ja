@@ -1,5 +1,8 @@
 version: 1
 rules:
+  #
+  # Supabase関連
+  #
   - expected: Supabase
     pattern:
       - /supabase(.)?/
@@ -11,15 +14,6 @@ rules:
        to: supabase-js
      - from: supabase
        to: Supabase
-
-  - expected: Postgres
-    pattern:
-      - postgre
-
-  - expected: Firebase
-    pattern:
-      - firebase
-      - ファイアーベース
 
   # 製品名として使われる場合はこのまま
   - expected: Supabase Storage
@@ -62,11 +56,47 @@ rules:
       # 上記のプロジェクト名の場合とコンフリクトするのでコメントアウト
       # - Realtime
 
-  - expected: 行レベルセキュリティー
+  - expected: パブリック・スキーマ
+    pattern:
+      - public schema
+      - /公開・スキーマ/
+
+  - expected: パブリック・テーブル
+    pattern:
+      - public table
+      - /公開・テーブル/
+
+  - expected: プライベート
+    pattern:
+      - 非公開
+
+  #
+  # PotgreSQL関連用語
+  # https://github.com/pgsql-jp/taiyaku
+  #
+  - expected: 行単位セキュリティー
     pattern:
       - Row Level Security
       - ロウレベルセキュリティー
       - ロウ・レベル・セキュリティー
+      - 行レベルセキュリティー
+
+  - expected: 結合
+    pattern:
+      - join
+      - ジョイン
+
+  #
+  # 技術系用語
+  #
+  - expected: Postgres
+    pattern:
+      - postgre
+
+  - expected: Firebase
+    pattern:
+      - firebase
+      - ファイアーベース
 
   - expected: バケット
     options:
@@ -80,13 +110,17 @@ rules:
     pattern:
       - エクセル
 
-  - expected: パブリック・テーブル
-    pattern: /公開・テーブル/
-
-  - expected: プライベート
-    pattern:
-      - 非公開
-
   - expected: RESTful API
     pattern:
       - レストフルAPI
+
+  #
+  # 一般用語
+  #
+  - expected: 私たちの
+    pattern:
+      - our
+      - 我々の
+      - われわれの
+      - 私達の
+
