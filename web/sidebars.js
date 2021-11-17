@@ -164,7 +164,7 @@ module.exports = {
         },
         {
           type: 'category',
-          label: 'Authorization',
+          label: '権限',
           collapsed: true,
           items: ['guides/auth/row-level-security', 'guides/auth/managing-user-data'],
         },

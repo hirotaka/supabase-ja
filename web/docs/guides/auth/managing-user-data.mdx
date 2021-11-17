@@ -1,18 +1,18 @@
 ---
 id: managing-user-data
-title: Managing User Data
-description: Securing your user data with Row Level Security.
+title: ユーザーのデータを扱う
+description: 行単位セキュリティーでユーザーのデータをセキュアにする。
 ---
 
-For security purposes, the `auth` schema is not exposed on the auto-generated API. 
+セキュリティー上の理由から、`auth`スキーマは自動生成されたAPIでは公開されません。
 
-Even though Supabase provides an `auth.users` table, it can be helpful to create tables in the `public` schema for storing user data that you want to access via the API.
+Supabaseは`auth.users`テーブルを提供していますが、APIを介してアクセスしたいユーザーのデータを保存するために、`public`スキーマにテーブルを作成すると便利です。
 
-## Creating user tables
+## ユーザー・テーブルの作成
 
-When you create tables to store user data, it's helpful to reference the `auth.users` table in the primary key. This ensures data integrity.
+ユーザーのデータを格納するテーブルを作成する際には、主キーに`auth.users`テーブルを参照すると便利です。これにより、データの整合性が確保されます。
 
-For example, a `public.profiles` table might look like this:
+たとえば、`public.profiles`テーブルは次のようになります。
 
 ```sql
 create table public.profiles (
@@ -27,10 +27,9 @@ alter table public.profiles enable row level security;
 ```
 
 
-## Public access
+## パブリック・アクセス
 
-Since Row Level Security is enabled, this table is accessible via the API but no data will be returned unless we set up some Policies. 
-If we wanted the data to be _readable_ by everyone but only allow logged-in users to update their own data, the Policies would look like this:
+行単位セキュリティーが有効になっているので、このテーブルはAPIでアクセスできますが、ポリシーを設定しない限りデータは返されません。データは誰でも_読める_が、ログインしたユーザーだけが自分のデータを更新できるようにしたい場合、ポリシーは次のようになります。
 
 ```sql
 create policy "Public profiles are viewable by everyone."
@@ -46,9 +45,9 @@ create policy "Users can update own profile."
   using ( auth.uid() = id );
 ```
 
-## Private access
+## プライベート・アクセス
 
-If the data should only be _readable_ by the user who owns the data, we just need to change the `for select` query above.
+データを所有しているユーザーだけがデータを_読める_ようにしたい場合は、上記の`for select`クエリを変更する必要があります。
 
 ```sql
 create policy "Profiles are viewable by users who created them."
@@ -56,40 +55,39 @@ create policy "Profiles are viewable by users who created them."
   using ( auth.uid() = id );
 ```
 
-The nice thing about this pattern? We can now query this table via the API and we don't need to include data filters in our API queries - the Policies will handle that for us:
+このパターンの良いところは、APIを使ってこのテーブルを照会できるようになったことと、APIのクエリにデータの検索条件を含める必要がないことです。ポリシーが処理してくれます。
 
 ```js
-// This will return nothing while the user is logged out
+// これは、ユーザーがログアウトしている間は何も返しません
 const { data } = await supabase
   .from('profiles')
   .select('id, username, avatar_url, website')
 
-// After the user is logged in, this will only return 
-// the logged-in user's data - in this case a single row
+// ユーザーがログインした後、これはログインユーザのデータを
+// 返します。この場合は1行だけ返します。
 const { error } = await supabase.auth.signIn({ email })
 const { data: profile } = await supabase
   .from('profiles')
   .select('id, username, avatar_url, website')
 ```
 
-## Bypassing Row Level Security 
+## 行単位セキュリティーを回避する
 
-If you need to fetch a full list of user profiles, we supply a `service_key` which you can use with your API and Client Libraries to bypass Row Level Security. 
+ユーザー・プロフィールの全リストを取得する必要がある場合は、APIやクライアント・ライブラリーで使用できる`service_key`を提供していますので、行単位セキュリティーを回避できます。
 
-Make sure you _NEVER_ expose this publicly. But it can be used on the server-side to fetch all of the profiles.
+このキーは_絶対_公開しないようにしてください。しかし、このキーはサーバー・サイドですべてのプロフィールを取得するために使用できます。
 
 
-## Advanced techniques
+## 高度なテクニック
 
-### Using triggers
+### トリガーの使用
 
-If you want to add a row to your `public.profiles` table every time a user signs up, you can use triggers. 
-If the trigger fails however, it could block the user sign ups - so make sure that the code is well-tested.
+ユーザーがサインアップするたび`public.profiles`テーブルに行を追加したい場合、トリガーを使用できます。しかし、トリガーが失敗すると、ユーザーのサイン・アップもブロックされる可能性があります。
 
-For example:
+例えば、以下のようになります。
 
 ```sql
--- inserts a row into public.users
+-- public.usersに一行追加
 create function public.handle_new_user() 
 returns trigger 
 language plpgsql 
@@ -102,7 +100,7 @@ begin
 end;
 $$;
 
--- trigger the function every time a user is created
+-- ユーザーが作成される度に関数をトリガーする
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute procedure public.handle_new_user();
