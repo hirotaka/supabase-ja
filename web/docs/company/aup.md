@@ -1,6 +1,6 @@
 ---
 id: aup
-title: Acceptable Use Policy
+title: 利用規程
 ---
 
 `Last Modified: 15 April 2021`
