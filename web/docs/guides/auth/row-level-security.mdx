@@ -129,6 +129,8 @@ create policy "Team members can update team details if they belong to the team."
   );
 ```
 
+**注意：** RLSが_members_に対しても有効な場合、ユーザーは_members_に対する読み取り（_select_）アクセス権も持っていなければなりません。そうでなければ、結合されたクエリは何の結果も得られません。
+
 ### security definer関数を使ったポリシー
 
 ポリシーには、`security definer関数`も使用できます。これは、多対多の関係で、リンク先のテーブルへのアクセスを制限したい場合に便利です。この例では、上記の`teams`と`members`の例に続いて、security definer関数をポリシーと組み合わせて使用し、`members`テーブルへのアクセスを制御する方法を示します。
