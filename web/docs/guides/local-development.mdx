@@ -1,56 +1,55 @@
 ---
 id: local-development
-title: Local Development
+title: ローカル開発環境
 description: How to use Supabase on your local development machine.
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Supabase provides a CLI so that you can develop your application locally, rather than connecting to a live project.
+SupabaseはCLIを提供しているので、ライブプロジェクトに接続するのではなく、ローカルでアプリケーションを開発できます。
 
-## Before you begin
+## 始める前に
 
-If you're using the CLI, please record your steps! You can help us improve by adding missing details and fixing errors. 
+CLIを使用している場合は、手順を記録してください。不足している詳細を追加したり、エラーを修正したりすることで、改善に役立てることができます。
 
-Our CLI is still under heavy development, and is missing some features:
+私たちのCLIはまだ重度の開発中であり、いくつかの機能が欠けています。
 
-- The self-hosted version of Supabase does not include a UI yet.
-We are working on this in stages, starting with our [UI library](https://github.com/supabase/ui) 
-([more context](https://github.com/supabase/supabase/discussions/1001#discussioncomment-558696)).
+- Supabaseのセルフホスト版には、まだUIが含まれていません。
+私たちは、[UIライブラリ](https://github.com/supabase/ui)[（詳細はこちら）](https://github.com/supabase/supabase/discussions/1001#discussioncomment-558696)から段階的に取り組んでいます。
 
-In the meantime, here are some suggested tools for interacting with your Postgres Database:
+それまでの間、Postgresデータベースを操作するための推奨ツールをいくつか紹介します。
 
-- `pgadmin`: https://www.pgadmin.org 
-- `dbeaver`: https://dbeaver.com 
-- `BeeKeeper`: https://beekeeperstudio.io
-- `HeidiSQL`: https://heidisql.com
-- `Table Plus`: https://www.tableplus.io
+- `pgadmin:` <https://www.pgadmin.org>
+- `dbeaver:` <https://dbeaver.com>
+- `BeeKeeper:` <https://beekeeperstudio.io>
+- `HeidiSQL:` <https://heidisql.com>
+- `Table Plus:` <https://www.tableplus.io>
 
-## Prerequisites
+## 前提条件
 
-You will need to have these in your environment:
+お使いの環境に以下のものが必要です。
 - Git
-- Docker (make sure the daemon is up and running)
-- Supabase CLI (instructions [here](https://github.com/supabase/cli))
+- Docker（デーモンが起動していることを確認してください）
+- Supabase CLI (手順は[こちら](https://github.com/supabase/cli))
 
-## Initialize your project
+## プロジェクトの初期化
 
 ```bash
 supabase init
 ```
 
-This command will create a `supabase` folder which holds all the configuration for developing your project locally.
+このコマンドを実行すると、ローカルでプロジェクトを開発するためのすべての設定を保持する`supabase`フォルダーが作成されます。
 
-## Start
+## 開始
 
 ```bash
 supabase start
 ```
 
-This command uses Docker Compose to start all the open source [services](/docs/#how-it-works) of Supabase. This command will take a while to run, there are a lot of services to build.
+このコマンドはDocker Composeを使用して、Supabaseのすべてのオープンソース[サービス](/docs/#how-it-works)を開始します。このコマンドは、構築するサービスが多いため、実行に時間がかかります。
 
-Once this is running, you will see an output that contains your local Supabase credentials:
+このコマンドが実行されると、ローカルのSupabaseの認証情報を含む出力が表示されます。
 
 ```txt
 Started local development setup.
@@ -60,8 +59,9 @@ anon key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiJ9.ZopqoUt20nEV
 service_role key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIn0.M2d2z4SFn5C7HlJlaSLfrzuYim9nbY_XI40uWFN3hEE
 ```
 
-#### Accessing Services Directly
+#### サービスに直接アクセスする
 
+<!-- textlint-disable -->
 
 <Tabs
 defaultValue="Postgres"
@@ -71,15 +71,16 @@ values={[
 ]}>
 <TabItem value="Postgres">
 
+<!-- textlint-enable -->
+
 ```sh
 # Default URL:
 postgresql://postgres:postgres@localhost:5432/postgres
 ```
 
-The local Postgres instance can be accessed through [`psql`](https://www.postgresql.org/docs/current/app-psql.html) 
-or any other Postgres client, such as [pgadmin](https://www.pgadmin.org/).
+ローカルのPostgresインスタンスは、[pgadmin](https://www.pgadmin.org/) などの他のPostgresクライアントである[`psqlor`](https://www.postgresql.org/docs/current/app-psql.html)からアクセスできます。
 
-For example:
+例えば、以下のようになります。
 
 ```bash
 psql 'postgresql://postgres:postgres@localhost:5432/postgres'
@@ -93,9 +94,7 @@ psql 'postgresql://postgres:postgres@localhost:5432/postgres'
 http://localhost:54321
 ```
 
-All of the services are accessible through the API Gateway [Kong](https://github.com/Kong/kong)). 
-If you are accessing these services without the client libraries, you may need to pass the client keys as an `Authorization` header. 
-You can learn more about these JWT headers in our [Resources](/docs/learn/auth-deep-dive/auth-deep-dive-jwts).
+すべてのサービスは、API Gateway[Kong](https://github.com/Kong/kong)）を介してアクセス可能です。クライアントライブラリーを使用せずにこれらのサービスにアクセスする場合は、`Authorization`ヘッダーとしてクライアントキーを渡す必要ある場合があります。これらのJWTヘッダーの詳細については、[Resources](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)を参照してください。
 
 ```sh
 curl 'http://localhost:54321/rest/v1/' \
@@ -113,10 +112,9 @@ http://localhost:54321/v1/auth/v1/           # Auth (GoTrue)
 </Tabs>
 
 
-## Example application
+## アプリケーション例
 
-Now that we've learned how to install and start Supabase locally, let's see how you can use it with a frontend application. 
-This quick-start guide will show you, how you can configure a React app which uses the Supabase stack.
+Supabaseをローカルにインストールして起動する方法を学んだところで、フロントエンドアプリケーションでの使用方法を見てみましょう。このクイックスタートガイドでは、Supabaseスタックを使用するReactアプリケーションをどのように構成するかを説明します。
 
 ```bash
 # create a fresh React app
@@ -132,13 +130,13 @@ supabase init
 npm install --save @supabase/supabase-js
 ```
 
-Now that your application is prepared, start the backend:
+アプリケーションの準備ができたら、バックエンドを起動します。
 
 ```bash
 supabase start  # Start Supabase
 ```
 
-You can use Supabase anywhere in your application. Copy this snippet into `App.js`:
+Supabaseは、アプリケーションのどこでも使用できます。以下のスニペットを`App.`jsにコピーしてください。
 
 ```js
 import { createClient } from '@supabase/supabase-js'
@@ -149,24 +147,24 @@ const SUPABASE_ANON_KEY = '<your anon key>'
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 ```
 
-Then start the frontend in a separate terminal:
+次に、別の端末でフロントエンドを起動します。
 
 ```bash
 npm start       # Start the React app
 ```
 
-If everything is working, you should have a React app running on `http://localhost:3000` and Supabase services running on `http://localhost:54321`
+問題がなければ、`http://localhost:3000`上でReactアプリが動作し、`http://localhost:54321`上でSupabaseサービスが動作しているはずです。
 
-## Stop
+## 終了
 
-When you're finished with Supabase, send <kbd>Ctrl-C</kbd> to stop the Docker services.
+Supabaseを使い終わったら、`Ctrl-C`を押してDockerサービスを停止します。
 
-## Migrations
+## マイグレーション
 
-You can also use the CLI to manage your migrations. Follow the the tour [here](https://github.com/supabase/cli/tree/main/examples/tour) to get started.
+CLIを使ってマイグレーションを管理できます。[こちらの](https://github.com/supabase/cli/tree/main/examples/tour)ツアーに沿って始めてみましょう。
 
-## Next steps
+## 次のステップ
 
-- Got a question? [Ask here](https://github.com/supabase/supabase/discussions).
-- CLI repository: [GitHub](https://github.com/supabase/cli).
-- Sign in: [app.supabase.io](https://app.supabase.io)
+- 質問がある場合は[ここで質問して](https://github.com/supabase/supabase/discussions)ください
+- CLIのリポジトリーです。[GitHub](https://github.com/supabase/cli)にあります
+- サインイン：[app.supabase.io](https://app.supabase.io)
