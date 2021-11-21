@@ -39,7 +39,7 @@ module.exports = {
   docs: [
     {
       type: 'category',
-      label: 'Overview',
+      label: '概要',
       items: [
         'about',
         'architecture',
@@ -53,7 +53,7 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Tutorials',
+      label: 'チュートリアル',
       collapsed: false,
       items: [
         'guides/with-angular',
@@ -67,7 +67,7 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'See Also',
+      label: '関連情報',
       collapsed: false,
       items: [
         'faq',
@@ -83,7 +83,7 @@ module.exports = {
   guides: [
     {
       type: 'category',
-      label: 'Guides',
+      label: 'ガイド',
       items: ['guides', 'guides/local-development'],
       collapsed: false,
     },
@@ -101,7 +101,7 @@ module.exports = {
         // 'guides/database/sql-to-api',
         {
           type: 'category',
-          label: 'Extensions',
+          label: '拡張',
           collapsed: true,
           items: [
             'guides/database/extensions',
@@ -113,7 +113,7 @@ module.exports = {
         },
         {
           type: 'category',
-          label: 'Connecting to Postgres',
+          label: 'Postgresに接続',
           collapsed: true,
           items: [
             'guides/database/connecting/connecting-to-postgres',
@@ -123,7 +123,7 @@ module.exports = {
         },
         {
           type: 'category',
-          label: 'Configuration',
+          label: '設定',
           collapsed: true,
           items: [
             'guides/database/timeouts',
@@ -142,7 +142,7 @@ module.exports = {
         'guides/auth/intro',
         {
           type: 'category',
-          label: 'Authentication',
+          label: '認証',
           collapsed: true,
           items: [
             'guides/auth/auth-email',
@@ -190,7 +190,7 @@ module.exports = {
     // },
     {
       type: 'category',
-      label: 'Self Hosting',
+      label: 'セルフ・ホスティング',
       collapsed: false,
       items: ['guides/hosting/overview', 'guides/hosting/platform', 'guides/hosting/docker'],
     },

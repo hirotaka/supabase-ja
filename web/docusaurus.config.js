@@ -56,26 +56,26 @@ module.exports = {
       },
       items: [
         {
-          label: 'Overview',
+          label: '概要',
           to: '/',
           activeBaseRegex:
             '.*.docs/$|^/docs/architecture|(^/docs/guides/(database|auth|storage|api|examples!))|(^/docs/guides/(examples|with-angular|with-flutter|with-nextjs|with-react|with-redwoodjs|with-svelte|with-vue-3)|^/docs/faq|^/docs/going-into-prod|^/docs/handbook|^/docs/company)',
           position: 'left',
         },
         {
-          label: 'Guides',
+          label: 'ガイド',
           to: '/docs/guides',
           activeBaseRegex:
             '(^/docs/guides/database/|^/docs/guides/auth/)|(/docs/guides$)|docs/(resources|learn)',
           position: 'left',
         },
         {
-          label: 'Reference',
+          label: 'リファレンス',
           to: '/docs/reference/javascript/supabase-client',
           activeBasePath: '/docs/reference/',
           position: 'left',
         },
-        { href: 'https://app.supabase.io', label: 'Login', position: 'left' },
+        { href: 'https://app.supabase.io', label: 'ログイン', position: 'left' },
         {
           href: 'https://github.com/supabase/supabase',
           className: 'navbar-item-github',
@@ -98,14 +98,14 @@ module.exports = {
     footer: {
       links: [
         {
-          title: 'Company',
+          title: '会社',
           items: [
             {
-              label: 'Blog',
+              label: 'ブログ',
               to: 'https://supabase.com/blog',
             },
             {
-              label: 'Open source',
+              label: 'オープンソース',
               to: '/oss',
             },
             {
@@ -119,32 +119,32 @@ module.exports = {
           ],
         },
         {
-          title: 'Resources',
+          title: 'リソース',
           items: [
             {
-              label: 'Brand Assets',
+              label: 'ブランド・アセット',
               to: 'https://supabase.com/brand-assets',
             },
             {
-              label: 'Docs',
+              label: 'ドキュメント',
               to: '/',
             },
             {
-              label: 'Pricing',
+              label: '料金',
               to: 'https://supabase.com/pricing',
             },
             {
-              label: 'Support',
+              label: 'サポート',
               to: '/support',
             },
             {
-              label: 'System Status',
+              label: 'システム・スタータス',
               to: 'https://status.supabase.com/',
             },
           ],
         },
         {
-          title: 'Community',
+          title: 'コミュニティー',
           items: [
             {
               label: 'GitHub',
@@ -169,10 +169,10 @@ module.exports = {
           ],
         },
         {
-          title: 'Beta',
+          title: 'ベータ',
           items: [
             {
-              label: 'Join our beta',
+              label: 'ベータ版に参加',
               href: 'https://app.supabase.io',
             },
           ],
