@@ -1,6 +1,6 @@
 ---
 id: privacy
-title: Privacy Policy
+title: プリバシーポリシー
 ---
 
 `Last modified: 27 March 2021`

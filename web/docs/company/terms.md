@@ -1,6 +1,6 @@
 ---
 id: terms
-title: Terms of Service
+title: サービス利用規約
 ---
 
 `Last Modified: 20 November 2020`
