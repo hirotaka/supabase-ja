@@ -1,19 +1,19 @@
 ---
 id: guides
-title: Overview
+title: 概要
 description: Common task
 hide_title: true
 ---
 
-## Guides
+## ガイド
 
-### Database
+### データベース
 
-These guides help you unleash the power of PostgreSQL, the world's most advanced open source database.
+これらのガイドは、世界で最も先進的なオープンソースデータベースであるPostgreSQLのパワーを引き出すのに役立ちます。
 
-### Auth
+### 認証
 
-Authenticating users isn't the most exciting job for most developers, so Supabase makes it quick and simple, while maintaining security and performance.
+Supabaseは、セキュリティとパフォーマンスを維持しつつ、迅速かつ簡単にユーザーを認証します。
 
 <!--
 <a className="card" href="/docs/guides/database" style={{marginBottom: 10}}>
