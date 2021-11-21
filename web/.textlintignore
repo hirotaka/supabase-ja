@@ -42,7 +42,6 @@ docs/guides/hosting/docker.mdx
 docs/guides/hosting/overview.mdx
 docs/guides/hosting/platform.mdx
 docs/guides/local-development.mdx
-docs/handbook/supasquad.mdx
 docs/postgres/server/about.md
 docs/postgres/server/digitalocean.md
 docs/postgres/server/docker.md
