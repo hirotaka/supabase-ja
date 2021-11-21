@@ -3,7 +3,6 @@ docs/company/aup.md
 docs/company/privacy.md
 docs/company/terms.md
 docs/gotrue/server/about.md
-docs/guides.md
 docs/guides/auth/auth-apple.mdx
 docs/guides/auth/auth-bitbucket.mdx
 docs/guides/auth/auth-discord.mdx
@@ -41,7 +40,6 @@ docs/guides/database/timeouts.mdx
 docs/guides/hosting/docker.mdx
 docs/guides/hosting/overview.mdx
 docs/guides/hosting/platform.mdx
-docs/guides/local-development.mdx
 docs/postgres/server/about.md
 docs/postgres/server/digitalocean.md
 docs/postgres/server/docker.md
