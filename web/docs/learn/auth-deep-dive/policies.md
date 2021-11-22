@@ -16,7 +16,11 @@ description: 'Supabase Auth詳細：パート3 - ユーザー・ベースのア�
 
 JWTロールに基づいてテーブルへのアクセスを制限する方法がわかったので、これをユーザー管理と組み合わせて、ユーザーがデータベースに読み書きできるデータをより詳細に制御ができます。
 
+<<<<<<< HEAD
 ここでは、Supabaseでのユーザー・セッションの仕組みを説明し、その後、ユーザー中心のポリシーの作成に移ります。
+=======
+We'll start with how user sessions work in Supabase, and later move on to writing user-centric policies.
+>>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 
 例えば、あるユーザーが初めて私たちのサービスに登録するとしましょう。一般的には、supabase-jsで以下のようなメソッドを実行します。
 
@@ -70,10 +74,16 @@ http://localhost:3000/
 }
 ```
 
+<<<<<<< HEAD
 `authenticated`ロールはSupabaseでは特別なもので、APIに認証されたユーザーであることを伝え、要求されたリソース（テーブルや行）に追加されたポリシーとJWTを比較することを伝えます。
 
 `sub`属性情報（claim）は、デフォルトでは`auth.users`テーブル内のユーザーの一意の識別子です。そのため、通常、JWTをデータベース内の行と照合するために使用されます。
 （補足として、認証APIが正しく機能させるのに`auth`スキーマに依存しています。Supabaseデータベース内で`auth`スキーマを何らかの方法で変更することは一般的に推奨されません）。
+=======
+The `authenticated` role is special in Supabase, it tells the API that this is an authenticated user and will know to compare the JWT against any policies you've added to the requested resource (table or row).
+
+The `sub` claim is usually what we use to match the JWT to rows in your database, since by default it is the unique identifier of the user in the `auth.users` table (as a side note - it's generally not recommended to alter the `auth` schema in any way in your Supabase database since the Auth API relies on it to function correctly).
+>>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 
 興味のある方は、SQLエディタでクエリを実行してみてください。
 
@@ -135,7 +145,11 @@ curl 'https://sjvwsaokcugktsdaxxze.supabase.co/rest/v1/my_scores?select=*' \
 
 `auth.users`テーブルとの統合に最適なスキーマの構造については、ここにもいくつかの注意点があります。
 
+<<<<<<< HEAD
 ポリシーのコツを掴んだら、少し派手なことを始めましょう。例えば、私がBlizzard社で働いていて、Blizzard社のスタッフだけが人々のハイスコアを更新できるようにしたい場合、次のように書くことができます。
+=======
+Once you get the hang of policies you can start to get a little bit fancy. Let's say I work at Blizzard and I only want Blizzard staff members to be able to update people's high scores, I can write something like:
+>>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 
 ```sql
 create or replace function auth.email() returns text as $$
