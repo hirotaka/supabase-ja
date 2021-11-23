@@ -1,6 +1,6 @@
 ---
 id: functions
-title: Functions
+title: 関数
 description: Creating and using Postgres functions.
 ---
 
@@ -8,10 +8,10 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
-Postgres has built-in support for [SQL functions](https://www.postgresql.org/docs/current/sql-createfunction.html). 
-These functions live inside your database, and they can be [used with the API](/docs/reference/javascript/rpc).
+Postgresには、[SQL関数](https://www.postgresql.org/docs/current/sql-createfunction.html)のサポートが組み込まれています。
+これらの関数は、データベース内に存在し、[APIで使用](/docs/reference/javascript/rpc)できます。
 
-## Quick demo
+## クイックデモ
 
 <iframe
   className="w-full video-with-border"
@@ -23,24 +23,24 @@ These functions live inside your database, and they can be [used with the API](/
   allowFullScreen
 ></iframe>
 
-## Creating Functions 
+## 関数の作成
 
-Supabase provides several options for creating database functions. You can use the Dashboard or create them directly using SQL. 
-We provide a SQL editor within the Dashboard, or you can [connect](/docs/guides/database/connecting/connecting-to-postgres) to your database 
-and run the SQL queries yourself.
+Supabaseは、データベースの関数を作成するためのいくつかのオプションを提供しています。
+ダッシュボードを使用するか、SQLを使用して直接作成できます。ダッシュボードにはSQLエディターが用意されていますが、データベースに[接続し](/docs/guides/database/connecting/connecting-to-postgres)て自分でSQLクエリを実行できます。
 
 
-1. Go to the "SQL editor" section.
-2. Click "New Query".
-3. Enter the SQL to create or replace your Database function.
-4. Click "Run" or cmd+enter (ctrl+enter).
+1. SQLエディターセクションに移動します。
+2. 「New Query」をクリックします。
+3. データベース関数を作成または置換するためのSQLを入力します。
+4. 「Run」をクリックするか、cmd+enter (ctrl+enter)をクリックします。
 
-## Examples
+## 例
 
-### Data set
+### データセット
 
-For this guide we'll use the following example data:
+このガイドでは、以下の例のデータを使用します。
 
+<!-- textlint-disable -->
 
 <Tabs
 defaultValue="Data"
@@ -48,6 +48,8 @@ values={[
   {label: 'Data', value: 'Data'},
   {label: 'SQL', value: 'SQL'},
 ]}>
+
+<!-- textlint-enable -->
 
 <TabItem value="SQL">
 
@@ -80,30 +82,30 @@ values
 </TabItem>
 <TabItem value="Data">
 
-<h4>Planets</h4>
+<h4>惑星</h4>
 
-| id    | name | 
-| ----  | ---- | 
-|    1 | Tattoine | 
-|    2 | Alderaan  | 
-|    3 | Kashyyyk | 
+| ID | 名前     |
+| -- | ------ |
+| 1  | タトゥイーン |
+| 2  | オルデラン  |
+| 3  | カシィーク  |
 
-<h4>People</h4>
+<h4>人々</h4>
 
-| id    | name | planet_id |
-| ----  | ---- | ---- | 
-|    1 | Anakin Skywalker | 1 | 
-|    2 | Luke Skywalker  | 1 | 
-|    3 | Princess Leia | 2 | 
-|    4 | Chewbacca | 3 | 
+| ID | 名前                             | planet_id |
+| -- | ------------------------------ | --------- |
+| 1  | アナキン・スカイウォーカー（Anakin Skywalker | 1         |
+| 2  | ルーク・スカイウォーカー                   | 1         |
+| 3  | レイア姫                           | 2         |
+| 4  | チューバッカ（Chewbacca               | 3         |
 
 </TabItem>
 
 </Tabs>
 
-### Basic function
+### 基本関数
 
-A basic example which returns a string "hello world".
+「hello world」という文字列を返す基本的な例です。
 
 ```sql
 create or replace function hello_world() -- 1
@@ -116,20 +118,22 @@ $$; --6
 ```
 
 <details>
-<summary>Show/Hide Details</summary>
-  
-At it's most basic a function has the following parts:
+<summary>詳細の表示/非表示</summary>
 
-1. `create or replace function hello_world()`: The function declaration, where `hello_world` is the name of the function. You can use either `create` when creating a new function or `replace` when replacing an existing function. Or you can use `create or replace` together to handle either.
-2. `returns text`: The type of data that the function returns. If it returns nothing, you can `returns void`. 
-3. `language sql`: The language used inside the function body. This can also be a procedural language: `plpgsql`, `plv8`, `plpython`, etc.
-4. `as $$`: The function wrapper. Anything enclosed inside the `$$` symbols will be part of the function body.
-5. `select 'hello world';`: A simple function body. The final `select` statement inside a function body will be returned if there are no statements following it.
-6. `$$;`: The closing symbols of the funciton wrapper.
+最も基本的な関数は、以下の部分で構成されています。
+
+1. `関数 hello_world() を作成または置換し`ます。`hello_world`は関数の名前です。新規に関数を作成する場合は`create`、既存の関数を置き換える場合は`replace`を使用します。また、`createとreplace`を併用することで、どちらかを処理できます。
+2. は`テキストを返し`ます。この関数が返すデータの種類です。何も返さない場合は、`voidを返し`ます。
+3. `language sql`:関数本体で使用される言語です。`plpgsql`、`plv8`、`plpython`などの手続き型言語の場合もあります。
+4. `as $$:`関数のラッパーです。`$$`記号で囲まれたものは、関数本体の一部となります。
+5. `select 'hello world'; :` 単純な関数本体です。関数本体内の最後の`select`文は、それに続く文がない場合に返されます。
+6. `$$; :` 関数ラッパーの閉じたシンボルです。
 
 </details>
 
-#### Execute
+#### 実行する
+
+<!-- textlint-disable -->
 
 <Tabs
 defaultValue="SQL"
@@ -138,6 +142,8 @@ values={[
   {label: 'JS', value: 'JS'},
   {label: 'Dart', value: 'Dart'},
 ]}>
+
+<!-- textlint-enable -->
 
 <TabItem value="SQL">
 
@@ -153,7 +159,8 @@ const { data, error } = supabase
   .rpc('hello_world')
 ```
 
-Reference: [rpc()](/docs/reference/javascript/rpc)
+参考：[rpc()](/docs/reference/javascript/rpc)
+
 
 </TabItem>
 <TabItem value="Dart">
@@ -164,16 +171,16 @@ final res = await supabase
   .execute();
 ```
 
-Reference: [rpc()](/docs/reference/dart/rpc)
+参考：rpc[()](/docs/reference/dart/rpc)
 
 </TabItem>
 
 </Tabs>
 
 
-### Return table sets
+### テーブルセットを返す
 
-A basic example which return all the `planets` in our example data set.
+例題のデータセットに含まれるすべての`惑星`を返す基本的な例です。
 
 ```sql
 create or replace function get_planets() 
@@ -184,9 +191,11 @@ as $$
 $$;
 ```
 
-#### Execute 
+#### 実行
 
-Because this function returns a table set, we can also apply filters and selectors. For example, if we only wanted the first planet:
+この関数はテーブルセットを返すので、フィルタやセレクターを適用できます。例えば、最初の惑星だけが欲しい場合は次のようにします。
+
+<!-- textlint-disable -->
 
 <Tabs
 defaultValue="SQL"
@@ -195,6 +204,8 @@ values={[
   {label: 'JS', value: 'JS'},
   {label: 'Dart', value: 'Dart'},
 ]}>
+
+<!-- textlint-enable -->
 
 <TabItem value="SQL">
 
@@ -213,7 +224,8 @@ const { data, error } = supabase
   .eq('id', 1)
 ```
 
-Reference: [rpc()](/docs/reference/javascript/rpc)
+参考：[rpc()](/docs/reference/javascript/rpc)
+
 
 </TabItem>
 <TabItem value="Dart">
@@ -225,16 +237,16 @@ final res = await supabase
   .execute();
 ```
 
-Reference: [rpc()](/docs/reference/dart/rpc)
+参考：rpc[()](/docs/reference/dart/rpc)
 
 </TabItem>
 
 </Tabs>
 
 
-### With parameters
+### パラメーター付き
 
-A basic example which will insert a new planet into the `planets` and return the new ID. Note that this time we're using the `plpgsql` language.
+新しい惑星を`planets`に挿入し、新しいIDを返す基本的な例です。今回は`plpgsql`という言語を使っていることに注意してください。
 
 ```sql
 create or replace function add_planet(name text) 
@@ -253,9 +265,11 @@ end;
 $$;
 ```
 
-#### Execute 
+#### 実行時
 
-Because this function returns a table set, we can also apply filters and selectors. For example, if we only wanted the `name` of the first planet:
+この関数はテーブルセットを返すので、フィルタやセレクターを適用できます。例えば、最初の惑星の`名前`だけが欲しい場合は次のようにします。
+
+<!-- textlint-disable -->
 
 <Tabs
 defaultValue="SQL"
@@ -264,6 +278,8 @@ values={[
   {label: 'JS', value: 'JS'},
   {label: 'Dart', value: 'Dart'},
 ]}>
+
+<!-- textlint-enable -->
 
 <TabItem value="SQL">
 
@@ -279,7 +295,8 @@ const { data, error } = supabase
   .rpc('add_planet', { name: 'Jakku' })
 ```
 
-Reference: [rpc()](/docs/reference/javascript/rpc)
+参考：[rpc()](/docs/reference/javascript/rpc)
+
 
 </TabItem>
 <TabItem value="Dart">
@@ -290,14 +307,14 @@ final res = await supabase
   .execute();
 ```
 
-Reference: [rpc()](/docs/reference/dart/rpc)
+参考： rpc[()](/docs/reference/dart/rpc)
 
 </TabItem>
 
 </Tabs>
 
 
-## Resources
+## リソース
 
-- PostgreSQL Official Docs: [Chapter 9. Functions and Operators](https://www.postgresql.org/docs/current/functions.html)
-- PostgreSQL Reference: [CREATE FUNCTION](https://www.postgresql.org/docs/9.1/sql-createfunction.html)
+- PostgreSQL Official Docs:[第9章.関数と演算子](https://www.postgresql.org/docs/current/functions.html)
+- PostgreSQLリファレンス。[create関数](https://www.postgresql.org/docs/9.1/sql-createfunction.html)
