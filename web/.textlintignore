@@ -30,7 +30,6 @@ docs/guides/database/extensions/plv8.mdx
 docs/guides/database/extensions/uuid-ossp.mdx
 docs/guides/database/full-text-search.mdx
 docs/guides/database/functions.mdx
-docs/guides/database/intro.mdx
 docs/guides/database/json.mdx
 docs/guides/database/managing-passwords.mdx
 docs/guides/database/managing-timezones.mdx
