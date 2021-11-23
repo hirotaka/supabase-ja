@@ -1,14 +1,14 @@
 ---
 id: timeouts
-title: Timeouts
+title: タイムアウト
 description: Timeouts and optimization
 ---
 
-By default, Supabase limits the maximum statement execution time to _3 seconds_ for users accessing the API using the anon key, and _8 seconds_ for authenticated users. Additionally, all users are subject to a global limit of _2 minutes_. This serves as a backstop against resource exhaustion due to either poorly written queries, or abusive usage.
+Supabaseはデフォルトで、ステートメントの最大実行時間を、anonキーを使ってAPIにアクセスしているユーザーは_3秒_に、認証されたユーザーは_8秒_に制限しています。さらに、すべてのユーザーには、_2_分というグローバルな制限が適用されます。これは、クエリの書き方が悪かったり、乱用されたりすることによるリソースの枯渇を防ぐための措置です。
 
-### Changing the default timeout
+### デフォルトのタイムアウトの変更
 
-The timeout values were picked as a reasonable default for the majority of use-cases, but can be modified using the [`alter role`](https://www.postgresql.org/docs/13/sql-alterrole.html) statement:
+タイムアウトの値は、大部分のユースケースにおいて妥当なデフォルト値として選択されていますが、[`alter role`](https://www.postgresql.org/docs/13/sql-alterrole.html)ステートメントを使用して変更できます。
 
 ```sql
 alter role authenticated set statement_timeout = '15s';
@@ -20,8 +20,8 @@ You can also update the statement timeout for a session:
 set statement_timeout to 60000; -- 1 minute in milliseconds
 ```
 
-### Statement Optimization
+### ステートメントの最適化
 
-All Supabase projects come with the [`pg_stat_statements`](https://www.postgresql.org/docs/13/pgstatstatements.html) extension installed, which tracks planning and execution statistics for all statements executed against it. These statistics can be used in order to diagnose the performance of your project.
+すべてのSupabaseプロジェクトには、[`pg_stat_statements`](https://www.postgresql.org/docs/13/pgstatstatements.html)という拡張機能がインストールされています。この拡張機能は、プロジェクトに対して実行されたすべてのステートメントの計画と実行の統計を追跡します。これらの統計は、プロジェクトのパフォーマンスを診断するために使用できます。
 
-This data can further be used in conjunction with the [`explain`](https://www.postgresql.org/docs/13/using-explain.html) functionality of Postgres to optimize your usage.
+このデータはさらに、Postgresの[`explain`](https://www.postgresql.org/docs/13/using-explain.html)機能と組み合わせて使用することで、使用方法を最適化できます。

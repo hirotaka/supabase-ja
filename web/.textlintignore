@@ -32,7 +32,6 @@ docs/guides/database/json.mdx
 docs/guides/database/managing-passwords.mdx
 docs/guides/database/managing-timezones.mdx
 docs/guides/database/replication.mdx
-docs/guides/database/timeouts.mdx
 docs/guides/hosting/docker.mdx
 docs/guides/hosting/overview.mdx
 docs/guides/hosting/platform.mdx
