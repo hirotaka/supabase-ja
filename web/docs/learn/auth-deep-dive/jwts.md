@@ -98,11 +98,7 @@ HMACSHA256(
 
 ここで重要なのは、`jwt_secret`を持っている人は誰でも、新しいトークンを作成したり、既存のトークンを検証したりできるということです。より高度なJWTアルゴリズムでは、2つのシークレットを使用します。1つはトークンの作成用で、もう1つは署名されたトークンの有効性を検証するためのものです。
 
-<<<<<<< HEAD
 なぜ突然JWTが流行るのか、不思議に思われたことでしょう。その答えは、マイクロサービス・アーキテクチャーの大量導入に伴うものです。複数の異なるマイクロサービス（API、Webサイトやサーバーなど）において、ユーザーが自分の言うとおりの人物（つまり「ログインした」ユーザー）であることを簡単に検証したいという状況になったからです。従来のセッション・トークンはここでは使えません。なぜなら、各マイクロサービスが現在有効なセッション・トークンの記録を維持する必要があります。もしくは、ユーザーがリソースにアクセスしようとするたび、セッション・トークンの有効性を中央のデータベースに問い合わせる必要があるからです。この意味で、JWTベースの認証は非中央集権的です。`jwt_secret`を持つ誰もが、中央のデータベースにアクセスすることなく、トークンを検証できます。
-=======
-You might wonder why JWTs are so popular all of a sudden. The answer is that with the mass adoption of microservice architecture, we were in a situation where several distinct microservices (APIs, websites, servers, etc.) want to easily validate that a user is who they say they are, or are in other words a "logged-in" user. Traditional session tokens are no use here, since they would require each microservice to either maintain a record of currently valid session tokens or to query a central database each time a user wants to access a resource in order to check the validity of the session token – very inefficient indeed. JWT-based auth in this sense is decentralized, since anyone with the `jwt_secret` can verify a token without needing access to a centralized database.
->>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 
 注：JWTの欠点の1つは、セッション・トークンのように簡単には無効化できないことです。JWTが悪意のある攻撃者に漏れた場合、彼らは有効期限に達するまで、どこでもそれを利用できます。もちろん、システムのオーナーが`jwt_secret`を更新しない限りは（もちろん、誰もが既存のトークンを無効にしますが）。
 

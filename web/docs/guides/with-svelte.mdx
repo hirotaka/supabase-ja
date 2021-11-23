@@ -171,13 +171,8 @@ SVELTE_APP_SUPABASE_URL=YOUR_SUPABASE_URL
 SVELTE_APP_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
 ```
 
-<<<<<<< HEAD
 このアプリはほぼ機能していますが、svelteをSupabaseや`.env`ファイルで動作させるためには、まず、`rollup.config.js`ファイルを少し変更する必要があります。
 Supabaseは`json`ファイルをインポートしますが、.jsonファイルをES6モジュールに変換するには、`@rollup/plugin-json`をインストールして実行する必要があります。
-=======
-Our app is almost functional, to make svelte work with supabase and .env files we first need to change the `rollup.config.js` file a bit.
-Supabase imports `json` files, to convert .json files to ES6 modules we need the `@rollup/plugin-json` install it by running: 
->>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 
 ```bash
   npm install --save-dev @rollup/plugin-json
@@ -273,13 +268,8 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 </form>
 ```
 
-<<<<<<< HEAD
 ### ユーザー・ストア
 他の場所にあるユーザー情報へアクセスするため、書き込み可能なストアを使用します。`sessionStore.js`という新しいファイルを作成します。
-=======
-### User store
-To access the user information in other places, we use a writable store. Create a new file called `sessionStore.js`
->>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 ```javascript title="src/sessionStore.js"
 import { writable } from 'svelte/store';
 
@@ -437,11 +427,7 @@ npm run dev
 
 そして、ブラウザーで[localhost:5000](http://localhost:5000)を開くと、完成したアプリを見ることができます。
 
-<<<<<<< HEAD
 > ⚠️ 注意：Svelteはデフォルトで`5000番ポート`を使用し、Supabaseは`3000番ポート`を使用します。Supabaseのリダイレクトポートを変更するには、次のようにします。`Authentication > Settings`で`Site Url`を`localhost:5000`に変更してください。
-=======
-> ⚠️ WARNING: Svelte uses by default `port 5000`, Supabase uses `port 3000`. To change the redirection port for supabase go to: `Authentication > Settings` and change the `Site Url` to `localhost:5000`
->>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 
 ![Supabase Svelte](/img/supabase-svelte-demo.png)
 

@@ -11,19 +11,12 @@ import TabItem from '@theme/TabItem'
 
 他のフレームワークのクイックスタート例との一貫性を保つために、RedwoodJSを通常とは少し違った方法で構築します。
 
-<<<<<<< HEAD
 <!-- textlint-disable ja-technical-writing/sentence-length -->
 Prismaを使ってSupabaseのPostgresデータベースに接続しません。また、Redwoodアプリで一般的に行われるような[Prismaのマイグレーション](https://redwoodjs.com/docs/cli-commands#prisma-migrate)は**_使用しません_**。
 その代わりに、Supabaseクライアントに頼って**web**サイドで作業の一部を行い、**api**サイドで再びクライアントを使ってデータの取得をします。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
 つまり、`yarn rw prisma migrate`コマンドの実行を控えます。また、Prismaがデータベースをリセットしないように、デプロイ時のビルド・コマンドを再確認する必要があります。
-=======
-We **_won't use_** Prisma to connect to the Supabase Postgres database or [Prisma migrations](https://redwoodjs.com/docs/cli-commands#prisma-migrate) as one typically might in a Redwood app.
-Instead, we'll rely on the Supabase client to do some of the work on the **web** side and use the client again on the **API** side to do data fetching as well.
-
-That means you will want to refrain from running any `yarn rw prisma migrate` commands and also double check your build commands on deployment to ensure Prisma won't reset your database.
->>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 
 <!-- textlint-disable ja-technical-writing/ja-no-mixed-period -->
 :::note
@@ -96,15 +89,9 @@ Redwoodのアプリケーションは、フロントエンドとバックエン�
 
 <!-- textlint-disable ja-technical-writing/ja-no-mixed-period,ja-technical-writing/sentence-length -->
 :::note
-<<<<<<< HEAD
 他のフレームワークのクイックスタート例との一貫性を保つために、RedwoodJSを通常とは少し違った方法で構築します。
 Prismaを使ってSupabase Postgresデータベースに接続しません。また、Redwoodアプリで一般的に行われるような[Prismaのマイグレーション](https://redwoodjs.com/docs/cli-commands#prisma-migrate)は**_使用しません_**。
 その代わりに、Supabaseクライアントに頼って**web**サイドで作業の一部を行い、**api**サイドで再びクライアントを使ってデータの取得します。
-=======
-For the sake of consistency with the other framework Quickstart examples, we'll build a RedwoodJS a little differently than normal.
-We **_won't use_** Prisma to connect to the Supabase Postgres database or [Prisma migrations](https://redwoodjs.com/docs/cli-commands#prisma-migrate) as one typically might in a Redwood app.
-Instead, we'll rely on the Supabase client to do some of the work on the **`web`** side and use the client again on the **`api`** side to do data fetching as well.
->>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 :::
 <!-- textlint-enable ja-technical-writing/ja-no-mixed-period,ja-technical-writing/sentence-length -->
 
@@ -114,13 +101,8 @@ Instead, we'll rely on the Supabase client to do some of the work on the **`web`
 
 <!-- textlint-disable ja-technical-writing/ja-no-mixed-period -->
 :::note
-<<<<<<< HEAD
 Supabaseを設定する際には、プロジェクトのダッシュボードで操作することになります。しかし、RedwoodJSのセットアップ手順のほとんどは、[Redwood CLI](https://redwoodjs.com/docs/cli-commands)で対話的に、ルート、ページ、コンポーネントなどを生成します。
 そのため、ターミナルを用意して、プロジェクトのディレクトリーで準備しておくようにしてください。
-=======
-When setting up Supabase, you'll interact with your project dashboard. However, most of the RedwoodJS setup steps will interact with the [Redwood CLI](https://redwoodjs.com/docs/cli-commands) to generate routes, pages, components, and more.
-So be sure to have a terminal at the ready and in your project directory.
->>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 :::
 <!-- textlint-enable ja-technical-writing/ja-no-mixed-period -->
 
@@ -399,11 +381,7 @@ yarn rw generate page home /
 :::
 <!-- textlint-enable ja-technical-writing/ja-no-mixed-period -->
 
-<<<<<<< HEAD
 必要であれば、`dev`サーバーを停止しても構いません。変更内容を確認するには、もう一度`yarn rw dev`を実行してください。
-=======
-You can stop the `dev` server if you want; to see your changes, just be sure to run `yarn rw dev` again.
->>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 
 `web/src/Routes.js`に`Home`ページのルートができるはずです。
 
@@ -637,13 +615,7 @@ export default Account
 
 <!-- textlint-disable ja-technical-writing/ja-no-mixed-period,prh -->
 :::note
-<<<<<<< HEAD
 注：クイックスタートでは`useAuth()`を使っているのを何度か目にします。Redwoodの`useAuth`フックは、logIn、logOut、currentUserへのアクセス、および`supabase`認証クライアントへのアクセスに便利な方法を提供します。このフックを使って、supabaseクライアントのインスタンスを取得し、APIと対話することになります。
-=======
-Note: You'll see the use of `useAuth()` several times in the quickstart. Redwood's `useAuth` hook provides convenient ways to access
-logIn, logOut, currentUser, and access the `supabase` authenticate client. We'll use it to get an instance
-of the supabase client to interact with your API.
->>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 :::
 <!-- textlint-enable ja-technical-writing/ja-no-mixed-period,prh-->
 
@@ -672,11 +644,7 @@ const HomePage = () => {
 export default HomePage
 ```
 
-<<<<<<< HEAD
 > ここでは、ログインしていない場合はサインインのフォームを表示し、ログインしている場合はアカウントのプロフィールを表示します。
-=======
-> What we're doing here is showing the sign in form if you aren't logged in and your account profile if you are.
->>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 
 ### ローンチ
 

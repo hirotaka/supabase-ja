@@ -9,23 +9,13 @@ import TabItem from '@theme/TabItem';
 
 ## 概要
 
-<<<<<<< HEAD
 Supabaseはデータベースのスキーマから直接APIを生成します。そのAPIは以下の特徴があります。
 
 - 即時性と自動生成：データベースを更新すると、その変更内容がAPIを通じてすぐアクセス可能になります。
 - ドキュメントの生成：Supabaseは、データベースを変更した際、ダッシュボードに更新されたドキュメントを生成します。
-- セキュア：APIはPostgreSQLの行レベルセキュリティーと連動するように設定されており、APIゲートウェイの背後でキーによる認証が有効になっています。
+- セキュア：APIはPostgreSQLの行単位セキュリティーと連動するように設定されており、APIゲートウェイの背後でキーによる認証が有効になっています。
 - 高速： 基本的な読み込みのベンチマークでは、Firebaseと比較して300%以上の高速化を実現しています。APIはPostgres上の非常に薄い層であり、Postgresがほとんどの力仕事をします。
 - スケーラブル：APIは数千の同時リクエストに対応しており、サーバレスの処理にも適しています。
-=======
-Supabase generates APIs directly from your database schema. The API is:
-
-- Instant and auto-generated: as you update your database the changes are immediately accessible through your API. 
-- Self documenting: Supabase generates documentation in the Dashboard which updates as you make database changes. 
-- Secure: the API is configured to work with PostgreSQL's Row Level Security, provisioned behind an API gateway with key-auth enabled. 
-- Fast: our benchmarks for basic reads are more than 300% faster than Firebase. The API is a very thin layer on top of Postgres, which does most of the heavy lifting.
-- Scalable: the API can serve thousands of simultaneous requests, and works well for Serverless workloads.
->>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 
 
 ### RESTful API
@@ -34,10 +24,10 @@ Supabaseは、[PostgREST](https://postgrest.org/)を用いたRESTfulなAPIを提
 これは、CRUDのAPIに必要なすべてを提供します。
 
 - 基本的なCRUD操作
-- 深くネストされたジョインにより、1回のフェッチで複数のテーブルからデータを取得可能
+- 深くネストされた結合により、1回のフェッチで複数のテーブルからデータを取得可能
 - Potgresのビューと連動
 - Postgresの関数と連動
-- 行レベルセキュリティー、ロール、およびGRANTなどの、Postgresのセキュリティモデルと連動
+- 行単位セキュリティー、ロール、およびGRANTなどの、Postgresのセキュリティモデルと連動
 
 <iframe
   className="w-full video-with-border"
@@ -141,7 +131,7 @@ values={[
 最初は2つのキーが用意されています。
 
 - `anon`キーはブラウザのコンテキストで使用しても安全です。
-- `service_role`キーはサーバー上でのみ使用します。このキーは行レベルセキュリティーを回避できます。
+- `service_role`キーはサーバー上でのみ使用します。このキーは行単位セキュリティーを回避できます。
 
 
 ### ドキュメントへのアクセス
@@ -213,7 +203,7 @@ curl '[SUPABASE_URL]/rest/v1/todos' \
 
 #### 詳細とリンク集
 
-- Postgresでテーブルを作成すると、デフォルトでは行レベルセキュリティー（RLS）が無効になっています。[RLSを有効にする](/docs/guides/api#securing-your-routes)ことでセキュリティーを確保してください。
+- Postgresでテーブルを作成すると、デフォルトでは行単位セキュリティー（RLS）が無効になっています。[RLSを有効にする](/docs/guides/api#securing-your-routes)ことでセキュリティーを確保してください。
 - `service_role`キーをブラウザやユーザーが見られる場所にさらさないでください。
 <!-- textlint-disable ja-technical-writing/max-comma -->
 - JSリファレンス：[select()](/docs/reference/javascript/select),
@@ -304,5 +294,5 @@ alter table todos enable row level security;
 
 #### 詳細とリンク集
 
-- APIは、Postgresの行レベルセキュリティーと連動するように設計されています。Supabaseの[認証](/docs/guides/auth)を使用すれば、ログインしたユーザーに基づいてデータを制限できます。
+- APIは、Postgresの行単位セキュリティーと連動するように設計されています。Supabaseの[認証](/docs/guides/auth)を使用すれば、ログインしたユーザーに基づいてデータを制限できます。
 - データへのアクセスを制御するには、[ポリシー](/docs/guides/auth#policies)を使用します。

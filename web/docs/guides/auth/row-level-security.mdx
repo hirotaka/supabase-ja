@@ -133,11 +133,7 @@ create policy "Team members can update team details if they belong to the team."
 
 ### security definer関数を使ったポリシー
 
-<<<<<<< HEAD
 ポリシーには、`security definer関数`も使用できます。これは、多対多の関係で、リンク先のテーブルへのアクセスを制限したい場合に便利です。この例では、上記の`teams`と`members`の例に続いて、security definer関数をポリシーと組み合わせて使用し、`members`テーブルへのアクセスを制御する方法を示します。
-=======
-Policies can also make use of `security definer functions`. This is useful in a many-to-many relationship where you want to restrict access to the linking table. Following the `teams` and `members` example from above, this example shows how you can use the security definer function in combination with a policy to control access to the `members` table.
->>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 
 ```sql
 -- 1. 上記の「結合を含むポリシー」の例に従います

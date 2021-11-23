@@ -42,11 +42,7 @@ Google, Github, Facebookなどのソーシャル・ログインと接続する�
 
 ![Add your redirect URI](/img/auth-5-6.png)
 
-<<<<<<< HEAD
 ポップアップからクライアントID（Your Client ID）とシークレット（Your Client Secret）を取得します。SupabaseダッシュボードのAuth → Settingsにあるgoogleセクションへ挿入します。
-=======
-Now you can grab the client ID and secret from the popup, and insert them into the google section inside the Supabase dashboard in Auth > Settings:
->>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 
 ![take client id and secret](/img/auth-5-7.png)
 

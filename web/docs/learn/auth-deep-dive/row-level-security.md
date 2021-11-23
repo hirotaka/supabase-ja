@@ -29,11 +29,7 @@ Postgresの「行単位セキュリティー」ポリシーを使用して、匿
 
 例えば、匿名キーは特定のテーブルからの読み込みを許可し、書き込み、更新、削除はできないようにできます。
 
-<<<<<<< HEAD
 また、これらのルールは必要に応じて複雑にできます。例えば、匿名キーは木曜日の午後4時から6時の間に挿入され、id列が偶数である行のみを削除できる、といったことです。かなり奇妙ですが、これはポリシーの威力を示しています。
-=======
-And these rules can be as complex as we want. We could say that the anon key can only delete rows which were inserted on a Thursday afternoon between 4 and 6pm, and where the id column is an even number. Pretty strange, but it shows the power of policies.
->>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 
 例えば、リーダーボードのテーブルを作成するとします。ウェブサイトのユーザーは、リーダーボードを読むことはできますが、書き込み、更新、削除はできないようします。まず、SQLでテーブルを定義し、いくつかのダミーデータを追加します。
 

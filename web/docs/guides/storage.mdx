@@ -17,13 +17,8 @@ Supabase Storageは、大容量のファイルを簡単に保存して利用で�
 
 ### フォルダー
 
-<<<<<<< HEAD
-フォルダーは、ファイルを整理するための方法です（自分のコンピューターと同じです）。 ファイルの整理方法には、正解や不正解もありません。自分のプロジェクトに合ったフォルダー構成でファイルを保存できます。
-=======
-Folders are a way to organize your files (just like on your computer).
-There is no right or wrong way to
-organize your files. You can store them in whichever folder structure suits your project.
->>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
+フォルダーは、ファイルを整理するための方法です（自分のコンピューターと同じです）。
+ファイルの整理方法には、正解や不正解もありません。自分のプロジェクトに合ったフォルダー構成でファイルを保存できます。
 
 ### バケット
 
@@ -319,11 +314,7 @@ from storage.objects;
 
 ## オブジェクトへのアクセス
 
-<<<<<<< HEAD
 プライベートなバケットの場合、[download](/docs/reference/javascript/storage-from-download)メソッドでオブジェクトにアクセスできます。これは`/object/auth/` APIエンドポイントに対応します。あるいは、[createSignedUrl](/docs/reference/javascript/storage-from-createsignedurl)メソッドを使って、有効期限のあるパブリックに共有可能なURLを作成できます。このメソッドは、`/object/sign/` APIを呼び出します。
-=======
-For private buckets, you can access objects via the [download](/docs/reference/javascript/storage-from-download) method. This corresponds to `/object/auth/` API endpoint. Alternatively, you can create a publicly shareable URL with an expiry date using the [createSignedUrl](/docs/reference/javascript/storage-from-createsignedurl) method which calls the `/object/sign/` API.
->>>>>>> fa691f105a9a4c92501e8e5f97dbcfb66419bbb5
 
 パブリックなバケットでは、トークンやAuthorisationヘッダーなしでアセットに直接アクセスできます。[getPublicUrl](/docs/reference/javascript/storage-from-getpublicurl)ヘルパーメソッドは、アセットの完全なパブリックURLを返します。これは、`/object/public/` APIエンドポイントを内部的に呼び出します。
 
@@ -335,7 +326,7 @@ Supabase Storageは、[Postgresデータベース](/docs/guides/database)と統�
 
 ## ポリシーの例
 
-ここでは、PostgreSQLの行レベルセキュリティーの威力を示す例を紹介します。各ポリシーはテーブルに添付され、テーブルがアクセスされるたびにポリシーが実行されます。
+ここでは、PostgreSQLの行単位セキュリティーの威力を示す例を紹介します。各ポリシーはテーブルに添付され、テーブルがアクセスされるたびにポリシーが実行されます。
 
 ### バケットへのパブリックなアクセスを許可する
 
