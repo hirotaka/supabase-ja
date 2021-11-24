@@ -202,7 +202,7 @@ module.exports = {
       },
     ],
   ],
-  scripts: [{ src: '/scripts/telemetry.js' }],
+  //scripts: [{ src: '/scripts/telemetry.js' }],
   i18n: {
     defaultLocale: 'ja',
     locales: ['ja'],
