@@ -1,76 +1,69 @@
 ---
 id: overview
-title: Self Hosting
-sidebar_label: Overview
+title: セルフ・ホスティング
+sidebar_label: 概要
 description: Getting started with Self Hosting.
 ---
 
 import JwtGenerator from '@site/src/components/JwtGenerator'
 
-There are several ways to use Supabase:
+Supabaseにはいくつかの利用方法があります。
 
-- [Supabase Cloud](https://app.supabase.io): you don't need to deploy anything. We will manage and scale your infrastructure. 
-- [Docker](/docs/guides/hosting/docker): deploy to your own infrastructure.
-- Kubernetes: coming soon.
+- [Supabaseクラウド](https://app.supabase.io)：お客様は何も導入する必要はありません。Supabaseクラウド：何もデプロイする必要はありません。私たちがあなたのインフラを管理し、スケーリングします。
+- [Docker](/docs/guides/hosting/docker): お客様のインフラにデプロイします。
+- Kubernetes：近日公開予定です。
 
-#### Before you begin
+#### 始める前に
 
-The self-hosted version of Supabase does not include a UI yet. 
-We are working on this in stages, starting with our [UI library](https://github.com/supabase/ui) and with a [WIP PR here](https://github.com/supabase/supabase/pull/2281). 
-[[more context](https://github.com/supabase/supabase/discussions/1001#discussioncomment-558696)]
+Supabaseのセルフホスティング版には、まだUIが含まれていません。私たちは、[UIライブラリ](https://github.com/supabase/ui)から始めて、段階的に取り組んでおり、[WIP PRをこちら](https://github.com/supabase/supabase/pull/2281)に掲載しています。[\[more context](https://github.com/supabase/supabase/discussions/1001#discussioncomment-558696)].
 
-In the meantime, here are some suggestions for working with your Postgres Database:
+それまでの間、Postgresデータベースを扱うための提案をいくつかご紹介します。
 
-- `pgadmin`: https://www.pgadmin.org 
-- `dbeaver`: https://dbeaver.com 
-- `BeeKeeper`: https://beekeeperstudio.io
-- `HeidiSQL`: https://heidisql.com
-- `Table Plus`: https://www.tableplus.io
+- `pgadmin:` <https://www.pgadmin.org>
+- `dbeaver:` <https://dbeaver.com>
+- `BeeKeeper:` <https://beekeeperstudio.io>
+- `HeidiSQL:` <https://heidisql.com>
+- `Table Plus:` <https://www.tableplus.io>
 
 
-## Architecture
+## アーキテクチャ
 
-Supabase is a combination of open source tools, each specifically chosen for Enterprise-readiness. 
+Supabaseは、オープンソースのツールを組み合わせたもので、それぞれがエンタープライズに対応できるよう特別に選ばれています。
 
-If the tools and communities already exist, with an MIT, Apache 2, or equivalent open license, we will use and support that tool. 
-If the tool doesn't exist, we build and open source it ourselves. 
+そのツールやコミュニティーがすでに存在し、MITやApache 2または同等のオープンライセンスであれば、そのツールを使用し、サポートします。
 
 ![Supabase Architecture](/img/supabase-architecture.png)
 
 
-- [PostgreSQL](https://www.postgresql.org/) is an object-relational database system with over 30 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance.
-- [Realtime](https://github.com/supabase/realtime) is an Elixir server that allows you to listen to PostgreSQL inserts, updates, and deletes using websockets. Supabase listens to Postgres' built-in replication functionality, converts the replication byte stream into JSON, then broadcasts the JSON over websockets.
-- [PostgREST](http://postgrest.org/) is a web server that turns your PostgreSQL database directly into a RESTful API
-- [Storage](https://github.com/supabase/storage-api) provides a RESTful interface for managing Files stored in S3, using Postgres to manage permissions.
-- [postgres-meta](https://github.com/supabase/postgres-meta) is a RESTful API for managing your Postgres, allowing you to fetch tables, add roles, and run queries, etc.
-- [GoTrue](https://github.com/netlify/gotrue) is an SWT based API for managing users and issuing SWT tokens.
-- [Kong](https://github.com/Kong/kong) is a cloud-native API gateway.
+- [PostgreSQL](https://www.postgresql.org/)は、30年以上にわたって活発な開発が行われているオブジェクトリレーショナルデータベースシステムで、信頼性、機能の堅牢性、パフォーマンスの面で高い評価を得ています。
+- [Realtime](https://github.com/supabase/realtime)はElixirのサーバーで、PostgreSQLの挿入、更新、削除をWebsocketを使ってリッスンできます。Supabaseは、Postgresに組み込まれたレプリケーション機能をリッスンし、レプリケーションのバイトストリームをJSONに変換し、そのJSONをWebsocketでブロードキャストします。
+- [PostgREST](http://postgrest.org/)は、PostgreSQLデータベースを直接RESTful APIにするWebサーバーです。
+- [Storage](https://github.com/supabase/storage-api)は、S3に保存されたファイルを管理するためのRESTfulなインターフェイスを提供し、Postgresを使用してパーミッションを管理します。
+- [postgres-meta](https://github.com/supabase/postgres-meta)は、Postgresを管理するためのRESTful APIで、テーブルの取得、ロールの追加、およびクエリの実行などが可能です。
+- [GoTrue](https://github.com/netlify/gotrue)はSWTベースのAPIで、ユーザーの管理やSWTトークンの発行ができます。
+- [Kong](https://github.com/Kong/kong)は、クラウドネイティブなAPIゲートウェイです。
 
 
-## Configuration
+## 構成
 
-Each system has a number of configuration options which can be found in the relevant product documentation.
+各システムには数多くの設定オプションがあり、関連する製品のドキュメントに記載されています。
 
-- [Postgres](https://hub.docker.com/_/postgres/)
+- [Postgres](https://hub.docker.com/\_/postgres/)
 - [PostgREST](https://postgrest.org/en/stable/configuration.html)
-- [Realtime](https://github.com/supabase/realtime#server-set-up)
+- [リアルタイム](https://github.com/supabase/realtime#server-set-up)
 - [GoTrue](https://github.com/supabase/gotrue)
-- [Storage](https://github.com/supabase/storage-api)
-- [Kong](https://docs.konghq.com/install/docker/)
+- [ストレージ](https://github.com/supabase/storage-api)
+- [コング](https://docs.konghq.com/install/docker/)
 
-## Managing your database
+## データベースの管理
 
-It is recommended that you decouple your database from the middleware so that you can upgrade the middleware without any downtime.
-The "middleware" is everything except Postgres, and it should work with any Postgres provider (such as AWS RDS), or your own Postgres cluster.
+ミドルウェアをダウンタイムなしでアップグレードできるように、データベースをミドルウェアから切り離すことをお勧めします。"ミドルウェア"とは、Postgres以外のすべてのものを指し、あらゆるPostgresプロバイダー（AWS RDSなど）や独自のPostgresクラスターで動作するはずです。
 
-### Database Extensions
+### データベースの拡張機能
 
-Supabase requires some Postgres extensions to be enabled by default for the API and Auth system to work. You can find the extensions inside the 
-[schema initialization script](https://github.com/supabase/supabase/blob/master/docker/volumes/db/init/00-initial-schema.sql).
+Supabaseは、APIとAuthシステムを動作させるために、いくつかのPostgres拡張機能をデフォルトで有効にする必要があります。エクステンションは、[eschema初期化スクリプト](https://github.com/supabase/supabase/blob/master/docker/volumes/db/init/00-initial-schema.sql)の中にあります。
 
-
-We recommend installing all extensions into an `extensions` schema. This will keep your API clean, 
-since all tables in the `public` schema are exposed via the API.
+すべてのエクステンションを`エクステンションスキーマ`にインストールすることをお勧めします。これにより、`パブリック`スキーマのすべてのテーブルがAPIで公開されるため、APIをクリーンに保つことができます。
 
 ```sql
 create schema if not exists extensions;
@@ -79,84 +72,78 @@ create extension if not exists pgcrypto with schema extensions;
 create extension if not exists pgjwt with schema extensions;
 ```
 
-##### `uuid-ossp`
+##### `UUID-OSSP`
 
-For UUID functions, required for PostgreSQL <13.
-
-
-##### `pgcrypto` and `pgjwt`
+UUID関数のためのもので、PostgreSQLの13.0以降で必要です。
 
 
-For working with JWT and Auth functions.
+##### `pgcrypto`および`pgjwt`
 
-### Database Roles
 
-Supabase creates several default roles in your Postgres database. To restore defaults at any time you can run the commands inside the 
-[schema initialization script](https://github.com/supabase/supabase/blob/master/docker/volumes/db/init/00-initial-schema.sql).
+JWTおよびAuth関数を扱うためのものです。
 
-##### `postgres`
+### データベースの役割
 
-The default PostgreSQL role. This has admin privileges.  
+Supabaseは、Postgresデータベースにいくつかのデフォルトロールを作成します。いつでもデフォルトに戻すには、[schema初期化](https://github.com/supabase/supabase/blob/master/docker/volumes/db/init/00-initial-schema.sql)スクリプト内で以下のコマンドを実行します。
 
-##### `anon`
+##### `Postgres`
 
-For "anonymous access". This is the role which the API (PostgREST) will use when a user _is not_ logged in.
+PostgreSQLのデフォルトロールです。管理者権限を持ちます。
+
+##### `アノン`
+
+「匿名アクセス」のためのロールです。これは、ユーザがログインして_いない_ときに、API（PostgREST）が使用するロールです。
 
 ##### `authenticator`
 
-A special role for the API (PostgREST). It has very limited access, and is used to validate a JWT and then 
-"change into" another role determined by the JWT verification.
+API(PostgREST)用の特別なロールです。非常に限定されたアクセス権を持ち、JWTを検証し、JWTの検証によって決定された別のロールへ"変身"するため使用されます。
 
-##### `authenticated`
+##### `認証済み`
 
-For "authenticated access". This is the role which the API (PostgREST) will use when a user _is_ logged in.
+「認証されたアクセス」のためのロールです。これは、ユーザーがログイン_し_たときにAPI（PostgREST）が使用するロールです。
 
-##### `service_role`
+##### `サービス・ロール`
 
-For elevated access. This role is used by the API (PostgREST) to bypass Row Level Security.
+昇格アクセス用。このロールは、API (PostgREST)が行単位セキュリティーをバイパスするために使用されます。
 
 ##### `supabase_auth_admin`
 
-Used by the Auth middleware to connect to the database and run migration. Access is scoped to the `auth` schema.
+Authミドルウェアがデータベースに接続してマイグレーションを実行する際に使用します。アクセスは`auth`スキーマに限定されます。
 
 ##### `supabase_storage_admin`
 
-Used by the Auth middleware to connect to the database and run migration. Access is scoped to the `storage` schema.
+認証ミドルウェアがデータベースに接続し、移行する際に使用されます。アクセス権は`ストレージ`スキーマに割り当てられます。
 
-##### `dashboard_user`
+##### `ダッシュボード_ユーザー`
 
-For running commands via the Supabase UI.
+Supabase UIでコマンドを実行するために使用します。
 
 ##### `supabase_admin`
 
-Supabase Administrative role for maintaining your database. 
+Supabaseの管理者で、データベースのメンテナンスを行います。
 
-## API Keys 
+## APIキー
 
-The API Gateway (Kong) uses JWT to authenticate access through to the database. The JWT should correspond to a relevant Postgres Role, 
-and Supabase is designed to work with 2 roles: an `ANON_KEY` for unauthenticated access and a `SERVICE_KEY` for elevated access.
+API Gateway（Kong）は、データベースへのアクセスを認証するためにJWTを使用します。JWTは、関連するPostgresのロールに対応していなければなりません。Supabaseは、認証されていないアクセス用の`ANON_KEY`と、昇格したアクセス用の`SERVICE_`KEYの2つのロールで動作するように設計されています。
 
-Use this tool to generate keys:
+鍵の生成にはこのツールを使用してください。
 
 <JwtGenerator />
 
-## Managing your secrets 
+## 秘密の管理
 
-Many components inside Supabase use secure secrets and passwords. These are listed in the self-hosting
-[env file](https://github.com/supabase/supabase/blob/master/docker/.env.example), but we strongly recommend using a 
-secrets manager when deploying to production. Plain text files like dotenv lead to accidental costly leaks. 
+Supabaseの多くのコンポーネントは、安全なシークレットとパスワードを使用しています。これらはself-[hostingenvファイル](https://github.com/supabase/supabase/blob/master/docker/.env.example)に記載されていますが、本番環境にデプロイする際にはsecrets managerを使用することを強くお勧めします。dotenvのようなプレーンテキストのファイルでは、誤ってコストのかかるリークが発生してしまいます。
 
-Some suggested systems include:
+推奨されるシステムとしては、以下のようなものがあります。
 
-- [Doppler](https://www.doppler.com/)
-- [Key Vault](https://docs.microsoft.com/en-us/azure/key-vault/general/overview) by Azure
-- [Secrets Manager](https://aws.amazon.com/secrets-manager/) by AWS
-- [Secrets Manager](https://cloud.google.com/secret-manager) by GCP
-- [Vault](https://www.hashicorp.com/products/vault) by Hashicorp
+- [ドップラー](https://www.doppler.com/)
+- Azureの[Key Vault](https://docs.microsoft.com/en-us/azure/key-vault/general/overview)
+- AWSによる[Secrets Manager](https://aws.amazon.com/secrets-manager/)
+- GCPによる[Secrets Manager](https://cloud.google.com/secret-manager)
+- Hashicorp社の[Vault](https://www.hashicorp.com/products/vault)
 
-## Migrating and Upgrading
+## マイグレーションとアップグレード
 
-If you have decoupled your database from the middleware, then you should be able to redeploy the latest middleware at any time as long as it has no breaking changes.
-Supabase is evolving fast, and we'll continue to improve the migration strategy as part of our core offering.
+データベースとミドルウェアを切り離しているのであれば、破壊的な変更がない限り、いつでも最新のミドルウェアを再導入できるはずです。Supabaseは急速に進化しており、私たちのコアなサービスの一部として、移行戦略を改善していきます。
 
-We realize that database migrations are difficult, and this is one of the problems we plan to make easy for developers.
+データベースの移行が難しいことは認識していますが、これは開発者が簡単にできるよう計画している問題の1つです。

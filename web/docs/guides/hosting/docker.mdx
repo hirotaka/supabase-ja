@@ -1,91 +1,89 @@
 ---
 id: docker
-title: With Docker
+title: Docker
 description: How to use configure and deploy Supabase.
 ---
 
-Docker is the easiest way to get started with self-hosted Supabase.
+Dockerは、セルフホスト型Supabaseを始めるための最も簡単な方法です。
 
-## Before you begin
+## 始める前に
 
-You need the following installed in your system:
+以下のものがシステムにインストールされている必要があります。
 
-- [Docker](https://docs.docker.com/engine/install/) and docker-compose
+- [Docker](https://docs.docker.com/engine/install/)とdocker-compose
 - [Git](https://git-scm.com/downloads)
 
-## Getting started
+## はじめに
 
-### Get the code
+### コードの取得
 
-Checkout the docker directory in the Supabase repo:
+Supabaseのリポジトリーにあるdockerディレクトリをチェックアウトします。
 
 ```sh
 git clone --depth 1 https://github.com/supabase/supabase
 cd supabase/docker
 ```
 
-### Manage Secrets
+### 秘密の管理
 
-Copy `.env.example` to `.env` and populate the values.
+`.env.example`を`.env`にコピーして、値を入力します。
 
 ```sh
 cp .env.example .env
 ```
 
-In particular, these are required:
+特に、これらは必須です。
 
-- `POSTGRES_PASSWORD`: the password for the `postgres` role 
-- `JWT_SECRET`: used by PostgREST and GoTrue, among others
-- `SITE_URL`: the base URL of your site
-- `SMTP_*`: mail server credentials
+- `POSTGRES_PASSWORD`：`postgres`ロールのパスワード
+- `JWT_SECRET`: PostgRESTやGoTrueなどで使用されます
+- `SITE_URL`：あなたのサイトのベースURL
+- `SMTP_*：`メールサーバーの認証情報
 
-### Generate API Keys
+### APIキーの生成
 
-Use your `JWT_SECRET` to generate a `anon` and `service` API keys using the [JWT generator](/docs/guides/hosting/overview#api-keys).
+JWT`_SECRET`を使って、[JWTジェネレーター](/docs/guides/hosting/overview#api-keys)を使って`アノン`と`サービスの`APIキーを生成します。
 
-Replace the values in these files:
+これらのファイルの値を置き換えます。
 
-- `docker-compose.yml`: 
-  - `ANON_KEY` - replace with an `anon` key
-  - `SERVICE_KEY` - replace with a `service` key
-- `volumes/kong.yml`
-  - `anon` - replace with an `anon` key
-  - `service_role` - replace with a `service` key
+- `docker-compose.yml`:
+  - `ANON_KEY`-`アノン・キー`に置き換えます。
+  - `SERVICE_KEY`-`サービス`キーに置き換える。
+- `ボリューム/kong.yml`
+  - `anon`-`アノン・キー`に置き換えます。
+  - `service_role`-`サービス`キーに置き換えます。
 
-### Start 
+### 開始
 
-You can now start Supabase:
+これでSupabaseを起動できます。
 
 ```sh
 docker-compose up
 ```
 
-Your database will be persisted in `volumes/db/data`, and your storage objects in `volumes/storage`. 
+データベースは`volume/db/data`に、ストレージオブジェクトは`volume/storage`に保存されます。
 
-Try out the examples in `supabase/examples` to verify if it works correctly!
+`supabase/examples`にあるサンプルを試して、正しく動作するか確認してください。
 
 
-## Configuration
+## 構成
 
-To keep the setup simple, we made some choices that may not be optimal for production:
+設定をシンプルにするため、本番環境においては最適ではない選択をしました。
 
-- the database is in the same machine as the servers
-- the storage uses the filesystem backend instead of S3
+- データベースは、サーバーと同じマシンにある
+- ストレージはS3ではなくファイルシステムバックエンドを使用
 
-We strongly [recommend](/docs/guides/hosting/overview#managing-your-database) that you decouple your database
-before deploying.
-Each system can be [configured](/docs/guides/hosting/overview#configuration) to suit your particular use-case.
+デプロイする前にデータベースをデカップリングすることを強く[お勧めし](/docs/guides/hosting/overview#managing-your-database)ます。それぞれのシステムは、特定のユースケースに合わせて[構成する](/docs/guides/hosting/overview#configuration)ことができます。
 
-## Deploying
+## デプロイ方法
 
-See the following guides to deploy Docker Compose setup using your preferred tool and platform:
+以下のガイドを参照して、お好みのツールやプラットフォームを使用してDocker Composeセットアップをデプロイしてください。
 
 - [Docker Swarm](https://docs.docker.com/engine/swarm/stack-deploy/)
 - [AWS Fargate](https://aws.amazon.com/blogs/containers/deploy-applications-on-amazon-ecs-using-docker-compose/)
-- [Using Kompose for Kubernetes](https://kubernetes.io/docs/tasks/configure-pod-container/translate-compose-kubernetes/)
+- [Kompose for Kubernetes（KubernetesのためのKompose](https://kubernetes.io/docs/tasks/configure-pod-container/translate-compose-kubernetes/)
 
 
-## Next steps
+## 次のステップ
 
-- Got a question? [Ask here](https://github.com/supabase/supabase/discussions).
-- Sign in: [app.supabase.io](https://app.supabase.io)
+- 質問がありますか。[ここで質問して](https://github.com/supabase/supabase/discussions)ください
+- サインイン：[app.supabase.io](https://app.supabase.io)
