@@ -20,8 +20,6 @@ PostgresはネイティブでSQLを実行しますが、他の「手続き型言
 
 ### 有効化
 
-<!-- textlint-disable -->
-
 <Tabs
 defaultValue="UI"
 values={[
@@ -29,8 +27,6 @@ values={[
   {label: 'SQL', value: 'SQL'},
 ]}>
 <TabItem value="UI">
-
-<!-- textlint-enable -->
 
 ```sh
 1. Go to the Database page.
@@ -52,7 +48,8 @@ drop extension if exists plv8;
 
 ```
 
-SQLコードが`拡張機能を作成し`ていても、これは「拡張機能を有効にする」ことと同じです。拡張機能を無効にするには、`drop extension`を呼び出します。
+SQLコードが`拡張機能を作成し`ていても、これは「拡張機能を有効にする」ことと同じです。
+拡張機能を無効にするには、`drop extension`を呼び出します。
 
 手続き型言語は`pg_catalog`に自動的にインストールされますので、スキーマを指定する必要はありません。
 
@@ -74,7 +71,7 @@ $$ language plv8;
 
 他のPostgres関数と同様に`plv8`関数を呼びだすことができます。
 
-<!-- textlint-disable -->
+
 
 <Tabs
 defaultValue="SQL"
@@ -84,7 +81,6 @@ values={[
 ]}>
 <TabItem value="SQL">
 
-<!-- textlint-enable -->
 
 ```sql
 select function_name();

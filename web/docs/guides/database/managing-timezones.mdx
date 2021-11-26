@@ -14,7 +14,7 @@ Supabaseのデータベースは、デフォルトでUTCタイムゾーンに設
 
 ### タイムゾーンの変更
 
-<!-- textlint-disable -->
+
 
 <Tabs
   defaultValue="sql"
@@ -22,8 +22,6 @@ Supabaseのデータベースは、デフォルトでUTCタイムゾーンに設
   values={[{ label: 'SQL', value: 'sql' }]}>
 
 <TabItem value="sql">
-
-<!-- textlint-enable -->
 
 ```sql
 alter database postgres 
@@ -44,7 +42,6 @@ set timezone to 'America/New_York';
 - `utc_offset`：UTCからのオフセット。UTCからのオフセット（正の値はグリニッジの東を意味します）
 - `is_dst`:現在サマータイムが適用されている場合はtrue
 
-<!-- textlint-disable -->
 
 <Tabs
   defaultValue="sql"
@@ -52,8 +49,6 @@ set timezone to 'America/New_York';
   values={[{ label: 'SQL', value: 'sql' }]}>
 
 <TabItem value="sql">
-
-<!-- textlint-enable -->
 
 ```sql
 select name, abbrev, utc_offset, is_dst
@@ -70,16 +65,12 @@ order by name;
 
 特定のタイムゾーンを検索するには、`ilike`（大文字と小文字を区別しない検索）を使用します。
 
-<!-- textlint-disable -->
-
 <Tabs
   defaultValue="sql"
   groupId="reference/postgres"
   values={[{ label: 'SQL', value: 'sql' }]}>
 
 <TabItem value="sql">
-
-<!-- textlint-enable -->
 
 ```sql
 select * 

@@ -3,12 +3,8 @@ id: extensions
 title: 概要
 description: Using Postgres extensions.
 ---
-<!-- textlint-disable -->
 
 import ExtensionsComponent from '@site/src/components/Extensions'
-
-<!-- textlint-enable -->
-
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -18,7 +14,7 @@ Supabaseには、最も便利なオープンソースのエクステンション
 
 ### エクステンションの有効化と無効化
 
-<!-- textlint-disable -->
+
 
 <Tabs
 defaultValue="UI"
@@ -27,8 +23,6 @@ values={[
   {label: 'SQL', value: 'SQL'},
 ]}>
 <TabItem value="UI">
-
-<!-- textlint-enable -->
 
 ```sh
 1. Go to the Database page
@@ -57,7 +51,8 @@ drop extension pgtap;
 
 ```
 
-SQLコードが`拡張機能を作成し`ていても、これは「拡張機能を有効にする」ことと同じです。拡張機能を無効にするには、`drop extension`を呼び出します。
+SQLコードが`拡張機能を作成し`ていても、これは「拡張機能を有効にする」ことと同じです。
+拡張機能を無効にするには、`drop extension`を呼び出します。
 
 </TabItem>
 

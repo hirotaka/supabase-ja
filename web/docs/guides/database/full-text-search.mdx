@@ -15,7 +15,6 @@ Postgresには、`全文検索`クエリを処理する関数が組み込まれ�
 
 このガイドでは、以下の例のデータを使用します。
 
-<!-- textlint-disable -->
 
 <Tabs
 defaultValue="Data"
@@ -25,8 +24,6 @@ values={[
 ]}>
 
 <TabItem value="SQL">
-
-<!-- textlint-enable -->
 
 ```sql
 create table books (
@@ -80,6 +77,8 @@ select to_tsvector("green eggs and ham")
 
 `to_tsquery()`は "to text search query "の略で、クエリ文字列をマッチする "トークン "に変換します。
 
+
+この変換ステップは、キーワードを「ファジーマッチ」させるために重要です。 
 例えば、ユーザーが"eggs"を検索して、カラムに "egg"という値があったとしても、おそらくマッチしたものを返したくなります。
 
 
@@ -89,8 +88,6 @@ select to_tsvector("green eggs and ham")
 
 次の例を見てみましょう。
 
-<!-- textlint-disable -->
-
 <Tabs
 defaultValue="SQL"
 values={[
@@ -99,8 +96,6 @@ values={[
   {label: 'Dart', value: 'DART'},
 ]}>
 <TabItem value="SQL">
-
-<!-- textlint-enable -->
 
 ```sql
 select * 
@@ -136,8 +131,6 @@ final result = await client
 
 上の等号`(=)`は、マッチするものに対して非常に「厳密」です。フルテキスト検索では、「ハリー・ポッター」の本をすべて見つけたい場合がありますので、上記の例を書き換えることができます。
 
-<!-- textlint-disable -->
-
 <Tabs
 defaultValue="SQL"
 values={[
@@ -146,8 +139,6 @@ values={[
   {label: 'Dart', value: 'DART'},
 ]}>
 <TabItem value="SQL">
-
-<!-- textlint-enable -->
 
 ```sql
 select * 
@@ -185,8 +176,6 @@ final result = await client
 
 `説明文`に「`big`」という単語が含まれる`書籍`をすべて検索するには次の通りです。
 
-<!-- textlint-disable -->
-
 <Tabs
 defaultValue="SQL"
 values={[
@@ -196,8 +185,6 @@ values={[
   {label: 'Data', value: 'Data'},
 ]}>
 <TabItem value="SQL">
-
-<!-- textlint-enable -->
 
 ```sql
 select 
@@ -245,8 +232,6 @@ final result = await client
 
 `説明文`または`タイトル`に「`little`」という単語が含まれるすべての`書籍`を検索します。
 
-<!-- textlint-disable -->
-
 <Tabs
 defaultValue="SQL"
 values={[
@@ -254,8 +239,6 @@ values={[
   {label: 'Data', value: 'Data'},
 ]}>
 <TabItem value="SQL">
-
-<!-- textlint-enable -->
 
 ```sql
 select 
@@ -282,8 +265,6 @@ where
 
 `説明文`に`little`と`big`の両方の単語が含まれている`書籍`をすべて検索するには、`&`記号を使用します。
 
-<!-- textlint-disable -->
-
 <Tabs
 defaultValue="SQL"
 values={[
@@ -293,8 +274,6 @@ values={[
   {label: 'Data', value: 'Data'},
 ]}>
 <TabItem value="SQL">
-
-<!-- textlint-enable -->
 
 ```sql
 select 
@@ -341,8 +320,6 @@ final result = await client
 
 `説明文`に`little`または`big`のいずれかの単語が含まれている`書籍`をすべて検索するには、`｜`記号を使用します。
 
-<!-- textlint-disable -->
-
 <Tabs
 defaultValue="SQL"
 values={[
@@ -352,8 +329,6 @@ values={[
   {label: 'Data', value: 'Data'},
 ]}>
 <TabItem value="SQL">
-
-<!-- textlint-enable -->
 
 ```sql
 select 
@@ -409,8 +384,6 @@ final result = await client
 
 Postgresの特別な機能である[「生成された列](https://www.postgresql.org/docs/current/ddl-generated-columns.html)」を使用して、`タイトル`と`説明の`列の値が変更されるたびにインデックスが更新されるようにします。
 
-<!-- textlint-disable -->
-
 <Tabs
 defaultValue="SQL"
 values={[
@@ -418,8 +391,6 @@ values={[
   {label: 'Data', value: 'Data'},
 ]}>
 <TabItem value="SQL">
-
-<!-- textlint-enable -->
 
 ```sql
 alter table 
@@ -451,8 +422,6 @@ from books;
 
 インデックスを作成して入力したので、これまでと同じ手法で検索してみましょう。
 
-<!-- textlint-disable -->
-
 <Tabs
 defaultValue="SQL"
 values={[
@@ -462,8 +431,6 @@ values={[
   {label: 'Data', value: 'Data'},
 ]}>
 <TabItem value="SQL">
-
-<!-- textlint-enable -->
 
 ```sql
 select 
@@ -511,9 +478,9 @@ final result = await client
 
 ### 近接記号`：<->`
 
+近接記号は、一定の「距離」を隔てた用語を検索するのに便利です。
 例えば、"big"にマッチした後、"dreams"にマッチした"`big dreams`"というフレーズを検索する場合に使用します。
 
-<!-- textlint-disable -->
 
 <Tabs
 defaultValue="SQL"
@@ -523,8 +490,6 @@ values={[
   {label: 'Dart', value: 'DART'},
 ]}>
 <TabItem value="SQL">
-
-<!-- textlint-disable -->
 
 ```sql
 select 
@@ -562,8 +527,6 @@ final result = await client
 
 `<->`を使って、一定の距離内にある単語を探すこともできます。例えば、`「year」`と`「school」`を2語以内で検索するには、次のようにします。
 
-<!-- textlint-disable -->
-
 <Tabs
 defaultValue="SQL"
 values={[
@@ -572,8 +535,6 @@ values={[
   {label: 'Dart', value: 'DART'},
 ]}>
 <TabItem value="SQL">
-
-<!-- textlint-disable -->
 
 ```sql
 select 
@@ -613,8 +574,6 @@ final result = await client
 
 否定記号は、検索語を含ま_ない_フレーズを見つけるために使用できます。例えば、`big`という単語を含み、`little`という単語を含まないレコードを見つけるには次の通りになります。
 
-<!-- textlint-disable -->
-
 <Tabs
 defaultValue="SQL"
 values={[
@@ -623,8 +582,6 @@ values={[
   {label: 'Dart', value: 'DART'},
 ]}>
 <TabItem value="SQL">
-
-<!-- textlint-enable -->
 
 ```sql
 select 
@@ -663,6 +620,5 @@ final result = await client
 ## リソース
 
 * [PostgreSQL。テキスト検索関数と演算子](https://www.postgresql.org/docs/12/functions-textsearch.html)
-
 
 
