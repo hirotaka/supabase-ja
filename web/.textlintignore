@@ -22,7 +22,6 @@ docs/guides/auth/intro.mdx
 docs/guides/client-libraries.mdx
 docs/guides/database/arrays.mdx
 docs/guides/database/json.mdx
-docs/guides/hosting/overview.mdx
 docs/postgres/server/about.md
 docs/postgres/server/digitalocean.md
 docs/postgres/server/docker.md
