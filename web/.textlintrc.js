@@ -17,6 +17,7 @@ module.exports = {
     allowlist: {
       allow: [
         '/^<Tabs[\\s\\S]*?]}>$/m',
+        '/^<Tabs[\\s\\S]*?>$/m',
         "/import ExtensionsComponent from '@site/src/components/Extensions'/",
         "/import Link from '@docusaurus/Link'/",
       ],

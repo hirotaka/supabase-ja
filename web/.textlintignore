@@ -6,7 +6,6 @@ docs/gotrue/server/about.md
 docs/guides/auth/auth-apple.mdx
 docs/guides/auth/auth-bitbucket.mdx
 docs/guides/auth/auth-discord.mdx
-docs/guides/auth/auth-email.mdx
 docs/guides/auth/auth-facebook.mdx
 docs/guides/auth/auth-github.mdx
 docs/guides/auth/auth-gitlab.mdx
@@ -18,13 +17,14 @@ docs/guides/auth/auth-spotify.mdx
 docs/guides/auth/auth-twilio.mdx
 docs/guides/auth/auth-twitch.mdx
 docs/guides/auth/auth-twitter.mdx
-docs/guides/auth/intro.mdx
 docs/guides/client-libraries.mdx
 docs/guides/database/arrays.mdx
 docs/guides/database/json.mdx
 docs/postgres/server/about.md
 docs/postgres/server/digitalocean.md
 docs/postgres/server/docker.md
+docs/guides/database/arrays.mdx
+docs/guides/database/json.mdx
 docs/guides/database/extensions/pgtap.mdx
 docs/reference/cli/index.mdx
 docs/reference/cli/supabase-init.mdx
