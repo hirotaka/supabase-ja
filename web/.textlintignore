@@ -21,7 +21,6 @@ docs/guides/auth/auth-twitter.mdx
 docs/guides/auth/intro.mdx
 docs/guides/client-libraries.mdx
 docs/guides/database/arrays.mdx
-docs/guides/database/extensions/http.mdx
 docs/guides/database/extensions/pgtap.mdx
 docs/guides/database/extensions/uuid-ossp.mdx
 docs/guides/database/json.mdx
