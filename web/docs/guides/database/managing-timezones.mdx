@@ -1,6 +1,6 @@
 ---
 id: managing-timezones
-title: "Timezones"
+title: "タイムゾーン"
 slug: managing-timezones
 description: How to change your database timezone.
 ---
@@ -9,11 +9,10 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
-Every Supabase database is set to UTC timezone by default. We strongly recommend keeping it this way, even if your users are in a different location.
-This is because it makes it much easier to calculate differences between timezones if you adopt the mental model that "everything in my database is in UTC time".
+Supabaseのデータベースは、デフォルトでUTCタイムゾーンに設定されています。これは、「私のデータベースの中のものはすべてUTC時間である」というメンタルモデルを採用すると、タイムゾーン間の差を計算するのが非常に簡単になるからです。
 
 
-### Change timezone
+### タイムゾーンの変更
 
 
 
@@ -34,14 +33,14 @@ set timezone to 'America/New_York';
 
 </Tabs>
 
-### Full list of timezones
+### タイムゾーンの全リスト
 
-Get a full list of timezones supported by your database. This will return the following columns:
+データベースでサポートされているタイムゾーンの完全なリストを取得します。これにより、以下の列が返されます。
 
-- `name`: Time zone name
-- `abbrev`: Time zone abbreviation
-- `utc_offset`: Offset from UTC (positive means east of Greenwich)
-- `is_dst`: True if currently observing daylight savings
+- `name`: タイムゾーン名
+- `abbrev`：タイムゾーンの略語
+- `utc_offset`：UTCからのオフセット。UTCからのオフセット（正の値はグリニッジの東を意味します）
+- `is_dst`:現在サマータイムが適用されている場合はtrue
 
 
 <Tabs
@@ -62,9 +61,9 @@ order by name;
 
 </Tabs>
 
-### Search for a specific timezone
+### 特定のタイムゾーンの検索
 
-Use `ilike` (case insensitive search) to find specific timezones.
+特定のタイムゾーンを検索するには、`ilike`（大文字と小文字を区別しない検索）を使用します。
 
 <Tabs
   defaultValue="sql"

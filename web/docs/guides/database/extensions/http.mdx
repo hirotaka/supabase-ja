@@ -1,32 +1,33 @@
 ---
 id: http
-title: "http: RESTful Client"
+title: "http：RESTfulクライアント"
 description: An HTTP Client for PostgreSQL Functions.
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The `http` extension allows you to call RESTful endpoints within Postgres.
+`http`拡張機能を使用すると、Postgres内でRESTfulなエンドポイントを呼びだすことができます。
 
-## Overview
+## 概要
 
-Let's cover some basic concepts:
+いくつかの基本的な概念を説明しましょう。
 
-- REST: stands for REpresentational State Transfer. It's simply a way to request data from external services.
-- RESTful APIs are servers which accept HTTP "calls". The calls are typically:
-  - `GET` − Read only access to a resource.
-  - `POST` − Creates a new resource.
-  - `DELETE` − Removes a resource.
-  - `PUT` − Updates an existing resource or creates a new resource.
+- REST: REpresentational State Transferの略です。これは単純に、外部サービスにデータを要求する方法です。
+- RESTful APIは、HTTPの「呼び出し」を受け付けるサーバーです。呼び出しは通常
+  - `GET`- リソースへの読み取り専用アクセス。
+  - `POST`- 新しいリソースを作成します。
+  - `DELETE`- リソースを削除します。
+  - `PUT`- 既存のリソースを更新、または新しいリソースを作成します。
 
-You can use the `http` extension to make these network requests from Postgres.
-
-
-## Usage
+Postgresからこれらのネットワーク要求するために、`http`エクステンションを使用できます。
 
 
-### Enabling
+## 使用方法
+
+
+### 有効化
+
 
 <Tabs
 defaultValue="UI"
@@ -58,18 +59,18 @@ drop extension if exists http;
 
 ```
 
-Even though the SQL code is `create extension`, this is the equivalent of "enabling the extension". 
-To disable an extension you can call `drop extension`.
+SQLコードが`拡張機能を作成し`ていても、これは「拡張機能を有効にする」ことと同じです。
+拡張機能を無効にするには、`drop extension`を呼び出します。
 
-It's good practice to create the extension within a separate schema (like `extensions`) to keep your database clean.
+データベースをきれいに保つために、拡張機能を（`extensions`のような）別のスキーマ内に作成することは良い習慣です。
 
 </TabItem>
 
 </Tabs>
 
-### Available functions
+### 利用可能な関数
 
-While the main usage is simply `http('http_request')`, there are 5 wrapper functions for specific functionality:
+主な使用方法は単純に`http('http_request')`ですが、特定の機能のために5つのラッパー関数があります。
 
 - `http_get()`
 - `http_post()`
@@ -77,18 +78,18 @@ While the main usage is simply `http('http_request')`, there are 5 wrapper funct
 - `http_delete()`
 - `http_head()` 
 
-### Returned values 
+### 返される値
 
-A successful call to a web URL from the `http` extension returns a record with the following fields: 
+`http`拡張モジュールからWebのURLへの呼び出しに成功すると、以下のフィールドを持つレコードが返されます。
 
-- `status`: integer
-- `content_type`: character varying
-- `headers`: http_header[]
-- `content`: character varying. Typically you would want to cast this to `jsonb` using the format `content::jsonb`
+- `ステータス`: 整数
+- `content_type`: さまざまな文字
+- `headers`: http_header\[]
+- `content`: 文字数は可変です。典型的な例としては、`content::jsonb`というフォーマットで`jsonb`にキャストします
 
-## Examples
+## 例
 
-### Simple `GET` example
+### 単純な`GET の`例
 
 ```sql
 select 
@@ -98,7 +99,7 @@ from
 ```
 
 
-### Simple `POST` example
+### シンプルな`POST`の例
 
 ```sql
 select 
@@ -112,6 +113,6 @@ from
 ```
 
 
-## Resources 
+## リソース
 
-- Official [`http` Github Repository](https://github.com/pramsey/pgsql-http).
+- [`httpの`](https://github.com/pramsey/pgsql-http)公式[Githubリポジトリ](https://github.com/pramsey/pgsql-http)です。

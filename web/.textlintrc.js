@@ -14,5 +14,11 @@ module.exports = {
   },
   filters: {
     comments: true,
+    allowlist: {
+      allow: [
+        '/^<Tabs[\\s\\S]*?]}>$/m',
+        "/import ExtensionsComponent from '@site/src/components/Extensions'/",
+      ],
+    },
   },
 }

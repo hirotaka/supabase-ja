@@ -1,6 +1,6 @@
 ---
 id: replication
-title: "Replication"
+title: "レプリケーション"
 slug: replication
 ---
 
@@ -8,22 +8,22 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
-Replication is technique for copying the data from one database to another. This is useful for:
+レプリケーションは、あるデータベースから別のデータベースへデータをコピーする技術です。これは次のような場合に有効です。
 
-- Spreading out the "load". For example, if your database has a lot of reads, you might want to split it between two databases.
-- Reducing latency. For example, you may want one database in London to serve your European customers, and one in New York to serve the US.
-- In Supabase's case, we use the built-in replication functionality to provide a real-time API.
-
-
-
-## Publications
-
-Publications are a way of choosing which changes should be sent to other systems (usually another Postgres database).
+- 「負荷」を分散させる。例えば、データベースに多くの読み取りがある場合、2つのデータベースに分割できます。
+- 待ち時間の短縮。例えば、ヨーロッパのお客様にはロンドンに、アメリカのお客様にはニューヨークにデータベースを設置したい場合があります。
+- Supabaseの場合は、内蔵されているレプリケーション機能を利用して、リアルタイムのAPIを提供しています。
 
 
-### Managing Publications 
 
-Supabase provides an interface for managing your publications, or you can use SQL.
+## パブリケーション
+
+パブリケーションとは、どの変更を他のシステム（通常は他のPostgresデータベース）に送信するかを選択する方法です。
+
+
+### 出版物の管理
+
+Supabaseは出版物を管理するためのインターフェースを提供していますが、SQLを使用できます。
 
 <Tabs
 defaultValue="UI"
@@ -54,9 +54,9 @@ alter publication supabase_realtime add table products;
 </TabItem>
 </Tabs>
 
-### Create a Publication
+### 出版物の作成
 
-This publication will contain all changes to all tables.
+このパブリケーションは、すべてのテーブルに対するすべての変更を含みます。
 
 
 <Tabs
@@ -76,7 +76,7 @@ for all tables;
 
 </Tabs>
 
-### Create a Publication which listens to individual tables
+### 個々のテーブルをリッスンするパブリケーションの作成
 
 
 
@@ -97,7 +97,7 @@ for table table_one, table_two;
 
 </Tabs>
 
-### Add tables to an existing publication
+### 既存のパブリケーションにテーブルを追加する
 
 
 
@@ -118,7 +118,7 @@ add table table_name;
 
 </Tabs>
 
-### Listen to `insert`
+### `インサート`を聞く
 
 
 
@@ -140,7 +140,7 @@ with (publish = 'insert');
 
 </Tabs>
 
-### Listen to `update`
+### `更新`を聞く
 
 
 
@@ -162,7 +162,7 @@ with (publish = 'update');
 
 </Tabs>
 
-### Listen to `delete`
+### `削除`を聞く
 
 
 
@@ -184,7 +184,7 @@ with (publish = 'delete');
 
 </Tabs>
 
-### Remove a Publication
+### パブリケーションの削除
 
 
 
@@ -204,9 +204,9 @@ drop publication if exists publication_name;
 
 </Tabs>
 
-### Recreate a Publication
+### パブリケーションの再作成
 
-If you are planning to re-create a publication, it's best to do it in a transaction to ensure the operation succeeds.
+パブリケーションの再作成を計画している場合は、操作が確実に成功するよう、トランザクション内で行うことが最善です。
 
 
 <Tabs

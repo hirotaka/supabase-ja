@@ -1,6 +1,6 @@
 ---
 id: full-text-search
-title: "Full Text Search"
+title: "全文検索"
 description: How to use full text search in PostgreSQL.
 ---
 
@@ -8,12 +8,12 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
-Postgres has built-in functions to handle `Full Text Search` queries. This is like a "search engine" within Postgres.
+Postgresには、`全文検索`クエリを処理する関数が組み込まれています。これは、Postgres内の「検索エンジン」のようなものです。
 
 
-## Preparation
+## 準備
 
-For this guide we'll use the following example data:
+このガイドでは、以下の例のデータを使用します。
 
 
 <Tabs
@@ -57,13 +57,13 @@ values
 
 </Tabs>
 
-## Usage
+## 使用方法
 
-The functions we'll cover in this guide are:
+このガイドで取り上げる関数になります。
 
 ### `to_tsvector()`
 
-Converts your data into searchable "tokens". `to_tsvector()` stands for "to text search vector". For example:
+データを検索可能な "トークン "に変換します。`to_tsvector()`は "to text search vector "の略です。例えば、以下のようなものです。
 
 ```sql
 select to_tsvector("green eggs and ham")
@@ -71,21 +71,22 @@ select to_tsvector("green eggs and ham")
 -- Returns 'egg':2 'green':1 'ham':4
 ``` 
 
-Collectively these tokens are called a "document" which Postgres can use for comparisons.
+これらのトークンをまとめて "ドキュメント"と呼び、Postgresはこれを比較に使用できます。
 
 ### `to_tsquery()`
 
-Converts a query string into "tokens" to match. `to_tsquery()` stands for "to text search query".
-
-This conversion step is important because we will want to "fuzzy match" on keywords. 
-For example if a user searches for "eggs", and a column has the value "egg", we probably still want to return a match.
+`to_tsquery()`は "to text search query "の略で、クエリ文字列をマッチする "トークン "に変換します。
 
 
-### Match: `@@`
+この変換ステップは、キーワードを「ファジーマッチ」させるために重要です。 
+例えば、ユーザーが"eggs"を検索して、カラムに "egg"という値があったとしても、おそらくマッチしたものを返したくなります。
 
-The `@@` symbol is the "match" symbol for Full Text Search. It returns any matches between a `to_tsvector` result and a `to_tsquery` result.
 
-Take the following example:
+### マッチ`@@`
+
+`@@`記号は、全文検索の「マッチ」記号です。この記号は、`to_tsvector`の結果と`to_tsquery`の結果の間で一致するものを返します。
+
+次の例を見てみましょう。
 
 <Tabs
 defaultValue="SQL"
@@ -128,8 +129,7 @@ final result = await client
 </Tabs>
 
 
-The equality symbol above (`=`) is very "strict" on what it matches. In a full text search context, we might want to find all "Harry Potter" books and so we can rewrite the 
-example above:
+上の等号`(=)`は、マッチするものに対して非常に「厳密」です。フルテキスト検索では、「ハリー・ポッター」の本をすべて見つけたい場合がありますので、上記の例を書き換えることができます。
 
 <Tabs
 defaultValue="SQL"
@@ -170,11 +170,11 @@ final result = await client
 </TabItem>
 </Tabs>
 
-## Basic Full Text Queries
+## 基本的なフルテキストクエリ
 
-### Search a single column
+### 1つの列を検索する
 
-To find all `books` where the `description` contain the word `big`:
+`説明文`に「`big`」という単語が含まれる`書籍`をすべて検索するには次の通りです。
 
 <Tabs
 defaultValue="SQL"
@@ -228,9 +228,9 @@ final result = await client
 </TabItem>
 </Tabs>
 
-### Search multiple columns
+### 複数のコラムを検索する
 
-To find all `books` where `description` or `title` contain the word `little`:
+`説明文`または`タイトル`に「`little`」という単語が含まれるすべての`書籍`を検索します。
 
 <Tabs
 defaultValue="SQL"
@@ -261,9 +261,9 @@ where
 </TabItem>
 </Tabs>
 
-### Match all search words
+### すべての検索ワードに一致する
 
-To find all `books` where `description` contains BOTH of the words `little` and `big`, we can  use the `&` symbol:
+`説明文`に`little`と`big`の両方の単語が含まれている`書籍`をすべて検索するには、`&`記号を使用します。
 
 <Tabs
 defaultValue="SQL"
@@ -316,9 +316,9 @@ final result = await client
 </TabItem>
 </Tabs>
 
-### Match any search words
+### 任意の検索語にマッチ
 
-To find all `books` where `description` contain ANY of the words `little` or `big`, use the `|` symbol:
+`説明文`に`little`または`big`のいずれかの単語が含まれている`書籍`をすべて検索するには、`｜`記号を使用します。
 
 <Tabs
 defaultValue="SQL"
@@ -372,20 +372,17 @@ final result = await client
 </TabItem>
 </Tabs>
 
-Notice how searching for `big` includes results with the word `bigger` (or `biggest`, etc).
+`big`を検索すると、`bigger`（または`bigest`など）という単語を含む結果が表示されることに注目してください。
 
-## Creating Indexes
+## インデックスの作成
 
-Now that we have Full Text Search working, let's create an `index`. This will allow Postgres to "build" the documents pre-emptively so that they 
-don't need to be created at the time we execute the query. This will make our queries much faster.
+さて、フルテキスト検索が動作するようになったので、`インデックス`を作成してみましょう。これにより、Postgresが事前に文書を「構築」でき、クエリの実行時に文書を作成する必要がなくなります。これにより、クエリの実行がより速くなります。
 
-### Searchable columns
+### 検索可能な列
 
-Let's create a new column `fts` inside the `books` table to store the searchable index of the `title` and `description` columns. 
+`タイトル`と`説明の`列の検索可能なインデックスを格納するために、`books`テーブルの中に新しい列`fts`を作成しましょう。
 
-We can use a special feature of Postgres called 
-[Generated Columns](https://www.postgresql.org/docs/current/ddl-generated-columns.html) 
-to ensure that the index is updated any time the values in the `title` and `description` columns change.
+Postgresの特別な機能である[「生成された列](https://www.postgresql.org/docs/current/ddl-generated-columns.html)」を使用して、`タイトル`と`説明の`列の値が変更されるたびにインデックスが更新されるようにします。
 
 <Tabs
 defaultValue="SQL"
@@ -421,9 +418,9 @@ from books;
 </TabItem>
 </Tabs>
 
-### Search using the new column
+### 新しいカラムを使った検索
 
-Now that we've created and populated our index, we can search it using the same techniques as before:
+インデックスを作成して入力したので、これまでと同じ手法で検索してみましょう。
 
 <Tabs
 defaultValue="SQL"
@@ -475,15 +472,14 @@ final result = await client
 </TabItem>
 </Tabs>
 
-## Query Operators
+## クエリ演算子
 
-Visit [PostgreSQL: Text Search Functions and Operators](https://www.postgresql.org/docs/current/functions-textsearch.html)
-to learn about additional query operators you can use to do more advanced `full text queries`, such as:
+[PostgreSQL](https://www.postgresql.org/docs/current/functions-textsearch.html)をご覧ください。「[テキスト検索関数と演算子](https://www.postgresql.org/docs/current/functions-textsearch.html)」を参照してください。ここでは、より高度な`フルテキスト`検索に使用できる、以下のような追加の問い合わせ演算子について説明します。
 
-### Proximity: `<->`
+### 近接記号`：<->`
 
-The proximity symbol is useful for searching for terms that are a certain "distance" apart.
-For example, to find the phrase `big dreams`, where the a match for "big" is followed immediately by a match for "dreams":
+近接記号は、一定の「距離」を隔てた用語を検索するのに便利です。
+例えば、"big"にマッチした後、"dreams"にマッチした"`big dreams`"というフレーズを検索する場合に使用します。
 
 
 <Tabs
@@ -529,7 +525,7 @@ final result = await client
 </Tabs>
 
 
-We can also use the `<->` to find words within a certain distance of eachother. For example to find `year` and `school` within 2 words of each other:
+`<->`を使って、一定の距離内にある単語を探すこともできます。例えば、`「year」`と`「school」`を2語以内で検索するには、次のようにします。
 
 <Tabs
 defaultValue="SQL"
@@ -574,10 +570,9 @@ final result = await client
 </Tabs>
 
 
-### Negation: `!`
+### 否定`： !`
 
-The negation symbol can be used to find phrases which _don't_ contain a search term.
-For example, to find records that have the word `big` but not `little`:
+否定記号は、検索語を含ま_ない_フレーズを見つけるために使用できます。例えば、`big`という単語を含み、`little`という単語を含まないレコードを見つけるには次の通りになります。
 
 <Tabs
 defaultValue="SQL"
@@ -622,9 +617,8 @@ final result = await client
 </Tabs>
 
 
-## Resources
+## リソース
 
-* [PostgreSQL: Text Search Functions and Operators](https://www.postgresql.org/docs/12/functions-textsearch.html)
-
+* [PostgreSQL。テキスト検索関数と演算子](https://www.postgresql.org/docs/12/functions-textsearch.html)
 
 
