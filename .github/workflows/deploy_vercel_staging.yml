@@ -2,7 +2,7 @@ name: Deploy studio app to staging on vercel
 on:
   push:
     branches:
-      - master
+      - none
     paths:
       - 'studio/**'
 jobs:
