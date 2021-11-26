@@ -1,26 +1,26 @@
 ---
 id: plv8
-title: "plv8: Javascript Language"
+title: "plv8: Javascript言語"
 description: Javascript language for PostgreSQL.
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The `plv8` extension allows you use Javascript within Postgres. 
+`plv8`拡張は、Postgres内でJavascriptを使用できるようにします。
 
-## Overview
+## 概要
 
-While Postgres natively runs SQL, it can also run other "procedural languages". 
-`plv8` allows you to run Javascript code - specifically any code that runs on the [V8 Javascript engine](https://v8.dev).
+PostgresはネイティブでSQLを実行しますが、他の「手続き型言語」も実行できます。`plv8`はJavascriptのコード、特に[V8 Javascriptエンジン](https://v8.dev)上で実行されるコードを実行できます。
 
-It can be used for database functions, triggers, queries and more.
+これは、データベース関数、トリガ、クエリなどに使用できます。
 
-## Usage
+## 使用方法
 
 
-### Enabling
+### 有効化
 
+<!-- textlint-disable -->
 
 <Tabs
 defaultValue="UI"
@@ -29,6 +29,8 @@ values={[
   {label: 'SQL', value: 'SQL'},
 ]}>
 <TabItem value="UI">
+
+<!-- textlint-enable -->
 
 ```sh
 1. Go to the Database page.
@@ -50,18 +52,16 @@ drop extension if exists plv8;
 
 ```
 
-Even though the SQL code is `create extension`, this is the equivalent of "enabling the extension". 
-To disable an extension you can call `drop extension`.
+SQLコードが`拡張機能を作成し`ていても、これは「拡張機能を有効にする」ことと同じです。拡張機能を無効にするには、`drop extension`を呼び出します。
 
-Procedural languages are automatically installed within `pg_catalog`, so you don't need to specify a schema.
+手続き型言語は`pg_catalog`に自動的にインストールされますので、スキーマを指定する必要はありません。
 
 </TabItem>
 </Tabs>
 
-### Creating `plv8` functions
+### `plv8`関数の作成
 
-Functions written in `plv8` are written just like any other PostgreSQL functions, only
-with the `language` identifier set to `plv8`.
+`plv8`で書かれた関数は、他のPostgreSQL関数と同じように書かれますが、`言語`識別子は`plv8`に設定されています。
 
 ```sql
 create or replace function function_name() 
@@ -72,9 +72,9 @@ returns void as $$
 $$ language plv8;
 ```
 
-You can call `plv8` functions like any other Postgres function: 
+他のPostgres関数と同様に`plv8`関数を呼びだすことができます。
 
-
+<!-- textlint-disable -->
 
 <Tabs
 defaultValue="SQL"
@@ -84,6 +84,7 @@ values={[
 ]}>
 <TabItem value="SQL">
 
+<!-- textlint-enable -->
 
 ```sql
 select function_name();
@@ -101,11 +102,11 @@ const { data, error } = supabase.rpc('function_name')
 </TabItem>
 </Tabs>
 
-## Examples
+## 例
 
-### Scalar Functions
+### スカラー関数
 
-A [scalar function](https://plv8.github.io/#scalar-function-calls) is anything that takes in some user input and returns a single result.
+[スカラー関数](https://plv8.github.io/#scalar-function-calls)とは、ユーザーの入力を受け取り、1つの結果を返すものです。
 
 ```sql
 create or replace function hello_world(name text) 
@@ -117,9 +118,9 @@ returns text as $$
 $$ language plv8;
 ```
 
-### Executing SQL 
+### SQLの実行
 
-You can execute SQL within `plv8` code using the [`plv8.execute` function](https://plv8.github.io/#plv8-execute).
+[`plv8.execute`](https://plv8.github.io/#plv8-execute)関数を使って、`plv8`のコード内でSQLを実行できます。
 
 ```sql
 create or replace function update_user(id bigint, first_name text) 
@@ -134,9 +135,9 @@ returns smallint as $$
 $$ language plv8;
 ```
 
-### Set-returning Functions
+### セットリターン関数
 
-A [set-returning function](https://plv8.github.io/#set-returning-function-calls) is anything that returns a full set of results - for example, rows in a table.
+[セット](https://plv8.github.io/#set-returning-function-calls)リターン関数とは、テーブルの行のように結果のフルセットを返す関数です。
 
 ```sql
 create or replace function get_messages() 
@@ -151,7 +152,7 @@ $$ language plv8;
 ```
 
 
-## Resources 
+## リソース
 
-- Official [`plv8` documentation](https://plv8.github.io/).
-- [plv8 Github Repository](https://github.com/plv8/plv8).
+- [`plv8`](https://plv8.github.io/)の公式[ドキュメント](https://plv8.github.io/)です。
+- [plv8のGithubリポジトリ](https://github.com/plv8/plv8)。

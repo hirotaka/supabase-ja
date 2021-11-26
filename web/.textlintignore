@@ -23,7 +23,6 @@ docs/guides/client-libraries.mdx
 docs/guides/database/arrays.mdx
 docs/guides/database/extensions/http.mdx
 docs/guides/database/extensions/pgtap.mdx
-docs/guides/database/extensions/plv8.mdx
 docs/guides/database/extensions/uuid-ossp.mdx
 docs/guides/database/json.mdx
 docs/guides/hosting/docker.mdx
