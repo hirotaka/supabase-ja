@@ -21,7 +21,6 @@ docs/guides/auth/auth-twitter.mdx
 docs/guides/auth/intro.mdx
 docs/guides/client-libraries.mdx
 docs/guides/database/arrays.mdx
-docs/guides/database/connecting/connecting-to-postgres.mdx
 docs/guides/database/connecting/connection-pooling.mdx
 docs/guides/database/extensions.mdx
 docs/guides/database/extensions/http.mdx

@@ -1,35 +1,31 @@
 ---
 id: connecting-to-postgres
-title: "Overview"
+title: "概要"
 description: There are various ways to connect to your Postgres database.
 ---
 
-Supabase provides several options for connection to your Postgres database:
+Supabaseは、Postgresデータベースへの接続にいくつかのオプションを用意しています。
 
-- HTTP connections using the API.  
-- Direct connections using Postgres' standard connection system.
-- Connection pooling using PgBouncer.
+- APIを使用したHTTP接続
+- Postgresの標準的な接続システムを使用した直接接続
+- PgBouncerを用いたコネクションプーリング
 
-## HTTP 
+## HTTP接続
 
-Supabase provides an auto-updating API. This is the easiest way to get started if you are managing data (fetching, inserting, updating). However you cannot manage the database schema 
-via the API (for security reasons). To do that you can either use the dashboard we provide or connect directly to your database.
+Supabaseは自動更新されるAPIを提供しています。データの管理（取得、挿入、更新）を行う場合には、最も簡単な方法です。しかし、APIを使ってデータベースを管理できません（セキュリティー上の理由から）。これを行うには、私たちが提供するダッシュボードを使用するか、データベースに直接接続できます。
 
-## Direct vs Connection Pooling
+## 直接接続とコネクションプーリング
 
-A "direct connection" is when a connection is made to the database using Postgres' native connection implementation. 
+「直接接続」とは、Postgresのネイティブな接続実装を使用してデータベースへの接続することです。
 
-A "connection pool" is a system (external to Postgres)
-which manage connections, rather than Postgres' native system.
+「コネクションプール」とは、Postgresのネイティブシステムではなく、接続を管理する（Postgresの外部）システムのことです。
 
-Why would you use a connection pool? Primarily because the way that Postgres handles connections isn't very scalable for a large number of _temporary_ connections. 
-You can use these simple questions to determine which connection method to use:
+なぜコネクションプールを使用するのでしょうか。主に、Postgresが接続を処理する方法は、多数の_一時的な_接続に対してはあまりスケーラブルではないからです。どの接続方法を使用するかを決定するために、以下の簡単な質問を使用できます。
 
-- Are you connecting to a database and _maintaining_ a connection? If yes, use a direct connection.
-- Are you connecting to your database and then _disconnecting_ immediately (e.g. a serverless environment)? If yes, use a connection pool.
+- データベースに接続して、接続_を維持し_ていますか。もしそうであれば、直接接続を使用してください。
+- データベースに接続して、すぐに_切断_するのか（サーバーレス環境など）、そうであれば、コネクションプールを使用します。
 
-## Resources 
+## リソース
 
-- [Direct Connections](/docs/guides/database/connecting/direct-connections).
-- [Connection Pooling](/docs/guides/database/connecting/connection-pooling).
-
+- [直接接続](/docs/guides/database/connecting/direct-connections)。
+- [コネクションプーリング](/docs/guides/database/connecting/connection-pooling)。
