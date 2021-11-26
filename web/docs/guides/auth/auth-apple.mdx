@@ -1,124 +1,122 @@
 ---
 id: auth-apple
-title: 'Login with Apple'
+title: 'Appleでログイン'
 description: Add Apple OAuth to your Supabase project
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-To enable Apple Auth for your project, you need to set up an Apple OAuth application and add the application credentials to your Supabase Dashboard.
+お客様のプロジェクトでApple Authを有効にするには、Apple OAuthアプリケーションを設定し、アプリケーションの認証情報をSupabaseダッシュボードに追加する必要があります。
 
-## Overview
+## 概要
 
-Apple OAuth consists of six broad steps:
+Apple OAuthは大きく分けて6つのステップで構成されています。
 
-- Obtaining an `App Id` with “Sign In with Apple” capabilities.
-- Obtaining a `Services Id` - this will serve as the `client_id`.
-- Obtaining a `secret key` that will be used to get our `client_secret`.
-- Generating the `client_secret` using the `secret key`.
-- Add your `client id` and `client secret` keys to your [Supabase Project](https://supabase.com).
-- Add the login code to your [Supabase JS Client App](https://github.com/supabase/supabase-js).
+- 「Sign In with Apple」機能を持つ`App Id`を取得する。
+- `サービスID`の取得 - これは`client_id`として使用されます。
+- `client_sec`retの取得に使用する`秘密鍵`の取得します。
+- `秘密鍵`を使って`client_secret`を生成します。
+- `クライアントID`と`クライアントシークレットキー`を[Supabase プロジェクト](https://supabase.com)に追加します。
+- [Supabase JS Client App](https://github.com/supabase/supabase-js)にログインコードを追加します。
 
-## Steps
+## 手順
 
-### Access your Apple Developer account
+### Apple Developer アカウントにアクセスする
 
-- Go to [developer.apple.com](https://developer.apple.com).
-- Click on `Account` at the top right to log in.
+- [developer.apple.com](https://developer.apple.com) にアクセスします。
+- 右上の「`Account`」をクリックしてログインします。
 
 ![Apple Developer Portal.](/img/guides/apple-developer-portal.png)
 
-### Obtain an App ID
+### App IDの取得
 
-- Go to `Certificates, Identifiers & Profiles`.
-- Click on `Identifiers` at the left.
-- Click on the `+` sign in the upper left next to `Identifiers`.
-- Select `App IDs` and click `Continue`.
-- Select type `App` and click `Continue`.
-- Fill out your app information:
-  - App description.
-  - Bundle ID (Apple recommends reverse-domain name style, so if your domain is acme.com and your app is called roadrunner, use: "com.acme.roadrunner").
-  - Scroll down and check `Sign In With Apple`.
-  - Click `Continue` at the top right.
-  - Click `Register` at the top right.
+- `Certificates, Identifiers & Profiles（証明書、識別子、プロファイル`）にアクセスします。
+- 左側の「`Identifiers`」をクリックします。
+- 左上の「`Identifiers`」の隣にある`「+」`マークをクリックします。
+- `App IDs`を選択し、`Continue`をクリックします。
+- type`App`を選択し、`Continue`をクリックします。
+- アプリの情報を記入します。
+  - アプリの説明。
+  - バンドルID（Appleはドメイン名の逆引きを推奨しています。ドメインがacme.comでアプリ名がroadrunnerとします。その場合は、「com.acme.roadrunner」とします）。
+  - スクロールダウンして、「`Sign In With Apple`」をチェックします。
+  - 右上の「`Continue`」をクリックします。
+  - 右上の「`Register`」をクリックします。
 
-### Obtain a Services ID
+### サービスIDの取得
 
-This will serve as the `client_id` when you make API calls to authenticate the user.
+APIを呼び出してユーザーを認証する際に、`client_id`として使用します。
 
-- Go to `Certificates, Identifiers & Profiles`.
-- Click on `Identifiers` at the left.
-- Click on the `+` sign in the upper left next to `Identifiers`.
-- Select `Services IDs` and click `Continue`.
-- Fill out your information:
-  - App description.
-  - Bundle ID (you can't use the same Bundle ID from the previous step, but you can just add something to the beginning, such as "app." to make it app.com.acme.roadrunner").
-  - SAVE THIS ID -- this ID will become your `client_id` later.
-  - Click `Continue` at the top right.
-  - Click `Register` at the top right.
+- 「`Certificates, Identifiers & Profiles`」にアクセスします。
+- 左側の「`Identifiers`」をクリックします。
+- 左上の「`Id`entifiers」の隣にある`「+」`マークをクリックします。
+- `Services IDs`を選択し、`Continue`をクリックします。
+- 情報を記入します。
+  - アプリの説明。
+  - Bundle ID（前のステップと同じBundle IDを使用できませんが、先頭に "app. "のように何かを追加して、app.com.acme.roadrunnerとできます）。
+  - このIDを保存してください。このIDは後で`client_id`になります。
+  - 右上の`Continue`をクリックします。
+  - 右上の`Register`をクリックします。
 
-### Find your callback URL
+### コールバックURLを探す
 
-The next step requires a callback URL, which looks like this:
+次のステップでは、次のようなコールバックURLが必要です。
 
-`https://<project-ref>.supabase.co/auth/v1/callback`
+`https://.supabase.co/auth/v1/callback`
 
-- Go to your [Supabase Project Dashboard](https://supabase.com).
-- Click on the `Settings` icon at the bottom of the left sidebar.
-- Click on `API` in the list.
-- Under Config / URL you'll find your API URL, you can click `Copy` to copy it to the clipboard.
-- Now just add `/auth/v1/callback` to the end of that to get your full `OAuth Redirect URI`.
+- [Supabaseのプロジェクトダッシュボード](https://supabase.com)にアクセスします。
+- 左サイドバーの下部にある`「設定」`アイコンをクリックします。
+- リストの中の「`API`」をクリックします。
+- Config / URLの下にあなたのAPI URLがありますので、`Copy`をクリックしてクリップボードにコピーします。
+- 最後に`/auth/v1/callback`を追加すれば、完全な`OAuthリダイレクトURI`が得られます。
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
 </video>
 
-### Configure your Services ID
+### サービスIDの設定
 
-- Under `Identifiers`, click on your newly-created Services ID.
-- Check the box next to `Sign In With Apple` to enable it.
-- Click `Configure` to the right.
-- Make sure your newly created Bundle ID is selected under `Primary App ID`
-- Add your domain to the `Domains and Subdomains` box (do not add `https://`, just add the domain).
-- In the `Return URLs` box, type the callback URL of your app which you found in the previous step and click `Next` at the bottom right.
-- Click `Done` at the bottom.
-- Click `Continue` at the top right.
-- Click `Save` at the top right.
+- 「`Identifiers`」で、新しく作成した「Services ID」をクリックします。
+- `「Sign In With Apple」`の隣にあるボックスをチェックして有効にします。
+- 右側の`Configure`をクリックします。
+- `「Primary App ID」`に新しく作成した「Bundle ID」が選択されていることを確認します。
+- 「`Domains and Subdomains（ドメインとサブドメイン）`」ボックスにお客様のドメインを追加します（`https://` は追加せず、ドメインだけを追加します）。
+- 「`Return URLs`」ボックスに、前の手順で見つけたアプリのコールバックURLを入力し、右下の`「Next」`をクリックします。
+- 下部の`「Done」`をクリックします。
+- 右上の`［Continue］`をクリックします。
+- 右上の「`Save`」をクリックします。
 
-### Download your secret key
+### 秘密鍵のダウンロード
 
-Now you'll need to download a `secret key` file from Apple that will be used to generate your `client_secret`.
+次に、`client_secret`を生成するために使用する`秘密鍵`ファイルをAppleからダウンロードする必要があります。
 
-- Go to `Certificates, Identifiers & Profiles`.
-- Click on `Keys` at the left.
-- Click on the `+` sign in the upper left next to `Keys`.
-- Enter a `Key Name`.
-- Check `Sign In with Apple`.
-- Click `Configure` to the right.
-- Select your newly-created Services ID from the dropdown selector.
-- Click `Save` at the top right.
-- Click `Continue` at the top right.
-- Click `Register` at the top right.
-- Click `Download` at the top right.
-- Save the downloaded file -- this contains your "secret key" that will be used to generate your `client_secret`.
-- Click `Done` at the top right.
+- 「`Certificates, Identifiers & Profiles`」にアクセスします。
+- 左側の「`キー`」をクリックします。
+- 左上の`「Keys」`の隣にある`「+」`マークをクリックします。
+- `Key Name（キーネーム`）を入力します。
+- `Sign In with Apple`にチェックを入れます。
+- 右側の`Configure`をクリックします。
+- 新たに作成したサービスIDをドロップダウンセレクターから選択する。
+- 右上の`Save`をクリックする。
+- 右上の`［Continue］`をクリックする。
+- 右上の［`登録`］をクリックします。
+- 右上の`［Download`］をクリックします。
+- ダウンロードしたファイルを保存します。このファイルには、`client_secret`を生成するために使用されるお客様の「秘密鍵」が含まれています。
+- 右上の`「完了」`をクリックします。
 
-### Generate a `client_secret`
+### `client_sec`retの生成
 
-The `secret key` you downloaded is used to create the `client_secret` string you'll need to authenticate your users.
+ダウンロードした`秘密鍵`は、ユーザー認証に必要な`client_secret`の文字列を作成するために使用します。
 
-According to the [Apple Docs](https://developer.apple.com/documentation/signinwithapplerestapi/generate_and_validate_tokens) it needs to be a JWT
-token encrypted using the Elliptic Curve Digital Signature Algorithm (ECDSA) with the P-256 curve and the SHA-256 hash algorithm.
+[Apple Docs](https://developer.apple.com/documentation/signinwithapplerestapi/generate_and_validate_tokens)によると、P-256曲線の楕円曲線デジタル署名アルゴリズム（ECDSA）とSHA-256ハッシュアルゴリズムで暗号化されたJWTトークンである必要があります。
 
-At this time, the easiest way to generate this JWT token is with [Ruby](https://www.ruby-lang.org/en/).
-If you don't have Ruby installed, you can [Download Ruby Here](https://www.ruby-lang.org/en/downloads).
+現時点では、このJWTトークンを生成する最も簡単な方法は[Ruby](https://www.ruby-lang.org/en/)です。Rubyがインストールされていない場合は、[こちらからRubyをダウンロード](https://www.ruby-lang.org/en/downloads)してください。
 
-- Install Ruby (or check to make sure it's installed on your system).
-- Install [ruby-jwt](https://github.com/jwt/ruby-jwt).
-- From the command line, run: `sudo gem install jwt`.
+- Rubyをインストールします（または、システムにインストールされているかどうかを確認します）。
+- [ruby-jwt](https://github.com/jwt/ruby-jwt)をインストールします。
+- コマンドラインで次のように実行します。`sudo gem install jwt`。
 
-Create the script below using a text editor: `secret_gen.rb`
+テキストエディターで以下のスクリプトを作成します：`secret_gen.rb`
 
 ```ruby
 require "jwt"
@@ -150,37 +148,37 @@ token = JWT.encode(
 puts token
 ```
 
-1. Edit the `secret_gen.rb` file:
+1. `secret_gen.`rbファイルを編集します。
 
-- `key_file` = "Path to the private key you downloaded from Apple". It should look like this: `AuthKey_XXXXXXXXXX.p8`.
-- `team_id` = "Your Team ID". This is found at the top right of the Apple Developer site (next to your name).
-- `client_id` = "The Service ID of the service you created". This is the `Services ID` you created in the above step `Obtain a Services ID`. If you've lost this ID, you can find it in the Apple Developer Site:
-  - Go to `Certificates, Identifiers & Profiles`.
-  - Click `Identifiers` at the left.
-  - At the top right drop-down, select `Services IDs`.
-  - Find your Identifier in the list (i.e. app.com.acme.roadrunner).
-- `key_id` = "The Key ID of the private key". This can be found in the name of your downloaded secret file (For a file named `AuthKey_XXXXXXXXXX.p8` your key_id is `XXXXXXXXXX`). If you've lost this ID, you can find it in the Apple Developer Site:
-  - Go to `Certificates, Identifiers & Profiles`.
-  - Click `Keys` at the left.
-  - Click on your newly-created key in the list.
-  - Look under `Key ID` to find your key_id.
+- `key_file`= "Path to the private key you downloaded from Apple"はこのようになっているはずです。`AuthKey_XXXXXXXX.p8`。
+- `team_id`= "あなたのチームID"。これはApple Developerサイトの右上（あなたの名前の隣）にあります。
+- `client_id`= "あなたが作成したサービスのサービスID "です。これは、上記ステップ「`サービスIDの取得`」で作成した`サービスID`です。このIDを紛失してしまった場合は、Apple Developer Siteで見つけることができます。
+  - 「`Certificates, Identifiers & Profiles`」にアクセスします。
+  - 左側の「`Identifiers`」をクリックします。
+  - 右上のドロップダウンで「`Services IDs`」を選択します。
+  - リストの中から自分のIdentifierを見つけます（例：app.com.acme.roadrunner）。
+- `key_id`= "秘密鍵のキーID "です。これは、ダウンロードした秘密鍵ファイルの名前に含まれています（`AuthKey_XXXXXXXX.p8`というファイルの場合、key_idは`XXXXXXXXX`です）。もしこのIDを紛失してしまった場合は、Apple Developer Siteで見つけることができます。
+  - 「`Certificates, Identifiers & Profiles`」にアクセスします。
+  - 左側の「`Keys`」をクリックします。
+  - リストの中から新しく作成したキーをクリックします。
+  - 「`Key ID`」の下にある「key_id」を探します。
 
-2. From the command line, run: `ruby secret_gen.rb > client_secret.txt`.
-3. Your `client_secret` is now stored in this `client_secret.txt` file.
+2. コマンドラインから、`ruby secret_gen.rb > client_secret.txt` を実行します。
+3. これで、client`_sec`retが`client_secret.txt`に格納されました。
 
-### Add your OAuth credentials to Supabase
+### SupabaseへのOAuth認証情報の追加
 
-- Go to your [Supabase Dashboard](https://supabase.com).
-- In the left sidebar, click the `Authentication` icon (near the top).
-- Click `Settings` from the list to go to the `Authentication Settings` page.
-- Enter the final (hosted) URL of your app under `Site URL` (this is important).
-- Under `External OAuth Providers` turn `Apple Enabled` to ON.
-- Enter your `client_id` and `client_secret` saved in the previous steps.
-- Click `Save`.
+- [Supabaseのダッシュボード](https://supabase.com)にアクセスします。
+- 左側のサイドバーで`「認証」`アイコンをクリックします（上部付近）。
+- リストから`「設定」`をクリックして、`「認証設定」`ページを表示します。
+- 「`Site URL`」にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
+- 「`External OAuth Providers`」で「`Apple Enabled`」をオンにします。
+- 前述の手順で保存した`client_id`と`client_secret`を入力します。
+- 「`Save`」をクリックします。
 
-### Add login code to your client app
+### クライアントアプリにログインコードを追加する
 
-The JavaScript client code is documented in the [Supabase OAuth Reference](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers).
+JavaScriptのクライアントコードは、[Supabase OAuth Reference](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)に記載されています。
 
 ```js
 const { user, session, error } = await supabase.auth.signIn({
@@ -188,7 +186,7 @@ const { user, session, error } = await supabase.auth.signIn({
 })
 ```
 
-Add a function which you can call from a button, link, or UI element.
+ボタン、リンク、UI要素から呼びだすことができる関数を追加します。
 
 ```js
 async function signInWithApple() {
@@ -198,7 +196,7 @@ async function signInWithApple() {
 }
 ```
 
-To log out:
+ログアウトするには次を呼びだします。
 
 ```js
 async function signout() {
@@ -206,9 +204,9 @@ async function signout() {
 }
 ```
 
-## Resources
+## リソース
 
-- [Apple Developer Account](https://developer.apple.com).
-- [Ruby](https://www.ruby-lang.org/en/) Docs.
-- [ruby-jwt](https://github.com/jwt/ruby-jwt) library.
-- Thanks to [Janak Amarasena](https://medium.com/@janakda) who did all the heavy lifting in [How to configure Sign In with Apple](https://medium.com/identity-beyond-borders/how-to-configure-sign-in-with-apple-77c61e336003).
+- [Apple Developer Account](https://developer.apple.com)
+- [Ruby](https://www.ruby-lang.org/en/)ドキュメント
+- [ruby-jwt](https://github.com/jwt/ruby-jwt)ライブラリーを使用
+- 「[AppleでSign Inを設定する方法](https://medium.com/identity-beyond-borders/how-to-configure-sign-in-with-apple-77c61e336003)」で全ての作業をしてくれた[Janak Amarasena](https://medium.com/@janakda)氏に感謝します
