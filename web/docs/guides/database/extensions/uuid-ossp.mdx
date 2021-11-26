@@ -1,23 +1,24 @@
 ---
 id: uuid-ossp
-title: "uuid-ossp: Unique Identifiers"
+title: "uuid-ossp：固有識別子"
 description: A UUID generator for PostgreSQL.
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The `uuid-ossp` extension can be used to generate a `UUID`.
+`UUID`は「Universally Unique Identifer」の略です。
 
 
-## Overview
+## 概要
 
-A `UUID` is a "Universally Unique Identifer" and it is, for practical purposes, unique. 
-This makes them particularly well suited as Primary Keys. It is occasionally referred to as a `GUID`, which stands for "Globally Unique Identifer".
+`UUID`とは "Universally Unique Identifer "の略で、実用的に一意であるため、主キーとして特に適しています。また、`GUID`と呼ばれることもありますが、これは「Globally Unique Identifer」の略です。
 
-## Usage
+## 使用方法
 
-### Enabling
+### 有効化
+
+<!-- textlint-disable -->
 
 <Tabs
 defaultValue="UI"
@@ -26,6 +27,8 @@ values={[
   {label: 'SQL', value: 'SQL'},
 ]}>
 <TabItem value="UI">
+
+<!-- textlint-enable -->
 
 ```sh
 1. Go to the Database page.
@@ -37,7 +40,7 @@ values={[
 </TabItem>
 <TabItem value="SQL">
 
-```sql 
+```sql
 
 -- Example: enable the "uuid-ossp" extension 
 create extension "uuid-ossp" with schema extensions;
@@ -47,38 +50,37 @@ drop extension if exists "uuid-ossp";
 
 ```
 
-Even though the SQL code is `create extension`, this is the equivalent of "enabling the extension". 
-To disable an extension you can call `drop extension`.
+SQLコードが`拡張機能を作成し`ていても、これは「拡張機能を有効にする」ことと同じです。拡張機能を無効にするには、`drop extension`を呼び出します。
 
-It's good practice to create the extension within a separate schema (like `extensions`) to keep your database clean.
+データベースをきれいに保つために、拡張機能を（`extensions`のような）別のスキーマ内に作成することは良い習慣です。
 
 </TabItem>
 
 </Tabs>
 
-### The `uuid` type 
+### `uuid`タイプ
 
-Once the extension is enabled, you now have access to a `uuid` type.
+この拡張機能を有効にすると、`uuid`型へアクセスできるようになります。
 
 ### `uuid_generate_v1()`
 
-Creates a UUID value based on the combination of computer’s MAC address, current timestamp, and a random value.
+コンピューターのMACアドレス、現在のタイムスタンプ、そしてランダムな値の組み合わせに基づいてUUID値を作成します。
 
-### `uuid_generate_v4()` 
+### `UUID_GENERATE_V4()`
 
-Creates UUID values based solely on random numbers.
+乱数のみに基づいてUUID値を作成します。
 
-## Examples
+## 例
 
-### Within a query
+### クエリの中で
 
 ```sql
 select uuid_generate_v4();
 ```
 
-### As a Primary Key
+### 主キーとして
 
-Automatically create a unique, random ID in a table:
+テーブルに一意のランダムなIDを自動的に作成します。
 
 ```sql
 create table contacts (
@@ -91,6 +93,6 @@ create table contacts (
 ```
 
 
-## Resources 
+## リソース
 
-- [The Basics Of PostgreSQL `UUID` Data Type](https://www.postgresqltutorial.com/postgresql-uuid/).
+- [PostgreSQLの基礎知識`UUID`](https://www.postgresqltutorial.com/postgresql-uuid/) データ型。
