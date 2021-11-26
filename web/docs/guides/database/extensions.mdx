@@ -1,20 +1,24 @@
 ---
 id: extensions
-title: Overview
+title: 概要
 description: Using Postgres extensions.
 ---
+<!-- textlint-disable -->
 
 import ExtensionsComponent from '@site/src/components/Extensions'
+
+<!-- textlint-enable -->
+
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Extensions are exactly as they sound - they "extend" the database with functionality which isn't part of the Postgres core.
-Supabase has pre-installed some of the most useful open source extensions.
+エクステンションとは、その名の通り、Postgresのコア部分ではない機能でデータベースを「拡張」するものです。
+Supabaseには、最も便利なオープンソースのエクステンションがいくつかプリインストールされています。
 
 
-### Enable and disable extensions
+### エクステンションの有効化と無効化
 
-
+<!-- textlint-disable -->
 
 <Tabs
 defaultValue="UI"
@@ -23,6 +27,8 @@ values={[
   {label: 'SQL', value: 'SQL'},
 ]}>
 <TabItem value="UI">
+
+<!-- textlint-enable -->
 
 ```sh
 1. Go to the Database page
@@ -51,16 +57,15 @@ drop extension pgtap;
 
 ```
 
-Even though the SQL code is `create extension`, this is the equivalent of "enabling the extension". 
-To disable an extension you can call `drop extension`.
+SQLコードが`拡張機能を作成し`ていても、これは「拡張機能を有効にする」ことと同じです。拡張機能を無効にするには、`drop extension`を呼び出します。
 
 </TabItem>
 
 </Tabs>
 
 
-### Full list of extensions
+### エクステンションの全リスト
 
-Supabase is pre-configured with over 50 extensions. You can also install your own SQL extensions directly into the database through our SQL editor.
+Supabaseには50以上のエクステンションがあらかじめ設定されています。また、独自のSQL拡張機能を、SQLエディターを使ってデータベースに直接インストールできます。
 
 <ExtensionsComponent />
