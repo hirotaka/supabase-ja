@@ -1,33 +1,33 @@
 ---
 id: auth-magic-link
-title: 'Login With Magic Link'
+title: 'マジック・リンクでログイン'
 description: Use Supabase to Authenticate and Authorize your users using Magic Link.
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-By default, if no password is provided, the user will be sent a "magic link" to their email address, which they can click to open your application with a valid session. By default, a given user can only request a Magic Link once every 60 seconds.
+デフォルトでは、パスワードが提供されていない場合、ユーザーのメールアドレスに「マジックリンク」が送信されます。ユーザーはこのリンクをクリックすることで、有効なセッションでアプリケーションを開くことができます。デフォルトでは、特定のユーザーは60秒に1回しかマジックリンクを要求できません。
 
-## Overview
+## 概要
 
-Setting up Magic Link logins for your Supabase application.
+Supabaseのアプリケーションにマジックリンクのログインを設定する。
 
-- Add Magic Link authenticator to your [Supabase Project](https://app.supabase.io)
-- Add the login code to your application - [Javascript](https://github.com/supabase/supabase-js) | [Dart](https://github.com/supabase/supabase-dart)
+- Supabase[プロジェクト](https://app.supabase.io)にマジック・リンク認証機能を追加します
+- ログインコードをアプリケーションに追加する -[Javascript](https://github.com/supabase/supabase-js)|[Dart](https://github.com/supabase/supabase-dart)
 
-## Add Magic Link into your Supabase Project
+## マジック・リンクをSupabaseプロジェクトに追加
 
-- Go to your [Supabase Project Dashboard](https://app.supabase.io)
-- In the left sidebar, click the `Authentication` icon (near the top)
-- Click `Settings` from the list to go to the `Authentication Settings` page
-- Enter the final (hosted) URL of your app under `Site URL` (this is important)
-- Under `Email Auth` turn `Enable Email Signup` to ON
-- Click `Save`
+- Supab[aseプロジェクトのダッシュボード](https://app.supabase.io)に移動します。
+- 左側のサイドバーで、`認証`アイコンをクリックします（上部付近）。
+- リストから`「設定」`をクリックし、`「認証設定」`ページを表示します。
+- 「`Site URL`」にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
+- `Email Auth」`の項目で`「Enable Email Signup」`をオンにします。
+- `Save`をクリックします。
 
-### Add login code to your client app
+### クライアントアプリにログインコードを追加する
 
-The JavaScript client code is documented here: [Supabase OAuth Client Code](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
+JavaScriptのクライアントコードはこちらに記載されています。[Supabase OAuthクライアントコード](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
 
 <Tabs
   defaultValue="js"
@@ -60,7 +60,7 @@ final error = res.error;
 
 </Tabs>
 
-Add this function which you can call from a button, link, or UI element.
+ボタン、リンク、またはUI要素から呼びだすことができるこの関数を追加します。
 
 <Tabs
   defaultValue="js"
@@ -94,7 +94,7 @@ function SignInWithEmail() {
 
 </Tabs>
 
-To log out:
+ログアウトするには次を呼びだします。
 
 <Tabs
   defaultValue="js"
@@ -124,8 +124,8 @@ function SignOut() {
 
 </Tabs>
 
-## Resources
+## リソース
 
-- [Supabase Account - Free Tier OK](https://supabase.com)
-- [Supabase JS Client](https://github.com/supabase/supabase-js)
-- [Supabase Dart Client](https://github.com/supabase/supabase-dart)
+- [Supabase アカウント - Free Tier OK](https://supabase.com)
+- [Supabase JS クライアント](https://github.com/supabase/supabase-js)
+- [Supabase Dart クライアント](https://github.com/supabase/supabase-dart)

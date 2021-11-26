@@ -10,7 +10,6 @@ docs/guides/auth/auth-facebook.mdx
 docs/guides/auth/auth-github.mdx
 docs/guides/auth/auth-gitlab.mdx
 docs/guides/auth/auth-google.mdx
-docs/guides/auth/auth-magic-link.mdx
 docs/guides/auth/auth-messagebird.mdx
 docs/guides/auth/auth-slack.mdx
 docs/guides/auth/auth-spotify.mdx
