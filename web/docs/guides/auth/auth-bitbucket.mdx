@@ -1,75 +1,75 @@
 ---
 id: auth-bitbucket
-title: 'Login with Bitbucket'
+title: 'Bitbucketでログイン'
 description: Add Bitbucket OAuth to your Supabase project
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-To enable Bitbucket Auth for your project, you need to set up a BitBucket OAuth application and add the application credentials to your Supabase Dashboard.
+お客様のプロジェクトでBitbucket Authを有効にするには、BitBucket OAuthアプリケーションを設定します。アプリケーションの認証情報をSupabaseダッシュボードに追加する必要があります。
 
-## Overview
+## 概要
 
-Setting up Bitbucket logins for your application consists of 3 parts:
+アプリケーションのBitbucketログインの設定は、3つのパートで構成されています。
 
-- Create and configure a Bitbucket OAuth Consumer on [Bitbucket](https://bitbucket.org)
-- Add your Bitbucket OAuth Consumer keys to your [Supabase Project](https://supabase.com)
-- Add the login code to your [Supabase JS Client App](https://github.com/supabase/supabase-js)
+- [Bitbucket](https://bitbucket.org)にBitbucket OAuth Consumerを作成して設定する
+- Supabase[プロジェクト](https://supabase.com)にBitbucket OAuth Consumerのキーを追加する
+- Supabaseの[JSクライアントアプリ](https://github.com/supabase/supabase-js)にログインコードを追加する
 
-## Steps
+## 手順
 
-### Access your Bitbucket account
+### Bitbucketのアカウントにアクセスする
 
-- Go to [bitbucket.org](https://bitbucket.org/).
-- Click on `Login` at the top right to log in.
+- [bitbucket.org](https://bitbucket.org/)にアクセスします。
+- 右上の「`Login`」をクリックしてログインします。
 
 ![Bitbucket Developer Portal.](/img/guides/bitbucket-portal.png)
 
-### Find your callback URL
+### コールバックURLを探す
 
-The next step requires a callback URL, which looks like this:
+次のステップでは、次のようなコールバックURLが必要です。
 
-`https://<project-ref>.supabase.co/auth/v1/callback`
+`https://.supabase.co/auth/v1/callback`
 
-- Go to your [Supabase Project Dashboard](https://supabase.com).
-- Click on the `Settings` icon at the bottom of the left sidebar.
-- Click on `API` in the list.
-- Under Config / URL you'll find your API URL, you can click `Copy` to copy it to the clipboard.
-- Now just add `/auth/v1/callback` to the end of that to get your full `OAuth Redirect URI`.
+- [Supabaseのプロジェクトダッシュボード](https://supabase.com)にアクセスします。
+- 左サイドバーの下部にある`「設定」`アイコンをクリックします。
+- リストの中の「`API`」をクリックします。
+- Config / URLの下にあなたのAPI URLがありますので、`Copy`をクリックしてクリップボードにコピーします。
+- 最後に`/auth/v1/callback`を追加すれば、完全な`OAuthリダイレクトURI`が得られます。
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
 </video>
 
-### Create a Bitbucket OAuth app
+### Bitbucket OAuthアプリの作成
 
-- Click on your profile icon at the bottom left
-- Click on `All Workspaces`
-- Select a workspace and click on it to select it
-- Click on `Settings` on the left
-- Click on `OAuth consumers` on the left under `Apps and Features` (near the bottom)
-- Click `Add Consumer` at the top
-- Enter the name of your app under `Name`
-- In `Callback URL`, type the callback URL of your app
-- Check the permissions you need (Email, Read should be enough)
-- Click `Save` at the bottom
-- Click on your app name (the name of your new OAuth Consumer)
-- Copy your `Key` (`client_key`) and `Secret` (`client_secret`) codes
+- 左下の自分のプロフィールアイコンをクリックします。
+- 「`All Workspaces`」をクリックします。
+- ワークスペースを選択し、クリックして選択します。
+- 左側の「`Settings`」をクリックします。
+- 左側の「`Apps and Features`」の下にある「`OAuth consumers`」をクリックする（一番下に近い）。
+- 上部の`［Add Consumer］`をクリックします。
+- `Name`にアプリの名前を入力します。
+- `Callback URL`に、アプリのコールバックURLを入力します。
+- 必要なパーミッションにチェックを入れます（Email, Readで十分です）。
+- 下部の「`Save`」をクリックします。
+- アプリの名前（新しいOAuth Consumerの名前）をクリックします。
+- `Key``(client_key`)と`Secret``(client_secret`)のコードをコピーします。
 
-### Add your Bitbucket credentials into your Supabase Project
+### Bitbucket の認証情報を Supabase プロジェクトに追加
 
-- Go to your [Supabase Project Dashboard](https://supabase.com)
-- In the left sidebar, click the `Authentication` icon (near the top)
-- Click `Settings` from the list to go to the `Authentication Settings` page
-- Enter the final (hosted) URL of your app under `Site URL` (this is important)
-- Under `External OAuth Providers` turn `Bitbucket Enabled` to ON
-- Enter your `client_id` and `client_secret` saved in the previous step
-- Click `Save`
+- [Supabase プロジェクトのダッシュボード](https://supabase.com)に移動します。
+- 左側のサイドバーで、`認証`アイコンをクリックします（上部付近）。
+- リストから`「設定」`をクリックし、`「認証設定」`ページを表示します。
+- 「`Site URL`」にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
+- `外部 OAuth プロバイダー`で`Bitbucket`の有効化をONにします。
+- 前のステップで保存した`client_id`と`client_secret`を入力します。
+- `Save`をクリックします。
 
-### Add login code to your client app
+### クライアントアプリにログインコードを追加する
 
-The JavaScript client code is documented here: [Supabase OAuth Client Code](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
+JavaScriptのクライアントコードはこちらに記載されています。[Supabase OAuthクライアントコード](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
 
 ```js
 const { user, session, error } = await supabase.auth.signIn({
@@ -77,7 +77,7 @@ const { user, session, error } = await supabase.auth.signIn({
 })
 ```
 
-Add this function which you can call from a button, link, or UI element.
+ボタン、リンク、またはUI要素から呼びだすことができるこの関数を追加します。
 
 ```js
 async function signInWithBitbucket() {
@@ -87,7 +87,7 @@ async function signInWithBitbucket() {
 }
 ```
 
-To log out:
+ログアウトするには次の通りにします。
 
 ```js
 async function signout() {
@@ -95,8 +95,8 @@ async function signout() {
 }
 ```
 
-## Resources
+## リソース
 
-- [Supabase Account - Free Tier OK](https://supabase.com)
-- [Supabase JS Client](https://github.com/supabase/supabase-js)
-- [Bitbucket Account](https://bitbucket.org)
+- [Supabase アカウント - Free Tier OK](https://supabase.com)
+- [Supabase JS クライアント](https://github.com/supabase/supabase-js)
+- [Bitbucket アカウント](https://bitbucket.org)

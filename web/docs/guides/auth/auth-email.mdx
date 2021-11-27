@@ -1,31 +1,31 @@
 ---
 id: auth-email
-title: 'Login With Email'
+title: 'Eメールでログイン'
 description: Use Supabase to Authenticate and Authorize your users using email.
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-## Overview
+## 概要
 
-Setting up Email logins for your Supabase application.
+Supabaseアプリケーションにメールログインを設定する。
 
-- Add Email authenticator to your [Supabase Project](https://app.supabase.io)
-- Add the login code to your application - [Javascript](https://github.com/supabase/supabase-js) | [Dart](https://github.com/supabase/supabase-dart)
+- Supabase[プロジェクト](https://app.supabase.io)にメール認証機能を追加する
+- ログインコードをアプリケーションに追加する -[Javascript](https://github.com/supabase/supabase-js)|[Dart](https://github.com/supabase/supabase-dart)
 
-## Add Email into your Supabase Project
+## SupabaseプロジェクトにEmailを追加
 
-- Go to your [Supabase Project Dashboard](https://app.supabase.io)
-- In the left sidebar, click the `Authentication` icon (near the top)
-- Click `Settings` from the list to go to the `Authentication Settings` page
-- Enter the final (hosted) URL of your app under `Site URL` (this is important)
-- Under `Email Auth` turn `Enable Email Signup` to ON
-- Click `Save`
+- Supab[aseプロジェクトのダッシュボード](https://app.supabase.io)に移動します。
+- 左側のサイドバーで、`認証`アイコンをクリックします（上部付近）。
+- リストから`「設定」`をクリックし、`「認証設定」`ページを表示します。
+- 「`Site URL`」にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
+- `Email Auth」`の項目で`「Enable Email Signup」`をオンにします。
+- `Save`をクリックします。
 
-### Add login code to your client app
+### クライアントアプリにログインコードを追加する
 
-The JavaScript client code is documented here: [Supabase OAuth Client Code](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
+JavaScriptのクライアントコードはこちらに記載されています。[Supabase OAuthクライアントコード](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
 
 <Tabs
   defaultValue="js"
@@ -60,7 +60,7 @@ final error = res.error;
 
 </Tabs>
 
-Add this function which you can call from a button, link, or UI element.
+ボタン、リンク、またはUI要素から呼びだすことができるこの関数を追加します。
 
 <Tabs
   defaultValue="js"
@@ -96,7 +96,7 @@ function SignInWithEmail() {
 
 </Tabs>
 
-To log out:
+ログアウトするには次の関数を呼びだします。
 
 <Tabs
   defaultValue="js"
@@ -126,8 +126,8 @@ function SignOut() {
 
 </Tabs>
 
-## Resources
+## リソース
 
-- [Supabase Account - Free Tier OK](https://supabase.com)
-- [Supabase JS Client](https://github.com/supabase/supabase-js)
-- [Supabase Dart Client](https://github.com/supabase/supabase-dart)
+- [Supabase アカウント - Free Tier OK](https://supabase.com)
+- [Supabase JS クライアント](https://github.com/supabase/supabase-js)
+- [Supabase Dart クライアント](https://github.com/supabase/supabase-dart)

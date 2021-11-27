@@ -1,74 +1,74 @@
 ---
 id: auth-discord
-title: 'Login with Discord'
+title: 'Discordでログイン'
 description: Add Discord OAuth to your Supabase project
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-To enable Discord Auth for your project, you need to set up a Discord Application and add the Application OAuth credentials to your Supabase Dashboard.
+プロジェクトでDiscord Authを有効にするには、Discordアプリケーションを設定し、SupabaseダッシュボードにアプリケーションのOAuth認証情報を追加する必要があります。
 
-## Overview
+## 概要
 
-Setting up Discord logins for your application consists of 3 parts:
+アプリケーションのDiscordログインの設定は、3つのパートで構成されています。
 
-- Create and configure a Discord Application [Discord Developer Portal](https://discord.com/developers)
-- Add your Discord OAuth Consumer keys to your [Supabase Project](https://supabase.com)
-- Add the login code to your [Supabase JS Client App](https://github.com/supabase/supabase-js)
+- Discordアプリケーションの作成と設定[Discord開発者ポータル](https://discord.com/developers)
+- Sup[abaseプロジェクト](https://supabase.com)にDiscord OAuth Consumerキーを追加する
+- Supabaseの[JSクライアントアプリ](https://github.com/supabase/supabase-js)にログインコードを追加する
 
-## Steps
+## 手順
 
-### Access your Discord account
+### Discordアカウントにアクセスする
 
-- Go to [discord.com](https://discord.com/).
-- Click on `Login` at the top right to log in.
+- [discord.com](https://discord.com/)にアクセスします。
+- 右上の「`Login`」をクリックしてログインします。
 
 ![Discord Portal.](/img/guides/discord-portal.png)
 
-- Once logged in, go to [discord.com/developers](https://discord.com/developers).
+- ログインしたら、[discord.com/developers](https://discord.com/developers)にアクセスします。
 
 ![Discord Portal.](/img/guides/discord-developer-portal.png)
 
-### Find your callback URL
+### コールバックURLを探す
 
-In the next step you require a callback URL, which looks like this:
+次のステップでは、コールバックURLを必要としますが、これは以下のようになります。
 
-`https://<project-ref>.supabase.co/auth/v1/callback`
+`https://.supabase.co/auth/v1/callback`
 
-- Go to your [Supabase Project Dashboard](https://supabase.com).
-- Click on the `Settings` icon at the bottom of the left sidebar.
-- Click on `API` in the list.
-- Under Config / URL you'll find your API URL, you can click `Copy` to copy it to the clipboard.
-- Now just add `/auth/v1/callback` to the end of that to get your full `OAuth Redirect URI`.
+- [Supabaseのプロジェクトダッシュボード](https://supabase.com)にアクセスします。
+- 左サイドバーの下部にある`「設定」`アイコンをクリックします。
+- リストの中の「`API`」をクリックします。
+- Config / URLの下にあなたのAPI URLがありますので、`Copy`をクリックしてクリップボードにコピーします。
+- 最後に`/auth/v1/callback`を追加すれば、完全な`OAuthリダイレクトURI`が得られます。
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
 </video>
 
-### Create a Discord Application
+### Discordアプリケーションの作成
 
-- Click on `New Application` at the top right.
-- Enter the name of your application and click `Create`.
-- Click on `OAuth2` under `Settings` in the left side panel.
-- Click `Add Redirect` under `Redirects`.
-- Type or paste your `callback URL` into the `Redirects` box.
-- Click `Save Changes` at the bottom.
-- Copy your `Client ID` and `Client Secret` under `Client information`.
+- 右上の「`New Application`」をクリックします。
+- アプリケーションの名前を入力し、`Create`をクリックします。
+- 左側のパネルにある「`Settings`」の「`OAuth2`」をクリックします。
+- 「`Redirects`」の「`Add Redirect`」をクリックします。
+- 「`Redirects`」ボックスに`コールバックURL`を入力またはペーストします。
+- 下部の「`Save Changes`」をクリックします。
+- 「`クライアント情報`」の「`クライアントID`」と「`クライアントシークレット`」をコピーします。
 
-### Add your Discord credentials into your Supabase Project
+### SupabaseプロジェクトにDiscordの認証情報を追加
 
-- Go to your [Supabase Project Dashboard](https://supabase.com)
-- In the left sidebar, click the `Authentication` icon (near the top)
-- Click `Settings` from the list to go to the `Authentication Settings` page
-- Enter the final (hosted) URL of your app under `Site URL` (this is important)
-- Under `External OAuth Providers` turn `Discord Enabled` to ON
-- Enter your `client_id` and `client_secret` saved in the previous step
-- Click `Save`
+- [Supabase プロジェクトのダッシュボード](https://supabase.com)に移動します。
+- 左側のサイドバーで、`認証`アイコンをクリックします（上部付近）。
+- リストから`「設定」`をクリックし、`「認証設定」`ページを表示します。
+- 「`Site URL`」にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
+- `External OAuth Providers`で`Discord Enabled`をONにします。
+- 前のステップで保存した`client_id`と`client_secret`を入力します。
+- `Save`をクリックします。
 
-### Add login code to your client app
+### クライアントアプリにログインコードを追加する
 
-The JavaScript client code is documented here: [Supabase OAuth Client Code](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
+JavaScriptのクライアントコードはこちらに記載されています。[Supabase OAuthクライアントコード](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
 
 ```js
 const { user, session, error } = await supabase.auth.signIn({
@@ -76,7 +76,7 @@ const { user, session, error } = await supabase.auth.signIn({
 })
 ```
 
-Add this function which you can call from a button, link, or UI element.
+ボタン、リンク、またはUI要素から呼びだすことができるこの関数を追加します。
 
 ```js
 async function signInWithDiscord() {
@@ -86,7 +86,7 @@ async function signInWithDiscord() {
 }
 ```
 
-To log out:
+ログアウトするには次を呼び出します。
 
 ```js
 async function signout() {
@@ -94,9 +94,9 @@ async function signout() {
 }
 ```
 
-## Resources
+## リソース
 
-- [Supabase Account - Free Tier OK](https://supabase.com)
-- [Supabase JS Client](https://github.com/supabase/supabase-js)
-- [Discord Account](https://discord.com)
-- [Discord Developer Portal](https://discord.com/developers)
+- [Supabase アカウント - Free Tier OK](https://supabase.com)
+- [Supabase JS クライアント](https://github.com/supabase/supabase-js)
+- [Discordアカウント](https://discord.com)
+- [Discord開発者ポータル](https://discord.com/developers)

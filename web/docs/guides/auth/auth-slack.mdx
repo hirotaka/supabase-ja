@@ -1,84 +1,84 @@
 ---
 id: auth-slack
-title: 'Login with Slack'
+title: 'Slackでログイン'
 description: Add Slack OAuth to your Supabase project
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-To enable Slack Auth for your project, you need to set up a Slack OAuth application and add the application credentials to your Supabase Dashboard.
+お客様のプロジェクトでSlack Authを有効にするには、Slack OAuthアプリケーションを設定し、アプリケーションの認証情報をSupabaseダッシュボードに追加する必要があります。
 
-## Overview
+## 概要
 
-Setting up Slack logins for your application consists of 3 parts:
+アプリケーションにSlackログインを設定するには、3つのパートで構成されます。
 
-- Create and configure a Slack Project and App on the [Slack Developer Dashboard](https://api.slack.com/apps).
-- Add your Slack `API Key` and `API Secret Key` to your [Supabase Project](https://supabase.com).
-- Add the login code to your [Supabase JS Client App](https://github.com/supabase/supabase-js).
+- [Slack開発者ダッシュボード](https://api.slack.com/apps)でSlackプロジェクトとアプリを作成、設定する。
+- [Supabaseプロジェクト](https://supabase.com)にSlack`API Key`と`API Secret Key`を追加する。
+- [Supabase JS Client App](https://github.com/supabase/supabase-js)にログインコードを追加します。
 
-## Steps
+## 手順
 
-### Access your Slack Developer account
+### Slack開発者アカウントにアクセスします
 
-- Go to [api.slack.com](https://api.slack.com/apps).
-- Click on `Your Apps` at the top right to log in.
+- [api.slack.com](https://api.slack.com/apps) にアクセスします。
+- 右上の「`Your Apps`」をクリックしてログインします。
 
 ![Slack Developer Portal.](/img/guides/slack-portal.png)
 
-### Find your callback URL
+### コールバックURLを探す
 
-The next step requires a callback URL, which looks like this:
+次のステップでは、次のようなコールバックURLが必要です。
 
 `https://<project-ref>.supabase.co/auth/v1/callback`
 
-- Go to your [Supabase Project Dashboard](https://supabase.com).
-- Click on the `Settings` icon at the bottom of the left sidebar.
-- Click on `API` in the list.
-- Under Config / URL you'll find your API URL, you can click `Copy` to copy it to the clipboard.
-- Now just add `/auth/v1/callback` to the end of that to get your full `OAuth Redirect URI`.
+- [Supabaseのプロジェクトダッシュボード](https://supabase.com)にアクセスします。
+- 左サイドバーの下部にある`「設定」`アイコンをクリックします。
+- リストの中の「`API`」をクリックします。
+- Config / URLの下にあなたのAPI URLがありますので、`Copy`をクリックしてクリップボードにコピーします。
+- 最後に`/auth/v1/callback`を追加すれば、完全な`OAuthリダイレクトURI`が得られます。
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
 </video>
 
-### Create a Slack OAuth app
+### Slack OAuthアプリの作成
 
-- Go to [api.slack.com](https://api.slack.com/apps).
-- Click on `Create an App`
+- [api.slack.com](https://api.slack.com/apps) にアクセスします。
+- 「`Create an App`」をクリックします。
 
-Under `Create an app...`:
+「`Create an app`...」の下にある次の手順を行います。
 
-- Click `From scratch`
-- Type the name of your app
-- Select your `Slack Workspace`
-- Click `Create App`
+- 「`From scratch`」をクリックします。
+- アプリの名前を入力します。
+- `Slack ワークスペース`を選択します。
+- `Create App（アプリの作成）`をクリックします。
 
-Under `App Credentials`:
+`App Credentials`の下にある次の手順を行います。
 
-- Copy and save your newly-generated `Client ID`
-- Copy and save your newly-generated `Client Secret`
-- Click `Permissions`
+- 新たに生成した`クライアントID`をコピーして保存します。
+- 新しく生成された`クライアントシークレット`をコピーして保存します。
+- 「`権限`」をクリックします。
 
-Under `Redirect URLs`:
+「`リダイレクトURL`」をクリックします。
 
-- Click `Add New Redirect URL`
-- Paste your `Callback URL` then click `Add`
-- Click `Save URLs`
+- 「`新しいリダイレクトURLを追加`」をクリックします。
+- `コールバックURL`を貼り付け、`「追加」`をクリックします。
+- 「`Save URLs`」をクリックします。
 
-### Enter your Slack credentials into your Supabase Project
+### SupabaseプロジェクトにSlackの認証情報を入力します
 
-- Go to your [Supabase Project Dashboard](https://supabase.com).
-- In the left sidebar, click the `Authentication` icon (near the top).
-- Click `Settings` from the list to go to the `Authentication Settings` page.
-- Enter the final (hosted) URL of your app under `Site URL` (this is important).
-- Under `External OAuth Providers` turn `Slack Enabled` to ON.
-- Enter your `API Key` (`client_id`) and `API Secret Key` (`client_secret`) saved in the previous step.
-- Click `Save`.
+- [Supabaseのプロジェクトダッシュボード](https://supabase.com)にアクセスします。
+- 左側のサイドバーで`「認証」`アイコンをクリックします（上部付近）。
+- リストから`「設定」`をクリックして、`「認証設定」`ページを表示します。
+- 「`Site URL`」にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
+- 「`External OAuth Providers`」で「`Slack Enabled`」をONにします。
+- 前のステップで保存した`API Key`(`client_id`)と`API Secret Key`(`client_secret`)を入力します。
+- 「`Save`」をクリックします。
 
-### Add login code to your client app
+### クライアントアプリにログインコードを追加する
 
-The JavaScript client code is documented here: [Supabase OAuth Client Code](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers).
+JavaScriptのクライアントコードはこちらに記載されています。[Supabase OAuth Client Code](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers).
 
 ```js
 const { user, session, error } = await supabase.auth.signIn({
@@ -86,7 +86,7 @@ const { user, session, error } = await supabase.auth.signIn({
 })
 ```
 
-Add this function which you can call from a button, link, or UI element.
+ボタン、リンク、またはUI要素から呼びだすことができるこの関数を追加します。
 
 ```js
 async function signInWithSlack() {
@@ -96,7 +96,7 @@ async function signInWithSlack() {
 }
 ```
 
-To log out:
+ログアウトするには次の関数を追加します。
 
 ```js
 async function signout() {
@@ -104,8 +104,8 @@ async function signout() {
 }
 ```
 
-## Resources
+## リソース
 
-- [Supabase Account - Free Tier OK](https://supabase.com)
-- [Supabase JS Client](https://github.com/supabase/supabase-js)
-- [Slack Developer Dashboard](https://api.slack.com/apps)
+- [Supabase アカウント - Free Tier OK](https://supabase.com)
+- [Supabase JS クライアント](https://github.com/supabase/supabase-js)
+- [Slack開発者ダッシュボード](https://api.slack.com/apps)

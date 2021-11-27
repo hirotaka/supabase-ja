@@ -1,80 +1,80 @@
 ---
 id: auth-twitter
-title: 'Login with Twitter'
+title: 'Twitterでログイン'
 description: Add Twitter OAuth to your Supabase project
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-To enable Twitter Auth for your project, you need to set up a Twitter OAuth application and add the application credentials to your Supabase Dashboard.
+お客様のプロジェクトでTwitter Authを有効にするには、Twitter OAuthアプリケーションを設定し、アプリケーションの認証情報をSupabaseダッシュボードに追加する必要があります。
 
-## Overview
+## 概要
 
-Setting up Twitter logins for your application consists of 3 parts:
+アプリケーションにTwitterログインを設定するには、3つのパートで構成されています。
 
-- Create and configure a Twitter Project and App on the [Twitter Developer Dashboard](https://developer.twitter.com/en/portal/dashboard).
-- Add your Twitter `API Key` and `API Secret Key` to your [Supabase Project](https://supabase.com).
-- Add the login code to your [Supabase JS Client App](https://github.com/supabase/supabase-js).
+- [Twitter Developer Dashboard](https://developer.twitter.com/en/portal/dashboard)で、Twitterプロジェクトとアプリを作成して設定する。
+- [Supabaseプロジェクト](https://supabase.com)に、Twitter`API Key`と`API Secret Key`を追加する。
+- [Supabase JS Client App](https://github.com/supabase/supabase-js)にログインコードを追加します。
 
-## Steps
+## 手順
 
-### Access your Twitter Developer account
+### Twitter Developerアカウントにアクセスします
 
-- Go to [developer.twitter.com](https://developer.twitter.com).
-- Click on `Sign in` at the top right to log in.
+- [developer.twitter.com](https://developer.twitter.com)にアクセスします。
+- 右上の「`Sign in`」をクリックしてログインします。
 
 ![Twitter Developer Portal.](/img/guides/twitter-portal.png)
 
-### Find your callback URL
+### コールバックURLを探す
 
-The next step requires a callback URL, which looks like this:
+次のステップでは、次のようなコールバックURLが必要です。
 
 `https://<project-ref>.supabase.co/auth/v1/callback`
 
-- Go to your [Supabase Project Dashboard](https://supabase.com).
-- Click on the `Settings` icon at the bottom of the left sidebar.
-- Click on `API` in the list.
-- Under Config / URL you'll find your API URL, you can click `Copy` to copy it to the clipboard.
-- Now just add `/auth/v1/callback` to the end of that to get your full `OAuth Redirect URI`.
+- [Supabaseのプロジェクトダッシュボード](https://supabase.com)にアクセスします。
+- 左サイドバーの下部にある`「設定」`アイコンをクリックします。
+- リストの中の「`API`」をクリックします。
+- Config / URLの下にあなたのAPI URLがありますので、`Copy`をクリックしてクリップボードにコピーします。
+- 最後に`/auth/v1/callback`を追加すれば、完全な`OAuthリダイレクトURI`が得られます。
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
 </video>
 
-### Create a Twitter OAuth app
+### Twitter OAuthアプリを作成する
 
-- Click `+ Create Project`.
-  - Enter your project name, click `Next`.
-  - Select your use case, click `Next`.
-  - Enter a description for your project, click `Next`.
-  - Enter a name for your app, click `Complete`.
-  - Copy and save your `API Key` (this is your `client_id`).
-  - Copy and save your `API Secret Key` (this is your `client_secret`).
-- At the bottom, under `Next, setup your App` click the link `enable 3rd party authentication`.
-- Under `App Settings`, click on the gear icon next to your app name to go to `App Settings`.
-- At the bottom, next to `Authentication settings`, click `Edit`.
-- Turn `Enable 3-legged OAuth` ON.
-- Turn `Request email address from users` ON.
-- Enter your `Callback URL`.
-- Enter your `Website URL`.
-- Enter your `Terms of service URL`.
-- Enter your `Privacy policy URL`.
-- Click `Save`.
+- 「`プロジェクトの作成`」をクリックします。
+  - プロジェクト名を入力し、`[Next]`をクリックします。
+  - ユースケースを選択し、`「Next」`をクリックします。
+  - プロジェクトの説明を入力し、`「Next」`をクリックします。
+  - アプリの名前を入力し、`Complete`をクリックします。
+  - `API Key`をコピーして保存します（これは`client_id`です）。
+  - API`Secret Key`（これは`client_secret`です）をコピーして保存します。
+- 下部の「`Next, setup your App`」で「`enable third party authentication`」のリンクをクリックします。
+- 「`アプリの設定`」では、アプリ名の横にある歯車のアイコンをクリックして「`アプリの設定`」に進みます。
+- 下部の「`Authentication settings`」の隣にある`「Edit」`をクリックします。
+- `Enable 3-legged OAuth`をONにします。
+- 「`Request email address from users`」をオンにします。
+- `コールバックURL`を入力します。
+- `ウェブサイトのURL`を入力します。
+- `利用規約のURL`を入力します。
+- `プライバシーポリシー`のURLを入力してください。
+- 「`Save`」をクリックします。
 
-### Enter your Twitter credentials into your Supabase Project
+### Supabase ProjectにTwitterの認証情報を入力します
 
-- Go to your [Supabase Project Dashboard](https://supabase.com).
-- In the left sidebar, click the `Authentication` icon (near the top).
-- Click `Settings` from the list to go to the `Authentication Settings` page.
-- Enter the final (hosted) URL of your app under `Site URL` (this is important).
-- Under `External OAuth Providers` turn `Twitter Enabled` to ON.
-- Enter your `API Key` (`client_id`) and `API Secret Key` (`client_secret`) saved in the previous step.
-- Click `Save`.
+- [Supabaseのプロジェクトダッシュボード](https://supabase.com)にアクセスします。
+- 左側のサイドバーで`「認証」`アイコンをクリックします（上部付近）。
+- リストから`「設定」`をクリックして、`「認証設定」`ページを表示します。
+- 「`Site URL`」にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
+- `External OAuth Providers`で`Twitter Enabled`をONにします。
+- 前のステップで保存した`API Key``(client_id`)と`API Secret Key``(client_secret`)を入力します。
+- 「`Save`」をクリックします。
 
-### Add login code to your client app
+### クライアントアプリにログインコードを追加する
 
-The JavaScript client code is documented here: [Supabase OAuth Client Code](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers).
+JavaScriptのクライアントコードはこちらに記載されています。[Supabase OAuth Client Code](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers).
 
 ```js
 const { user, session, error } = await supabase.auth.signIn({
@@ -82,7 +82,7 @@ const { user, session, error } = await supabase.auth.signIn({
 })
 ```
 
-Add this function which you can call from a button, link, or UI element.
+ボタン、リンク、またはUI要素から呼びだすことができるこの関数を追加します。
 
 ```js
 async function signInWithTwitter() {
@@ -92,7 +92,7 @@ async function signInWithTwitter() {
 }
 ```
 
-To log out:
+ログアウトするには次の関数を追加します。
 
 ```js
 async function signout() {
@@ -100,8 +100,8 @@ async function signout() {
 }
 ```
 
-## Resources
+## リソース
 
-- [Supabase Account - Free Tier OK](https://supabase.com)
-- [Supabase JS Client](https://github.com/supabase/supabase-js)
-- [Twitter Developer Dashboard](https://developer.twitter.com/en/portal/dashboard)
+- [Supabase アカウント - Free Tier OK](https://supabase.com)
+- [Supabase JS クライアント](https://github.com/supabase/supabase-js)
+- [Twitter開発者ダッシュボード](https://developer.twitter.com/en/portal/dashboard)

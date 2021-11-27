@@ -1,7 +1,7 @@
 ---
 id: intro
 title: Supabase Auth
-sidebar_label: Introduction
+sidebar_label: はじめに
 description: Use Supabase to Authenticate and Authorize your users.
 # hide_table_of_contents: true
 ---
@@ -21,21 +21,21 @@ import providers from '@site/src/data/authProviders'
   allowFullScreen
 ></iframe>
 
-## Introduction
+## はじめに
 
-Supabase Auth is designed to work with Postgres. There are two parts to every Auth system:
+Supabase Authは、Postgresで動作するように設計されています。すべてのAuthシステムには2つの部分があります。
 
-- **Authentication:** should this person be allowed in? If yes, who are they?
-- **Authorization:** once they are in, what are they allowed to do?
+- **認証：**この人を入れていいのか。許可する場合、その人は誰ですか
+- 認証**：**その人が入った後、何をしてもいいのか
 
-## Authentication
+## 認証
 
-You can authenticate your users in several ways:
+ユーザーを認証するにはいくつかの方法があります。
 
-- Email & password.
-- Magic links (one-click logins).
-- Social providers.
-- Phone logins.
+- 電子メールとパスワードによる認証
+- マジックリンク（ワンクリックログイン）
+- ソーシャルプロバイダー
+- 電話でのログイン
 
 <div class="container" style={{ padding: 0 }}>
   <div class="row is-multiline">
@@ -74,11 +74,11 @@ You can authenticate your users in several ways:
 </div>
 
 
-## Authorization
+## 権限付与
 
 
-When you need granular authorization rules, nothing beats PostgreSQL's Row Level Security (RLS).
+緻密な認証ルールが必要な場合、PostgreSQLのRLS（行単位セキュリティー）に勝るものはありません。
 
-Policies are PostgreSQL's rule engine. They are incredibly powerful and flexible, allowing you to write complex SQL rules which fit your unique business needs.
+ポリシーはPostgreSQLのルールエンジンです。RLSは非常に強力で柔軟性があり、固有のビジネスニーズに合った複雑なSQLルールを書くことができます。
 
-Get started with our [Row Level Security Guides](/docs/guides/auth/row-level-security).
+[行レベルセキュリティガイド](/docs/guides/auth/row-level-security)から始めてください。
