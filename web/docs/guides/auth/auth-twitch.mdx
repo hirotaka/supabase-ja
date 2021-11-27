@@ -1,90 +1,90 @@
 ---
 id: auth-twitch
-title: 'Login with Twitch'
+title: 'Twitchでログイン'
 description: Add Twitch OAuth to your Supabase project
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-To enable Twitch Auth for your project, you need to set up a Twitch Application and add the Application OAuth credentials to your Supabase Dashboard.
+プロジェクトでTwitch Authを有効にするには、Twitchアプリケーションを設定し、アプリケーションのOAuth認証情報をSupabaseダッシュボードに追加する必要があります。
 
-## Overview
+## 概要
 
-Setting up Twitch logins for your application consists of 3 parts:
+アプリケーションにTwitchログインを設定するには、3つの部分で構成されます。
 
-- Create and configure a Twitch Application [Twitch Developer Console](https://dev.twitch.tv/console)
-- Add your Twitch OAuth Consumer keys to your [Supabase Project](https://supabase.com)
-- Add the login code to your [Supabase JS Client App](https://github.com/supabase/supabase-js)
+- Twitchアプリケーションの作成と設定[Twitch開発者コンソール](https://dev.twitch.tv/console)
+- [Supabaseプロジェクト](https://supabase.com)にTwitch OAuth Consumerキーを追加します
+- Supabaseの[JSクライアントアプリ](https://github.com/supabase/supabase-js)にログインコードを追加する
 
-## Steps
+## 手順
 
-### Access your Twitch Developer account
+### Twitch Developerアカウントにアクセスする
 
-- Go to [dev.twitch.tv](https://dev.twitch.tv).
-- Click on `Log in with Twitch` at the top right to log in.
-- If you have not already enabled 2-Factor Authentication for your Twitch Account, you will need to do that at [Twitch Security Settings](https://www.twitch.tv/settings/security) before you can continue.
+- [dev.twitch.tv](https://dev.twitch.tv)にアクセスします。
+- 右上の「`Log in with Twitch`」をクリックしてログインします。
+- Twitchアカウントの2ファクタ認証をまだ有効にしていない場合は、続行する前に[Twitch Security Settings](https://www.twitch.tv/settings/security)で有効にする必要があります。
 
 ![Twitch Developer Page](/img/guides/twitch-developer-page.png)
 
-- Once logged in, go to the [Twitch Developer Console](https://dev.twitch.tv/console).
+- ログインしたら、[Twitch Developer Console](https://dev.twitch.tv/console)にアクセスします。
 
 ![Twitch Developer Console](/img/guides/twitch-console.png)
 
-### Find your callback URL
+### コールバックURLを探す
 
-In the next step you require a callback URL, which looks like this:
+次のステップでは、コールバックURLを必要としますが、これは以下のようになります。
 
 `https://<project-ref>.supabase.co/auth/v1/callback`
 
-- Go to your [Supabase Project Dashboard](https://supabase.com).
-- Click on the `Settings` icon at the bottom of the left sidebar.
-- Click on `API` in the list.
-- Under Config / URL you'll find your API URL, you can click `Copy` to copy it to the clipboard.
-- Now just add `/auth/v1/callback` to the end of that to get your full `OAuth Redirect URI`.
+- [Supabaseのプロジェクトダッシュボード](https://supabase.com)にアクセスします。
+- 左サイドバーの下部にある`「設定」`アイコンをクリックします。
+- リストの中の「`API`」をクリックします。
+- Config / URLの下にあなたのAPI URLがありますので、`Copy`をクリックしてクリップボードにコピーします。
+- 最後に`/auth/v1/callback`を追加すれば、完全な`OAuthリダイレクトURI`が得られます。
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
 </video>
 
-### Create a Twitch Application
+### Twitchアプリケーションを作成します
 
 ![Twitch Developer Console](/img/guides/twitch-console.png)
 
-- Click on `+ Register Your Application` at the top right.
+- 右上の「`+ Register Your Application`」をクリックします。
 
 ![Register Application](/img/guides/twitch-register-your-application.png)
 
-- Enter the name of your application.
-- Type or paste your `OAuth Redirect URL` (the callback URL from the previous step.)
-- Select a category for your app.
-- Check the Captcha box and click `Create`.
+- アプリケーションの名前を入力します。
+- `OAuth Redirect URL`(前のステップで設定したコールバックURL)を入力または貼り付けます。
+- アプリのカテゴリーを選択します。
+- Captchaにチェックを入れ、`Create`をクリックします。
 
-### Retrieve your Twitch OAuth Client ID and Client Secret
+### Twitch OAuth Client IDとClient Secretを取得します
 
-- Click `Manage` at the right of your application entry in the list.
+- リスト内のアプリケーションエントリーの右側にある`「Manage」`をクリックします。
 
 ![Twitch Applications List](/img/guides/twitch-applications-list.png)
 
-- Copy your Client ID.
-- Click `New Secret` to create a new Client Secret.
-- Copy your Client Secret.
+- Client IDをコピーします。
+- 「`New Secret`」をクリックして、新しいClient Secretを作成します。
+- Client Secretをコピーします。
 
 ![Get Client ID and Secret](/img/guides/twitch-get-keys.png)
 
-### Add your Twitch credentials into your Supabase Project
+### Twitchの認証情報をSupabaseプロジェクトに追加します
 
-- Go to your [Supabase Project Dashboard](https://supabase.com)
-- In the left sidebar, click the `Authentication` icon (near the top)
-- Click `Settings` from the list to go to the `Authentication Settings` page
-- Enter the final (hosted) URL of your app under `Site URL` (this is important)
-- Under `External OAuth Providers` turn `Twitch Enabled` to ON
-- Enter your `client_id` and `client_secret` saved in the previous step
-- Click `Save`
+- [Supabase プロジェクトのダッシュボード](https://supabase.com)に移動します。
+- 左側のサイドバーで、`認証`アイコンをクリックします（上部付近）。
+- リストから`「設定」`をクリックし、`「認証設定」`ページを表示します。
+- 「`Site URL`」にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
+- 「`External OAuth Providers`」で「`Twitch Enabled`」をオンにします。
+- 前のステップで保存した`client_id`と`client_secret`を入力します。
+- `Save`をクリックします。
 
-### Add login code to your client app
+### クライアントアプリにログインコードを追加する
 
-The JavaScript client code is documented here: [Supabase OAuth Client Code](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
+JavaScriptのクライアントコードはこちらに記載されています。[Supabase OAuthクライアントコード](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
 
 ```js
 const { user, session, error } = await supabase.auth.signIn({
@@ -92,7 +92,7 @@ const { user, session, error } = await supabase.auth.signIn({
 })
 ```
 
-Add this function which you can call from a button, link, or UI element.
+ボタン、リンク、またはUI要素から呼びだすことができるこの関数を追加します。
 
 ```js
 async function signInWithTwitch() {
@@ -102,7 +102,7 @@ async function signInWithTwitch() {
 }
 ```
 
-To log out:
+ログアウトするには次の関数を追加します。
 
 ```js
 async function signout() {
@@ -110,9 +110,9 @@ async function signout() {
 }
 ```
 
-## Resources
+## リソース
 
-- [Supabase Account - Free Tier OK](https://supabase.com)
-- [Supabase JS Client](https://github.com/supabase/supabase-js)
-- [Twitch Account](https://twitch.tv)
-- [Twitch Developer Console](https://dev.twitch.tv/console)
+- [Supabase アカウント - Free Tier OK](https://supabase.com)
+- [Supabase JS クライアント](https://github.com/supabase/supabase-js)
+- [Twitchアカウント](https://twitch.tv)
+- [Twitch デベロッパーコンソール](https://dev.twitch.tv/console)

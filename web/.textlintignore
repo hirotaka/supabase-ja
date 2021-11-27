@@ -5,7 +5,6 @@ docs/support.md
 docs/gotrue/server/about.md
 docs/guides/auth/auth-messagebird.mdx
 docs/guides/auth/auth-twilio.mdx
-docs/guides/auth/auth-twitch.mdx
 docs/guides/client-libraries.mdx
 docs/guides/database/arrays.mdx
 docs/guides/database/json.mdx
