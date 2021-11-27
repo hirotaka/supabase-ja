@@ -3,7 +3,6 @@ docs/company/privacy.md
 docs/company/terms.md
 docs/support.md
 docs/gotrue/server/about.md
-docs/guides/auth/auth-facebook.mdx
 docs/guides/auth/auth-github.mdx
 docs/guides/auth/auth-gitlab.mdx
 docs/guides/auth/auth-google.mdx
