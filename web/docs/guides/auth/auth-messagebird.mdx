@@ -1,84 +1,82 @@
 ---
 id: auth-messagebird
-title: Phone Auth with MessageBird
+title: MessageBirdで電話番号による認証
 description: How to set up and use Mobile OTP with MessageBird and Supabase.
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-## Overview
+## 概要
 
-In this guide we'll show you how to authenticate your users with SMS based OTP (One-Time Password) tokens.
+このガイドでは、SMSベースのOTP（ワンタイムパスワード）トークンでユーザーを認証する方法を紹介します。
 
-There are two reasons to use Supabase SMS OTP tokens:
+SupabaseのSMS OTPトークンを使用する理由は2つあります。
 
-- You want users to log in with mobile + password, and the mobile should be verified via SMS
-- You want users to log in with mobile ONLY (i.e. passwordless login)
+- 携帯電話＋パスワードでログインし、携帯電話をSMSで認証したい
+- 携帯電話のみでログインさせたい場合（パスワードなしでのログイン）
 
-We'll cover:
+以下の内容を説明します。
 
-- [Finding your MessageBird credentials](#finding-your-messagebird-credentials)
-- [Using OTP with password based logins](#using-otp-with-password-based-logins)
-- [Using OTP as a passwordless sign-in mechanism](#using-otp-as-a-passwordless-sign-in-mechanism)
+- [MessageBirdの認証情報を探す](#finding-your-messagebird-credentials)
+- [パスワードベースのログインにワンタイムパスワードを使用する](#using-otp-with-password-based-logins)
+- [OTPをパスワードレス・サインインの仕組みとして使う](#using-otp-as-a-passwordless-sign-in-mechanism)
 
-What you'll need:
+必要なもの次の通りです。
 
-- A MessageBird account (sign up here: https://dashboard.messagebird.com/en/sign-up)
-- A Supabase project (create one here: https://app.supabase.io)
-- A mobile phone capable of receiving SMS
+- MessageBirdアカウント（サインアップはこちら：[https://dashboard.messagebird.com/en/sign-up](https://dashboard.messagebird.com/en/sign-up)）
+- Supabaseプロジェクト（ここで作成してください：[https://app.supabase.io](https://app.supabase.io)）
+- SMSを受信できる携帯電話
 
-## Steps
+## 手順
 
-### Finding your MessageBird credentials
+### MessageBirdの認証情報を探す
 
-Start by logging into your MessageBird account and verify the mobile number you'll be using to test with: https://dashboard.messagebird.com/en/getting-started/sms
+まず、MessageBirdアカウントにログインし、テストに使用する携帯電話番号を確認します。<https://dashboard.messagebird.com/en/getting-started/sms>
 
-This is the number that will be receiving the SMS OTPs.
+この番号は、SMS OTPを受信する番号です。
 
 ![Verify your own phone number](/img/guides/auth-messagebird/1.png)
 
 ![Get your API Keys](/img/guides/auth-messagebird/2.png)
 
-Navigate to the [dashboard settings](https://dashboard.messagebird.com/en/settings/sms) to set the default originator. The messagebird originator is the name or number from which the message is sent. 
-For more information, you can refer to the messagebird article on choosing an originator [here](https://support.messagebird.com/hc/en-us/articles/115002628665-Choosing-an-originator)
+[ダッシュボードの設定](https://dashboard.messagebird.com/en/settings/sms)に移動して、デフォルトのオリジネーターを設定します。メッセージバードのオリジネーターとは、メッセージの送信元となる名前または番号のことです。詳しくは[、](https://support.messagebird.com/hc/en-us/articles/115002628665-Choosing-an-originator)オリジネーターの選択に関するメッセージバードの記事をご覧ください。
 
 ![Set the default originator](/img/guides/auth-messagebird/3.png)
 
-You will need the following values to get started:
+始めるにあたって、以下の値が必要です。
 
-- Live API Key / Test API Key
-- MessageBird originator
+- ライブAPIキー／テストAPIキー
+- メッセージバード・オリジネーター
 
-Now go to the Auth > Settings page in the Supabase dashboard (https://app.supabase.io/project/YOUR-PROJECT-REF/auth/settings).
+SupabaseのダッシュボードのAuth → Settingsページに移動します（[https://app.supabase.io/project/YOUR-PROJECT-REF/auth/settings](https://app.supabase.io/project/YOUR-PROJECT-REF/auth/settings)）。
 
-You should see an option to enable Phone Signup.
+Phone Signupを有効にするオプションがあるはずです。
 
 ![Enable Phone Sign-Up](/img/guides/auth-twilio/7.png)
 
-Toggle it on, and copy the 2 values over from the messagebird dashboard. Click save.
+これをオンにして、messagebirdのダッシュボードから2つの値をコピーしてください。保存をクリックします。
 
-Note: If you use the Test API Key, the OTP will not be delivered to the mobile number specified but messagebird will log the response in the dashboard.
-If the Live API Key is used instead, the OTP will be delivered and there will be a deduction in your free credits. 
+注意：Test API Keyを使用した場合、OTPは指定された携帯電話番号に配信されませんが、messagebirdは応答をダッシュボードに記録します。代わりにLive API Keyを使用した場合、OTPは配信されますが、無料クレジットが差し引かれます。
 
 <!-- TODO: Add screenshot of UI -->
-Plugin MessageBird credentials
+プラグインMessageBirdの認証情報がはいります。
 
-Now the backend should be setup, we can proceed to add our client-side code!
+これでバックエンドの設定が完了したので、クライアント側のコードを追加していきましょう。
 
-#### SMS custom template
+#### SMSカスタムテンプレート
 
-The SMS message sent to a phone containing an OTP code can be customized. This is useful if you need to mention a brand name or display a website address.
+OTPコードを含む電話に送信されるSMSメッセージをカスタマイズできます。これは、ブランド名を記載したり、ウェブサイトのアドレスを表示したりする場合に便利です。
 
-Go to Auth > Templates page in the Supabase dashboard (https://app.supabase.io/project/YOUR-PROJECT-REF/auth/templates).
+SupabaseのダッシュボードのAuth → Templatesページにアクセスします（[https://app.supabase.io/project/YOUR-PROJECT-REF/auth/templates](https://app.supabase.io/project/YOUR-PROJECT-REF/auth/templates)）。
 
-Use the variable `.Code` in the template to display the code.
+コードを表示するには、テンプレートで変数`.Code`を使用します。
 
-### Using OTP with password based logins
+### パスワードベースのログインにワンタイムパスワードを使用する
 
-In this use scenario we'll be using the user's mobile phone number as an alternative to an email address when signing up along with a password. You may want to think hard about the permanency of this however. It is not uncommon for mobile phone numbers to be recycled by phone networks when users cancel their phone contracts or move countries, therefore granting access to the user's account to whoever takes over the phone number in the future. Soon we'll add multi-factor auth, which will mitigate this risk, but for now you may want to give some thought to allowing your users to recover their account by some other means in an emergency.
+この使用例では、ユーザーの携帯電話番号をメールアドレスの代わりに使用して、パスワードと一緒にサインアップします。しかし、この方法の永続性についてはよく考えた方がよいでしょう。携帯電話番号は、ユーザーが携帯電話契約を解除したり、国を移動したりする際に、電話会社によって再利用されることがよくあります。近日中に多要素認証を追加し、このリスクを軽減する予定ですが、現時点では、緊急時にユーザーが他の方法でアカウントを回復できるようにすることを検討してみてはいかがでしょうか。
 
-Using supabase-js on the client you'll want to use the same `signUp` method that you'd use for email based sign ups, but with the `phone` param instead of the `email param`:
+supabase-jsをクライアントで使用する場合、メールベースのサインアップに使用するのと同じ`サインアップメソッド`を使用しますが、`メールパラメータ`の代わりに`電話`パラメーターを使用します。
 
 <Tabs
 defaultValue="JS"
@@ -111,9 +109,9 @@ curl -X POST 'https://cvwawazfelidkloqmbma.supabase.co/auth/v1/signup' \
 </TabItem>
 </Tabs>
 
-The user will now receive an SMS with a 6-digit pin that you will need to receive from them within 60-seconds before they can login to their account.
+これで、ユーザーはSMSで6桁のピンを受け取ります。このピンは、ユーザーが自分のアカウントへログインする前に、60秒以内にユーザーから受け取る必要があります。
 
-You should present a form to the user so they can input the 6 digit pin, then send it along with the phone number to `verifyOTP`:
+ユーザーが6桁のピンを入力できるようにフォームを表示し、電話番号と一緒に送信して`VerifyOTP`を行う必要があります。
 
 <Tabs
 defaultValue="JS"
@@ -147,7 +145,7 @@ curl -X POST 'https://cvwawazfelidkloqmbma.supabase.co/auth/v1/verify' \
 </TabItem>
 </Tabs>
 
-If successful the user will now be logged in and you should receive a valid session like:
+成功した場合、ユーザーはログインし、有効なセッションライクを受け取ることになります。
 
 ```json
 {
@@ -158,9 +156,9 @@ If successful the user will now be logged in and you should receive a valid sess
 }
 ```
 
-The access token can be sent in the Authorization header as a Bearer token for any CRUD operations on supabase-js. See our guide on [Row Level Security](/docs/guides/auth#row-level-security) for more info on restricting access on a user basis.
+アクセストークンは、Supabase-jsでのCRUD操作のBearerトークンとしてAuthorizationヘッダーで送信できます。ユーザー単位でのアクセス制限については、「[行レベルのセキュリティ](/docs/guides/auth#row-level-security)」をご参照ください。
 
-Also now that the mobile has been verified, the user can use the number and password to sign in without needing to verify their number each time:
+また、携帯電話が認証されたことで、ユーザーは番号とパスワードを使ってサインインできるようになり、毎回番号を認証する必要がなくなります。
 
 <Tabs
 defaultValue="JS"
@@ -193,11 +191,10 @@ curl -X POST 'https://cvwawazfelidkloqmbma.supabase.co/auth/v1/token?grant_type=
 </TabItem>
 </Tabs>
 
-### Using OTP as a passwordless sign-in mechanism
+### OTPをパスワードレス・サインインの仕組みとして使用する場合
 
-In this scenario you are granting your user's the ability to login to their account without needing to set a password on their account, all they have to do to log in is verify their mobile each time using the OTP.
-
-In javascript we can use the `signIn` method with a single parameter: `phone`
+このシナリオでは、ユーザーにパスワードを設定することなく、自分のアカウントにログインする機能を提供します。ユーザーは、ワンタイムパスワードを使って毎回携帯電話を認証するだけで、ログインできます。
+javascriptでは、`signIn`メソッドに`phone`という1つのパラメーターを指定して使用します。
 
 <Tabs
 defaultValue="JS"
@@ -228,7 +225,7 @@ curl -X POST 'https://cvwawazfelidkloqmbma.supabase.co/auth/v1/otp' \
 </TabItem>
 </Tabs>
 
-The second step is the same as the previous section, you need to collect the 6-digit pin from the user and pass it along with their phone number to the verify method:
+2番目のステップは、前のセクションと同じで、ユーザーから6桁のピンを収集し、電話番号と一緒にverifyメソッドへ渡す必要があります。
 
 <Tabs
 defaultValue="JS"
@@ -262,7 +259,7 @@ curl -X POST 'https://cvwawazfelidkloqmbma.supabase.co/auth/v1/verify' \
 </TabItem>
 </Tabs>
 
-and the response should also be the same as above:
+と入力すると、上記のようなレスポンスが返ってきます。
 
 ```json
 {
@@ -273,10 +270,10 @@ and the response should also be the same as above:
 }
 ```
 
-The user does not have a password therefore will need to sign in via this method each time they want to access your service.
+このユーザーはパスワードを持っていないため、サービスを利用する際には毎回この方法でサインインする必要があります。
 
-## Resources
+## リソース
 
-- [MessageBird Signup](https://dashboard.messagebird.com/en/sign-up)
-- [Supabase Dashboard](https://app.supabase.io)
-- [Supabase Row Level Security](/docs/guides/auth#row-level-security)
+- [MessageBirdサインアップ](https://dashboard.messagebird.com/en/sign-up)
+- [Supabase ダッシュボード](https://app.supabase.io)
+- [Supabaseの行レベルのセキュリティ](/docs/guides/auth#row-level-security)
