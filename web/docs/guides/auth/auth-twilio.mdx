@@ -1,34 +1,34 @@
 ---
 id: auth-twilio
-title: Phone Auth with Twilio
+title: Twilioで電話番号による認証
 description: How to set up and use Mobile OTP with Twilio and Supabase.
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-## Overview
+## 概要
 
-In this guide we'll show you how to authenticate your users with SMS based OTP (One-Time Password) tokens.
+このガイドでは、SMSベースのOTP（ワンタイムパスワード）トークンでユーザーを認証する方法を紹介します。
 
-There are two reasons to use Supabase SMS OTP tokens:
+SupabaseのSMS OTPトークンを使用する理由は2つあります。
 
-- You want users to log in with mobile + password, and the mobile should be verified via SMS
-- You want users to log in with mobile ONLY (i.e. passwordless login)
+- 携帯電話＋パスワードでログインし、携帯電話をSMSで認証したい
+- 携帯電話のみでログインさせたい場合（パスワードなしでのログイン）
 
-We'll cover:
+以下の内容を説明します。
 
-- [Finding your Twilio credentials](#finding-your-twilio-credentials)
-- [Using OTP with password based logins](#using-otp-with-password-based-logins)
-- [Using OTP as a passwordless sign-in mechanism](#using-otp-as-a-passwordless-sign-in-mechanism)
+- [Twilioの認証情報を見つける](#finding-your-twilio-credentials)
+- [パスワードベースのログインにワンタイムパスワードを使用する](#using-otp-with-password-based-logins)
+- [OTPをパスワードレス・サインインの仕組みとして使う](#using-otp-as-a-passwordless-sign-in-mechanism)
 
-What you'll need:
+必要なものは次の通りです。
 
-- A twilio account (sign up here: https://www.twilio.com/try-twilio)
-- A Supabase project (create one here: https://app.supabase.io)
-- A mobile phone capable of receiving SMS
+- Twilioアカウント（サインアップはこちら：<https://www.twilio.com/try-twilio>）
+- Supabaseプロジェクト（ここで作成してください：[https://app.supabase.io](https://app.supabase.io)）
+- SMSを受信できる携帯電話
 
-## Video
+## 動画
 
 <iframe
   className="w-full video-with-border"
@@ -40,62 +40,61 @@ What you'll need:
   allowFullScreen
 ></iframe>
 
-## Steps
+## 手順
 
-### Finding your Twilio credentials
+### Twilioアカウントの取得
 
-Start by logging into your Twilio account and starting a new project: https://www.twilio.com/console/projects/create
+まず、Twilioアカウントにログインし、新しいプロジェクトを立ち上げます。<https://www.twilio.com/console/projects/create>
 
-Give your project a name and verify the mobile number you'll be using to test with. This is the number that will be receiving the SMS OTPs.
+プロジェクトに名前を付け、テストに使用する携帯電話の番号を確認します。これは、SMSのOTPを受信する番号です。
 
-![Name your twilio project](/img/guides/auth-twilio/1.png)
-![verify your own phone number](/img/guides/auth-twilio/2.png)
+![Name your twilio project](/img/guides/auth-twilio/1.png)![verify your own phone number](/img/guides/auth-twilio/2.png)
 
-Select 'SMS', 'Identity & Verification', and 'With code' as options on the welcome form.
+ウェルカムフォームのオプションで「SMS」、「Identity & Verification」、「With code」を選択します。
 
 ![Form Fields](/img/guides/auth-twilio/3.png)
 
-When you're back on the https://www.twilio.com/console screen, you need to scroll down and click 'Get a trial phone number' - this is the number that you'll be sending SMSs from.
+<https://www.twilio.com/console>の画面に戻ったら、下にスクロールして「Get a trial phone number」をクリックしてください。
 
 ![Get a trial phone number](/img/guides/auth-twilio/4.png)
 
 ![Successful phone number](/img/guides/auth-twilio/5.png)
 
-You should now be able to see all three values you'll need to get started:
+これで、開始するために必要な3つの値がすべて表示されるはずです。
 
-- Account SID
-- Auth Token
-- Sender Phone Number
+- アカウントSID
+- 認証トークン
+- 送信者の電話番号
 
 ![All the credentials you'll need](/img/guides/auth-twilio/6.png)
 
-Now go to the Auth > Settings page in the Supabase dashboard (https://app.supabase.io/project/YOUR-PROJECT-REF/auth/settings).
+SupabaseのダッシュボードのAuth → Settingsページに移動します（[https://app.supabase.io/project/YOUR-PROJECT-REF/auth/settings](https://app.supabase.io/project/YOUR-PROJECT-REF/auth/settings)）。
 
-You should see an option to enable Phone Signup.
+Phone Signupを有効にするオプションがあるはずです。
 
 ![Enable Phone Sign-Up](/img/guides/auth-twilio/7.png)
 
-Toggle it on, and copy the 3 values over from the twilio dashboard. Click save.
+これをオンにして、twilioダッシュボードから3つの値をコピーします。保存をクリックします。
 
-Note: for "Twilio Message Service SID" you can use the Sender Phone Number generated above.
+注：「Twilio Message Service SID」には、上記で作成した送信者の電話番号を使用できます。
 
 ![Plug in Twilio credentials](/img/guides/auth-twilio/8.png)
 
-Now the backend should be setup, we can proceed to add our client-side code!
+これでバックエンドの設定が完了したので、クライアント側のコードを追加していきましょう。
 
-#### SMS custom template
+#### SMSカスタムテンプレート
 
-The SMS message sent to a phone containing an OTP code can be customized. This is useful if you need to mention a brand name or display a website address.
+OTPコードを含む電話に送信されるSMSメッセージをカスタマイズできます。これは、ブランド名を記載したり、ウェブサイトのアドレスを表示したりする場合に便利です。
 
-Go to Auth > Templates page in the Supabase dashboard (https://app.supabase.io/project/YOUR-PROJECT-REF/auth/templates).
+SupabaseのダッシュボードのAuth → Templatesページにアクセスします（[https://app.supabase.io/project/YOUR-PROJECT-REF/auth/templates](https://app.supabase.io/project/YOUR-PROJECT-REF/auth/templates)）。
 
-Use the variable `.Code` in the template to display the code.
+コードを表示するには、テンプレートで変数`.Code`を使用します。
 
-### Using OTP with password based logins
+### パスワードベースのログインにワンタイムパスワードを使用する
 
-In this use scenario we'll be using the user's mobile phone number as an alternative to an email address when signing up along with a password. You may want to think hard about the permanency of this however. It is not uncommon for mobile phone numbers to be recycled by phone networks when users cancel their phone contracts or move countries, therefore granting access to the user's account to whoever takes over the phone number in the future. Soon we'll add multi-factor auth, which will mitigate this risk, but for now you may want to give some thought to allowing your users to recover their account by some other means in an emergency.
+この使用例では、ユーザーの携帯電話番号をメールアドレスの代わりに使用して、パスワードと一緒にサインアップします。しかし、この方法の永続性についてはよく考えた方がよいでしょう。携帯電話番号は、ユーザーが携帯電話契約を解除したり、国を移動したりする際に、電話会社によって再利用されることがよくあります。近日中に多要素認証を追加し、このリスクを軽減する予定ですが、現時点では、緊急時にユーザーが他の方法でアカウントを回復できるようにすることを検討してみてはいかがでしょうか。
 
-Using supabase-js on the client you'll want to use the same `signUp` method that you'd use for email based sign ups, but with the `phone` param instead of the `email param`:
+supabase-jsをクライアントで使用する場合、メールベースのサインアップに使用するのと同じ`サインアップメソッド`を使用しますが、`メールパラメーター`の代わりに`電話`パラメーターを使用します。
 
 <Tabs
 defaultValue="JS"
@@ -128,9 +127,9 @@ curl -X POST 'https://cvwawazfelidkloqmbma.supabase.co/auth/v1/signup' \
 </TabItem>
 </Tabs>
 
-The user will now receive an SMS with a 6-digit pin that you will need to receive from them within 60-seconds before they can login to their account.
+これで、ユーザーはSMSで6桁のピンを受け取ります。このピンは、ユーザーが自分のアカウントへログインする前に、60秒以内にユーザーから受け取る必要があります。
 
-You should present a form to the user so they can input the 6 digit pin, then send it along with the phone number to `verifyOTP`:
+ユーザーが6桁のピンを入力できるようにフォームを表示し、電話番号と一緒に送信して`VerifyOTP`を行う必要があります。
 
 <Tabs
 defaultValue="JS"
@@ -164,7 +163,7 @@ curl -X POST 'https://cvwawazfelidkloqmbma.supabase.co/auth/v1/verify' \
 </TabItem>
 </Tabs>
 
-If successful the user will now be logged in and you should receive a valid session like:
+成功した場合、ユーザーはログインし、有効なセッションライクを受け取ることになります。
 
 ```json
 {
@@ -175,9 +174,9 @@ If successful the user will now be logged in and you should receive a valid sess
 }
 ```
 
-The access token can be sent in the Authorization header as a Bearer token for any CRUD operations on supabase-js. See our guide on [Row Level Security](/docs/guides/auth#row-level-security) for more info on restricting access on a user basis.
+アクセストークンは、Supabase-jsでのCRUD操作のBearerトークンとしてAuthorizationヘッダーで送信できます。ユーザー単位でのアクセス制限については、「[行レベルのセキュリティ](/docs/guides/auth#row-level-security)」をご参照ください。
 
-Also now that the mobile has been verified, the user can use the number and password to sign in without needing to verify their number each time:
+また、携帯電話が認証されたことで、ユーザーは番号とパスワードを使ってサインインできるようになり、毎回番号を認証する必要がなくなります。
 
 <Tabs
 defaultValue="JS"
@@ -210,11 +209,11 @@ curl -X POST 'https://cvwawazfelidkloqmbma.supabase.co/auth/v1/token?grant_type=
 </TabItem>
 </Tabs>
 
-### Using OTP as a passwordless sign-in mechanism
+### OTPをパスワードレス・サインインの仕組みとして使用する場合
 
-In this scenario you are granting your user's the ability to login to their account without needing to set a password on their account, all they have to do to log in is verify their mobile each time using the OTP.
+このシナリオでは、ユーザーにパスワードを設定することなく、自分のアカウントにログインする機能を提供します。ユーザーは、ワンタイムパスワードを使って毎回携帯電話を認証するだけで、ログインできます。
 
-In javascript we can use the `signIn` method with a single parameter: `phone`
+javascriptでは、`signIn`メソッドに`phone`という1つのパラメーターを指定して使用します。
 
 <Tabs
 defaultValue="JS"
@@ -245,7 +244,7 @@ curl -X POST 'https://cvwawazfelidkloqmbma.supabase.co/auth/v1/otp' \
 </TabItem>
 </Tabs>
 
-The second step is the same as the previous section, you need to collect the 6-digit pin from the user and pass it along with their phone number to the verify method:
+2番目のステップは、前のセクションと同じで、ユーザーから6桁のピンを収集し、電話番号と一緒にverifyメソッドへ渡す必要があります。
 
 <Tabs
 defaultValue="JS"
@@ -279,7 +278,7 @@ curl -X POST 'https://cvwawazfelidkloqmbma.supabase.co/auth/v1/verify' \
 </TabItem>
 </Tabs>
 
-and the response should also be the same as above:
+と入力すると、上記のようなレスポンスが返ってきます。
 
 ```json
 {
@@ -290,10 +289,10 @@ and the response should also be the same as above:
 }
 ```
 
-The user does not have a password therefore will need to sign in via this method each time they want to access your service.
+このユーザーはパスワードを持っていないため、サービスを利用する際には毎回この方法でサインインする必要があります。
 
-## Resources
+## リソース
 
-- [Twilio Signup](https://www.twilio.com/try-twilio)
-- [Supabase Dashboard](https://app.supabase.io)
-- [Supabase Row Level Security](/docs/guides/auth#row-level-security)
+- [Twilioのサインアップ](https://www.twilio.com/try-twilio)
+- [Supabase ダッシュボード](https://app.supabase.io)
+- [Supabaseの行レベルのセキュリティ](/docs/guides/auth#row-level-security)
