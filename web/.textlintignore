@@ -4,8 +4,6 @@ docs/company/terms.md
 docs/support.md
 docs/gotrue/server/about.md
 docs/guides/auth/auth-messagebird.mdx
-docs/guides/auth/auth-slack.mdx
-docs/guides/auth/auth-spotify.mdx
 docs/guides/auth/auth-twilio.mdx
 docs/guides/auth/auth-twitch.mdx
 docs/guides/auth/auth-twitter.mdx
