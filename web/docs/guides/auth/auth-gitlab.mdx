@@ -1,72 +1,72 @@
 ---
 id: auth-gitlab
-title: 'Login with GitLab'
+title: 'GitLabでログイン'
 description: Add GitLab OAuth to your Supabase project
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-To enable GitLab Auth for your project, you need to set up a GitLab OAuth application and add the application credentials to your Supabase Dashboard.
+プロジェクトでGitLab Authを有効にするには、GitLab OAuthアプリケーションをセットアップします。そして、アプリケーションの認証情報をSupabase Dashboardに追加する必要があります。
 
-## Overview
+## 概要
 
-Setting up GitLab logins for your application consists of 3 parts:
+アプリケーションのためのGitLabログインの設定は、3つの部分で構成されています。
 
-- Create and configure a GitLab Application on [GitLab](https://gitlab.com)
-- Add your GitLab Application keys to your [Supabase Project](https://supabase.com)
-- Add the login code to your [Supabase JS Client App](https://github.com/supabase/supabase-js)
+- [GitLab](https://gitlab.com)上でGitLabアプリケーションを作成・設定する
+- [Supabaseプロジェクト](https://supabase.com)にGitLabアプリケーションの鍵を追加する
+- Supabaseの[JSクライアントアプリ](https://github.com/supabase/supabase-js)にログインコードを追加する
 
-## Steps
+## 手順
 
-### Access your GitLab account
+### GitLabアカウントへのアクセス
 
-- Go to [gitlab.com](https://gitlab.com).
-- Click on `Login` at the top right to log in.
+- [gitlab.com](https://gitlab.com) にアクセスします。
+- 右上の「`Login`」をクリックしてログインします。
 
 ![GitLab Developer Portal.](/img/guides/gitlab-portal.png)
 
-### Find your callback URL
+### コールバックURLを探す
 
-The next step requires a callback URL, which looks like this:
+次のステップでは、次のようなコールバックURLが必要です。
 
 `https://<project-ref>.supabase.co/auth/v1/callback`
 
-- Go to your [Supabase Project Dashboard](https://supabase.com).
-- Click on the `Settings` icon at the bottom of the left sidebar.
-- Click on `API` in the list.
-- Under Config / URL you'll find your API URL, you can click `Copy` to copy it to the clipboard.
-- Now just add `/auth/v1/callback` to the end of that to get your full `OAuth Redirect URI`.
+- [Supabaseのプロジェクトダッシュボード](https://supabase.com)にアクセスします。
+- 左サイドバーの下部にある`「設定」`アイコンをクリックします。
+- リストの中の「`API`」をクリックします。
+- Config / URLの下にあなたのAPI URLがありますので、`Copy`をクリックしてクリップボードにコピーします。
+- 最後に`/auth/v1/callback`を追加すれば、完全な`OAuthリダイレクトURI`が得られます。
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
 </video>
 
-### Create your GitLab Application
+### GitLabアプリケーションの作成
 
-- Click on your `profile logo` (avatar) in the top-right corner.
-- Select `Edit profile`.
-- In the left sidebar, select Applications.
-- Enter the name of the application.
-- In the `Redirect URI` box, type the callback URL of your app.
-- Check the box next to `Confidential` (make sure it is checked).
-- Check the scope named `read_user` (this is the only required scope).
-- Click `Save Application` at the bottom.
-- Copy and save your `Application ID` (`client_id`) and `Secret` (`client_secret`) which you'll need later.
+- 右上にあるあなたの`プロフィールロゴ`（アバター）をクリックします。
+- `Edit profile` を選択します。
+- 左側のサイドバーで「Applications」を選択します。
+- アプリケーションの名前を入力します。
+- 「`Redirect URI`」ボックスに、アプリケーションのコールバックURLを入力します。
+- 「`Confidential`」の隣にあるボックスをチェックします（チェックされていることを確認してください）。
+- `read_user`というスコープにチェックを入れます（これが唯一の必須スコープです）。
+- 下部の「`Save Application`」をクリックします。
+- 後で必要となる`アプリケーションID``（client_id`）と`シークレット``（client_secret`）をコピーして保存します。
 
-### Add your GitLab credentials into your Supabase Project
+### GitLab の認証情報を Supabase プロジェクトに追加
 
-- Go to your [Supabase Project Dashboard](https://supabase.com).
-- In the left sidebar, click the `Authentication` icon (near the top).
-- Click `Settings` from the list to go to the `Authentication Settings` page.
-- Enter the final (hosted) URL of your app under `Site URL` (this is important).
-- Under `External OAuth Providers` turn `GitLab Enabled` to ON.
-- Enter your `client_id` and `client_secret` saved in the previous step.
-- Click `Save`.
+- [Supabaseのプロジェクトダッシュボード](https://supabase.com)にアクセスします。
+- 左側のサイドバーで`「認証」`アイコンをクリックします（上部付近）。
+- リストから`「設定」`をクリックして、`「認証設定」`ページを表示します。
+- 「`Site URL`」にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
+- 「`External OAuth Providers`」で「`GitLab Enabled`」をONにします。
+- 前のステップで保存した`client_id`と`client_secret`を入力します。
+- 「`Save`」をクリックします。
 
-### Add login code to your client app
+### クライアントアプリにログインコードを追加する
 
-The JavaScript client code is documented here: [Supabase OAuth Client Code](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
+JavaScriptのクライアントコードはこちらに記載されています。[Supabase OAuthクライアントコード](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
 
 ```js
 const { user, session, error } = await supabase.auth.signIn({
@@ -74,7 +74,7 @@ const { user, session, error } = await supabase.auth.signIn({
 })
 ```
 
-Add this function which you can call from a button, link, or UI element.
+ボタン、リンク、またはUI要素から呼びだすことができるこの関数を追加します。
 
 ```js
 async function signInWithGitLab() {
@@ -84,7 +84,7 @@ async function signInWithGitLab() {
 }
 ```
 
-To log out:
+ログアウトするには次の関数を追加します。
 
 ```js
 async function signout() {
@@ -92,8 +92,8 @@ async function signout() {
 }
 ```
 
-## Resources
+## リソース
 
-- [Supabase Account - Free Tier OK](https://supabase.com)
-- [Supabase JS Client](https://github.com/supabase/supabase-js)
-- [GitLab Account](https://gitlab.com)
+- [Supabase アカウント - Free Tier OK](https://supabase.com)
+- [Supabase JS クライアント](https://github.com/supabase/supabase-js)
+- [GitLab アカウント](https://gitlab.com)
