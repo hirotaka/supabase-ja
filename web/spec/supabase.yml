@@ -204,20 +204,20 @@ pages:
   Installing:
     title: インストール
     description: |
-      すべてのJavaScriptライブラリはSupabaseチームによって直接構築されています。
+      すべてのJavaScriptライブラリーはSupabaseチームによって直接構築されています。
 
-      その他の言語は、コミュニティによって作成され、Supabaseによってサポートされています。
+      その他の言語は、コミュニティーによって作成され、Supabaseによってサポートされています。
 
       ## JavaScript
 
-      NPM経由
+      npmで次を実行します。
       ```bash
       npm install @supabase/supabase-js
       ```
 
       ソースコードは[GitHub](https://github.com/supabase/supabase-js)でご覧いただけます。
 
-      またはCDN経由で
+      またはCDN経由で使う場合は次の通りになります。
       ```js
       <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
       //或いは
@@ -303,8 +303,6 @@ pages:
 
       TypeScriptを使用している場合、データベースの行のタイプをタイプパラメータとして`from`メソッドに渡すことで、連鎖的に自動補完機能を向上させることができます。 
       もし行の型を提供していない場合は、明示的に`from<any>('tableName')`を渡す必要があります。
-
-      If you don't provide a type for the row you need to explicitly pass `from<any>('tableName')`.
 
       ```ts
       type Message = {
@@ -430,12 +428,12 @@ pages:
     title: 'signUp()'
     $ref: '@supabase/gotrue-js.GoTrueClient.signUp'
     notes: |
-      - By default, the user will need to verify their email address before logging in. If you would like to change this, you can disable "Email Confirmations" by going to Authentication -> Settings on [app.supabase.io](https://app.supabase.io)
-      - If "Email Confirmations" is turned on, a `user` is returned but `session` will be null
-      - If "Email Confirmations" is turned off, both a `user` and a `session` will be returned
-      - When the user confirms their email address, they will be redirected to localhost:3000 by default. To change this, you can go to Authentication -> Settings on [app.supabase.io](https://app.supabase.io)
+      - デフォルトでは、ユーザーはログインする前にメールアドレスを確認する必要があります。これを変更したい場合は、[app.supabase.io](https://app.supabase.io)の「Authentication」→「Settings」で「Email Confirmations」を無効にできます。
+      - 「Email Confirmation」をオンにすると、`user`が返されますが、`session`はnullになります。
+      - 「Email Confirmations」をオフにすると、`user`と`session`の両方が返されます。
+      - ユーザーがメールアドレスを確認すると、デフォルトではlocalhost:3000にリダイレクトされます。これを変更するには、[app.supabase.io](https://app.supabase.io)の「Authentication」→「Settings」で変更できます。
     examples:
-      - name: Sign up.
+      - name: サインアップ
         isSpotlight: true
         js: |
           ```js
@@ -444,7 +442,7 @@ pages:
             password: 'example-password',
           })
           ```
-      - name: Sign up with additional user meta data.
+      - name: ユーザーのメタデータを追加してサインアップ
         isSpotlight: true
         js: |
           ```js
@@ -461,39 +459,39 @@ pages:
             }
           )
           ```
-      - name: Sign up with third-party providers.
+      - name: サードパーティのプロバイダーでサインアップ
         hideCodeBlock: true
         description: |
-          You can sign up with OAuth providers using the [`signIn()`](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers) method.
+          OAuthプロバイダーにサインアップするには、[`signIn()`](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)メソッドを使用します。
 
   auth.signIn():
     title: 'signIn()'
     $ref: '@supabase/gotrue-js.GoTrueClient.signIn'
     notes: |
-      - A user can sign up either via email or OAuth.
-      - If you provide `email` without a `password`, the user will be sent a magic link.
-      - The magic link's destination URL is determined by the SITE_URL config variable. To change this, you can go to Authentication -> Settings on [app.supabase.io](https://app.supabase.io)
-      - Specifying a `provider` will open the browser to the relevant login page.
+      - ユーザーはメールかOAuthでサインアップできます。
+      - `password`を指定せずに`email`を指定した場合、ユーザーにはマジック・リンクが送られます。
+      - マジック・リンクの送信先URLは、SITE_URLという設定変数で決まります。これを変更するには、[app.supabase.io](https://app.supabase.io)の「Authentication」→「Settings」で行います。
+      - `provider`を指定すると、ブラウザーで関連するログイン・ページを開きます。
     examples:
-      - name: Sign in with email.
+      - name: Eメールでサインイン
         isSpotlight: true
         js: |
           ```js
           const { user, session, error } = await supabase.auth.signIn({
             email: 'example@email.com',
             password: 'example-password',
-          })
+          })」」
           ```
-      - name: Sign in with magic link.
-        description: If no password is provided, the user will be sent a "magic link" to their email address, which they can click to open your application with a valid session. By default, a given user can only request a Magic Link once every 60 seconds.
+      - name: マジック・リンクでサインイン
+        description: パスワードが入力されていない場合、ユーザーのメールアドレスに「マジック・リンク」が送信されます。このリンクをクリックすることで、有効なセッションでアプリケーションを開くことができます。デフォルトでは、ユーザーは60秒に1回しかマジックリンクを要求できません。
         js: |
           ```js
           const { user, session, error } = await supabase.auth.signIn({
             email: 'example@email.com'
           })
           ```
-      - name: Sign in using third-party providers.
-        description: Supabase supports OAuth logins.
+      - name: サードパーティのプロバイダーを使用してサインイン
+        description: SupabaseはOAuthによるログインをサポートしています。
         js: |
           ```js
           const { user, session, error } = await supabase.auth.signIn({
@@ -501,10 +499,10 @@ pages:
             provider: 'github'
           })
           ```
-      - name: Sign in with redirect.
+      - name: リダイレクトでサインイン
         description: |
-          Sometimes you want to control where the user is redirected to after they are logged in. Supabase supports this for 
-          any URL path on your website (the base domain must be the same as the domain in your Auth settings).
+          ユーザーがログインした後に、どこにリダイレクトされるかをコントロールしたい場合があります。Supabaseはこの機能をサポートしています。
+          Webサイト上の任意のURLパス（ベースになるドメインはAuth設定のドメインと同じにする必要があります）。
         js: |
           ```js
           const { user, session, error } = await supabase.auth.signIn({
@@ -513,10 +511,10 @@ pages:
             redirectTo: 'https://example.com/welcome'
           })
           ```
-      - name: Sign in with scopes.
+      - name: スコープを使ってサインイン
         description: |
-          If you need additional data from an OAuth provider, you can include a space-separated list of scopes in your request to get back an OAuth provider token.
-          You may also need to specify the scopes in the provider's OAuth app settings, depending on the provider.
+          OAuthプロバイダーから追加のデータが必要な場合は、スペースで区切ったスコープのリストをリクエストに含めることで、OAuthプロバイダーのトークンを返してもらうことができます。
+          また、プロバイダーによっては、プロバイダーのOAuthアプリの設定でスコープを指定する必要があります。
         js: |
           ```js
           const { user, session, error } = await supabase.auth.signIn({
@@ -526,9 +524,9 @@ pages:
           })
           const oAuthToken = session.provider_token // use to access provider API
           ```
-      - name: Sign in using a refresh token (e.g. in React Native).
+      - name: リフレッシュトークンを使ってサインイン（React Nativeの場合など）
         description: |
-          If you are completing a sign up or login in a React Native app you can pass the refresh token obtained from the provider to obtain a session.
+          React Nativeアプリでサインアップやログインを完了する場合は、プロバイダーから取得したリフレッシュトークンを渡してセッションを取得できます。
         js: |
           ```js
           // An example using Expo's `AuthSession`
@@ -550,7 +548,7 @@ pages:
     title: 'signOut()'
     $ref: '@supabase/gotrue-js.GoTrueClient.signOut'
     examples:
-      - name: Sign out
+      - name: サインアウト
         isSpotlight: true
         js: |
           ```js
@@ -561,7 +559,7 @@ pages:
     title: 'session()'
     $ref: '@supabase/gotrue-js.GoTrueClient.session'
     examples:
-      - name: Get the session data
+      - name: セッションデータの取得
         isSpotlight: true
         js: |
           ```js
@@ -572,7 +570,7 @@ pages:
     title: 'user()'
     $ref: '@supabase/gotrue-js.GoTrueClient.user'
     examples:
-      - name: Get the logged in user
+      - name: ログインしているユーザーを取得
         isSpotlight: true
         js: |
           ```js
@@ -583,25 +581,25 @@ pages:
     title: 'update()'
     $ref: '@supabase/gotrue-js.GoTrueClient.update'
     notes: |
-      User email: email updates will send an email to both the user's current and new email with a confirmation link.
+      ユーザーのEメール：Eメールの更新では、ユーザーの現在のEメールと新しいEメールの両方に、確認用のリンクを含むEメールが送信されます。
 
-      User metadata: It's generally better to store user data in a table inside your public schema (i.e. `public.users`). 
-      Use the `update()` method if you have data which rarely changes or is specific only to the logged in user.
+      ユーザーのメタデータ：一般的に、ユーザーのデータはパブリック・スキーマ内のテーブル（例：`public.users`）に保存するのが良いでしょう。
+      めったに変更されないデータや、ログインしているユーザーだけに固有のデータがある場合は、`update()`メソッドを使用してください。
     examples:
-      - name: Update email for authenticated user.
-        description: Sends a "Confirm Email Change" email to the new email address.
+      - name: 認証されたユーザのメールを更新
+        description: 新しいメールアドレスに「Confirm Email Change」メールを送信します。
         isSpotlight: true
         js: |
           ```js
           const { user, error } = await supabase.auth.update({email: 'new@email.com'})
           ```
-      - name: Update password for authenticated user.
+      - name: 認証されたユーザーのパスワードを更新
         isSpotlight: true
         js: |
           ```js
           const { user, error } = await supabase.auth.update({password: 'new password'})
           ```
-      - name: Update a user's metadata.
+      - name: ユーザーのメタデータを更新
         isSpotlight: true
         js: |
           ```js
@@ -614,30 +612,30 @@ pages:
     title: 'setAuth()'
     $ref: '@supabase/gotrue-js.GoTrueClient.setAuth'
     examples:
-      - name: Basic example.
-        description: This is most useful on server-side functions where you cannot log the user in, but have access to the user's access token.
+      - name: 基本的な例
+        description: ユーザーをログインさせることはできませんが、サーバーサイドなどの機能でユーザーのアクセストークンにアクセスできる環境で有用です。
         isSpotlight: true
         js: |
           ```js
           function apiFunction(req, res) {
-            // Assuming the access token was sent as a header "X-Supabase-Auth"
+            // アクセストークンが「X-Supabase-Auth」ヘッダーとして送信されるのを仮定
             const { access_token } = req.get('X-Supabase-Auth') 
 
-            // You can now use it within a Supabase Client 
+            // Supabaseクライアント内で使用できるようになります 
             const supabase = createClient("https://xyzcompany.supabase.co", "public-anon-key")
             const { user, error } = supabase.auth.setAuth(access_token)
 
-            // This client will now send requests as this user
+            // このクライアントは今後、このユーザーとしてリクエストを送信します
             const { data } = await supabase.from('your_table').select()
           }
           ```
-      - name: With Express.
+      - name: Expressの場合
         isSpotlight: true
         js: |
           ```js
 
           /**
-          * Make a request from the client to your server function
+          * クライアントからサーバ機能へのリクエストを行う
           */
           async function makeApiRequest() {
             const token = newClient.session()?.access_token
@@ -655,17 +653,17 @@ pages:
           }
 
           /**
-          * Use the Auth token in your server-side function.
+          * サーバーサイドの関数でAuthトークンを使用
           */
           async function apiFunction(req, res) {
             const { access_token } = req.get('X-Supabase-Auth') 
 
-            // You can now use it within a Supabase Client 
+            // Supabaseクライアント内で使用できます
             const supabase = createClient("https://xyzcompany.supabase.co", "public-anon-key")
             const { user, error } = supabase.auth.setAuth(access_token)
 
-            // This client will now send requests as this user
-            const { data } = await supabase.from('your_table').select()
+            // このクライアントは、このユーザーとしてリクエストを送信します
+            const{ data }= await supabase.from('your_table').select()
           }
           ```
 
@@ -673,7 +671,7 @@ pages:
     title: 'onAuthStateChange()'
     $ref: '@supabase/gotrue-js.GoTrueClient.onAuthStateChange'
     examples:
-      - name: Listen to auth changes
+      - name: 認証の変更をリッスン
         isSpotlight: true
         js: |
           ```js
@@ -683,24 +681,25 @@ pages:
           ```
 
   Reset Password (Email):
+    title: パスワード（Eメール）
     $ref: '@supabase/gotrue-js.GoTrueApi.resetPasswordForEmail'
     notes: |
-      Sends a reset request to an email address.
+      Eメールアドレスにリセットのリクエストを送信します。
 
-      When the user clicks the reset link in the email they will be forwarded to:
+      ユーザーがメール内のリセットのリンクをクリックすると、次に転送します。
 
       `<SITE_URL>#access_token=x&refresh_token=y&expires_in=z&token_type=bearer&type=recovery`
 
-      Your app must detect `type=recovery` in the fragment and display a password reset form to the user.
+      アプリはこのパラメーターの`type=recovery`を判定して、ユーザーにパスワードをリセットするためのフォームを表示する必要があります。
 
-      You should then use the access_token in the url and new password to update the user as follows:
+      そして、URLのaccess_tokenと新しいパスワードを使って、以下のようにユーザーを更新する必要があります。
 
       ```js
       const { error, data } = await supabase.auth.api
             .updateUser(access_token, { password : new_password })
       ```
     examples:
-      - name: Reset password
+      - name: パスワードのリセット
         isSpotlight: true
         js: |
           ```js

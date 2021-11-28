@@ -12,7 +12,9 @@ docs/postgres/server/docker.md
 docs/guides/database/arrays.mdx
 docs/guides/database/json.mdx
 docs/guides/database/extensions/pgtap.mdx
+docs/handbook/introduction.mdx
 docs/reference/cli/index.mdx
+docs/reference/cli/supabase-eject.mdx
 docs/reference/cli/supabase-init.mdx
 docs/reference/dart/auth-onauthstatechange.mdx
 docs/reference/dart/auth-session.mdx
@@ -81,14 +83,6 @@ docs/reference/javascript/auth-api-generatelink.mdx
 docs/reference/javascript/auth-api-inviteuserbyemail.mdx
 docs/reference/javascript/auth-api-resetpasswordforemail.mdx
 docs/reference/javascript/auth-api-sendmobileotp.mdx
-docs/reference/javascript/auth-onauthstatechange.mdx
-docs/reference/javascript/auth-session.mdx
-docs/reference/javascript/auth-setauth.mdx
-docs/reference/javascript/auth-signin.mdx
-docs/reference/javascript/auth-signout.mdx
-docs/reference/javascript/auth-signup.mdx
-docs/reference/javascript/auth-update.mdx
-docs/reference/javascript/auth-user.mdx
 docs/reference/javascript/containedby.mdx
 docs/reference/javascript/contains.mdx
 docs/reference/javascript/delete-user.mdx
@@ -121,7 +115,6 @@ docs/reference/javascript/rangegte.mdx
 docs/reference/javascript/rangelt.mdx
 docs/reference/javascript/rangelte.mdx
 docs/reference/javascript/removesubscription.mdx
-docs/reference/javascript/reset-password-email.mdx
 docs/reference/javascript/rpc.mdx
 docs/reference/javascript/select.mdx
 docs/reference/javascript/single.mdx
