@@ -4,7 +4,7 @@ info:
   id: reference/supabase-js
   title: Supabase Client
   description: |
-    私たちのクライアントライブラリのアプローチはモジュール式です。それぞれのサブライブラリーは、単一の外部システムのための独立した実装となっています。これは、既存のツールをサポートするための方法のひとつです。
+    私たちのクライアント・ライブラリーはモジュール方式です。それぞれのサブ・ライブラリーは、単一の外部システム向けの独立した実装となっています。これは、私たちが提供する、既存のツールをサポートする方法の1つです。
 
     <table style={{tableLayout: 'fixed', whiteSpace: 'nowrap' }}>
       <tr>
@@ -29,7 +29,7 @@ info:
         <td><a href="https://github.com/supabase/realtime-js" target="_blank" rel="noopener noreferrer">realtime-js</a></td>
         <td><a href="https://github.com/supabase/storage-js" target="_blank" rel="noopener noreferrer">storage-js</a></td>
       </tr>
-      <th colspan="6">💚 Community 💚</th>
+      <th colspan="6">💚 コミュニティー 💚</th>
       <tr>
         <td>C#</td>
         <td><a href="https://github.com/supabase-community/supabase-csharp" target="_blank" rel="noopener noreferrer">supabase-csharp</a></td>
@@ -204,9 +204,9 @@ pages:
   Installing:
     title: インストール
     description: |
-      すべてのJavaScriptライブラリーはSupabaseチームによって直接構築されています。
+      すべてのJavaScriptライブラリーはSupabaseチームによってすべて構築されています。
 
-      その他の言語は、コミュニティーによって作成され、Supabaseによってサポートされています。
+      その他の言語は、コミュニティーによって作成され、Supabaseがサポートしています。
 
       ## JavaScript
 
@@ -217,10 +217,10 @@ pages:
 
       ソースコードは[GitHub](https://github.com/supabase/supabase-js)でご覧いただけます。
 
-      またはCDN経由で使う場合は次の通りになります。
+      またはCDN経由で使う場合は次の通りにします。
       ```js
       <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-      //或いは
+      //または
       <script src="https://unpkg.com/@supabase/supabase-js"></script>
       ```
 
@@ -236,9 +236,10 @@ pages:
     title: 初期化
     $ref: '@supabase/supabase-js."SupabaseClient".SupabaseClient.constructor'
     description: |
-      新しいSupabaseクライアントを初期化するには、`createClient()`メソッドを使用します。
+      新しくSupabaseクライアントを初期化するには、`createClient()`メソッドを使用します。
 
-      Supabaseクライアントは、Supabaseの他の機能への入り口であり、Supabaseのエコシステムで提供されているすべての機能を利用するための最も簡単な方法です。
+      Supabaseクライアントは、Supabaseの他の機能への入り口です。
+      Supabaseのエコシステムで提供されている、すべての機能を利用するための最も簡単な方法です。
 
     examples:
       - name: createClient()
@@ -274,10 +275,10 @@ pages:
           })
           ```
 
-          デフォルトでは、APIサーバは`public`スキーマを指します。ダッシュボードで他のデータベースのスキーマを有効にすることができます。 
-          設定 > API > スキーマ`にアクセスして、API上で公開したいスキーマを追加します。
+          デフォルトでは、APIサーバは`public`スキーマを指します。ダッシュボードで他のデータベースのスキーマを有効にできます。 
+          `Settings > API > Schema`にアクセスして、API上でパブリックにするスキーマを追加します。
 
-          注意：つまり、上記のコードは `other_schema` スキーマにはアクセスできますが、`public` スキーマにはアクセスできません。
+          注意：つまり、上記のコードは`other_schema`スキーマにはアクセスできますが、`public`スキーマにはアクセスできません。
       - name: "`fetch`の実装をカスタマイズする"
         js: |
           ```js
@@ -288,20 +289,20 @@ pages:
           })
           ```
 
-          `supabase-js` では、HTTP リクエストを行うために [`cross-fetch`](https://www.npmjs.com/package/cross-fetch)ライブラリを使用していますが、
-          代替の `fetch` 実装をオプションとして提供することができます。
-          これは、`cross-fetch` に対応していない環境（例えば、Cloudflare Workers など）で最も有効です。
+          `supabase-js`では、HTTPリクエストを行うために[`cross-fetch`](https://www.npmjs.com/package/cross-fetch)ライブラリーを使用しています。
+          しかし、代替として`fetch`実装を選択して提供もできます。
+          これは、`cross-fetch`に対応していない環境（例えば、Cloudflare Workersなど）で最も有効です。
 
   Generating Types:
-    title: Typeを生成
+    title: 型（Type）を生成
     description: |
-      Supabaseは近々、データベースの型を様々な言語用にダンプするネイティブタイプジェネレーターをリリースする予定です。今のところ、サードパーティ製のツールでTypeScriptをサポートしています。
+      Supabaseは近々、データベースの型を様々な言語用にダンプするネイティブなタイプ・ジェネレーターをリリースする予定です。今のところ、サードパーティー製のツールでTypeScriptをサポートしています。
 
       ## TypeScriptの使用
 
-      `supabase-js` には、TypeScript で使用するための型定義が同梱されており、IntelliSense のオートコンプリートやエディタでのドキュメント作成に便利です。
+      `supabase-js`には、TypeScriptで使用するための型定義が同梱されており、IntelliSenseの自動補完やエディターでのドキュメント作成に便利です。
 
-      TypeScriptを使用している場合、データベースの行のタイプをタイプパラメータとして`from`メソッドに渡すことで、連鎖的に自動補完機能を向上させることができます。 
+      TypeScriptを使用している場合、データベースの行の型をパラメーターとして`from`メソッドに渡すことで、連鎖的に自動補完機能を向上させることができます。 
       もし行の型を提供していない場合は、明示的に`from<any>('tableName')`を渡す必要があります。
 
       ```ts
@@ -315,44 +316,42 @@ pages:
       }
 
       const response = await supabase
-        .from<Message>('messages') // Message maps to the type of the row in your database.
+        .from<Message>('messages') // メッセージは、データベース内の行の型に対応しています。
         .select('*, author:user_id(username)')
-        .match({ channel_id: 2 }) // Your IDE will be able to help with auto-completion.
-      response.data // Response data will be of type Array<Message>.
+        .match({ channel_id: 2 }) // IDEでは、自動補完に対応しています。
+      response.data // レスポンスデータはArray<Message>型となります。
 
-      // If you don't provide a type for the row you need to explicitly pass `from<any>('tableName')`.
+      // 行の型を指定しない場合は、明示的に`from<any>('tableName')`を渡す必要があります。
       const response = await supabase
         .from<any>('messages')
         .select('*, author:user_id(username)')
         .match({ channel_id: 2 })
-      response.data // Response data will be of type Array<any>.
+      response.data // レスポンス・データはArray<any>型となります。
       ```
 
-      ### OpenAPI仕様からデータベースタイプを生成する
+      ### OpenAPI仕様からデータベースの型を生成する
 
       Supabaseは、データベースのOpenAPI仕様ファイルを生成し、TypeScriptで使用するデータ型を生成します。
 
-      Supabase プロジェクトの OpenAPI 仕様書は以下のようにアクセスできます。
+      SupabaseプロジェクトのOpenAPI仕様書は以下のようにすることでアクセスできます。
 
       ```txt
       https://your-project.supabase.co/rest/v1/?apikey=your-anon-key
       ```
 
-      オープンソースの[openapi-typescript](https://github.com/drwpow/openapi-typescript#%EF%B8%8F-reading-specs-from-remote-resource)というツールを使うと、型を生成してローカルに保存することができます。
+      オープンソースの[openapi-typescript](https://github.com/drwpow/openapi-typescript#%EF%B8%8F-reading-specs-from-remote-resource)というツールを使うと、型を生成してローカルに保存できます。
 
       ```bash
       npx openapi-typescript https://your-project.supabase.co/rest/v1/?apikey=your-anon-key --output types/supabase.ts
       ```
 
-      重要な注意事項
+      次の重要な注意事項があります。
 
-      - このジェネレータはJSON
-      APIを使用しているため、カラムが配列であるかどうかを判断する方法がありません。Supabaseが自動的に処理して配列を返すにもかかわらず、ジェネレーターは配列タイプを
-      `string` として生成します。
-        例えば、`names: string` -> `names: string[]`のように、型を変更することで、ファイル内で手動で修正することができます。
+      - このジェネレーターはJSON APIを使用しているため、カラムが配列であるかどうかを判断する方法がありません。Supabaseが自動的に処理して配列を返すにもかかわらず、ジェネレーターは配列タイプを`string`として生成します。
+        例えば、`names: string`を`names: string[]`のように、型を変更することで、ファイル内で手動によって修正できます。
       - 型は自動的にはデータベースと同期しませんので、データベースに変更を加えた後は、型を再生成してください。
 
-      型の生成が完了したら、TypeScriptプロジェクトで使用することができます。
+      型の生成が完了したら、TypeScriptのプロジェクトで使用できます。
 
       ```ts
       import { NextApiRequest, NextApiResponse } from "next";
@@ -373,9 +372,9 @@ pages:
       };
       ```
 
-      ### GitHub Actionsでタイプを自動更新する
+      ### GitHub Actionsで型を自動更新する
 
-      型の定義とデータベースを常に同期させるには、GitHub アクションを設定してスケジュールに沿って実行する方法があります。
+      型の定義とデータベースを常に同期させるには、GitHub Actionを設定してスケジュールに沿って実行する方法があります。
 
       package.jsonにスクリプトを追加して、型を生成します。
 
@@ -383,14 +382,14 @@ pages:
       "update-types": "npx openapi-typescript https://your-project.supabase.co/rest/v1/?apikey=your-anon-key --output types/database/index.ts"
       ```
 
-      レポに、`.github/workflows/update-types.yml`というファイルを作成します。このファイルに以下のスニペットを追加して、アクションを定義します。定義に変更があった場合、このスクリプトはあなたのレポにその変更をコミットします。
+      リポジトリーに、`.github/workflows/update-types.yml`というファイルを作成します。このファイルに以下のスニペットを追加して、アクションを定義します。定義に変更があった場合、このスクリプトはあなたのリポジトリーにその変更をコミットします。
 
       ```yml
       name: Update database types
 
       on:
         schedule:
-          # sets the action to run daily. You can modify this to run the action more or less frequently
+          # アクションを毎日実行するように設定します。この設定を変更して、アクションの実行頻度を増やすことも減らすこともできます。
           - cron: '0 0 * * *'
 
       jobs:

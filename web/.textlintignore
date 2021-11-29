@@ -89,13 +89,11 @@ docs/reference/javascript/delete-user.mdx
 docs/reference/javascript/delete.mdx
 docs/reference/javascript/eq.mdx
 docs/reference/javascript/filter.mdx
-docs/reference/javascript/generating-types.mdx
 docs/reference/javascript/getsubscriptions.mdx
 docs/reference/javascript/gt.mdx
 docs/reference/javascript/gte.mdx
 docs/reference/javascript/ilike.mdx
 docs/reference/javascript/in.mdx
-docs/reference/javascript/initializing.mdx
 docs/reference/javascript/insert.mdx
 docs/reference/javascript/is.mdx
 docs/reference/javascript/like.mdx
@@ -136,3 +134,8 @@ docs/reference/javascript/subscribe.mdx
 docs/reference/javascript/textsearch.mdx
 docs/reference/javascript/update.mdx
 docs/reference/javascript/upsert.mdx
+
+# 完了しているが、自動生成されている箇所でひっかかってしまうためいれています。
+# もし、編集する場合はコメントアウトして、textlintする必要があります。
+docs/reference/javascript/auth-onauthstatechange.mdx
+docs/reference/javascript/auth-signout.mdx
