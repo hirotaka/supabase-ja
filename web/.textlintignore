@@ -1,5 +1,7 @@
 docs/guides/integrations/auth0.mdx
 docs/guides/integrations/draftbit.mdx
+docs/guides/integrations/prisma.mdx
+docs/guides/integrations/vercel.mdx
 docs/company/aup.md
 docs/company/privacy.md
 docs/company/terms.md
