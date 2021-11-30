@@ -490,7 +490,7 @@ Supabaseのプロジェクトには、写真や動画などの大容量ファイ
         type="file"
         id="single"
         accept="image/*"
-        @change="uploadAvatar($event)"
+        @change="uploadAvatar"
         :disabled="uploading"
       />
     </div>
@@ -589,6 +589,11 @@ export default {
 <script>
   // Import the new component
   import Avatar from './Avatar.vue'
+  
+  // 
+  components: {
+    Avatar,
+  }
 </script>
 ```
 

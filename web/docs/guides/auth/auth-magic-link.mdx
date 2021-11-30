@@ -25,9 +25,12 @@ Supabaseのアプリケーションにマジックリンクのログインを設
 - `Email Auth」`の項目で`「Enable Email Signup」`をオンにします。
 - `Save`をクリックします。
 
-### クライアントアプリにログインコードを追加する
+### クライアント・アプリにログインのコードを追加する
 
-JavaScriptのクライアントコードはこちらに記載されています。[Supabase OAuthクライアントコード](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
+ログインを追加するにはクライアント・ライブラリーをご利用ください。
+
+- [Javascript](/docs/reference/javascript/auth-signin#sign-in-with-magic-link)
+- [Dart](/docs/reference/dart/auth-signin#sign-in-with-magic-link)
 
 <Tabs
   defaultValue="js"
@@ -48,11 +51,8 @@ const { user, error } = await supabase.auth.signIn({
 <TabItem value="dart">
 
 ```dart
-final res = await supabase.auth.signIn(
-  email: 'example@email.com'
-);
+final res = await supabase.auth.signIn(email: 'example@email.com');
 
-final user = res.data?.user;
 final error = res.error;
 ```
 
