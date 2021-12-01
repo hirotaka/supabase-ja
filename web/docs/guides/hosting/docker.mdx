@@ -13,11 +13,7 @@ Dockerは、セルフホスト型Supabaseを始めるための最も簡単な方
 - [Docker](https://docs.docker.com/engine/install/)とdocker-compose
 - [Git](https://git-scm.com/downloads)
 
-<<<<<<< HEAD
-## はじめに
-=======
-## Quick Start
->>>>>>> 68c4fe377a6f4dc7c612133d6ee41b601a85b12c
+## クイックスタート
 
 ### コードの取得
 
@@ -30,65 +26,28 @@ git clone --depth 1 https://github.com/supabase/supabase
 # Go to the docker folder
 cd supabase/docker
 
-<<<<<<< HEAD
-### 秘密の管理
-
-`.env.example`を`.env`にコピーして、値を入力します。
-
-```sh
-=======
 # Copy the fake env vars
->>>>>>> 68c4fe377a6f4dc7c612133d6ee41b601a85b12c
 cp .env.example .env
 
 # Start
 docker-compose up
 ```
 
-<<<<<<< HEAD
-特に、これらは必須です。
-
-- `POSTGRES_PASSWORD`：`postgres`ロールのパスワード
-- `JWT_SECRET`: PostgRESTやGoTrueなどで使用されます
-- `SITE_URL`：あなたのサイトのベースURL
-- `SMTP_*：`メールサーバーの認証情報
-=======
-Now visit [http://localhost:3000](http://localhost:3000) to start using Supabase Studio.
+それでは、[http://localhost:3000](http://localhost:3000)にアクセスして、Supabase Studioの使用を開始してください。
 
 
-## Securing your setup
+## セットアップをセキュアにする
 
-While we provided you with some example secrets for getting started, you should NEVER deploy your Supabase setup using the defaults we have provided.
+ここまでの手順では、Supabaseをすぐに使えるようにするため、シックレットの扱いを簡略化しています。ここで紹介するデフォルト値を使ってSupabaseのセットアップをデプロイすることは絶対に避けてください。
 
-Please follow these steps to secure your Docker setup. We [strongly recommend](/docs/guides/hosting/overview#managing-your-secrets) using a secrets manager when deploying to production.
->>>>>>> 68c4fe377a6f4dc7c612133d6ee41b601a85b12c
+以下の手順によりDockerのセットアップを保護してください。プロダクションへデプロイする際には、シークレット・マネージャーを使用することを[強く推奨](/docs/guides/hosting/overview#managing-your-secrets)します。
 
 ### APIキーの生成
 
-JWT`_SECRET`を使って、[JWTジェネレーター](/docs/guides/hosting/overview#api-keys)を使って`アノン`と`サービスの`APIキーを生成します。
+`JWT_SECRET`を使って、[JWTジェネレーター](/docs/guides/hosting/overview#api-keys)を使って`anon`と`service`のAPIキーを生成します。
 
 これらのファイルの値を置き換えます。
 
-<<<<<<< HEAD
-- `docker-compose.yml`:
-  - `ANON_KEY`-`アノン・キー`に置き換えます。
-  - `SERVICE_KEY`-`サービス`キーに置き換える。
-- `ボリューム/kong.yml`
-  - `anon`-`アノン・キー`に置き換えます。
-  - `service_role`-`サービス`キーに置き換えます。
-
-### 開始
-
-これでSupabaseを起動できます。
-
-```sh
-docker-compose up
-```
-
-データベースは`volume/db/data`に、ストレージオブジェクトは`volume/storage`に保存されます。
-
-`supabase/examples`にあるサンプルを試して、正しく動作するか確認してください。
-=======
 - `.env`: 
   - `ANON_KEY` - replace with an `anon` key
   - `SERVICE_ROLE_KEY` - replace with a `service` key
@@ -96,10 +55,9 @@ docker-compose up
   - `anon` - replace with an `anon` key
   - `service_role` - replace with a `service` key
 
-### Update Secrets
+### シークレットの更新
 
-Update the `.env` file with your own secrets. In particular, these are required:
->>>>>>> 68c4fe377a6f4dc7c612133d6ee41b601a85b12c
+`.env`ファイルを自分のシークレットで更新してください。特に、これらは必須です。
 
 - `POSTGRES_PASSWORD`: the password for the `postgres` role. 
 - `JWT_SECRET`: used by PostgREST and GoTrue, among others.
