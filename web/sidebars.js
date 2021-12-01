@@ -89,7 +89,7 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Database',
+      label: 'データベース',
       collapsed: false,
       items: [
         'guides/database/introduction',
@@ -136,7 +136,7 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Auth',
+      label: '認証',
       collapsed: false,
       items: [
         'guides/auth/intro',
