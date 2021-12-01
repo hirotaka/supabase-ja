@@ -70,9 +70,21 @@ Supabaseで提供されているすべての拡張機能については、[こ�
 
 ### リアルタイム
 
+<<<<<<< HEAD
 SupabaseはPostgres上にリアルタイム・エンジンを提供しており、変更が発生したときにそれを検知できます。 
 Supabaseのリアルタイム・エンジンは、Postgresに組み込まれたレプリケーション機能を使用しています。 
 リアルタイムなシステムを管理するには、`supabase_realtime`パブリケーションを[更新](/docs/guides/database/replication)するだけです。
+=======
+Supabase provides a realtime engine on top of Postgres, so that you can listen to changes as they happen. 
+Our realtime engine uses the built-in replication functionality of Postgres.
+
+Realtime server broadcasts database changes to authorized users depending on your Row Level Security (RLS) policies.
+We recommend that you enable row level security and set row security policies on tables that you add to the publication.
+However, you may choose to disable RLS on a table and have changes broadcast to all connected clients.
+
+You can manage the realtime system, simply by 
+[updating](/docs/guides/database/replication) the `supabase_realtime` publication.
+>>>>>>> 77932bfc2d890a633bf78cdf35bd89cc1a8de957
 
 例えば、次のように個別のテーブルのみリアルタイム性を持たせることができます。
 
@@ -92,11 +104,16 @@ alter publication supabase_realtime add table products;
 alter publication supabase_realtime add table posts;
 ```
 
+<<<<<<< HEAD
 | セキュリティー上の注意 |
 | - |
 | リアルタイムのセキュリティーに関する現在の状況は、[プライベートなテーブルのリアルタイムを無効化](/docs/guides/auth#disable-realtime-for-private-tables)をご確認ください。 |
 
 デフォルトでは「新しい」値のみが送信されますが、レコードを`update`や`delete`したときに古いレコード（以前の値）も受信したい場合は、テーブルのレプリカIDを更新して `full` に設定します。
+=======
+By default only "new" values are sent, but if you want to receive the old record (previous values) whenever you `update` or `delete` a record, 
+you can update the replica identity of your tables, setting it to `full`:
+>>>>>>> 77932bfc2d890a633bf78cdf35bd89cc1a8de957
 
 ```sql
 alter table your_table replica identity full;

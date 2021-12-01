@@ -13,6 +13,11 @@ SupabaseはCLIを提供しているので、実際のプロジェクトに接続
 
 お使いの環境に以下のものが必要です。
 
+<<<<<<< HEAD
+=======
+You will need to have these in your environment:
+
+>>>>>>> 77932bfc2d890a633bf78cdf35bd89cc1a8de957
 - Git
 - Docker（デーモンが起動していることを確認してください）
 - Supabase CLI（手順は[こちら](https://github.com/supabase/cli)を参照）
@@ -43,7 +48,11 @@ anon key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiJ9.ZopqoUt20nEV
 service_role key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIn0.M2d2z4SFn5C7HlJlaSLfrzuYim9nbY_XI40uWFN3hEE
 ```
 
+<<<<<<< HEAD
 #### サービスに直接アクセスする
+=======
+#### Accessing Services Directly
+>>>>>>> 77932bfc2d890a633bf78cdf35bd89cc1a8de957
 
 <Tabs
 defaultValue="Postgres"
@@ -58,7 +67,12 @@ values={[
 postgresql://postgres:postgres@localhost:5432/postgres
 ```
 
+<<<<<<< HEAD
 ローカルのPostgresインスタンスは、[`psql`](https://www.postgresql.org/docs/current/app-psql.html)や、[pgadmin](https://www.pgadmin.org/)などのPostgresクライアントからアクセスできます。
+=======
+The local Postgres instance can be accessed through [`psql`](https://www.postgresql.org/docs/current/app-psql.html)
+or any other Postgres client, such as [pgadmin](https://www.pgadmin.org/).
+>>>>>>> 77932bfc2d890a633bf78cdf35bd89cc1a8de957
 
 例えば、以下のようになります。
 
@@ -74,9 +88,15 @@ psql 'postgresql://postgres:postgres@localhost:5432/postgres'
 http://localhost:54321
 ```
 
+<<<<<<< HEAD
 すべてのサービスは、APIゲートウェイの[Kong](https://github.com/Kong/kong)を経由してアクセス可能です。
 クライアント・ライブラリーを使用せず、これらのサービスにアクセスする際、`Authorization`ヘッダーとしてクライアント・キーを渡す必要のある場合があります。
 これらのJWTヘッダーの詳細については、こちらの[リソース](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)を参照してください。
+=======
+All of the services are accessible through the API Gateway [Kong](https://github.com/Kong/kong)).
+If you are accessing these services without the client libraries, you may need to pass the client keys as an `Authorization` header.
+You can learn more about these JWT headers in our [Resources](/docs/learn/auth-deep-dive/auth-deep-dive-jwts).
+>>>>>>> 77932bfc2d890a633bf78cdf35bd89cc1a8de957
 
 ```sh
 curl 'http://localhost:54321/rest/v1/' \
@@ -92,10 +112,17 @@ http://localhost:54321/v1/auth/v1/           # Auth (GoTrue)
 </TabItem>
 </Tabs>
 
+<<<<<<< HEAD
 ## アプリケーション例
 
 Supabaseをローカルにインストールして起動する方法を学んだところで、フロントエンドのアプリケーションで使用する方法を見ていきましょう。
 このクイックスタート・ガイドでは、Supabaseスタックを使用するReactアプリケーションをどのように構成するかを説明します。
+=======
+## Example application
+
+Now that we've learned how to install and start Supabase locally, let's see how you can use it with a frontend application.
+This quick-start guide will show you, how you can configure a React app which uses the Supabase stack.
+>>>>>>> 77932bfc2d890a633bf78cdf35bd89cc1a8de957
 
 ```bash
 # 新しいReactアプリを作成
@@ -104,7 +131,11 @@ npx create-react-app react-demo --use-npm
 # 作成したフォルダーに移動
 cd react-demo
 
+<<<<<<< HEAD
 # Supabaseをセットアップ
+=======
+# set up Supabase
+>>>>>>> 77932bfc2d890a633bf78cdf35bd89cc1a8de957
 supabase init
 
 # supabase-jsライブラリーをインストールして保存
@@ -142,7 +173,11 @@ Supabaseを使い終わったら、`Ctrl-C`を押してDockerサービスを停�
 
 ## マイグレーション
 
+<<<<<<< HEAD
 CLIを使ってマイグレーションを管理できます。[こちらの](https://github.com/supabase/cli/tree/main/examples/tour)ツアーに沿って始めてみましょう。
+=======
+You can also use the CLI to manage your migrations. Follow the tour [here](https://github.com/supabase/cli/tree/main/examples/tour) to get started.
+>>>>>>> 77932bfc2d890a633bf78cdf35bd89cc1a8de957
 
 ## 次のステップ
 
