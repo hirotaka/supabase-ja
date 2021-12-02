@@ -12,34 +12,18 @@ description: 'Things to do before making your app publicly available'
 
 ## セキュリティー
 
-<<<<<<< HEAD
 - RLSが有効であること
     - 妥当なポリシーでRLSを有効にしていないテーブルでは、すべてのクライアントがデータにアクセスして変更できます。これは、ほとんどの場合、お客様が望むことではないでしょう。
     - [RLSの詳細はこちら](/docs/guides/auth/row-level-security)を参照ください。
-- 機密データを含むテーブルのレプリケーションを確実に無効にする。
-    - 現在、RealtimeはRLSポリシーを尊重しておらず、あなたのアノンキーを持つどのクライアントも、レプリケーションが有効になっているテーブルの変更を聞くことができます。
-    - Supabaseダッシュボードの「データベース」→「レプリケーション」ページでこれらの設定を管理してください。
-    - 近日中に[RLSのリアルタイム](https://github.com/supabase/walrus)化を予定していますが、それまでは公開データを含むテーブル（スコアボード、ブログ記事など）にのみ使用してください。
+- 機密データを含んだテーブルのレプリケーションを有効にしている場合、行単位セキュリティー（RLS - 行単位セキュリティー）を有効にし、行セキュリティー・ポリシーを設定します。
+    - Supabaseダッシュボードの「Authetication」→「Poilicies」ページでRLSを有効にし、セキュリティポリシーを作成します
+    - Supabaseダッシュボードの「Database」→「Replication」ページでレプリケーション・テーブルを管理します
 - Githubで2FAを有効にする
     - GithubアカウントにはSupabaseプロジェクトの管理者権限が与えられているため、強力なパスワードとU2FキーやTOTPアプリを使った2FAで保護する必要があります。
 - Auth → Settingsページでメール確認が有効になっていることを確認する。
 - 認証メールにカスタムSMTPサーバーを使用します。信頼できるドメインからメールが来ていることをユーザーが確認できるようにします（SendGrid、AWS SESなどの主要なメールプロバイダーからSMTP認証情報を取得してください）。メールサーバのドメインはアプリがホストされているのと同じドメインが望ましいです。
 - 攻撃者としてどのようにサービスを悪用*する*かをよく考え、軽減する。
 - これらの[一般的なサイバーセキュリティ上の脅威](https://auth0.com/docs/security/prevent-threats)を確認する。
-=======
-- Ensure RLS is enabled
-    - Tables that do not have RLS enabled with reasonable policies allow any client to access and modify their data. This is unlikely to be what you want in the majority of cases.
-    - [Learn more about RLS](/docs/guides/auth/row-level-security)
-- Enable replication on tables containing sensitive data by enabling Row Level Security (RLS) and setting row security policies:
-    - Go to the Authentication > Policies page in the Supabase Dashboard to enable RLS and create security policies
-    - Go to the Database > Replication page in the Supabase Dashboard to manage replication tables
-- Enable 2FA on Github
-    - Since your Github account gives you administrative rights to your Supabase project, you should protect it with a strong password and 2FA using a U2F key or a TOTP app.
-- Ensure email confirmations are enabled in the Auth > Settings page
-- Use a custom SMTP server for auth emails so that your users can see that the mails are coming from a trusted domain (preferably the same domain that your app is hosted on). (grab SMTP credentials from any major email provider such as SendGrid, AWS SES, etc.)
-- Think hard about how *you* would abuse your service as an attacker, and mitigate
-- Review these [common cybersecurity threats](https://auth0.com/docs/security/prevent-threats)
->>>>>>> 77932bfc2d890a633bf78cdf35bd89cc1a8de957
 
 ## パフォーマンス
 
