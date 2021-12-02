@@ -21,6 +21,7 @@ Supabaseは、データベースの専門家でなくても使い始めること
 
 データ同士の関連を掘り下げます。
 
+
 <video width="99%" loop="" muted="" playsInline="" controls="true">
 <source src="/docs/videos/relational-drilldown-zoom.mp4" type="video/mp4" />
 </video>
@@ -70,9 +71,14 @@ Supabaseで提供されているすべての拡張機能については、[こ�
 
 ### リアルタイム
 
-SupabaseはPostgres上にリアルタイム・エンジンを提供しており、変更が発生したときにそれを検知できます。 
-Supabaseのリアルタイム・エンジンは、Postgresに組み込まれたレプリケーション機能を使用しています。 
-リアルタイムなシステムを管理するには、`supabase_realtime`パブリケーションを[更新](/docs/guides/database/replication)するだけです。
+SupabaseはPostgresの上にリアルタイムエンジンを提供しており、変更が発生したときにそれをリッスンできます。 
+Supabaseのリアルタイム・エンジンは、Postgresに組み込まれたレプリケーション機能を利用しています。
+
+Realtime Serverは、行単位セキュリティー（RLS）ポリシーに応じて、データベースの変更を許可されたユーザーにブロードキャストします。
+パブリケーションに追加するテーブルでは、行単位セキュリティーを有効にして行セキュリティーポリシーを設定することをお勧めします。
+ただし、テーブルでRLSを無効にして、接続しているすべてのクライアントに変更をブロードキャストもできます。
+
+リアルタイム・システムを管理するには簡単です。`supabase_realtime`パブリケーションを[更新する]((/docs/guides/database/replication))だけです。
 
 例えば、次のように個別のテーブルのみリアルタイム性を持たせることができます。
 
@@ -92,11 +98,7 @@ alter publication supabase_realtime add table products;
 alter publication supabase_realtime add table posts;
 ```
 
-| セキュリティー上の注意 |
-| - |
-| リアルタイムのセキュリティーに関する現在の状況は、[プライベートなテーブルのリアルタイムを無効化](/docs/guides/auth#disable-realtime-for-private-tables)をご確認ください。 |
-
-デフォルトでは「新しい」値のみが送信されますが、レコードを`update`や`delete`したときに古いレコード（以前の値）も受信したい場合は、テーブルのレプリカIDを更新して `full` に設定します。
+デフォルトでは「新しい」値のみが送信されます。レコードを`update`や`delete`したときに、古いレコード（以前の値）も受信できます。その場合は、テーブルのレプリカIDを更新して`full`に設定します。
 
 ```sql
 alter table your_table replica identity full;
@@ -194,4 +196,3 @@ alter database postgres set timezone to 'America/New_York';
 
 - [Postgres](/docs/postgres/server/about)についてもっと理解する
 - サインイン：[app.supabase.io](https://app.supabase.io)
-

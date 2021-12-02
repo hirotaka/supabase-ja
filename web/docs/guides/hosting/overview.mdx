@@ -23,7 +23,7 @@ Supabaseは、オープンソースのツールを組み合わせたもので、
 
 
 - [PostgreSQL](https://www.postgresql.org/)は、30年以上にわたって活発な開発が行われているオブジェクトリレーショナルデータベースシステムで、信頼性、機能の堅牢性、パフォーマンスの面で高い評価を得ています。
-- [Realtime](https://github.com/supabase/realtime)はElixirのサーバーで、PostgreSQLの挿入、更新、削除をWebsocketを使ってリッスンできます。Supabaseは、Postgresに組み込まれたレプリケーション機能をリッスンし、レプリケーションのバイトストリームをJSONに変換し、そのJSONをWebsocketでブロードキャストします。
+- [Realtime](https://github.com/supabase/realtime)はElixirのサーバーで、PostgreSQLの挿入、更新、削除をWebsocketを使ってリッスンできます。リアルタイムは、Postgresに組み込まれたレプリケーション機能を使ってデータベースの変更をポーリングします。そして、変更内容をJSONに変換し、そのJSONをWebsocket経由で許可されたクライアントにブロードキャストします。
 - [PostgREST](http://postgrest.org/)は、PostgreSQLデータベースを直接RESTful APIにするWebサーバーです。
 - [Storage](https://github.com/supabase/storage-api)は、S3に保存されたファイルを管理するためのRESTfulなインターフェイスを提供し、Postgresを使用してパーミッションを管理します。
 - [postgres-meta](https://github.com/supabase/postgres-meta)は、Postgresを管理するためのRESTful APIで、テーブルの取得、ロールの追加、およびクエリの実行などが可能です。
