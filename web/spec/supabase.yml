@@ -744,7 +744,7 @@ pages:
         isSpotlight: true
         js: |
           ```js
-          const { user, error } = await supabase.auth.api.createUser({
+          const { data: user, error } = await supabase.auth.api.createUser({
             name: 'Yoda'
           })
           ```
@@ -760,7 +760,7 @@ pages:
         isSpotlight: true
         js: |
           ```js
-          const { user, error } = await supabase.auth.api.deleteUser(
+          const { data: user, error } = await supabase.auth.api.deleteUser(
             '715ed5db-f090-4b8c-a067-640ecee36aa0',
             'YOUR_SERVICE_ROLE_KEY'
           )
@@ -777,7 +777,7 @@ pages:
         isSpotlight: false
         js: |
           ```js
-          const { user, error } = await supabase.auth
+          const { data: user, error } = await supabase.auth
             .api
             .inviteUserByEmail('email@example.com')
           ```
@@ -793,7 +793,7 @@ pages:
         isSpotlight: false
         js: |
           ```js
-          const { user, error } = await supabase.auth
+          const { data: user, error } = await supabase.auth
             .api
             .sendMobileOTP('12345879')
           ```
@@ -809,7 +809,7 @@ pages:
         isSpotlight: false
         js: |
           ```js
-          const { user, error } = await supabase.auth
+          const { data: user, error } = await supabase.auth
             .api
             .resetPasswordForEmail('email@example.com')
           ```
@@ -825,7 +825,7 @@ pages:
         isSpotlight: false
         js: |
           ```js
-          const { user, error } = await supabase.auth.api.generateLink({
+          const { data: user, error } = await supabase.auth.api.generateLink({
             type: 'invite',
             email: 'email@example.com'
           })
