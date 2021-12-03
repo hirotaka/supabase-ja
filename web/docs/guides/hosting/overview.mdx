@@ -2,55 +2,57 @@
 id: overview
 title: セルフ・ホスティング
 sidebar_label: 概要
-description: Getting started with Self Hosting.
+description: セルフ・ホスティングをはじめる
 ---
 
 import JwtGenerator from '@site/src/components/JwtGenerator'
 
 Supabaseにはいくつかの利用方法があります。
 
-- [Supabaseクラウド](https://app.supabase.io)：お客様は何も導入する必要はありません。Supabaseクラウド：何もデプロイする必要はありません。私たちがあなたのインフラを管理し、スケーリングします。
-- [Docker](/docs/guides/hosting/docker): お客様のインフラにデプロイします。
+- [Supabaseクラウド](https://app.supabase.io)：何も導入する必要はありません。私たちがインフラを管理し、スケールします。
+- [Docker](/docs/guides/hosting/docker)：ご自身のインフラにデプロイします。
 - Kubernetes：近日公開予定です。
 
 ## アーキテクチャ
 
-Supabaseは、オープンソースのツールを組み合わせたもので、それぞれがエンタープライズに対応できるよう特別に選ばれています。
+Supabaseは、オープンソースのツールを組み合わせたもので、それらはエンタープライズで耐えられるよう、特別に選んでいます。
 
-そのツールやコミュニティーがすでに存在し、MITやApache 2または同等のオープンライセンスであれば、そのツールを使用し、サポートします。
+すでに必要なツールとコミュニティーが存在し、MITやApache 2または同等のオープンライセンスであれば、そのツールを使用し、サポートします。
+もし、必要としているツールが存在しないのであれば、自分たちでオープンソースとして開発します。
 
 ![Supabase Architecture](/img/supabase-architecture.png)
 
 
-- [PostgreSQL](https://www.postgresql.org/)は、30年以上にわたって活発な開発が行われているオブジェクトリレーショナルデータベースシステムで、信頼性、機能の堅牢性、パフォーマンスの面で高い評価を得ています。
-- [Realtime](https://github.com/supabase/realtime)はElixirのサーバーで、PostgreSQLの挿入、更新、削除をWebsocketを使ってリッスンできます。リアルタイムは、Postgresに組み込まれたレプリケーション機能を使ってデータベースの変更をポーリングします。そして、変更内容をJSONに変換し、そのJSONをWebsocket経由で許可されたクライアントにブロードキャストします。
-- [PostgREST](http://postgrest.org/)は、PostgreSQLデータベースを直接RESTful APIにするWebサーバーです。
-- [Storage](https://github.com/supabase/storage-api)は、S3に保存されたファイルを管理するためのRESTfulなインターフェイスを提供し、Postgresを使用してパーミッションを管理します。
+- [PostgreSQL](https://www.postgresql.org/)は、30年以上にわたって活発な開発が行われているオブジェクト・リレーショナル・データベースシステムです。信頼性、機能の堅牢性、パフォーマンスの面で高い評価を得ています。
+- [Realtime](https://github.com/supabase/realtime)はElixirのサーバーで、PostgreSQLの挿入、更新、削除をWebsocketを使ってリッスンできます。Realtimeは、Postgresに組み込まれたレプリケーション機能を使ってデータベースの変更をポーリングします。そして、変更内容をJSONに変換し、そのJSONをWebsocket経由で許可されたクライアントにブロードキャストします。
+- [PostgREST](http://postgrest.org/)は、PostgreSQLデータベースにRESTful APIで直接接続できるようにするためのWebサーバーです。
+- [Storage](https://github.com/supabase/storage-api)は、S3に保存されたファイルを管理するためにRESTfulなインターフェイスを提供し、Postgresを使用してパーミッションを管理します。
 - [postgres-meta](https://github.com/supabase/postgres-meta)は、Postgresを管理するためのRESTful APIで、テーブルの取得、ロールの追加、およびクエリの実行などが可能です。
 - [GoTrue](https://github.com/netlify/gotrue)はSWTベースのAPIで、ユーザーの管理やSWTトークンの発行ができます。
-- [Kong](https://github.com/Kong/kong)は、クラウドネイティブなAPIゲートウェイです。
+- [Kong](https://github.com/Kong/kong)は、クラウド・ネイティブなAPIゲートウェイです。
 
 
 ## 構成
 
-各システムには数多くの設定オプションがあり、関連する製品のドキュメントに記載されています。
+各システムには数多くの設定オプションがあり、関連するプロダクトのドキュメントに記載されています。
 
-- [Postgres](https://hub.docker.com/\_/postgres/)
+- [Postgres](https://hub.docker.com/_/postgres/)
 - [PostgREST](https://postgrest.org/en/stable/configuration.html)
-- [リアルタイム](https://github.com/supabase/realtime#server-set-up)
+- [Realtime](https://github.com/supabase/realtime#server-set-up)
 - [GoTrue](https://github.com/supabase/gotrue)
-- [ストレージ](https://github.com/supabase/storage-api)
-- [コング](https://docs.konghq.com/install/docker/)
+- [Storage](https://github.com/supabase/storage-api)
+- [Kong](https://docs.konghq.com/install/docker/)
 
 ## データベースの管理
 
-ミドルウェアをダウンタイムなしでアップグレードできるように、データベースをミドルウェアから切り離すことをお勧めします。"ミドルウェア"とは、Postgres以外のすべてのものを指し、あらゆるPostgresプロバイダー（AWS RDSなど）や独自のPostgresクラスターで動作するはずです。
+ミドルウェアをダウンタイムなしでアップグレードできるように、データベースをミドルウェアから切り離すことをお勧めします。
+「ミドルウェア」とは、Postgres以外のすべてのものを指し、あらゆるPostgresプロバイダー（AWS RDSなど）や独自のPostgresクラスターで動作するはずです。
 
 ### データベースの拡張機能
 
-Supabaseは、APIとAuthシステムを動作させるために、いくつかのPostgres拡張機能をデフォルトで有効にする必要があります。エクステンションは、[eschema初期化スクリプト](https://github.com/supabase/supabase/blob/master/docker/volumes/db/init/00-initial-schema.sql)の中にあります。
+Supabaseは、APIと認証システムを動作させるために、いくつかのPostgres拡張機能をデフォルトで有効にする必要があります。拡張は、[スキーマ初期化スクリプト](https://github.com/supabase/supabase/blob/master/docker/volumes/db/init/00-initial-schema.sql)の中にあります。
 
-すべてのエクステンションを`エクステンションスキーマ`にインストールすることをお勧めします。これにより、`パブリック`スキーマのすべてのテーブルがAPIで公開されるため、APIをクリーンに保つことができます。
+すべての拡張を`extensions`スキーマにインストールすることをお勧めします。これにより、`public`スキーマのすべてのテーブルがAPIで公開されるため、APIをクリーンに保つことができます。
 
 ```sql
 create schema if not exists extensions;
@@ -59,7 +61,7 @@ create extension if not exists pgcrypto with schema extensions;
 create extension if not exists pgjwt with schema extensions;
 ```
 
-##### `UUID-OSSP`
+##### `uuid-ossp`
 
 UUID関数のためのもので、PostgreSQLの13.0以降で必要です。
 
@@ -69,39 +71,39 @@ UUID関数のためのもので、PostgreSQLの13.0以降で必要です。
 
 JWTおよびAuth関数を扱うためのものです。
 
-### データベースの役割
+### データベースのロール
 
-Supabaseは、Postgresデータベースにいくつかのデフォルトロールを作成します。いつでもデフォルトに戻すには、[schema初期化](https://github.com/supabase/supabase/blob/master/docker/volumes/db/init/00-initial-schema.sql)スクリプト内で以下のコマンドを実行します。
+Supabaseは、Postgresデータベースにいくつかのデフォルトのロールを作成します。[スキーマ初期化スクリプト](https://github.com/supabase/supabase/blob/master/docker/volumes/db/init/00-initial-schema.sql)内にあるコマンドを実行することで、いつでもデフォルトに戻せます。
 
-##### `Postgres`
+##### `postgres`
 
-PostgreSQLのデフォルトロールです。管理者権限を持ちます。
+PostgreSQLのデフォルトのロールです。管理者権限を持ちます。
 
-##### `アノン`
+##### `anon`
 
-「匿名アクセス」のためのロールです。これは、ユーザがログインして_いない_ときに、API（PostgREST）が使用するロールです。
+「匿名アクセス」のためのロールです。これは、ユーザーがログインして_いない_ときに、API（PostgREST）が使用するロールです。
 
 ##### `authenticator`
 
-API(PostgREST)用の特別なロールです。非常に限定されたアクセス権を持ち、JWTを検証し、JWTの検証によって決定された別のロールへ"変身"するため使用されます。
+API（PostgREST）用の特別なロールです。非常に限定されたアクセス権を持ち、JWTを検証し、JWTの検証によって決定された別のロールへ「変身」するために使用されます。
 
-##### `認証済み`
+##### `authenticated`
 
-「認証されたアクセス」のためのロールです。これは、ユーザーがログイン_し_たときにAPI（PostgREST）が使用するロールです。
+「認証されたアクセス」のためのロールです。これは、ユーザーがログイン_した_ときにAPI（PostgREST）が使用するロールです。
 
-##### `サービス・ロール`
+##### `service_role`
 
-昇格アクセス用。このロールは、API (PostgREST)が行単位セキュリティーをバイパスするために使用されます。
+昇格アクセス用。このロールは、API（PostgREST）が行単位セキュリティーをバイパスするために使用されます。
 
 ##### `supabase_auth_admin`
 
-Authミドルウェアがデータベースに接続してマイグレーションを実行する際に使用します。アクセスは`auth`スキーマに限定されます。
+Authミドルウェアがデータベースに接続し、マイグレーションを実行する際に使用します。アクセス権は`auth`スキーマに限定されます。
 
 ##### `supabase_storage_admin`
 
-認証ミドルウェアがデータベースに接続し、移行する際に使用されます。アクセス権は`ストレージ`スキーマに割り当てられます。
+Authミドルウェアがデータベースに接続し、マイグレーションを実行する際に使用します。アクセス権は`storage`スキーマに限定されます。
 
-##### `ダッシュボード_ユーザー`
+##### `dashboard_user`
 
 Supabase UIでコマンドを実行するために使用します。
 
@@ -111,26 +113,27 @@ Supabaseの管理者で、データベースのメンテナンスを行います
 
 ## APIキー
 
-API Gateway（Kong）は、データベースへのアクセスを認証するためにJWTを使用します。JWTは、関連するPostgresのロールに対応していなければなりません。Supabaseは、認証されていないアクセス用の`ANON_KEY`と、昇格したアクセス用の`SERVICE_`KEYの2つのロールで動作するように設計されています。
+APIゲートウェイ（Kong）は、データベースへのアクセスを認証するためにJWTを使用します。JWTは、関連するPostgresのロールに対応していなければなりません。Supabaseは、認証されていないアクセス用の`ANON_KEY`と、昇格したアクセス用の`SERVICE_KEY`の2つのロールで動作するように設計されています。
 
-鍵の生成にはこのツールを使用してください。
+鍵の生成には次のツールを使用してください。
 
 <JwtGenerator />
 
-## 秘密の管理
+## シークレットの管理
 
-Supabaseの多くのコンポーネントは、安全なシークレットとパスワードを使用しています。これらはself-[hostingenvファイル](https://github.com/supabase/supabase/blob/master/docker/.env.example)に記載されていますが、本番環境にデプロイする際にはsecrets managerを使用することを強くお勧めします。dotenvのようなプレーンテキストのファイルでは、誤ってコストのかかるリークが発生してしまいます。
+Supabaseの多くのコンポーネントは、安全なシークレットとパスワードを使用しています。これらはセルフ・ホスティングの[envファイル](https://github.com/supabase/supabase/blob/master/docker/.env.example)に記載されていますが、プロダクションにデプロイする際にはシークレット・マネージャーを使用することを強くお勧めします。dotenvのようなプレーンテキストのファイルでは、誤ってリークが発生し、高くつくことになります。
 
 推奨されるシステムとしては、以下のようなものがあります。
 
-- [ドップラー](https://www.doppler.com/)
+- [Doppler](https://www.doppler.com/)
 - Azureの[Key Vault](https://docs.microsoft.com/en-us/azure/key-vault/general/overview)
-- AWSによる[Secrets Manager](https://aws.amazon.com/secrets-manager/)
-- GCPによる[Secrets Manager](https://cloud.google.com/secret-manager)
-- Hashicorp社の[Vault](https://www.hashicorp.com/products/vault)
+- AWSの[Secrets Manager](https://aws.amazon.com/secrets-manager/)
+- GCPの[Secrets Manager](https://cloud.google.com/secret-manager)
+- Hashicorpの[Vault](https://www.hashicorp.com/products/vault)
 
-## マイグレーションとアップグレード
+## 移行とアップグレード
 
-データベースとミドルウェアを切り離しているのであれば、破壊的な変更がない限り、いつでも最新のミドルウェアを再導入できるはずです。Supabaseは急速に進化しており、私たちのコアなサービスの一部として、移行戦略を改善していきます。
+データベースとミドルウェアを切り離しているのであれば、破壊的な変更がない限り、いつでも最新のミドルウェアを再デプロイできるはずです。
+Supabaseは急速に進化しており、私たちのコアなサービスの一部として、移行のための戦略を改善していきます。
 
-データベースの移行が難しいことは認識していますが、これは開発者が簡単にできるよう計画している問題の1つです。
+データベースの移行が難しいことは認識しています。そして、開発者にとって簡単にできるようにするのは、私たちが計画している問題の1つでもあります。
