@@ -128,6 +128,7 @@ info:
           - auth.update()
           - auth.setAuth()
           - auth.onAuthStateChange()
+          - auth.api.getUser()
           - Reset Password (Email)
       - name: 'Auth (Server Only)'
         items:
@@ -173,6 +174,7 @@ info:
           - order()
           - range()
           - single()
+          - maybeSingle()
       - name: 'Filters'
         items:
           - Using Filters
@@ -427,10 +429,14 @@ pages:
     title: 'signUp()'
     $ref: '@supabase/gotrue-js.GoTrueClient.signUp'
     notes: |
-      - デフォルトでは、ユーザーはログインする前にメールアドレスを確認する必要があります。これを変更したい場合は、[app.supabase.io](https://app.supabase.io)の「Authentication」→「Settings」で「Email Confirmations」を無効にできます。
-      - 「Email Confirmation」をオンにすると、`user`が返されますが、`session`はnullになります。
-      - 「Email Confirmations」をオフにすると、`user`と`session`の両方が返されます。
+      - デフォルトでは、ユーザーはログインする前にメールアドレスを確認する必要があります。これを変更したい場合は、[app.supabase.io](https://app.supabase.io)の「Authentication」→「Settings」にアクセスします。「Email enable confirmations（Eメールによる確認を有効化）」を無効にします。
+      - 「Email enable confirmations」を有効にすると、`user`が返されますが、`session`はnullになります。
+      - 「Email Confirmations」を無効にすると、`user`と`session`の両方が返されます。
       - ユーザーがメールアドレスを確認すると、デフォルトではlocalhost:3000にリダイレクトされます。これを変更するには、[app.supabase.io](https://app.supabase.io)の「Authentication」→「Settings」で変更できます。
+      - 確認済みの既存のユーザーに対してsignUp()が呼び出された場合は次のようになります。
+          - もし、「Authentication」→「Settings」ページの「Enable email confirmations」が有効の場合、曖昧な偽のユーザー・オブジェクトを返します。
+          - 「Enable email confirmations」を無効にした場合、「ユーザーがすでに登録されています」という内容のエラーが返ってきます。
+      - ユーザーがすでに存在しているかどうかを確認するには、getUser()で確認してください。
     examples:
       - name: サインアップ
         isSpotlight: true
@@ -479,7 +485,7 @@ pages:
           const { user, session, error } = await supabase.auth.signIn({
             email: 'example@email.com',
             password: 'example-password',
-          })」」
+          })
           ```
       - name: マジック・リンクでサインイン
         description: パスワードが入力されていない場合、ユーザーのメールアドレスに「マジック・リンク」が送信されます。このリンクをクリックすることで、有効なセッションでアプリケーションを開くことができます。デフォルトでは、ユーザーは60秒に1回しかマジックリンクを要求できません。
@@ -568,6 +574,8 @@ pages:
   auth.user():
     title: 'user()'
     $ref: '@supabase/gotrue-js.GoTrueClient.user'
+    notes: |
+      This method gets the user object from memory.
     examples:
       - name: ログインしているユーザーを取得
         isSpotlight: true
@@ -581,6 +589,8 @@ pages:
     $ref: '@supabase/gotrue-js.GoTrueClient.update'
     notes: |
       ユーザーのEメール：Eメールの更新では、ユーザーの現在のEメールと新しいEメールの両方に、確認用のリンクを含むEメールが送信されます。
+      この動作をオフにして、新しいメールに1つの確認リンクのみを送信できます。「Authentication」→「Settings」の「Double confirm email changes（Eメール変更で2重の確認をする）」をオフにしてください。
+
 
       ユーザーのメタデータ：一般的に、ユーザーのデータはパブリック・スキーマ内のテーブル（例：`public.users`）に保存するのが良いでしょう。
       めったに変更されないデータや、ログインしているユーザーだけに固有のデータがある場合は、`update()`メソッドを使用してください。
@@ -677,6 +687,22 @@ pages:
           supabase.auth.onAuthStateChange((event, session) => {
             console.log(event, session)
           })
+          ```
+  auth.api.getUser():
+    title: 'getUser()'
+    $ref: '@supabase/gotrue-js.GoTrueApi.getUser'
+    notes: |
+      - Fetches the user object from the database instead of local storage.
+      - Note that user() fetches the user object from local storage which might not be the most updated.
+      - Requires the user's access_token. 
+    examples:
+      - name: Fetch the user object using the access_token jwt.
+        isSpotlight: true
+        js: |
+          ```js
+          const { user, error } = await supabase.auth.api.getUser(
+            'ACCESS_TOKEN_JWT',
+          )
           ```
 
   Reset Password (Email):
@@ -1615,7 +1641,22 @@ pages:
           const { data, error } = await supabase
             .from('cities')
             .select('name, country_id')
+            .limit(1)
             .single()
+          ```
+
+  maybeSingle():
+    $ref: '@supabase/postgrest-js."lib/PostgrestFilterBuilder".PostgrestFilterBuilder.maybeSingle'
+    examples:
+      - name: With `select()`
+        isSpotlight: true
+        js: |
+          ```js
+          const { data, error } = await supabase
+            .from('cities')
+            .select('name, country_id')
+            .eq('name', 'Singapore')
+            .maybeSingle()
           ```
 
   Using Filters:

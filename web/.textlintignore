@@ -84,6 +84,7 @@ docs/reference/dart/update.mdx
 docs/reference/dart/upsert.mdx
 docs/reference/javascript/auth-api-deleteuser.mdx
 docs/reference/javascript/auth-api-generatelink.mdx
+docs/reference/javascript/auth-api-getuser.mdx
 docs/reference/javascript/auth-api-inviteuserbyemail.mdx
 docs/reference/javascript/auth-api-resetpasswordforemail.mdx
 docs/reference/javascript/auth-api-sendmobileotp.mdx
@@ -105,6 +106,7 @@ docs/reference/javascript/limit.mdx
 docs/reference/javascript/lt.mdx
 docs/reference/javascript/lte.mdx
 docs/reference/javascript/match.mdx
+docs/reference/javascript/maybesingle.mdx
 docs/reference/javascript/neq.mdx
 docs/reference/javascript/not.mdx
 docs/reference/javascript/or.mdx
