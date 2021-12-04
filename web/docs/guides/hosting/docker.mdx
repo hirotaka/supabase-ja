@@ -1,21 +1,21 @@
 ---
 id: docker
 title: Docker
-description: How to use configure and deploy Supabase.
+description: Supabaseの設定と導入の仕方。
 ---
 
-Dockerは、セルフホスト型Supabaseを始めるための最も簡単な方法です。
+Dockerは、セルフ・ホスト型のSupabaseをはじめるための最も簡単な方法です。
 
 ## はじめる前に
 
-以下のものがシステムにインストールされている必要があります。
+以下がシステムにインストールされている必要があります。
 
 - [Docker](https://docs.docker.com/engine/install/)とdocker-compose
 - [Git](https://git-scm.com/downloads)
 
-## クイックスタート
+## クイック・スタート
 
-### コードの取得
+### コードを取得
 
 Supabaseのリポジトリーにあるdockerディレクトリをチェックアウトします。
 
@@ -38,51 +38,51 @@ docker-compose up
 
 ## セットアップをセキュアにする
 
-ここまでの手順では、Supabaseをすぐに使えるようにするため、シックレットの扱いを簡略化しています。ここで紹介するデフォルト値を使ってSupabaseのセットアップをデプロイすることは絶対に避けてください。
+ここまでの手順では、Supabaseをすぐに使えるようにするため、シックレットの扱いを簡略化しています。上記で紹介した内容そのままのSupabaseのセットアップをデプロイすることは絶対に避けてください。
 
 以下の手順によりDockerのセットアップを保護してください。プロダクションへデプロイする際には、シークレット・マネージャーを使用することを[強く推奨](/docs/guides/hosting/overview#managing-your-secrets)します。
 
-### APIキーの生成
+### APIキーを生成
 
-`JWT_SECRET`を使って、[JWTジェネレーター](/docs/guides/hosting/overview#api-keys)を使って`anon`と`service`のAPIキーを生成します。
+[JWTジェネレーター](/docs/guides/hosting/overview#apiキー)を使って、`JWT_SECRET`により、`anon`と`service`のAPIキーを生成します。
 
-これらのファイルの値を置き換えます。
+生成された値で、以下のファイルの値を置き換えます。
 
 - `.env`: 
-  - `ANON_KEY` - replace with an `anon` key
-  - `SERVICE_ROLE_KEY` - replace with a `service` key
+  - `ANON_KEY` - `anon`キーで置き換えます
+  - `SERVICE_ROLE_KEY` - `service`キーで置き換えます
 - `volumes/kong.yml`
-  - `anon` - replace with an `anon` key
-  - `service_role` - replace with a `service` key
+  - `anon` - `anon`キーで置き換えます
+  - `service_role` - `service`キーで置き換えます
 
-### シークレットの更新
+### シークレットを更新
 
 `.env`ファイルを自分のシークレットで更新してください。特に、これらは必須です。
 
-- `POSTGRES_PASSWORD`: the password for the `postgres` role. 
-- `JWT_SECRET`: used by PostgREST and GoTrue, among others.
-- `SITE_URL`: the base URL of your site.
-- `SMTP_*`: mail server credentials. You can use any SMTP server.
+- `POSTGRES_PASSWORD`: `postgres`ロールのパスワードを入力します。 
+- `JWT_SECRET`: PostgRESTとGoTrueで使用します。
+- `SITE_URL`: 自身のサイトのベースになるURL。
+- `SMTP_*`: メールサーバーの認証情報。任意のSMTPサーバーを使用できます。
 
 ## 構成
 
-設定をシンプルにするため、本番環境においては最適ではない選択をしました。
+設定をシンプルにするため、プロダクションにおいては最適ではない選択をしています。
 
-- データベースは、サーバーと同じマシンにある
-- ストレージはS3ではなくファイルシステムバックエンドを使用
+- データベースは、サーバーと同じマシン上に配置
+- ストレージはS3ではなくファイルシステムをバックエンドとして使用
 
-デプロイする前にデータベースをデカップリングすることを強く[お勧めし](/docs/guides/hosting/overview#managing-your-database)ます。それぞれのシステムは、特定のユースケースに合わせて[構成する](/docs/guides/hosting/overview#configuration)ことができます。
+デプロイする前にデータベースを分離することを強く[お勧め](/docs/guides/hosting/overview#managing-your-database)します。それぞれのシステムは、特定のユースケースに合わせて[構成](/docs/guides/hosting/overview#configuration)できます。
 
 ## デプロイ方法
 
-以下のガイドを参照して、お好みのツールやプラットフォームを使用してDocker Composeセットアップをデプロイしてください。
+以下のガイドを参照して、お好みのツールやプラットフォームを使用してDocker Composeでのセットアップをデプロイしてください。
 
 - [Docker Swarm](https://docs.docker.com/engine/swarm/stack-deploy/)
 - [AWS Fargate](https://aws.amazon.com/blogs/containers/deploy-applications-on-amazon-ecs-using-docker-compose/)
-- [Kompose for Kubernetes（KubernetesのためのKompose](https://kubernetes.io/docs/tasks/configure-pod-container/translate-compose-kubernetes/)
+- [KubernetesのためのKomposeを使う](https://kubernetes.io/docs/tasks/configure-pod-container/translate-compose-kubernetes/)
 
 
 ## 次のステップ
 
-- 質問がありますか。[ここで質問して](https://github.com/supabase/supabase/discussions)ください
+- 何か疑問があれば、[こちらで質問](https://github.com/supabase/supabase/discussions)してください
 - サインイン：[app.supabase.io](https://app.supabase.io)
