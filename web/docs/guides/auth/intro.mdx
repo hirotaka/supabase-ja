@@ -2,7 +2,7 @@
 id: intro
 title: Supabase Auth
 sidebar_label: 紹介
-description: Use Supabase to Authenticate and Authorize your users.
+description: Supabaseを使用したユーザーの認証と権限に関して。
 # hide_table_of_contents: true
 ---
 
@@ -23,18 +23,18 @@ import providers from '@site/src/data/authProviders'
 
 ## 紹介
 
-Supabase Authは、Postgresで動作するように設計されています。すべてのAuthシステムには2つの部分があります。
+Supabase Authは、Postgresで動作するように設計されています。すべての認証システムには2つの要素があります。
 
-- **認証：**この人を入れていいのか。許可する場合、その人は誰ですか
-- 認証**：**その人が入った後、何をしてもいいのか
+- **認証**：この人を入れていいのか。許可する場合、その人は誰なのか。
+- **権限**：その人が入った後、何をしてもいいのか。
 
 ## 認証
 
 ユーザーを認証するにはいくつかの方法があります。
 
-- 電子メールとパスワードによる認証
-- マジックリンク（ワンクリックログイン）
-- ソーシャルプロバイダー
+- Eメールとパスワードによる認証
+- マジック・リンク（ワンクリックでのログイン）
+- ソーシャル・プロバイダー
 - 電話でのログイン
 
 <div class="container" style={{ padding: 0 }}>
@@ -48,21 +48,21 @@ Supabase Authは、Postgresで動作するように設計されています。�
               <p>{x.name}</p>
               <p>
                 {x.official ? <span class={`badge badge--official`}>
-                  Official
+                  公式
                 </span>: 
                 <span class={`badge badge--unofficial`}>
-                  Unofficial
+                  非公式
                 </span>
                 }
               </p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
               <div class="code-block" style={{ width: '100%',  display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem' }}>
-                <span>Platform:</span>
+                <span>プラットフォーム：</span>
                 <span>{x.platform.toString()}</span>
               </div>
               <div class="code-block" style={{ width: '100%',  display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem' }}>
-                <span>Self-Hosted:</span>
+                <span>セルフ・ホスティング：</span>
                 <span>{x.selfHosted.toString()}</span>
               </div>
             </div>
@@ -74,11 +74,11 @@ Supabase Authは、Postgresで動作するように設計されています。�
 </div>
 
 
-## 権限付与
+## 権限
 
 
 緻密な認証ルールが必要な場合、PostgreSQLのRLS（行単位セキュリティー）に勝るものはありません。
 
-ポリシーはPostgreSQLのルールエンジンです。RLSは非常に強力で柔軟性があり、固有のビジネスニーズに合った複雑なSQLルールを書くことができます。
+ポリシーはPostgreSQLのルール・エンジンです。RLSは非常に強力で柔軟性があり、固有のビジネスニーズに合った複雑なSQLルールを書くことができます。
 
-[行レベルセキュリティガイド](/docs/guides/auth/row-level-security)から始めてください。
+[行単位セキュリティーのガイド](/docs/guides/auth/row-level-security)からはじめてください。
