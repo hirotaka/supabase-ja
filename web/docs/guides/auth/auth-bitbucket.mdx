@@ -1,75 +1,75 @@
 ---
 id: auth-bitbucket
 title: 'Bitbucketでログイン'
-description: Add Bitbucket OAuth to your Supabase project
+description: SupabaseプロジェクトにBitbucket OAuthを追加
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-お客様のプロジェクトでBitbucket Authを有効にするには、BitBucket OAuthアプリケーションを設定します。アプリケーションの認証情報をSupabaseダッシュボードに追加する必要があります。
+プロジェクトでBitbucket認証を有効にするには、Bitbucket OAuthアプリケーションを設定し、Supabaseダッシュボードでそのアプリケーションの認証情報を追加する必要があります。
 
 ## 概要
 
-アプリケーションのBitbucketログインの設定は、3つのパートで構成されています。
+アプリケーションにBitbucketログインを設定するための手順は、3つのパートで構成されています。
 
-- [Bitbucket](https://bitbucket.org)にBitbucket OAuth Consumerを作成して設定する
-- Supabase[プロジェクト](https://supabase.com)にBitbucket OAuth Consumerのキーを追加する
-- Supabaseの[JSクライアントアプリ](https://github.com/supabase/supabase-js)にログインコードを追加する
+- [Bitbucket](https://bitbucket.org)でBitbucket OAuthコンシューマーを作成・設定
+- [Supabaseプロジェクト](https://supabase.com)にBitbucket OAuthコンキューマー・キーを追加
+- [SupabaseのJSクライアント・アプリ](https://github.com/supabase/supabase-js)にログインのコードを追加
 
 ## 手順
 
-### Bitbucketのアカウントにアクセスする
+### Bitbucketのアカウントへアクセス
 
 - [bitbucket.org](https://bitbucket.org/)にアクセスします。
-- 右上の「`Login`」をクリックしてログインします。
+- 右上の`Login`をクリックしてログインします。
 
 ![Bitbucket Developer Portal.](/img/guides/bitbucket-portal.png)
 
-### コールバックURLを探す
+### コールバックURLを入手
 
-次のステップでは、次のようなコールバックURLが必要です。
+次の手順で、次のようなコールバックURLが必要になります。
 
-`https://.supabase.co/auth/v1/callback`
+`https://<project-ref>.supabase.co/auth/v1/callback`
 
-- [Supabaseのプロジェクトダッシュボード](https://supabase.com)にアクセスします。
-- 左サイドバーの下部にある`「設定」`アイコンをクリックします。
-- リストの中の「`API`」をクリックします。
-- Config / URLの下にあなたのAPI URLがありますので、`Copy`をクリックしてクリップボードにコピーします。
-- 最後に`/auth/v1/callback`を追加すれば、完全な`OAuthリダイレクトURI`が得られます。
+- [Supabaseプロジェクトのダッシュボード](https://supabase.com)にアクセスします。
+- 左サイドバーの下部にある`Settings`アイコンをクリックします。
+- リストの中の`API`をクリックします。
+- `Config`の`URL`の下にAPI URLがあるので、`Copy`をクリックしてクリップボードにコピーします。
+- 末尾に`/auth/v1/callback`を追加することで、完全な`OAuth Redirect URI`を取得できます。
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
 </video>
 
-### Bitbucket OAuthアプリの作成
+### Bitbucket OAuthアプリを作成
 
 - 左下の自分のプロフィールアイコンをクリックします。
-- 「`All Workspaces`」をクリックします。
+- `All Workspaces`をクリックします。
 - ワークスペースを選択し、クリックして選択します。
-- 左側の「`Settings`」をクリックします。
-- 左側の「`Apps and Features`」の下にある「`OAuth consumers`」をクリックする（一番下に近い）。
-- 上部の`［Add Consumer］`をクリックします。
+- 左側の`設定`をクリックします。
+- 左側の`アプリと機能`の下にある`OAuth consumers`をクリックします（一番下に近い）。
+- 上部の`コンシューマーキーを追加`をクリックします。
 - `Name`にアプリの名前を入力します。
-- `Callback URL`に、アプリのコールバックURLを入力します。
-- 必要なパーミッションにチェックを入れます（Email, Readで十分です）。
-- 下部の「`Save`」をクリックします。
-- アプリの名前（新しいOAuth Consumerの名前）をクリックします。
-- `Key``(client_key`)と`Secret``(client_secret`)のコードをコピーします。
+- `コールバックURL`に、アプリのコールバックURLを入力します。
+- 必要な権限にチェックを入れます（Eメール、読み取りで十分です）。
+- 下部の`保存`をクリックします。
+- アプリの名前（新しいOAuthコンシューマーの名前）をクリックします。
+- `鍵`（`client_key`）と`シークレット`（`client_secret`）のコードをコピーします。
 
-### Bitbucket の認証情報を Supabase プロジェクトに追加
+### SupabaseのプロジェクトにBitbucketの認証情報を追加
 
-- [Supabase プロジェクトのダッシュボード](https://supabase.com)に移動します。
-- 左側のサイドバーで、`認証`アイコンをクリックします（上部付近）。
-- リストから`「設定」`をクリックし、`「認証設定」`ページを表示します。
-- 「`Site URL`」にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
-- `外部 OAuth プロバイダー`で`Bitbucket`の有効化をONにします。
-- 前のステップで保存した`client_id`と`client_secret`を入力します。
+- [Supabaseプロジェクトのダッシュボード](https://supabase.com)に移動します。
+- 左側のサイドバーで、`Authentication`アイコンをクリックします（上部付近）。
+- リストから`Settings`をクリックし、`Authentication Settings`ページを表示します。
+- `Site URL`にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
+- `External OAuth Providers`で`Bitbucket Enabled`をONにします。
+- 前の手順で保存した`client_id`と`client_secret`を入力します。
 - `Save`をクリックします。
 
-### クライアントアプリにログインコードを追加する
+### クライアント・アプリにログインのコードを追加
 
-JavaScriptのクライアントコードはこちらに記載されています。[Supabase OAuthクライアントコード](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
+JavaScriptのクライアント・コードはこちらに記載：[Supabase OAuthクライアントコード](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
 
 ```js
 const { user, session, error } = await supabase.auth.signIn({
@@ -77,7 +77,7 @@ const { user, session, error } = await supabase.auth.signIn({
 })
 ```
 
-ボタン、リンク、またはUI要素から呼びだすことができるこの関数を追加します。
+ボタン、リンク、またはUI要素から呼びだすための関数を追加します。
 
 ```js
 async function signInWithBitbucket() {
@@ -87,7 +87,7 @@ async function signInWithBitbucket() {
 }
 ```
 
-ログアウトするには次の通りにします。
+ログアウトするには次の関数を使います。
 
 ```js
 async function signout() {
@@ -97,6 +97,6 @@ async function signout() {
 
 ## リソース
 
-- [Supabase アカウント - Free Tier OK](https://supabase.com)
-- [Supabase JS クライアント](https://github.com/supabase/supabase-js)
-- [Bitbucket アカウント](https://bitbucket.org)
+- [Supabaseアカウント - 無料枠あります](https://supabase.com)
+- [Supabase JSクライアント](https://github.com/supabase/supabase-js)
+- [Bitbucketアカウント](https://bitbucket.org)
