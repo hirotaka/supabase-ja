@@ -1,28 +1,28 @@
 ---
 id: auth-discord
 title: 'Discordでログイン'
-description: Add Discord OAuth to your Supabase project
+description: SupabaseプロジェクトにDiscord OAuthを追加
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-プロジェクトでDiscord Authを有効にするには、Discordアプリケーションを設定し、SupabaseダッシュボードにアプリケーションのOAuth認証情報を追加する必要があります。
+プロジェクトでDiscord認証を有効にするには、Discordアプリケーションを設定し、Supabaseダッシュボードでそのアプリケーションの認証情報を追加する必要があります。
 
 ## 概要
 
-アプリケーションのDiscordログインの設定は、3つのパートで構成されています。
+アプリケーションにDiscordログインを設定するための手順は、3つのパートで構成されています。
 
-- Discordアプリケーションの作成と設定[Discord開発者ポータル](https://discord.com/developers)
-- Sup[abaseプロジェクト](https://supabase.com)にDiscord OAuth Consumerキーを追加する
-- Supabaseの[JSクライアントアプリ](https://github.com/supabase/supabase-js)にログインコードを追加する
+- [Discord開発者ポータル](https://discord.com/developers)でDiscordアプリケーションを作成と設定
+- [Supabaseプロジェクト](https://supabase.com)にDiscord OAuthコンシューマー・キーを追加
+- [SupabaseのJSクライアント・アプリ](https://github.com/supabase/supabase-js)にログインコードを追加
 
 ## 手順
 
-### Discordアカウントにアクセスする
+### Discordアカウントにアクセス
 
 - [discord.com](https://discord.com/)にアクセスします。
-- 右上の「`Login`」をクリックしてログインします。
+- 右上の`Login`をクリックしてログインします。
 
 ![Discord Portal.](/img/guides/discord-portal.png)
 
@@ -30,45 +30,45 @@ import TabItem from '@theme/TabItem'
 
 ![Discord Portal.](/img/guides/discord-developer-portal.png)
 
-### コールバックURLを探す
+### コールバックURLを入手
 
-次のステップでは、コールバックURLを必要としますが、これは以下のようになります。
+次の手順では、次のようなコールバックURLが必要になります。
 
-`https://.supabase.co/auth/v1/callback`
+`https://<project-ref>.supabase.co/auth/v1/callback`
 
-- [Supabaseのプロジェクトダッシュボード](https://supabase.com)にアクセスします。
-- 左サイドバーの下部にある`「設定」`アイコンをクリックします。
-- リストの中の「`API`」をクリックします。
-- Config / URLの下にあなたのAPI URLがありますので、`Copy`をクリックしてクリップボードにコピーします。
-- 最後に`/auth/v1/callback`を追加すれば、完全な`OAuthリダイレクトURI`が得られます。
+- [Supabaseプロジェクトのダッシュボード](https://supabase.com)にアクセスします。
+- 左サイドバーの下部にある`Settings`アイコンをクリックします。
+- リストの中の`API`をクリックします。
+- `Config`の`URL`の下にAPI URLがあるので、`Copy`をクリックしてクリップボードにコピーします。
+- 末尾に`/auth/v1/callback`を追加することで、完全な`OAuth Redirect URI`を取得できます。
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
 </video>
 
-### Discordアプリケーションの作成
+### Discordアプリケーションを作成
 
-- 右上の「`New Application`」をクリックします。
-- アプリケーションの名前を入力し、`Create`をクリックします。
-- 左側のパネルにある「`Settings`」の「`OAuth2`」をクリックします。
-- 「`Redirects`」の「`Add Redirect`」をクリックします。
-- 「`Redirects`」ボックスに`コールバックURL`を入力またはペーストします。
-- 下部の「`Save Changes`」をクリックします。
-- 「`クライアント情報`」の「`クライアントID`」と「`クライアントシークレット`」をコピーします。
+- 右上の`New Application`をクリックします。
+- アプリケーションの名前（Name）を入力し、`Create`をクリックします。
+- 左側のパネルにある`Settings`の`OAuth2`をクリックします。
+- `Redirects`の`Add Redirect`をクリックします。
+- `Redirects`ボックスに`コールバックURL`を入力またはペーストします。
+- 下部の`Save Changes`をクリックします。
+- `Client information`の`Client ID`と`Client Secret`をコピーします。
 
 ### SupabaseプロジェクトにDiscordの認証情報を追加
 
-- [Supabase プロジェクトのダッシュボード](https://supabase.com)に移動します。
-- 左側のサイドバーで、`認証`アイコンをクリックします（上部付近）。
-- リストから`「設定」`をクリックし、`「認証設定」`ページを表示します。
-- 「`Site URL`」にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
+- [Supabaseプロジェクトのダッシュボード](https://supabase.com)に移動します。
+- 左側のサイドバーで、`Authentication`アイコンをクリックします（上部付近）。
+- リストから`Settings`をクリックし、`Authentication Settings`ページを表示します。
+- `Site URL`にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
 - `External OAuth Providers`で`Discord Enabled`をONにします。
-- 前のステップで保存した`client_id`と`client_secret`を入力します。
+- 前の手順で保存した`client_id`と`client_secret`を入力します。
 - `Save`をクリックします。
 
-### クライアントアプリにログインコードを追加する
+### クライアント・アプリにログインのコードを追加
 
-JavaScriptのクライアントコードはこちらに記載されています。[Supabase OAuthクライアントコード](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
+JavaScriptのクライアント・コードはこちらに記載：[Supabase OAuthクライアントコード](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
 
 ```js
 const { user, session, error } = await supabase.auth.signIn({
@@ -76,7 +76,7 @@ const { user, session, error } = await supabase.auth.signIn({
 })
 ```
 
-ボタン、リンク、またはUI要素から呼びだすことができるこの関数を追加します。
+ボタン、リンク、またはUI要素から呼びだすための関数を追加します。
 
 ```js
 async function signInWithDiscord() {
@@ -86,7 +86,7 @@ async function signInWithDiscord() {
 }
 ```
 
-ログアウトするには次を呼び出します。
+ログアウトするには次の関数を使います。
 
 ```js
 async function signout() {
@@ -96,7 +96,7 @@ async function signout() {
 
 ## リソース
 
-- [Supabase アカウント - Free Tier OK](https://supabase.com)
-- [Supabase JS クライアント](https://github.com/supabase/supabase-js)
+- [Supabaseアカウント - 無料枠あります](https://supabase.com)
+- [Supabase JSクライアント](https://github.com/supabase/supabase-js)
 - [Discordアカウント](https://discord.com)
 - [Discord開発者ポータル](https://discord.com/developers)
