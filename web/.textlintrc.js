@@ -20,6 +20,7 @@ module.exports = {
         '/^<Tabs[\\s\\S]*?>$/m',
         "/import ExtensionsComponent from '@site/src/components/Extensions'/",
         "/import Link from '@docusaurus/Link'/",
+        '<<<<<<< HEAD',
       ],
     },
   },
