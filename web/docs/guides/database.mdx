@@ -106,15 +106,27 @@ alter table your_table replica identity full;
 
 ### プロジェクト間の移行
 
+<<<<<<< HEAD
 既存のSupabaseプロジェクトがあって、それを新しい（出来たての）プロジェクトに移行したい場合は、以下の手順を踏むだけでOKです。
+=======
+Migrating projects can be achieved using standard PostgreSQL tooling. This is particularly useful for older projects (e.g. to use a newer Postgres version). 
+>>>>>>> 8cab88282ddc8ae26092bec8852273e68fcc8760
 
 #### はじめる前に
 
+<<<<<<< HEAD
 - [リアルタイムを無効化](/docs/guides/api#managing-realtime)しているか確認してください。これにより、新しいデータベースへの挿入のパフォーマンスが向上します。
 - [`psql`](https://www.postgresql.org/docs/13/app-psql.html)がコンピューターにインストールされていることを確認して、`pg_dump`を実行します。
+=======
+- Make sure [Postgres](https://www.postgresql.org/download/) is installed so you can run `psql` and `pg_dump`.
+- Create a new Supabase project.
+- If you enabled Function Hooks on your old project, enable it on your new project.
+- Store the old project's database URL as `$OLD_DB_URL` and the new project's as `$NEW_DB_URL`.
+>>>>>>> 8cab88282ddc8ae26092bec8852273e68fcc8760
 
 #### データベースの移行
 
+<<<<<<< HEAD
 まず、データベースの構造だけを取得します。
 
 ```sh
@@ -163,7 +175,19 @@ psql \
 -U postgres \
 < supabase_data.sql
 ```
+=======
+1. Run `ALTER ROLE postgres SUPERUSER` in the *old* project's SQL editor
+2. Run `pg_dump --clean --if-exists --quote-all-identifiers -d $OLD_DB_URL > dump.sql` from your terminal
+3. Run `ALTER ROLE postgres NOSUPERUSER` in the *old* project's SQL editor
+4. Run `ALTER ROLE postgres SUPERUSER` in the *new* project's SQL editor
+5. Run `psql $NEW_DB_URL -f dump.sql` from your terminal
+6. Run `TRUNCATE storage.objects` in the *new* project's SQL editor
+7. Run `ALTER ROLE postgres NOSUPERUSER` in the *new* project's SQL editor
 
+#### Caveats
+>>>>>>> 8cab88282ddc8ae26092bec8852273e68fcc8760
+
+- The new project will have the old project's Storage buckets, but not the objects. You will need to migrate Storage objects manually.
 
 ### プロジェクトのパスワードをリセット
 
