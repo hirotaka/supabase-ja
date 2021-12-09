@@ -1,50 +1,50 @@
 ---
 id: auth-facebook
 title: 'Facebookでログイン'
-description: Add Facebook OAuth to your Supabase project
+description: SupabaseプロジェクトにFacebook OAuthを追加
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-あなたのプロジェクトでFacebook Authを有効にするには、Facebook OAuthアプリケーションを設定ます。そして、アプリケーションの認証情報をSupabaseダッシュボードに追加する必要があります。
+プロジェクトでFacebook認証を有効にするには、Facebook OAuthアプリケーションを設定し、Supabaseダッシュボードでそのアプリケーションの認証情報を追加する必要があります。
 
 ## 概要
 
-アプリケーションへのFacebookログインの設定は、3つのパートで構成されています。
+アプリケーションにFacebookログインを設定するための手順は、3つのパートで構成されています。
 
-- [Facebook Developers Site](https://developers.facebook.com)でFacebookアプリケーションを作成・設定する
-- Facebookキーを[Supabaseプロジェクト](https://supabase.com)に追加する
-- Supabaseの[JSクライアントアプリ](https://github.com/supabase/supabase-js)にログインコードを追加する
+- [Facebook Developers Site](https://developers.facebook.com)でFacebookアプリケーションを作成・設定
+- [Supabaseプロジェクト](https://supabase.com)にFacebookキーを追加
+- [SupabaseのJSクライアント・アプリ](https://github.com/supabase/supabase-js)にログインのコードを追加
 
 ## 手順
 
-### Facebook開発者アカウントにアクセスする
+### Facebook開発者アカウントへアクセス
 
 - [developers.facebook.com](https://developers.facebook.com)にアクセスします。
-- 右上の「`Log In`」をクリックしてログインします。
+- 右上の`ログイン`をクリックしてログインします。
 
 ![Facebook Developer Portal.](/img/guides/facebook-portal.png)
 
 ### Facebookアプリの作成
 
-- 右上の「`My Apps`」をクリックします。
-- 右上の「`Create App`」をクリックします。
-- アプリの種類を選択し、`「Continue」`をクリックします。
-- アプリの情報を入力して、「`Create App`」をクリックします。
-- すると、画面が表示されます。「`Add Products to Your App（商品をアプリに追加する）`」という画面が表示されます。（または、左サイドバーの`「Add Product」`をクリックすると、この画面が表示されます）。
+- 右上の`マイアプリ`をクリックします。
+- 右上の`アプリを作成`をクリックします。
+- アプリタイプを選択し、`次へ`をクリックします。
+- アプリの詳細を入力して、`アプリを作成`をクリックします。
+- 左サイドバーの`商品を追加`をクリックします。
 
-### コールバックURIの検索
+### コールバックURLを入手
 
-次のステップでは、次のようなコールバックURIが必要です。
+次の手順では、次のようなコールバックURLが必要になります。
 
-`https://.supabase.co/auth/v1/callback`
+`https://<project-ref>.supabase.co/auth/v1/callback`
 
-- [Supabaseのプロジェクトダッシュボード](https://supabase.com)にアクセスします。
-- 左サイドバーの下部にある`「設定」`アイコンをクリックします。
-- リストの中の「`API`」をクリックします。
-- Config / URLの下にあなたのAPI URLがありますので、`Copy`をクリックしてクリップボードにコピーします。
-- 最後に`/auth/v1/callback`を追加すれば、完全な`OAuthリダイレクトURI`が得られます。
+- [Supabaseプロジェクトのダッシュボード](https://supabase.com)にアクセスします。
+- 左サイドバーの下部にある`Settings`アイコンをクリックします。
+- リストの中の`API`をクリックします。
+- `Config`の`URL`の下にAPI URLがあるので、`Copy`をクリックしてクリップボードにコピーします。
+- 末尾に`/auth/v1/callback`を追加することで、完全な`OAuth Redirect URI`を取得できます。
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
@@ -52,40 +52,40 @@ import TabItem from '@theme/TabItem'
 
 ### FacebookアプリにFaceBookログインを設定する
 
-`Add Products to your App`画面から。
+`商品を追加`画面で次の設定をします。
 
-- `Facebook Login`の下の`Setup`をクリックします。
-- クイックスタート画面をスキップして、左サイドバーの「`Settings`」の「`Facebook Login`」をクリックします。
-- `Facebook Login Settings`ページの`Valid OAuth Redirect URIs`にコールバックURIを入力します。
-- 「`Valid OAuth Redirect URIs`」のボックスにこれを入力します。
-- 右下の「`Save Changes`」をクリックします。
+- `Facebookログイン`の下の`設定`をクリックします。
+- クイックスタート画面をスキップして、左サイドバーの`Facebookログイン`の`設定`をクリックします。
+- `Facebookログイン設定`ページの`有効なOAuthリダイレクトURI`にコールバックURIを入力します。
+- `有効なOAuthリダイレクトURI`のボックスに入力します。
+- 右下の`変更を保存`をクリックします。
 
-サードパーティアプリケーションがメールアドレスを読み取れるようにするには、Facebookアプリに適切なアクセスレベルを設定する必要があることに注意してください。`「App Review」→「Permissions and Features」`画面で次の手順をします。
+サードパーティーのアプリケーションがEメールアドレスを読み取れるようにするには、Facebookアプリに適切なアクセスレベルを設定する必要があることに注意してください。`アプリレビュー → アクセス許可と機能`画面で次の手順をします。
 
-- `public_profile`と`email`の右側にある`Request Advanced Access`というボタンをクリックします。
+- `public_profile`と`email`の右側にある`リクエスト`というボタンをクリックします。
 
 アクセスレベルについての詳細は[こちら](https://developers.facebook.com/docs/graph-api/overview/access-levels/)をご覧ください。
 
-### Facebook App IDとSecretをコピー
+### FacebookアプリIDとシークレットをコピー
 
-- 左サイドバーの`「設定」／「基本」`をクリックします。
-- `基本設定`ページの上部にあるApp IDをコピーします。
-- `App Secret`で`Show`をクリックし、シークレットをコピーします。
+- 左サイドバーの`設定 / ベーシック`をクリックします。
+- `ベーシック設定`ページの上部にあるアプリIDをコピーします。
+- `App Secret`で`表示`をクリックし、シークレットをコピーします。
 - この画面ですべての必須項目が入力されていることを確認します。
 
-### Facebook App IDとSecretをSupabase Projectに入力
+### SupabaseプロジェクトにFacebookアプリIDとシークレットを入力
 
-- [Supabase プロジェクトのダッシュボード](https://supabase.com)に移動します。
-- 左側のサイドバーで、`認証`アイコンをクリックします（上部付近）。
-- リストから`「設定」`をクリックし、`「認証設定」`ページを表示します。
-- 「`Site URL`」にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
-- 「`External OAuth Providers`」で「`Facebook Enabled`」をオンにします。
-- 前のステップで保存した`FacebookクライアントID`と`Facebookシークレット`を入力します。
+- [Supabaseプロジェクトのダッシュボード](https://supabase.com)に移動します。
+- 左側のサイドバーで、`Authentication`アイコンをクリックします（上部付近）。
+- リストから`Settings`をクリックし、`Authentication Settings`ページを表示します。
+- `Site URL`にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
+- `External OAuth Providers`で`Facebook Enabled`をオンにします。
+- 前の手順で保存した`Facebook client ID`と`Facebook secret`を入力します。
 - `Save`をクリックします。
 
-### クライアントアプリにログインコードを追加する
+### クライアント・アプリにログインのコードを追加
 
-JavaScriptのクライアントコードはこちらに記載されています。[Supabase OAuthクライアントコード](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
+JavaScriptのクライアント・コードはこちらに記載：[Supabase OAuthクライアントコード](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
 
 ```js
 const { user, session, error } = await supabase.auth.signIn({
@@ -93,7 +93,7 @@ const { user, session, error } = await supabase.auth.signIn({
 })
 ```
 
-ボタン、リンク、またはUI要素から呼びだすことができるこの関数を追加します。
+ボタン、リンク、またはUI要素から呼びだすための関数を追加します。
 
 ```js
 async function signInWithFacebook() {
@@ -103,7 +103,7 @@ async function signInWithFacebook() {
 }
 ```
 
-ログアウトするには次を呼び出します。
+ログアウトするには次の関数を使います。
 
 ```js
 async function signout() {
@@ -113,6 +113,6 @@ async function signout() {
 
 ## リソース
 
-- [Supabase アカウント - Free Tier OK](https://supabase.com)
-- [Supabase JS クライアント](https://github.com/supabase/supabase-js)
+- [Supabaseアカウント - 無料枠あります](https://supabase.com)
+- [Supabase JSクライアント](https://github.com/supabase/supabase-js)
 - [Facebook開発者ダッシュボード](https://developers.facebook.com/)
