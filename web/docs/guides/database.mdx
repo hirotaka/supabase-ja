@@ -106,64 +106,28 @@ alter table your_table replica identity full;
 
 ### プロジェクト間の移行
 
-既存のSupabaseプロジェクトがあって、それを新しい（出来たての）プロジェクトに移行したい場合は、以下の手順を踏むだけでOKです。
+プロジェクトの移行は、PostgreSQLの標準的なツールを使って行うことができます。これは特に古いプロジェクト（例えば、より新しいPostgresバージョンを使用したいとき）に有効です。 
 
 #### はじめる前に
 
-- [リアルタイムを無効化](/docs/guides/api#managing-realtime)しているか確認してください。これにより、新しいデータベースへの挿入のパフォーマンスが向上します。
-- [`psql`](https://www.postgresql.org/docs/13/app-psql.html)がコンピューターにインストールされていることを確認して、`pg_dump`を実行します。
+- [Postgres](https://www.postgresql.org/download/)がインストールされていて、`psql`と`pg_dump`が実行できることを確認してください。
+- 新しいSupabaseプロジェクトを作成します。
+- 古いプロジェクトでFunction Hooksを有効にしていた場合は、新しいプロジェクトでも有効にしてください。
+- 古いプロジェクトのデータベースのURLを`$OLD_DB_URL`に、新しいプロジェクトのものを`$NEW_DB_URL`に格納します。
 
 #### データベースの移行
 
-まず、データベースの構造だけを取得します。
+1. *古い*プロジェクトのSQLエディターで、`ALTER ROLE postgres SUPERUSER`を実行します。
+2. ターミナルで`pg_dump --clean --if-exists --quot-all-identifiers -d $OLD_DB_URL > dump.sql`を実行します。
+3. *古い*プロジェクトのSQLエディターで、`ALTER ROLE postgres NOSUPERUSER`を実行します。
+4. *新しい*プロジェクトのSQLエディターで、`ALTER ROLE postgres SUPERUSER`を実行します。
+5. ターミナルで`psql $NEW_DB_URL -f dump.sql`を実行します。
+6. *新しい*プロジェクトのSQLエディターで、`TRUNCATE storage.objects`を実行します。
+7. *新しい*プロジェクトのSQLエディターで、`ALTER ROLE postgres NOSUPERUSER`を実行します。
 
-```sh
-pg_dump \
--h db.PROJECT_REF.supabase.co \
--U postgres \
---clean \
---schema-only \
-> supabase_schema.sql
-```
+#### 注意点
 
-このコマンドを実行すると、コンピューター上に`supabase_schema.sql`というファイルが作成されます。 
-
-新しいSupabaseプロジェクトを作成したら、それを使ってデータベース構造を復元します。
-
-```sh
-psql \
--h db.NEW_PROJECT_REF.supabase.co \
--U postgres \
-< supabase_schema.sql
-```
-
-エラーを表示する場合があります。リストアでは、テーブルが存在する場合はドロップを試み、存在しない場合はエラーが表示されます。これらのエラーは情報提供のみで、心配する必要はありません。
-
-
-#### データを移行（オプション）
-
-データベース内のすべてのデータを移行できますが、`storage`スキーマ内のデータはデータベースの外に存在するため、移行しないようにします。 
-今のところは、`public`と`auth`スキーマ内のすべてのデータを取得します。
-
-```sh
-pg_dump \
--h db.PROJECT_REF.supabase.co \
--U postgres \
---data-only \
--n public \
--n auth \
-> supabase_data.sql
-```
-
-このコマンドを実行すると、コンピューター上に`supabase_data.sql`というファイルが作成されます。このファイルを使って、新しいデータベースのデータを復元できます。
-
-```sh
-psql \
--h db.NEW_PROJECT_REF.supabase.co \
--U postgres \
-< supabase_data.sql
-```
-
+- 新しいプロジェクトには、古いプロジェクトのStorageバケットはありますが、オブジェクトはありません。Storageオブジェクトを手動で移行する必要があります。
 
 ### プロジェクトのパスワードをリセット
 
@@ -196,3 +160,4 @@ alter database postgres set timezone to 'America/New_York';
 
 - [Postgres](/docs/postgres/server/about)についてもっと理解する
 - サインイン：[app.supabase.io](https://app.supabase.io)
+
