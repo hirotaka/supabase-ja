@@ -1,65 +1,65 @@
 ---
 id: auth-google
 title: 'Googleでログイン'
-description: Add Google OAuth to your Supabase project
+description: SupabaseプロジェクトにGoogle OAuthを追加
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-お客様のプロジェクトでGoogle Authを有効にするには、Google OAuthアプリケーションを設定し、アプリケーションの認証情報をSupabaseダッシュボードに追加する必要があります。
+プロジェクトでGoogle認証を有効にするには、Google OAuthアプリケーションを設定し、Supabaseダッシュボードでそのアプリケーションの認証情報を追加する必要があります。
 
 ## 概要
 
-アプリケーションにGoogleログインを設定するには、3つのパートで構成されています。
+アプリケーションにGoogleログインを設定するための手順は、3つのパートで構成されています。
 
-- [Google Cloud Platform Console](https://console.cloud.google.com/home/dashboard)でGoogleプロジェクトを作成・設定する
+- [Google Cloud Platform Console](https://console.cloud.google.com/home/dashboard)でGoogleプロジェクトを作成・設定
 - [Supabaseプロジェクト](https://supabase.com)にGoogle OAuthキーを追加する
-- Supabaseの[JSクライアントアプリ](https://github.com/supabase/supabase-js)にログインコードを追加する
+- [SupabaseのJSクライアント・アプリ](https://github.com/supabase/supabase-js)にログインのコードを追加
 
 ## 手順
 
-### Google Cloud Platform アカウントにアクセス
+### Google Cloud Platformアカウントにアクセス
 
 - [cloud.google.com](https://cloud.google.com) にアクセスします。
-- 右上の「`Sign in`」をクリックしてログインします。
+- 右上の`Sign in`をクリックしてログインします。
 
 ![Google Developer Portal.](/img/guides/google-portal.png)
 
-### Google Cloud Platform プロジェクトの作成
+### Google Cloud Platformプロジェクトを作成
 
-- 左上の「`Select a Project`」をクリックします。
+- 左上の`プロジェクトを選択`をクリックします。
   - （または、現在プロジェクトが選択されている場合は、左上の現在のプロジェクト名をクリックします）。
-- 右上の「`New Project`」をクリックします。
-- アプリの情報を入力して、「`Create`」をクリックします。
+- 右上の`プロジェクトを作成`をクリックします。
+- アプリの情報を入力して、`作成`をクリックします。
   - （この作業には数分かかることがあります）。
 - これで、新しいプロジェクトのダッシュボードが表示されます。
 
-### プロジェクトのOAuthキーの作成
+### プロジェクトのOAuthキーを作成
 
 プロジェクトのダッシュボード画面から次の手順を行います。
 
-- 上部の「`Search products and resources`」と書かれた検索バーに「`OAuth`」と入力します。
-- 結果のリストから「`OAuth consent screen`」をクリックします。
-- 「`OAuth consent screen`」ページで`「External」`を選択します。
-- `Create`をクリックします。
+- 上部の`プロダクトとリソースの検索`と書かれた検索バーに`OAuth`と入力します。
+- 結果のリストから`OAuth同意画面`をクリックします。
+- `OAuth同意画面`ページで`外部`を選択します。
+- `作成`をクリックします。
 
 ### アプリ情報の編集
 
-- `Edit app registration（アプリ登録の編集`）ページで、アプリの情報を入力します。
-- 下部の「`Save and continue`」をクリックします。
+- `アプリ登録の編集`ページで、アプリの情報を入力します。
+- 下部の`保存して次へ`をクリックします。
 
-### コールバックURLを探す
+### コールバックURLを入手
 
-次のステップでは、次のようなコールバックURLが必要です。
+次の手順では、次のようなコールバックURLが必要になります。
 
 `https://<project-ref>.supabase.co/auth/v1/callback`
 
-- [Supabaseのプロジェクトダッシュボード](https://supabase.com)にアクセスします。
-- 左サイドバーの下部にある`「設定」`アイコンをクリックします。
-- リストの中の「`API`」をクリックします。
-- Config / URLの下にあなたのAPI URLがありますので、`Copy`をクリックしてクリップボードにコピーします。
-- 最後に`/auth/v1/callback`を追加すれば、完全な`OAuthリダイレクトURI`が得られます。
+- [Supabaseプロジェクトのダッシュボード](https://supabase.com)にアクセスします。
+- 左サイドバーの下部にある`Settings`アイコンをクリックします。
+- リストの中の`API`をクリックします。
+- `Config`の`URL`の下にAPI URLがあるので、`Copy`をクリックしてクリップボードにコピーします。
+- 末尾に`/auth/v1/callback`を追加することで、完全な`OAuth Redirect URI`を取得できます。
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
@@ -67,34 +67,33 @@ import TabItem from '@theme/TabItem'
 
 ### 認証情報の作成
 
-- 左側の「`Credentials`」をクリックして、「`Credentials`」ページに移動します。
-- 上部の「`Create Credentials`」をクリックし、「`OAuth client ID`」を選択します。
-- 「`Create OAuth client ID`」ページで、アプリケーションの種類を選択します。よくわからない場合は、「`Web アプリケーション`」を選択します。
+- 左側の`認証情報`をクリックして、`認証情報`ページに移動します。
+- 上部の`認証情報を作成`をクリックし、`OAuthクライアントID`を選択します。
+- `OAuthクライアントIDの作成`ページで、アプリケーションの種類を選択します。よくわからない場合は、`ウェブアプリケーション`を選択します。
 - アプリ名を入力します。
-- 下部の「`Authorized redirect URIs`」で「`Add URI`」をクリックします。
-- 下部の「`Authorized redirect URIs`」にコールバックURIを入力します。
-- 「`Valid OAuth Redirect URIs`」ボックスにコールバックURIを入力します。
-- 右下の「`Save Changes`」をクリックします。
-- 「`Create`」をクリックします。
+- 下部の`承認済みのリダイレクトURI`で`URIを追加`をクリックします。
+- 下部の`承認済みのリダイレクトURI`にコールバックURIを入力します。
+- `URI`ボックスにコールバックURIを入力します。
+- `作成`をクリックします。
 
 新しいOAuth認証情報をコピーします。
 
-- 「`OAuth client created`」というボックスが表示されます。
-- 「`Your Client ID`」と「`Your Client Secret`」の値をコピーして保存します。
+- `OAuth クライアントを作成しました`というボックスが表示されます。
+- `クライアントID`と`クライアントシークレット`の値をコピーして保存します。
 
 ### Supabase ProjectにGoogleの認証情報を入力
 
-- [Supabase プロジェクトのダッシュボード](https://supabase.com)に移動します。
-- 左側のサイドバーで、`認証`アイコンをクリックします（上部付近）。
-- リストから`「設定」`をクリックし、`「認証設定」`ページを表示します。
-- 「`Site URL`」にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
-- 「`外部 OAuth プロバイダー`」で「`Google Enabled`」をオンにします。
-- 前のステップで保存した`Google Client ID`と`Google Client Secret`を入力します。
+- [Supabaseプロジェクトのダッシュボード](https://supabase.com)に移動します。
+- 左側のサイドバーで、`Authentication`アイコンをクリックします（上部付近）。
+- リストから`Settings`をクリックし、`Authentication Settings`ページを表示します。
+- `Site URL`にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
+- `External OAuth Providers`で`Google Enabled`をオンにします。
+- 前の手順で保存した`Google Client ID`と`Google Client Secret`を入力します。
 - `Save`をクリックします。
 
-### クライアントアプリにログインコードを追加する
+### クライアント・アプリにログインのコードを追加
 
-JavaScriptのクライアントコードはこちらに記載されています。[Supabase OAuthクライアントコード](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
+JavaScriptのクライアント・コードはこちらに記載：[Supabase OAuthクライアントコード](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
 
 ```js
 const { user, session, error } = await supabase.auth.signIn({
@@ -102,7 +101,7 @@ const { user, session, error } = await supabase.auth.signIn({
 })
 ```
 
-ボタン、リンク、またはUI要素から呼びだすことができるこの関数を追加します。
+ボタン、リンク、またはUI要素から呼びだすための関数を追加します。
 
 ```js
 async function signInWithGoogle() {
@@ -112,7 +111,7 @@ async function signInWithGoogle() {
 }
 ```
 
-ログアウトするには次の関数を追加します。
+ログアウトするには次の関数を使います。
 
 ```js
 async function signout() {
@@ -122,6 +121,6 @@ async function signout() {
 
 ## リソース
 
-- [Supabase アカウント - Free Tier OK](https://supabase.com)
-- [Supabase JS クライアント](https://github.com/supabase/supabase-js)
-- [Google Cloud Platform コンソール](https://console.cloud.google.com/home/dashboard)
+- [Supabaseアカウント - 無料枠あります](https://supabase.com)
+- [Supabase JSクライアント](https://github.com/supabase/supabase-js)
+- [Google Cloud Platformコンソール](https://console.cloud.google.com/home/dashboard)
