@@ -216,6 +216,11 @@ pages:
       ```bash
       npm install @supabase/supabase-js
       ```
+      
+      Via Yarn
+      ```bash
+      yarn add @supabase/supabase-js
+      ```
 
       ソースコードは[GitHub](https://github.com/supabase/supabase-js)でご覧いただけます。
 
