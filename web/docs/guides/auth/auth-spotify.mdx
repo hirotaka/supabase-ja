@@ -1,42 +1,42 @@
 ---
 id: auth-spotify
 title: 'Spotifyでログイン'
-description: Add Spotify OAuth to your Supabase project
+description: SupabaseプロジェクトにSpotify OAuthを追加
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-あなたのプロジェクトでSpotify Authを有効にするには、Spotify OAuthアプリケーションを設定します。そして、アプリケーションの認証情報をSupabaseダッシュボードに追加する必要があります。
+プロジェクトでSpotify認証を有効にするには、Spotify OAuthアプリケーションを設定し、Supabaseダッシュボードでそのアプリケーションの認証情報を追加する必要があります。
 
 ## 概要
 
-あなたのアプリケーションにSpotifyのログインを設定するには、3つのパートで構成されています。
+アプリケーションにGitHubログインを設定するための手順は、3つのパートで構成されています。
 
-- [Spotify開発者ダッシュボード](https://developer.spotify.com/dashboard/)で、Spotifyプロジェクトとアプリを作成・設定する。
-- [Supabaseプロジェクト](https://supabase.com)に、Spotify`API Key`と`API Secret Key`を追加する。
-- [Supabase JS Client App](https://github.com/supabase/supabase-js)にログインコードを追加します。
+- [Spotify開発者ダッシュボード](https://developer.spotify.com/dashboard/)で、Spotifyプロジェクトとアプリを作成・設定
+- [Supabaseプロジェクト](https://supabase.com)に、Spotifyの`API Key`と`API Secret Key`を追加
+- [SupabaseのJSクライアント・アプリ](https://github.com/supabase/supabase-js)にログインのコードを追加
 
 ## 手順
 
-### あなたのSpotify Developerアカウントにアクセスします
+### Spotify開発者アカウントへアクセス
 
 - [Spotify](https://spotify.com)にログインする。
-- Spotify[開発者ダッシュボード](https://developer.spotify.com/dashboard)にアクセスします。
+- [Spotify開発者ダッシュボード](https://developer.spotify.com/dashboard)にアクセスします。
 
 ![Spotify Developer Portal.](/img/guides/spotify-portal.png)
 
-### コールバックURLを探す
+### コールバックURLを入手
 
-次のステップでは、次のようなコールバックURLが必要です。
+次の手順では、次のようなコールバックURLが必要になります。
 
 `https://<project-ref>.supabase.co/auth/v1/callback`
 
-- [Supabaseのプロジェクトダッシュボード](https://supabase.com)にアクセスします。
-- 左サイドバーの下部にある`「設定」`アイコンをクリックします。
-- リストの中の「`API`」をクリックします。
-- Config / URLの下にあなたのAPI URLがありますので、`Copy`をクリックしてクリップボードにコピーします。
-- 最後に`/auth/v1/callback`を追加すれば、完全な`OAuthリダイレクトURI`が得られます。
+- [Supabaseプロジェクトのダッシュボード](https://supabase.com)にアクセスします。
+- 左サイドバーの下部にある`Settings`アイコンをクリックします。
+- リストの中の`API`をクリックします。
+- `Config`の`URL`の下にAPI URLがあるので、`Copy`をクリックしてクリップボードにコピーします。
+- 末尾に`/auth/v1/callback`を追加することで、完全な`OAuth Redirect URI`を取得できます。
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
@@ -45,35 +45,35 @@ import TabItem from '@theme/TabItem'
 ### Spotify OAuthアプリを作成する
 
 - [Spotify](https://spotify.com)にログインします。
-- Spot[ify Developer Dashboard](https://developer.spotify.com/dashboard)にアクセスします。
+- [Spotify開発者ダッシュボード](https://developer.spotify.com/dashboard)にアクセスします。
 - `Create an App`をクリックします。
-- `アプリの名前`を入力してください。
-- `アプリの説明`を入力してください。
-- `デベロッパーTOSとブランディングガイドライン`に同意する場合は、チェックを入れてください。
-- `作成`をクリックします。
-- `クライアントID`を保存する。
-- `クライアントシークレット`の保存します。
-- 「`Edit Settings`」をクリックします。
+- `App name`にアプリの名前を入力してください。
+- `App description`にアプリの説明を入力してください。
+- `Developer TOS and Branding Guidelines`（開発者向け利用規約とブランディングのガイドライン）同意する場合は、チェックを入れてください。
+- `Create`をクリックします。
+- `Client ID`を保存します。
+- `Client Secret`を保存します。
+- `Edit Settings`をクリックします。
 
-`リダイレクト URI`をクリックします。
+`Redirect URIs`をクリックします。
 
 - SupabaseのコールバックURLを入力してください。
-- `追加`をクリックします。
-- 下部の「`Save`」をクリックします。
+- `Add`をクリックします。
+- 下部の`Save`をクリックします。
 
-### SupabaseプロジェクトにSpotifyの認証情報を入力します
+### SupabaseのプロジェクトにSpotifyの認証情報を入力
 
-- [Supabaseのプロジェクトダッシュボード](https://supabase.com)にアクセスします。
-- 左側のサイドバーで`「認証」`アイコンをクリックします（上部付近）。
-- リストから`「設定」`をクリックして、`「認証設定」`ページを表示します。
-- 「`Site URL`」にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
-- 「`External OAuth Providers`」の項目で、「`Spotify Enabled`」をオンにします。
-- 前のステップで保存した`API Key``(client_id`)と`API Secret Key``(client_secret`)を入力します。
-- 「`Save`」をクリックします。
+- [Supabaseプロジェクトのダッシュボード](https://supabase.com)に移動します。
+- 左側のサイドバーで、`Authentication`アイコンをクリックします（上部付近）。
+- リストから`Settings`をクリックし、`Authentication Settings`ページを表示します。
+- `Site URL`にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
+- `External OAuth Providers`で`Spotify Enabled`をオンにします。
+- 前のステップで保存した`API Key`(`client_id`)と`API Secret Key`(`client_secret`)を入力します。
+- `Save`をクリックします。
 
-### クライアントアプリにログインコードを追加する
+### クライアント・アプリにログインのコードを追加
 
-JavaScriptのクライアントコードはこちらに記載されています。[Supabase OAuth Client Code](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers).
+JavaScriptのクライアント・コードはこちらに記載：[Supabase OAuthクライアントコード](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)
 
 ```js
 const { user, session, error } = await supabase.auth.signIn({
@@ -81,7 +81,7 @@ const { user, session, error } = await supabase.auth.signIn({
 })
 ```
 
-ボタン、リンク、またはUI要素から呼びだすことができるこの関数を追加します。
+ボタン、リンク、またはUI要素から呼びだすための関数を追加します。
 
 ```js
 async function signInWithSpotify() {
@@ -91,7 +91,7 @@ async function signInWithSpotify() {
 }
 ```
 
-ログアウトするには次の関数を追加します。
+ログアウトするには次の関数を使います。
 
 ```js
 async function signout() {
@@ -101,6 +101,6 @@ async function signout() {
 
 ## リソース
 
-- [Supabase アカウント - Free Tier OK](https://supabase.com)
-- [Supabase JS クライアント](https://github.com/supabase/supabase-js)
-- [スポティファイ開発者ダッシュボード](https://developer.spotify.com/dashboard/)
+- [Supabaseアカウント - 無料枠あります](https://supabase.com)
+- [Supabase JSクライアント](https://github.com/supabase/supabase-js)
+- [Spotify開発者ダッシュボード](https://developer.spotify.com/dashboard/)
