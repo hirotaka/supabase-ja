@@ -1,18 +1,18 @@
 ---
 id: extensions
 title: 概要
-description: Using Postgres extensions.
+description: Postgres拡張を使う。
 ---
 
 import ExtensionsComponent from '@site/src/components/Extensions'
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-エクステンションとは、その名の通り、Postgresのコア部分ではない機能でデータベースを「拡張」するものです。
-Supabaseには、最も便利なオープンソースのエクステンションがいくつかプリインストールされています。
+拡張とは、その名の通り、Postgresのコア部分ではない機能でデータベースを「拡張」するものです。
+Supabaseには、最も便利なオープンソースの拡張がいくつかプリインストールされています。
 
 
-### エクステンションの有効化と無効化
+### 拡張の有効化と無効化
 
 
 
@@ -25,10 +25,11 @@ values={[
 <TabItem value="UI">
 
 ```sh
-1. Go to the Database page
-2. Click on "Extensions" in the sidebar 
-3. Find the extension you would like to enable/disable 
-4. Click the toggle.
+
+1. データベースのページへ移動
+2. サイドバーの「Extensions」をクリック 
+3. 有効化/無効化したい拡張機能を探す 
+4. トグルをクリック
 ```
 
 
@@ -43,24 +44,24 @@ values={[
 
 ```sql 
 
--- Example: enable the "pgtap" extension 
+-- 例：「pgtap」拡張を有効化 
 create extension pgtap;
 
--- Example: disable the "pgtap" extension 
+-- 例：「pgtap」拡張を無効化
 drop extension pgtap;
 
 ```
 
-SQLコードが`拡張機能を作成し`ていても、これは「拡張機能を有効にする」ことと同じです。
-拡張機能を無効にするには、`drop extension`を呼び出します。
+SQLコードが`create extension`（拡張を作成）していても、これは「拡張を有効にする」と同じことです。
+拡張を無効にするには、`drop extension`を呼びだします。
 
 </TabItem>
 
 </Tabs>
 
 
-### エクステンションの全リスト
+### 拡張の全リスト
 
-Supabaseには50以上のエクステンションがあらかじめ設定されています。また、独自のSQL拡張機能を、SQLエディターを使ってデータベースに直接インストールできます。
+Supabaseには50以上の拡張があらかじめ設定されています。また、独自のSQL拡張機能を、SQLエディターを使ってデータベースに直接インストールできます。
 
 <ExtensionsComponent />
