@@ -1,7 +1,7 @@
 ---
 id: functions
 title: 関数
-description: Creating and using Postgres functions.
+description: Postgres関数の作成と利用。
 ---
 
 import Tabs from '@theme/Tabs';
@@ -9,9 +9,9 @@ import TabItem from '@theme/TabItem';
 
 
 Postgresには、[SQL関数](https://www.postgresql.org/docs/current/sql-createfunction.html)のサポートが組み込まれています。
-これらの関数は、データベース内に存在し、[APIで使用](/docs/reference/javascript/rpc)できます。
+これらの関数は、データベース内に存在し、[APIでも使用](/docs/reference/javascript/rpc)できます。
 
-## クイックデモ
+## クイック・デモ
 
 <iframe
   className="w-full video-with-border"
@@ -23,20 +23,20 @@ Postgresには、[SQL関数](https://www.postgresql.org/docs/current/sql-createf
   allowFullScreen
 ></iframe>
 
-## 関数の作成
+## 関数を作成
 
-Supabaseは、データベースの関数を作成するためのいくつかのオプションを提供しています。
-ダッシュボードを使用するか、SQLを使用して直接作成できます。ダッシュボードにはSQLエディターが用意されていますが、データベースに[接続し](/docs/guides/database/connecting/connecting-to-postgres)て自分でSQLクエリを実行できます。
+Supabaseは、データベースの関数を作成するためのいくつかの選択肢を提供しています。
+ダッシュボードを使用するか、SQLを使用して直接作成できます。ダッシュボードにはSQLエディターが用意されていますが、データベースに[接続](/docs/guides/database/connecting/connecting-to-postgres)して自分でSQLクエリを実行できます。
 
 
-1. SQLエディターセクションに移動します。
+1. 「SQL editor」セクションに移動します。
 2. 「New Query」をクリックします。
-3. データベース関数を作成または置換するためのSQLを入力します。
-4. 「Run」をクリックするか、cmd+enter (ctrl+enter)をクリックします。
+3. データベース関数を作成または置き換えるためのSQLを入力します。
+4. 「Run」をクリックするか、cmd+enter（ctrl+enter）を入力します。
 
 ## 例
 
-### データセット
+### データの集合
 
 このガイドでは、以下の例のデータを使用します。
 
@@ -79,7 +79,7 @@ values
 </TabItem>
 <TabItem value="Data">
 
-<h4>惑星</h4>
+<h4>Planets（惑星）</h4>
 
 | id    | name | 
 | ----  | ---- | 
@@ -87,7 +87,7 @@ values
 |    2 | Alderaan  | 
 |    3 | Kashyyyk | 
 
-<h4>People</h4>
+<h4>People（人々）</h4>
 
 | id    | name | planet_id |
 | ----  | ---- | ---- | 
@@ -100,7 +100,7 @@ values
 
 </Tabs>
 
-### 基本関数
+### 基本的な関数
 
 「hello world」という文字列を返す基本的な例です。
 
@@ -119,16 +119,16 @@ $$; --6
 
 最も基本的な関数は、以下の部分で構成されています。
 
-1. `関数 hello_world() を作成または置換し`ます。`hello_world`は関数の名前です。新規に関数を作成する場合は`create`、既存の関数を置き換える場合は`replace`を使用します。また、`createとreplace`を併用することで、どちらかを処理できます。
-2. は`テキストを返し`ます。この関数が返すデータの種類です。何も返さない場合は、`voidを返し`ます。
-3. `language sql`:関数本体で使用される言語です。`plpgsql`、`plv8`、`plpython`などの手続き型言語の場合もあります。
-4. `as $$:`関数のラッパーです。`$$`記号で囲まれたものは、関数本体の一部となります。
-5. `select 'hello world'; :` 単純な関数本体です。関数本体内の最後の`select`文は、それに続く文がない場合に返されます。
-6. `$$; :` 関数ラッパーの閉じたシンボルです。
+1. `create or replace function hello_world()`：`hello_world`は関数の名前です。新規に関数を作成する場合は`create`、既存の関数を置き換える場合は`replace`を使用します。また、`create or replace`を一緒に使用することで、どちらかで処理ができます。
+2. `return text`：この関数が返すデータの種類です。何も返さない場合は、`return void`にします。
+3. `language sql`：関数本体で使用される言語です。`plpgsql`, `plv8`, `plpython`などの手続き型言語も使用できます。
+4. `as $$`：関数のラッパーです。`$$`記号で囲まれたものは、関数本体の一部となります。
+5. `select 'hello world';`：単純な関数本体です。関数本体内の最後の`select`文は、それに続く文がない場合に返されます。
+6. `$$;`：関数ラッパーを閉じるためのシンボルです。
 
 </details>
 
-#### 実行する
+#### 実行
 
 <Tabs
 defaultValue="SQL"
@@ -163,16 +163,16 @@ final res = await supabase
   .execute();
 ```
 
-参考：rpc[()](/docs/reference/dart/rpc)
+参考：[rpc()](/docs/reference/dart/rpc)
 
 </TabItem>
 
 </Tabs>
 
 
-### テーブルセットを返す
+### テーブルの集合を返す
 
-例題のデータセットに含まれるすべての`惑星`を返す基本的な例です。
+例のデータの集合に含まれるすべての`planets`を返す基本的な例です。
 
 ```sql
 create or replace function get_planets() 
@@ -185,7 +185,7 @@ $$;
 
 #### 実行
 
-この関数はテーブルセットを返すので、フィルタやセレクターを適用できます。例えば、最初の惑星だけが欲しい場合は次のようにします。
+この関数はテーブルの集合を返すので、フィルタやセレクターを適用できます。例えば、最初の惑星だけが欲しい場合は次のようにします。
 
 <Tabs
 defaultValue="SQL"
@@ -224,7 +224,7 @@ final res = await supabase
   .execute();
 ```
 
-参考：rpc[()](/docs/reference/dart/rpc)
+参考：[rpc()](/docs/reference/dart/rpc)
 
 </TabItem>
 
@@ -252,9 +252,9 @@ end;
 $$;
 ```
 
-#### 実行時
+#### 実行
 
-この関数はテーブルセットを返すので、フィルタやセレクターを適用できます。例えば、最初の惑星の`名前`だけが欲しい場合は次のようにします。
+この関数はテーブルの集合を返すので、フィルタやセレクターを適用できます。例えば、最初の惑星の`name`だけが欲しい場合は次のようにします。
 
 <Tabs
 defaultValue="SQL"
@@ -289,7 +289,7 @@ final res = await supabase
   .execute();
 ```
 
-参考： rpc[()](/docs/reference/dart/rpc)
+参考：[rpc()](/docs/reference/dart/rpc)
 
 </TabItem>
 
@@ -298,5 +298,5 @@ final res = await supabase
 
 ## リソース
 
-- PostgreSQL Official Docs:[第9章.関数と演算子](https://www.postgresql.org/docs/current/functions.html)
-- PostgreSQLリファレンス。[create関数](https://www.postgresql.org/docs/9.1/sql-createfunction.html)
+- PostgreSQL公式ドキュメント：[第9章 関数と演算子](https://www.postgresql.org/docs/current/functions.html)
+- PostgreSQLリファレンス：[CREATE FUNCTION](https://www.postgresql.org/docs/9.1/sql-createfunction.html)
