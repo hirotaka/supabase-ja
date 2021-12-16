@@ -1,7 +1,7 @@
 ---
 id: plv8
-title: "plv8；Javascript言語"
-description: Javascript language for PostgreSQL.
+title: "plv8：Javascript言語"
+description: PostgreSQLのためのJavascript言語。
 ---
 
 import Tabs from '@theme/Tabs';
@@ -29,10 +29,10 @@ values={[
 <TabItem value="UI">
 
 ```sh
-1. Go to the Database page.
-2. Click on "Extensions" in the sidebar.
-3. Search for "plv8".
-4. Click the toggle.
+1. 「Database」ページに移動します。
+2. サイドバーの「Extensions」をクリックします。
+3. 「plv8」を探します。
+4. トグルをクリックします。
 ```
 
 </TabItem>
@@ -40,25 +40,25 @@ values={[
 
 ```sql 
 
--- Example: enable the "plv8" extension 
+-- 例：「plv8」拡張を有効にする 
 create extension plv8;
 
--- Example: disable the "plv8" extension 
+-- 例：「plv8」拡張を無効にする 
 drop extension if exists plv8;
 
 ```
 
-SQLコードが`拡張機能を作成し`ていても、これは「拡張機能を有効にする」ことと同じです。
-拡張機能を無効にするには、`drop extension`を呼び出します。
+SQLコードが`create extension`（拡張を作成）になっていますが、「拡張機能を有効にする」ことと同じです。
+拡張機能を無効にするには、`drop extension`を呼びだします。
 
-手続き型言語は`pg_catalog`に自動的にインストールされますので、スキーマを指定する必要はありません。
+手続き型言語は、`pg_catalog`に自動的にインストールされるので、スキーマを指定する必要はありません。
 
 </TabItem>
 </Tabs>
 
 ### `plv8`関数の作成
 
-`plv8`で書かれた関数は、他のPostgreSQL関数と同じように書かれますが、`言語`識別子は`plv8`に設定されています。
+`plv8`で書かれた関数は、他のPostgreSQL関数と同じように書けますが、`language`識別子は`plv8`に設定します。
 
 ```sql
 create or replace function function_name() 
@@ -116,7 +116,7 @@ $$ language plv8;
 
 ### SQLの実行
 
-[`plv8.execute`](https://plv8.github.io/#plv8-execute)関数を使って、`plv8`のコード内でSQLを実行できます。
+[`plv8.execute`関数](https://plv8.github.io/#plv8-execute)を使って、`plv8`のコード内でSQLを実行できます。
 
 ```sql
 create or replace function update_user(id bigint, first_name text) 
@@ -131,9 +131,9 @@ returns smallint as $$
 $$ language plv8;
 ```
 
-### セットリターン関数
+### セット・リターン関数
 
-[セット](https://plv8.github.io/#set-returning-function-calls)リターン関数とは、テーブルの行のように結果のフルセットを返す関数です。
+[セット・リターン関数](https://plv8.github.io/#set-returning-function-calls)とは、テーブルにある複数の行のような、結果の一式を返す関数です。
 
 ```sql
 create or replace function get_messages() 
@@ -150,5 +150,5 @@ $$ language plv8;
 
 ## リソース
 
-- [`plv8`](https://plv8.github.io/)の公式[ドキュメント](https://plv8.github.io/)です。
-- [plv8のGithubリポジトリ](https://github.com/plv8/plv8)。
+- 公式の[`pl8`ドキュメント](https://plv8.github.io/)
+- [plv8のGithubリポジトリ](https://github.com/plv8/plv8)
