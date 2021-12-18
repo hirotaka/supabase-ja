@@ -1,7 +1,7 @@
 ---
 id: http
 title: "http：RESTfulクライアント"
-description: An HTTP Client for PostgreSQL Functions.
+description: PostgreSQL関数のためのHTTPクライアント。
 ---
 
 import Tabs from '@theme/Tabs';
@@ -14,20 +14,19 @@ import TabItem from '@theme/TabItem';
 いくつかの基本的な概念を説明しましょう。
 
 - REST: REpresentational State Transferの略です。これは単純に、外部サービスにデータを要求する方法です。
-- RESTful APIは、HTTPの「呼び出し」を受け付けるサーバーです。呼び出しは通常
-  - `GET`- リソースへの読み取り専用アクセス。
-  - `POST`- 新しいリソースを作成します。
-  - `DELETE`- リソースを削除します。
-  - `PUT`- 既存のリソースを更新、または新しいリソースを作成します。
+- RESTful APIは、HTTPの「呼び出し」を受け付けるサーバーです。呼び出しは通常次の種類があります。
+  - `GET` - リソースへの読み取り専用アクセス。
+  - `POST` - 新しいリソースを作成します。
+  - `DELETE` - リソースを削除します。
+  - `PUT` - 既存のリソースを更新、または新しいリソースを作成します。
 
-Postgresからこれらのネットワーク要求するために、`http`エクステンションを使用できます。
+Postgresからこれらのネットワークへのリクエストをするために、`http`拡張機能を使用できます。
 
 
 ## 使用方法
 
 
 ### 有効化
-
 
 <Tabs
 defaultValue="UI"
@@ -38,10 +37,10 @@ values={[
 <TabItem value="UI">
 
 ```sh
-1. Go to the Database page.
-2. Click on "Extensions" in the sidebar.
-3. Search for "http".
-4. Click the toggle.
+1. Databaseページに移動します。
+2. サイドバーにある「Extensions」をクリックします。
+3. 「https」をみつけます。
+4. トグルをクリックします。
 ```
 
 
@@ -51,18 +50,18 @@ values={[
 
 ```sql 
 
--- Example: enable the "http" extension 
+-- 例：「http」拡張機能を有効にする 
 create extension http with schema extensions;
 
--- Example: disable the "http" extension 
+-- 例：「http」拡張機能を無効にする 
 drop extension if exists http;
 
 ```
 
-SQLコードが`拡張機能を作成し`ていても、これは「拡張機能を有効にする」ことと同じです。
-拡張機能を無効にするには、`drop extension`を呼び出します。
+SQLコードが`create extension`（拡張を作成）になっていますが、「拡張機能を有効にする」ことと同じです。
+拡張機能を無効にするには、`drop extension`を呼びだします。
 
-データベースをきれいに保つために、拡張機能を（`extensions`のような）別のスキーマ内に作成することは良い習慣です。
+手続き型言語は、`pg_catalog`に自動的にインストールされるので、スキーマを指定する必要はありません。
 
 </TabItem>
 
@@ -78,18 +77,18 @@ SQLコードが`拡張機能を作成し`ていても、これは「拡張機能
 - `http_delete()`
 - `http_head()` 
 
-### 返される値
+### 戻り値
 
-`http`拡張モジュールからWebのURLへの呼び出しに成功すると、以下のフィールドを持つレコードが返されます。
+`http`拡張機能からWebのURLへの呼び出しが成功すると、以下のフィールドを持つレコードが返されます。
 
-- `ステータス`: 整数
-- `content_type`: さまざまな文字
-- `headers`: http_header\[]
-- `content`: 文字数は可変です。典型的な例としては、`content::jsonb`というフォーマットで`jsonb`にキャストします
+- `status`: 整数
+- `content_type`: 可変の文字列
+- `headers`: http_header[]
+- `content`: 可変の文字列。典型的な例としては、`content::jsonb`というフォーマットで`jsonb`にキャストします
 
 ## 例
 
-### 単純な`GET の`例
+### シンプルな`GET`の例
 
 ```sql
 select 
@@ -115,4 +114,4 @@ from
 
 ## リソース
 
-- [`httpの`](https://github.com/pramsey/pgsql-http)公式[Githubリポジトリ](https://github.com/pramsey/pgsql-http)です。
+- 公式の[`http` Githubリポジトリ](https://github.com/pramsey/pgsql-http)
