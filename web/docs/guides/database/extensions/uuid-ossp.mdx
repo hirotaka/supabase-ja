@@ -7,7 +7,7 @@ description: PostgreSQLのためのUUIDジェネレーター。
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-`uuid-ossp`拡張機能を使って、`UUID`を生成できます。
+`uuid-ossp`拡張を使って、`UUID`を生成できます。
 
 
 ## 概要
@@ -49,10 +49,10 @@ drop extension if exists "uuid-ossp";
 
 ```
 
-SQLコードが`create extension`（拡張を作成）になっていますが、「拡張機能を有効にする」ことと同じです。
-拡張機能を無効にするには、`drop extension`を呼びだします。
+SQLコードが`create extension`（拡張を作成）になっていますが、「拡張を有効にする」ことと同じです。
+拡張を無効にするには、`drop extension`を呼びだします。
 
-データベースをきれいに保つために、拡張機能を（`extensions`のような）別のスキーマ内に作成することは良い習慣です。
+データベースをきれいに保つために、拡張を（`extensions`のような）別のスキーマ内に作成することは良い習慣です。
 
 </TabItem>
 
@@ -60,7 +60,7 @@ SQLコードが`create extension`（拡張を作成）になっていますが�
 
 ### `uuid`型
 
-この拡張機能を有効にすると、`uuid`型へアクセスできるようになります。
+この拡張を有効にすると、`uuid`型へアクセスできるようになります。
 
 ### `uuid_generate_v1()`
 
