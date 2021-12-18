@@ -1,14 +1,14 @@
 ---
 id: connection-pooling
-title: "コネクション・プーリング"
-description: Connecting to your Supabase database using PgBouncer.
+title: "接続プーリング"
+description: PgBouncerを使ってSupabaseデータベースに接続します。
 ---
 
-コネクションプールは、多数の_一時的な_接続を管理するのに便利です。
+接続プールは、多数の_一時的な_接続を管理するのに便利です。
 
-## コネクションプールの仕組み
+## 接続プールの仕組み
 
-「コネクションプール」とは、PostgreSQLのネイティブシステムではなく、（PostgreSQLの外部にある）接続を管理するシステムのことです。Supabaseでは、[PgBouncer](https://www.pgbouncer.org/)を使用してコネクションプーリングを行っています。
+「接続プール」とは、PostgreSQLのネイティブなシステムではなく（PostgreSQLの外部にある）、接続を管理するシステムのことです。Supabaseでは、[PgBouncer](https://www.pgbouncer.org/)を使用して接続プーリングを行っています。
 
 クライアントがリクエストを行うと、PgBouncerは利用可能な接続をクライアントに「割り当て」ます。クライアントのトランザクションまたはセッションが完了すると、接続はプールに戻され、他のクライアントが自由に使用できるようになります。
 
@@ -16,27 +16,28 @@ description: Connecting to your Supabase database using PgBouncer.
 ![Connection pooling](/img/guides/connection-pool.png)
 
 
-## プールモード
+## プール・モード（Pool modes）
 
-プールモードは、PgBouncerがどのように接続を処理するかを決定します。
+プール・モードは、PgBouncerがどのように接続を処理するかを決定します。
 
-### セッション
+### セッション（Session）
 
 新しいクライアントが接続すると、そのクライアントが切断するまで、そのクライアントに接続が割り当てられます。その後、接続はプールに戻されます。
 
 このオプションでは、すべてのPostgreSQLの機能を使用できます。
 
-### トランザクション
+### トランザクション（Transaction）
 
 これは、サーバーレス機能に推奨されるオプションです。接続は、トランザクションの間だけ、クライアントに割り当てられます。同じクライアントからの連続した2つのトランザクションは、2つの異なる接続で実行できます。
 
-プリペアドステートメントなどのPostgreSQLのセッションベースの機能の一部は、このオプションでは使用できません。
+プリペアド文などのPostgreSQLのセッションベースの機能の一部は、このオプションでは使用できません。
+互換性のない機能の包括的なリストは[こちら](https://www.pgbouncer.org/features.html)で確認できます。
 
-### ステートメント
+### 命令文（Statement）
 
-これは最も詳細なオプションです。接続は全ての文の後、プールに戻されます。複数のステートメントを含むトランザクションは許可されません。このオプションは、`AUTOCOMMIT`を使用している場合に最適です。
+これは最も詳細なオプションです。接続は全ての命令文の後、プールに戻されます。複数の命令文を含むトランザクションは許可されません。このオプションは、`AUTOCOMMIT`を使用している場合に最適です。
 
-## 接続文字列の検索
+## 接続用の文字列をみつける
 
 <Tabs
 defaultValue="UI"
@@ -46,9 +47,9 @@ values={[
 <TabItem value="UI">
 
 ```sh
-1. Go to the "Database" section.
-2. Click "Connection Pooling".
-3. Find your Connection Info and Connection String.
+1. 「Database」セクションに移動します。
+2. 「Connection Pooling」をクリックします。
+3. 接続情報と接続のための文字列をみつけます。
 ```
 
 <video width="99%" muted playsInline controls="true">
@@ -62,5 +63,5 @@ values={[
 
 ## リソース
 
-- [直接接続](/docs/guides/database/connecting/direct-connections)。
-- [コネクションプーリング](/docs/guides/database/connecting/connection-pooling)。
+- [ダイレクト接続](/docs/guides/database/connecting/direct-connections)
+- [接続プーリング](/docs/guides/database/connecting/connection-pooling)
