@@ -21,9 +21,9 @@ import TabItem from '@theme/TabItem';
 パブリケーションとは、どの変更を他のシステム（通常は他のPostgresデータベース）に送信するかを選択する方法です。
 
 
-### 出版物の管理
+### パブリケーションの管理
 
-Supabaseは出版物を管理するためのインターフェースを提供していますが、SQLを使用できます。
+Supabaseはパブリケーションを管理するためのインターフェースを提供していますが、SQLも使用できます。
 
 <Tabs
 defaultValue="UI"
@@ -34,10 +34,10 @@ values={[
 <TabItem value="UI">
 
 ```sh
-1. Go to the "Database" section.
-2. Click on "Replication" in the sidebar.
-3. Control which database events are sent by toggling the Insert/Update/Delete toggles.
-4. Control which tables broadcast changes by clicking into the "Source" and toggling the tables.
+1. 「Database」セクションに移動します。
+2. サイドバーにある「Replication」をクリックします。
+3. Insert/Update/Deleteのトグルを切り替えることで、どのデータベースのイベントを送信するかを制御します。
+4. 「Source」をクリックしてテーブルを切り替えることで、どのテーブルに変更が反映されるかを制御できます。
 ```
 
 <video width="99%" muted playsInline controls="true">
@@ -54,7 +54,7 @@ alter publication supabase_realtime add table products;
 </TabItem>
 </Tabs>
 
-### 出版物の作成
+### パブリケーションを作成
 
 このパブリケーションは、すべてのテーブルに対するすべての変更を含みます。
 
@@ -76,7 +76,7 @@ for all tables;
 
 </Tabs>
 
-### 個々のテーブルをリッスンするパブリケーションの作成
+### 個々のテーブルを受信するパブリケーションを作成
 
 
 
@@ -97,7 +97,7 @@ for table table_one, table_two;
 
 </Tabs>
 
-### 既存のパブリケーションにテーブルを追加する
+### 既存のパブリケーションにテーブルを追加
 
 
 
@@ -118,7 +118,7 @@ add table table_name;
 
 </Tabs>
 
-### `インサート`を聞く
+### `insert`を受信
 
 
 
@@ -140,7 +140,7 @@ with (publish = 'insert');
 
 </Tabs>
 
-### `更新`を聞く
+### `update`を受信
 
 
 
@@ -162,7 +162,7 @@ with (publish = 'update');
 
 </Tabs>
 
-### `削除`を聞く
+### `delete`を受信
 
 
 
@@ -184,7 +184,7 @@ with (publish = 'delete');
 
 </Tabs>
 
-### パブリケーションの削除
+### パブリケーションを削除
 
 
 
@@ -204,9 +204,9 @@ drop publication if exists publication_name;
 
 </Tabs>
 
-### パブリケーションの再作成
+### パブリケーションを再作成
 
-パブリケーションの再作成を計画している場合は、操作が確実に成功するよう、トランザクション内で行うことが最善です。
+パブリケーションを再作成する場合は、操作が確実に完了するよう、トランザクション内で行うことが最善です。
 
 
 <Tabs
@@ -218,10 +218,10 @@ drop publication if exists publication_name;
 
 ```sql
 begin; 
-  -- remove the realtime publication
+  -- リアルタイム・パブリケーションを削除
   drop publication if exists publication_name; 
 
-  -- re-create the publication but don't enable it for any tables
+  -- パブリケーションを再作成しますが、どのテーブルに対しても有効にしません
   create publication publication_name;  
 commit;
 ```
