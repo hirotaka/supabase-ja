@@ -1,18 +1,21 @@
 ---
 id: uuid-ossp
-title: "uuid-ossp：固有識別子"
-description: A UUID generator for PostgreSQL.
+title: "uuid-ossp：一意識別子"
+description: PostgreSQLのためのUUIDジェネレーター。
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-`UUID`は「Universally Unique Identifer」の略です。
+`uuid-ossp`拡張機能を使って、`UUID`を生成できます。
 
 
 ## 概要
 
-`UUID`とは "Universally Unique Identifer "の略で、実用的に一意であるため、主キーとして特に適しています。また、`GUID`と呼ばれることもありますが、これは「Globally Unique Identifer」の略です。
+<!-- textlint-disable ja-technical-writing/max-kanji-continuous-len -->
+`UUID`とは「Universally Unique Identifer」（汎用一意識別子）の略で、一意にするための目的として使用します。
+主キーとして使用するのに適しています。また、`GUID`と呼ばれることもありますが、これは「Globally Unique Identifer」（グローバル一意識別子）の略です。
+<!-- textlint-enable ja-technical-writing/max-kanji-continuous-len -->
 
 ## 使用方法
 
@@ -27,10 +30,10 @@ values={[
 <TabItem value="UI">
 
 ```sh
-1. Go to the Database page.
-2. Click on "Extensions" in the sidebar.
-3. Search for "uuid-ossp".
-4. Click the toggle.
+1. 「Database」ページに移動します。
+2. サイドバーの「Extensions」をクリックします。
+3. 「uuid-ossp」を探します。
+4. トグルをクリックします。
 ```
 
 </TabItem>
@@ -38,16 +41,16 @@ values={[
 
 ```sql 
 
--- Example: enable the "uuid-ossp" extension 
+-- 例：「uuid-ossp」拡張を有効にする 
 create extension "uuid-ossp" with schema extensions;
 
--- Example: disable the "uuid-ossp" extension 
+-- 例：「uuid-ossp」拡張を無効にする 
 drop extension if exists "uuid-ossp";
 
 ```
 
-SQLコードが`拡張機能を作成し`ていても、これは「拡張機能を有効にする」ことと同じです。
-拡張機能を無効にするには、`drop extension`を呼び出します。
+SQLコードが`create extension`（拡張を作成）になっていますが、「拡張機能を有効にする」ことと同じです。
+拡張機能を無効にするには、`drop extension`を呼びだします。
 
 データベースをきれいに保つために、拡張機能を（`extensions`のような）別のスキーマ内に作成することは良い習慣です。
 
@@ -55,7 +58,7 @@ SQLコードが`拡張機能を作成し`ていても、これは「拡張機能
 
 </Tabs>
 
-### `uuid`タイプ
+### `uuid`型
 
 この拡張機能を有効にすると、`uuid`型へアクセスできるようになります。
 
@@ -69,13 +72,13 @@ SQLコードが`拡張機能を作成し`ていても、これは「拡張機能
 
 ## 例
 
-### クエリの中で
+### クエリでの使用
 
 ```sql
 select uuid_generate_v4();
 ```
 
-### 主キーとして
+### 主キーとしての使用
 
 テーブルに一意のランダムなIDを自動的に作成します。
 
@@ -92,4 +95,4 @@ create table contacts (
 
 ## リソース
 
-- [PostgreSQLの基礎知識`UUID`](https://www.postgresqltutorial.com/postgresql-uuid/) データ型。
+- [PostgreSQL `UUID`データ型の基礎](https://www.postgresqltutorial.com/postgresql-uuid/)

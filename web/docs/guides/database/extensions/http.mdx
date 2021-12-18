@@ -61,7 +61,7 @@ drop extension if exists http;
 SQLコードが`create extension`（拡張を作成）になっていますが、「拡張機能を有効にする」ことと同じです。
 拡張機能を無効にするには、`drop extension`を呼びだします。
 
-手続き型言語は、`pg_catalog`に自動的にインストールされるので、スキーマを指定する必要はありません。
+データベースをきれいに保つために、拡張機能を（`extensions`のような）別のスキーマ内に作成することは良い習慣です。
 
 </TabItem>
 
