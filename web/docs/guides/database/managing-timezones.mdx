@@ -2,17 +2,17 @@
 id: managing-timezones
 title: "タイムゾーン"
 slug: managing-timezones
-description: How to change your database timezone.
+description: データベースのタイムゾーンを変更する方法。
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
-Supabaseのデータベースは、デフォルトでUTCタイムゾーンに設定されています。これは、「私のデータベースの中のものはすべてUTC時間である」というメンタルモデルを採用すると、タイムゾーン間の差を計算するのが非常に簡単になるからです。
+Supabaseのデータベースは、デフォルトでUTCタイムゾーンに設定されています。これは、「データベースの中のものはすべてUTC時間である」というメンタルモデルを採用すると、タイムゾーン間の差を計算するのが非常に簡単になるからです。
 
 
-### タイムゾーンの変更
+### タイムゾーンを変更
 
 
 
@@ -38,9 +38,9 @@ set timezone to 'America/New_York';
 データベースでサポートされているタイムゾーンの完全なリストを取得します。これにより、以下の列が返されます。
 
 - `name`: タイムゾーン名
-- `abbrev`：タイムゾーンの略語
-- `utc_offset`：UTCからのオフセット。UTCからのオフセット（正の値はグリニッジの東を意味します）
-- `is_dst`:現在サマータイムが適用されている場合はtrue
+- `abbrev`: タイムゾーンの略語
+- `utc_offset`: UTCからのオフセット。UTCからのオフセット（正の値はグリニッジの東を意味します）
+- `is_dst`: 現在サマータイムが適用されている場合はtrue
 
 
 <Tabs
@@ -61,7 +61,7 @@ order by name;
 
 </Tabs>
 
-### 特定のタイムゾーンの検索
+### 特定のタイムゾーンを検索
 
 特定のタイムゾーンを検索するには、`ilike`（大文字と小文字を区別しない検索）を使用します。
 
