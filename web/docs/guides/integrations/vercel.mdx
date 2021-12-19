@@ -4,27 +4,27 @@ title: 'Vercel'
 description: The fastest way to get up and running with an application that uses Supabase is with Vercel's Next.js starter and Supabase integration.
 ---
 
-This guide steps through using Vercel's dashboard to create a Next.js project integrated with Supabase. To further streamline the process, we will be using the Next.js starter template, which can be automatically forked to a new GitHub repo, without leaving the dashboard!
+このガイドでは、Vercelのダッシュボードを使って、Supabaseと統合されたNext.jsプロジェクトを作成する手順を説明します。Next.jsのスターターテンプレートを使用することで、ダッシュボードにいながらにして自動的にGitHubの新しいリポジトリにフォークできます。
 
-If you don’t have a Vercel account, create one [here](https://vercel.com/signup).
+Vercelのアカウントをお持ちでない方は、[こちらで](https://vercel.com/signup)アカウントを作成してください。
 
-## Step 1: Create a Supabase project
+## ステップ1: Supabaseプロジェクトの作成
 
-This guide could use an existing Supabase project, but to create the `todo` demo from scratch, navigate to [Supabase](https://app.supabase.io/), click `Sign In` and authenticate with GitHub to login or register a new account.
+このガイドでは既存のSupabaseプロジェクトを使用できますが、`Todo`デモを最初から作成するには、[Supabase](https://app.supabase.io/)に移動します。`Sign In`をクリックし、GitHubで認証してログインするか新しいアカウントを登録します。
 
-From the Supabase dashboard, click `New project` and select an organization.
+Supabaseダッシュボードから`[New project`]をクリックし、組織を選択します。
 
-> Note: You may need to create an organization first.
+> 注：最初に組織を作成する必要がある場合があります。
 
-Give your project a `name`, `password`, select a `region` close to your potential users and click `Create new project`.
+プロジェクトに`名前`と`パスワード`を付け、潜在的なユーザーに近い`地域`を選択し、`Create new project`をクリックします。
 
 ![Create a Supabase project](/img/guides/integrations/vercel/create-supabase-project.png)
 
-Supabase will take a couple of minutes to configure the infrastructure.
+Supabaseはインフラストラクチャの設定に数分かかります。
 
-Once this is finished, navigate to `SQL Editor` from the sidebar menu and click `New query`.
+設定が完了したら、サイドバーメニューの`SQL Editor`を開き、`New query`をクリックします。
 
-This will create a new SQL snippet called "New Query". Copy and paste the following and click `Run`.
+すると、「新規クエリ」という名前の新しいSQLスニペットが作成されます。以下のコードをコピー＆ペーストし、`「実行」`をクリックします。
 
 ```sql
 create table todos (
@@ -49,65 +49,65 @@ values
   ('Install Supabase integration');
 ```
 
-This will create a new todos table, enable row level security, add policies for selecting and inserting data, and add some example rows.
+これにより、新しいTodosテーブルが作成され、行レベルのセキュリティーが有効になります。データの選択と挿入のためのポリシーが追加され、いくつかの行の例が追加されます。
 
-> Note: To simplify this example, we are allowing anyone to `select` and `insert` rows on the `todos` table. Usually, these actions would be locked down to only allow logged in users to perform them. Check out [this video](https://www.youtube.com/watch?v=Ow_Uzedfohk) to learn more about Row Level Security and policies.
+> 注：この例では簡単にするために、誰でも`Todos`テーブルの行`を選択`・`挿入`できるようにしています。通常、これらの操作は、ログインしたユーザーのみが実行できるようにロックされています。行レベルのセキュリティとポリシーの詳細については、[こちらのビデオ](https://www.youtube.com/watch?v=Ow_Uzedfohk)をご覧ください。
 
-## Step 2: Create Vercel project
+## ステップ2： Vercelプロジェクトの作成
 
-From your [Vercel dashboard](https://vercel.com/dashboard), click `New Project`.
+[Vercelダッシュボード](https://vercel.com/dashboard)から`［New Project`］をクリックします。
 
 ![Create new Vercel project](/img/guides/integrations/vercel/create-vercel-project.png)
 
-Under the `Clone Template` menu, click `Next.js`.
+`Clone Template`］メニューで`［Next.js`］をクリックします。
 
 ![Clone Next.js template](/img/guides/integrations/vercel/clone-next-js-template.png)
 
-In the `Create Git Repository` section, click `GitHub`, select your username under `GIT SCOPE`, enter a name for your project, choose whether you want your repo `private` or `public`, and click `Create`.
+`Create Git Repository`セクションで、`GitHub`をクリックします。`GIT SCOPE`でユーザー名を選択し、プロジェクトの名前を入力します。レポを`プライベートに`するか`パブリックに`するかを選択して、`Create`をクリックします。
 
 ![New GitHub repo settings](/img/guides/integrations/vercel/repo-settings.png)
 
-This will create a new GitHub repository, clone and commit the Next.js starter project, then build and deploy your new project to Vercel.
+これで新しいGitHubリポジトリーが作成され、Next.jsのスタータープロジェクトがクローンされてコミットされ、新しいプロジェクトがビルドされてVercelにデプロイされます。
 
-Once you have been redirected to the `Congratulations` screen, click `Go to Dashboard`.
+`Congratulations`画面にリダイレクトされたら、`Go to Dashboard` をクリックします。
 
-Navigate to `Settings`, `Integrations`, then click `Browse Marketplace`.
+`設定` `][統合`]に移動し、`[マーケットプレイスを参照`]をクリックします。
 
-Search for `Supabase` and click the Supabase integration.
+`Supabase`を検索し、Supabaseインテグレーションをクリックします。
 
 ![Supabase integration](/img/guides/integrations/vercel/supabase-integration.png)
 
-Click `Add Integration`. Select your account from the `Vercel Scope` dropdown, and click `CONTINUE`.
+`インテグレーションの追加`をクリックします。`Vercel Scope`のドロップダウンからお客様のアカウントを選択し、`続行`をクリックします。
 
 ![Choose scope](/img/guides/integrations/vercel/choose-scope.png)
 
-Choose `Specific Projects` and select your new Vercel project from the dropdown, and click `Add Integration`.
+`Specific Projects`を選択し、ドロップダウンから新しいVercelプロジェクトを選択して、`Add Integration`をクリックします。
 
 ![Choose project](/img/guides/integrations/vercel/choose-project.png)
 
-From the Supabase popup, select your new Vercel Project and Supabase project from the dropdowns.
+Supabaseポップアップから、ドロップダウンから新しいVercelプロジェクトとSupabaseプロジェクトを選択します。
 
 ![Supabase integration](/img/guides/integrations/vercel/link-vercel-to-supabase.png)
 
-## Step 4: Clone GitHub repo
+## ステップ4：GitHubリポジトリのクローン作成
 
-The fastest way to get this project running locally is to clone the repo that Vercel created for us.
+このプロジェクトをローカルで実行するには、Vercelが作成したリポジトリをクローンするのが一番早い方法です。
 
-Navigate back to the Vercel project `Overview` page, and click `View Git Repository`.
+Vercelプロジェクトの`Overview`ページに戻り、`View Git Repository`をクリックします。
 
 ![Vercel Project Dashboard](/img/guides/integrations/vercel/vercel-project-dashboard.png)
 
-This will open the GitHub repo. From here, click the arrow next to `Code` and copy the url from the dropdown.
+すると、GitHubリポジトリーが開きます。ここで、`Code`の隣にある矢印をクリックし、ドロップダウンからURLをコピーします。
 
 ![GitHub repo url](/img/guides/integrations/vercel/github-project-url.png)
 
-Open a terminal window or CLI and run the following command to clone the GitHub repo.
+ターミナルウィンドウまたはCLIを開き、以下のコマンドを実行してGitHubリポジトリをクローンします。
 
 ```bash
 git clone your-repo-url.git
 ```
 
-Open the project in your code editor of choice, and update the contents of `pages/index.js` to the following:
+お好みのコードエディターでプロジェクトを開き、`pages/index.js`の内容を以下のように更新します。
 
 ```jsx
 import styles from '../styles/Home.module.css'
@@ -117,55 +117,55 @@ export default function Home() {
 }
 ```
 
-Run a local development server.
+ローカルの開発サーバーを起動します。
 
 ```bash
 npm run dev
 ```
 
-Navigate to `http://localhost:3000` to confirm the project is "working".
+`http://localhost:3000`にアクセスして、プロジェクトが「動作中」であることを確認します。
 
-## Step 4: Pull environment variables from Vercel
+## ステップ4： Vercelから環境変数を引き出す
 
-First, we need to login to Vercel using their CLI tool.
+まず、VercelのCLIツールを使ってVercelにログインする必要があります。
 
 ```bash
 npx vercel login
 ```
 
-This will ask if we are happy to install `vercel`. Type `y` and hit `Enter`.
+すると、`Vercel`をインストールしてもいいか尋ねられます。`y`と入力して`Enter`を押します。
 
-We will then need to authenticate Vercel by selecting `Continue with GitHub`.
+次に、`Continue with GitHub`を選択してVercelを認証する必要があります。
 
-This will open a browser window where you need to authenticate with your GitHub account.
+すると、ブラウザウィンドウが開き、GitHubアカウントで認証する必要があります。
 
-Next, we need to link our Vercel project.
+次に、Vercelプロジェクトをリンクする必要があります。
 
 ```bash
 npx vercel link
 ```
 
-Step through the prompts to link the Vercel project.
+画面の指示に従って、Vercelプロジェクトをリンクします。
 
 ![Link project from Vercel](/img/guides/integrations/vercel/vercel-link.png)
 
-Copy the environment variables from our Vercel project.
+環境変数をVercelプロジェクトからコピーします。
 
 ```bash
 npx vercel env pull
 ```
 
-This will create a `.env` file containing our Supabase environment variables. Rename this file to `.env.local` to automatically ignore it from git.
+Supabaseの環境変数を含む`.env`ファイルが作成されます。このファイルの名前を`.env.local`に変更し、gitから自動的に無視するようにします。
 
-## Step 5: Install Supabase.js
+## ステップ5: Supabase.jsのインストール
 
-Install the `supabase-js` library.
+`Supabase-js`ライブラリをインストールします。
 
 ```bash
 npm i @supabase/supabase-js
 ```
 
-Create a new file called `/utils/supabase.js` and add the following.
+`/utils/supabase.js`という新しいファイルを作成し、以下の内容を追加します。
 
 ```jsx
 import { createClient } from '@supabase/supabase-js'
@@ -176,7 +176,7 @@ export default createClient(
 )
 ```
 
-Create a new file called `/components/NewTodo.js` and add the following.
+`/components/NewTodo.js`という新しいファイルを作成し、次の内容を追加します。
 
 ```jsx
 import { useState } from 'react'
@@ -200,9 +200,9 @@ export default ({ reload }) => {
 }
 ```
 
-This component will be responsible for writing a new `todo` to Supabase.
+このコンポーネントは、Supabaseに新しい`Todo`を書き込む役割を果たします。
 
-Let's import our new component in `pages/index.js` and display a list of todos.
+`pages/index.js`に新しいコンポーネントをインポートして、Todoのリストを表示してみましょう。
 
 ```jsx
 import { useState, useEffect } from 'react'
@@ -233,9 +233,9 @@ export default function Home() {
 }
 ```
 
-## Resources
+## リソース
 
-- [Vercel official website](https://vercel.com).
-- [Vercel blog](https://vercel.com/blog).
-- [Vercel docs](https://vercel.com/docs).
-- [Vercel Integration docs](https://vercel.com/docs/integrations)
+- [Vercel公式サイト](https://vercel.com)
+- Vercelの[ブログ](https://vercel.com/blog)
+- [Vercelのドキュメント](https://vercel.com/docs)
+- [Vercelインテグレーションのドキュメント](https://vercel.com/docs/integrations)

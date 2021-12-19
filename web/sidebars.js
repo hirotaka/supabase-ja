@@ -184,7 +184,7 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Integrations',
+      label: 'インテグレーション',
       collapsed: false,
       items: [
         'guides/integrations/auth0',
