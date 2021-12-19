@@ -4,109 +4,109 @@ title: 'Auth0'
 description: 'Swap out Supabase authentication with Auth0. Let Auth0 handle tokens and signing users in and out, while Supabase enforces authorization policies with Row Level Security (RLS).'
 ---
 
-This guide steps through building a Next.js application with Auth0 and Supabase. We configure Auth0 to handle authenticating users and managing tokens, while writing our authorization logic in Supabase - using Row Level Security policies.
+このガイドでは、Auth0とSupabaseを使ってNext.jsのアプリケーションを構築する手順を説明します。Auth0でユーザーの認証とトークンの管理をし、Supabaseで行単位セキュリティーポリシーを使った認可ロジックを記述します。
 
-> Note: This guide is heavily inspired by the [Using Next.js and Auth0 with Supabase](https://auth0.com/blog/using-nextjs-and-auth0-with-supabase/) article on [Auth0's blog](https://auth0.com/blog/). Check it out for a practical step-by-step guide on integrating Auth0 and Supabase.
+> 注：このガイドは、[Auth0のブログ](https://auth0.com/blog/)に掲載されている[Using Next.js and Auth0 with Supabase](https://auth0.com/blog/using-nextjs-and-auth0-with-supabase/)の記事を参考にしています。Auth0とSupabaseの統合に関する実践的なステップバイステップのガイドをご覧ください。
 
-The full code example for this guide can be found [here](https://github.com/dijonmusters/supabase-auth0-example).
+このガイドの完全なコード例は[こちら](https://github.com/dijonmusters/supabase-auth0-example)にあります。
 
-[Auth0](https://auth0.com/) is an authentication and authorization platform, offering numerous strategies to authenticate and manage users. It provides fine-grain control over how users sign in to your application, the token that is generated, and what data is stored about your users.
+[Auth](https://auth0.com/)0は、認証・認可プラットフォームであり、ユーザーを認証・管理するための様々な戦略を提供します。ユーザーがアプリケーションにサインインする方法、生成されるトークン、ユーザーに関するデータの保存などを細かく制御できます。
 
-[Next.js](https://nextjs.org/) is a web application framework built on top of React. We will be using it for this example, as it allows us to write server-side logic within our application. Auth0 have also written a [very well integrated authentication library](https://www.npmjs.com/package/@auth0/nextjs-auth0) specifically for Next.js.
+[Next.js](https://nextjs.org/)は、Reactの上に構築されたWebアプリケーションフレームワークです。Next.jsは、Reactの上に構築されたWebアプリケーションフレームワークです。この例では、アプリケーション内にサーバーサイドのロジックを書くことができるため、Next.jsを使用します。Auth0は、Next.js専用に[非常によく統合された認証ライブラリ](https://www.npmjs.com/package/@auth0/nextjs-auth0)を書いています。
 
-> Note: API routes (serverless functions) in Next.js closely resemble the structure of Node server frameworks - such as Express, Koa and Fastify. The server-side logic in this guide could easily be refactored in one of these frameworks and managed as a separate application to the front-end.
+> 注：Next.jsのAPIルート（サーバーレス関数）は、Express、Koa、FastifyなどのNodeサーバーフレームワークの構造によく似ています。このガイドで紹介するサーバーサイドのロジックは、これらのフレームワークで簡単にリファクタリングでき、フロントエンドとは別のアプリケーションとして管理できます。
 
-If you don’t have an Auth0 account, create one [here](https://auth0.com/signup).
+Auth0のアカウントをお持ちでない方は、[こちらで](https://auth0.com/signup)アカウントを作成してください。
 
-You will also need a Supabase account, which can be created by signing in [here](https://app.supabase.io/).
+また、Supabaseのアカウントも必要で、[こちら](https://app.supabase.io/)からサインインして作成できます。
 
-## Step 1: Creating an Auth0 tenant
+## ステップ1：Auth0のテナントの作成
 
-From the Auth0 dashboard, click the menu to the right of the Auth0 logo, and select `Create tenant`.
+Auth0のダッシュボードから、Auth0のロゴの右にあるメニューをクリックして、`Create tenant`を選択します。
 
 ![Create tenant from Auth0 dashboard](/img/guides/integrations/auth0/IYzHxeW.png)
 
-Enter a `Domain` for your tenant - this will need to be unique.
+テナントの`ドメイン`を入力してください - これは一意である必要があります。
 
-Select a `Region` - this should be geographically close to the majority of your users.
+`地域`を選択してください - ユーザーの大半に地理的に近い地域を選択してください。
 
-Select `Development` for `Environment Tag` - this should be production when you're ready to go live.
+`環境タグ`に`Development`を選択します。本番稼動の準備ができた時点で本番稼動とします。
 
 ![Auth0 tenant settings](/img/guides/integrations/auth0/iSA3E0J.png)
 
-## Step 2: Setting up an Auth0 application
+## ステップ2：Auth0アプリケーションの設定
 
-From the sidebar menu, select `Applications` > `Applications` and click `Create Application`.
+サイドバーメニューから`Applications`→`Applications`を選択し、`Create Application`をクリックします。
 
-Give your application a name, select the `Regular Web Applications` option and click `Create`.
+アプリケーションに名前を付け、`Regular Web Applications`を選択し、`Create`をクリックします。
 
 ![Auth0 application settings](/img/guides/integrations/auth0/ANU4Wez.png)
 
-Select `Settings` and navigate to the `Application URIs` section, and update the following:
+`Settings」`を選択し、「`Application URIs`」セクションに移動して、以下を更新します。
 
-`Allowed Callback URLs`: `http://localhost:3000/api/auth/callback`
+`許可されるコールバックURL` `： http://localhost:3000/api/auth/callback`
 
-`Allowed Logout URLs`: `http://localhost:3000`
+許可される`ログアウト`URL`： http://localhost:3000`
 
-Scroll to the bottom of the `Settings` section and reveal the `Advanced Settings`.
+`設定」`セクションの一番下までスクロールし、`「詳細設定」`を表示します。
 
-Select `OAuth` and set `JSON Web Token Signature` to `RS256`.
+`OAuth`を選択し、`JSON Web Token Signature`を`RS256`に設定します。
 
-Confirm `OIDC Conformant` is `Enabled`.
+`OIDC Conformant`が`Enabled`になっていることを確認します。
 
-Click `Save` to update the settings.
+`Save`をクリックして設定を更新します。
 
-## Step 3: Creating a Supabase project
+## ステップ3： Supabaseプロジェクトの作成
 
-From your [Supabase dashboard](https://app.supabase.io/), click `New project`.
+[Supabase ダッシュボード](https://app.supabase.io/)から、`New project` をクリックします。
 
-Enter a `Name` for your Supabase project.
+Supabaseプロジェクトの`名前`を入力します。
 
-Enter a secure `Database Password`.
+安全な`データベースパスワード`を入力します。
 
-Select the same `Region` you selected for your Auth0 tenant.
+Auth0テナントで選択したのと同じ`地域`を選択します。
 
-Click `Create new project`.
+`Create new project` をクリックします。
 
 ![New Supabase project settings](/img/guides/integrations/auth0/qnmJEU7.png)
 
-## Step 4: Creating data in Supabase
+## ステップ 4: Supabase でデータを作成する
 
-From the sidebar menu in the [Supabase dashboard](https://app.supabase.io/), click `Table editor`, then `New table`.
+[Supabase ダッシュボード](https://app.supabase.io/)のサイドバーメニューから、`Table editor`、`New table`の順にクリックします。
 
-Enter `todo` as the `Name` field.
+`名前`欄に`todo`と入力します。
 
-Select `Enable Row Level Security (RLS)`.
+`RLS（Row Level Security）を有効にする`］を選択します。
 
-Create two new columns:
+2つの新しい列を作成します。
 
-- `title` as `text`
-- `user_id` as `text`
-- `is_complete` as `bool` with the default value `false`
+- `タイトル`(`テキスト`)
+- `user_id`(`テキスト`)
+- `is_complete`-`bool`（デフォルト値は`false`）
 
-Click `Save` to create the new table.
+`保存」`をクリックして、新しいテーブルを作成します。
 
 ![Todo table](/img/guides/integrations/auth0/33kqP4K.png)
 
-From the `Table editor` view, select the `todo` table and click `Insert row`.
+`テーブルエディタービュー`で`Todo`テーブルを選択し、`［行の挿入］`をクリックします。
 
-Fill out the `title` field and click `Save`.
+`タイトル`フィールドを入力し、`「保存」`をクリックします。
 
 ![New row settings](/img/guides/integrations/auth0/mEhHAWC.png)
 
-Click `Insert row` and add a couple of extra todos.
+行の`挿入」`をクリックして、いくつかのTodoを追加します。
 
 ![List of todos](/img/guides/integrations/auth0/dLOvhdq.png)
 
-## Step 5: Building a Next.js app
+## ステップ5：Next.jsアプリの構築
 
-Create a new Next.js project:
+新しいNext.jsプロジェクトを作成します。
 
 ```bash
 npx create-next-app <name-of-project>
 ```
 
-Create a `.env.local` file and enter the following values:
+`.env.local`ファイルを作成し、以下の値を入力します。
 
 ```
 AUTH0_SECRET=any-secure-value
@@ -119,29 +119,29 @@ NEXT_PUBLIC_SUPABASE_KEY=get-from-supabase-dashboard
 SUPABASE_SIGNING_SECRET=get-from-supabase-dashboard
 ```
 
-> Note: Auth0 values can be found under `Settings > Basic Information` for your application.
+> 注：Auth0の値は、`「設定」→「`アプリケーションの`基本情報`」で確認できます。
 
 ![Auth0 settings](/img/guides/integrations/auth0/o07FaoV.png)
 
-> Note: Supabase values can be found under `Settings > API` for your project.
+> 注：Supabaseの値は、プロジェクトの`「Settings」>「API」`で確認できます。
 
 ![Supabase settings](/img/guides/integrations/auth0/r1GAfLo.png)
 
-Restart your Next.js development server to read in the new values from `.env.local`.
+Next.js開発サーバーを再起動すると、`.env.local`から新しい値が読み込まれます。
 
 ```bash
 npm run dev
 ```
 
-## Step 5: Install Auth0 Next.js library
+## ステップ5: Auth0 Next.jsライブラリのインストール
 
-Install the `@auth0/nextjs-auth0` library.
+`@auth0/nextjs-auth0`ライブラリをインストールします。
 
 ```bash
 npm i @auth0/nextjs-auth0
 ```
 
-Create a new file `pages/api/auth/[...auth0].js` and add:
+新しいファイル`pages/api/auth/[...auth0].js`を作成し、追加します。
 
 ```jsx
 // pages/api/auth/[...auth0].js
@@ -151,9 +151,9 @@ import { handleAuth } from '@auth0/nextjs-auth0'
 export default handleAuth()
 ```
 
-> Note: This will create a few API routes for us. The main ones we will use are `/api/auth/login` and `/api/auth/logout` to handle signing users in and out.
+> 注：これにより、いくつかのAPIルートが作成されます。主に使用するのは、`/api/auth/login`と`/api/auth/logout`で、ユーザーのログインとログアウトを処理します。
 
-Open `pages/_app.js` and wrap our `Component` with the `UserProvider` from Auth0:
+`pages/_app.js`を開き、Auth0の`UserProvider`で`Component`をラップします。
 
 ```jsx
 // pages/_app.js
@@ -172,7 +172,7 @@ const App = ({ Component, pageProps }) => {
 export default App
 ```
 
-Update `pages/index.js` to ensure the user is logged in to view the landing page.
+`pages/index.js`を更新して、ユーザーがランディングページを見るためにログインしていることを確認します。
 
 ```jsx
 // pages/index.js
@@ -199,33 +199,33 @@ export const getServerSideProps = withPageAuthRequired()
 export default Index
 ```
 
-> Note: `withPageAuthRequired` will automatically redirect the user to `/api/auth/login` if they are not currently logged in.
+> 注意：`withPageAuthRequired`は、ユーザーが現在ログインしていない場合、自動的に`/api/auth/login`にリダイレクトします。
 
-Test this is working by navigating to `http://localhost:3000` which should redirect you to an Auth0 sign in screen.
+これが機能しているかどうかを確認するには、`http://localhost:3000`に移動して、Auth0のサインイン画面にリダイレクトしてください。
 
 ![Auth0 sign in screen](/img/guides/integrations/auth0/xLRL7S7.png)
 
-Either `Sign up` for a new account, or click `Continue with Google` to sign in.
+新しいアカウントで`サインアップする`か、`Continue with Google`をクリックしてサインインしてください。
 
-You should now be able to view the landing page.
+これでランディングページを見ることができるはずです。
 
 ![Landing page](/img/guides/integrations/auth0/YdBKRy6.png)
 
-## Step 6: Sign Auth0 token for Supabase
+## ステップ6: Supabase用のAuth0トークンの登録
 
-Currently, neither Supabase or Auth0 allow for a custom signing secret to be set for their JWT. They also use different [signing algorithms](https://auth0.com/docs/configure/applications/signing-algorithms).
+現在のところ、SupabaseとAuth0のどちらも、JWTにカスタムの署名秘密を設定できません。また、異なる[署名アルゴリズム](https://auth0.com/docs/configure/applications/signing-algorithms)を使用しています。
 
-Therefore, we need to extract the bits we need from Auth0's JWT, and sign our own to send to Supabase.
+そのため、Auth0のJWTから必要なビットを抽出し、自分で署名してSupabaseに送信する必要があります。
 
-We can do that using Auth0's `afterCallback` function, which gets called anytime the user authenticates.
+これには、Auth0の`afterCallback`関数を使用します。
 
-Install the `jsonwebtoken` library.
+`jsonwebtoken`ライブラリをインストールします。
 
 ```bash
 npm i jsonwebtoken
 ```
 
-Update `pages/api/auth/[...auth0].js` with the following:
+`pages/api/auth/[...auth0].js`を以下のように更新します。
 
 ```jsx
 // pages/api/auth/[...auth0].js
@@ -255,17 +255,17 @@ export default handleAuth({
 })
 ```
 
-Our `payload` for the JWT will contain our user's unique identifier from Auth0 - `session.user.sub` and an expiry of 1 hour.
+JWTの`ペイロード`には、Auth0 -`session.user.sub`のユーザーの一意の識別子と、1時間の有効期限が含まれます。
 
-We are signing this JWT using Supabase's signing secret, so Supabase will be able to validate it is authentic and hasn't been tampered with in transit.
+Supabaseの署名秘密を使ってこのJWTに署名します。
 
-> Note: We need to sign the user out and back in again to run the `afterCallback` function, and create our new token.
+> 注：`afterCallback`関数を実行し、新しいトークンを作成するために、ユーザーを一旦サインアウトし、再度サインインする必要があります。
 
-Now we just need to send the token along with the request to Supabase.
+あとは、このトークンをSupabaseにリクエストと一緒に送信するだけです。
 
-## Step 7: Requesting data from Supabase
+## ステップ7： Supabaseへのデータ要求
 
-Create a new file called `utils/supabase.js` and add the following:
+`utils/supabase.js`という新しいファイルを作成し、以下の内容を追加します。
 
 ```jsx
 // utils/supabase.js
@@ -290,9 +290,9 @@ const getSupabase = (access_token) => {
 export { getSupabase }
 ```
 
-This will be our client for talking to Supabase. We can pass it an `access_token` and it will be attached to our request.
+これは、Supabaseと会話するためのクライアントになります。これに`アクセストークン`を渡せば、リクエストに添付されます。
 
-Let's load our `todos` from Supabase in our landing page!
+Supabaseから`Todos`をランディングページに読み込んでみましょう。
 
 ```jsx
 // pages/index.js
@@ -338,7 +338,7 @@ export const getServerSideProps = withPageAuthRequired()
 export default Index
 ```
 
-Alternatively, we could fetch todos on the server using the `getServerSideProps` function.
+あるいは、`getServerSideProps`関数を使ってサーバー上のTodosを取得もできます。
 
 ```jsx
 // pages/index.js
@@ -385,19 +385,19 @@ export const getServerSideProps = withPageAuthRequired({
 export default Index
 ```
 
-Either way, when we reload our application, we are still getting the empty state for todos.
+どちらにしても、アプリケーションをリロードすると、TODOの状態が空になっています。
 
 ![Empty todo list](/img/guides/integrations/auth0/XgEMwnN.png)
 
-This is because we enabled Row Level Security, which blocks all requests by default. To enable our user to select their `todos` we need to write a policy.
+これは、デフォルトですべてのリクエストをブロックする行単位セキュリティー を有効にしたためです。ユーザーが`Todos`を選択できるようにするには、ポリシーを書く必要があります。
 
-## Step 8: Write a policy to allow select
+## ステップ8: 選択を許可するためのポリシーを書く
 
-Our policy will need to know who our currently logged in user is to determine whether or not they should have access. Let's create a PostgreSQL function to extract the current user from our new JWT.
+ポリシーには、現在ログインしているユーザーが誰であるかを知り、そのユーザーにアクセス権を与えるかどうかを決定する必要があります。新しいJWTから現在のユーザーを抽出するために、PostgreSQLの関数を作りましょう。
 
-Navigate back to the Supabase dashboard, select `SQL` from the sidebar menu, and click `New query`. This will create a new query called `new sql snippet`, which will allow us to run any SQL against our Postgres database.
+Supabaseダッシュボードに戻り、サイドバーメニューから`SQL`を選択し、`New query` をクリックします。これにより、`new sql snippet`という新しいクエリが作成され、Postgresデータベースに対して任意のSQLを実行できるようになります。
 
-Write the following and click `Run`.
+以下のように記述し、`「Run」`をクリックします。
 
 ```sql
 create or replace function auth.user_id() returns text as $$
@@ -405,54 +405,54 @@ create or replace function auth.user_id() returns text as $$
 $$ language sql stable;
 ```
 
-This will create a function called `auth.user_id()`, which will inspect the `userId` field of our JWT payload.
+これにより、`auth.user_id()`という関数が作成され、JWTペイロードの`userId`フィールドを検査できます。
 
-> Note: To learn more about PostgreSQL functions, check out [our deep dive video](https://www.youtube.com/watch?v=MJZCCpCYEqk).
+> 注：PostgreSQLの関数について詳しく知りたい方は、こちら[のビデオ](https://www.youtube.com/watch?v=MJZCCpCYEqk)をご覧ください。
 
-Let's create a policy that checks whether this user is the owner of the todo.
+このユーザーがTodoの所有者であるかどうかをチェックするポリシーを作成しましょう。
 
-Select `Authentication` from the Supabase sidebar menu, click `Policies`, and then `New Policy` on the `todo` table.
+Supabaseのサイドバー メニューから`[Authentication]`を選択し、`[Policies]` をクリックして、`Todo`テーブルの`[New Policy`]をクリックします。
 
 ![Create new policy](/img/guides/integrations/auth0/M7XyhHe.png)
 
-From the modal, select `Create a policy from scratch` and add the following.
+モーダルから`Create a policy from scratch`を選択し、以下を追加します。
 
 ![Policy settings for SELECT](/img/guides/integrations/auth0/wuWz3am.png)
 
-This policy is calling the function we just created to get the currently logged in user's ID `auth.user_id()` and checking whether this matches the `user_id` column for the current `todo`. If it does, then it will allow the user to select it, otherwise it will continue to deny.
+このポリシーは、先ほど作成した関数を呼び出して、現在ログインしているユーザーのID`auth.user_id()`を取得し、これが現在の`Todo`の`user_id`列と一致するかどうかをチェックしています。一致した場合はユーザーの選択を許可し、一致しない場合は拒否し続けます。
 
-Click `Review` and then `Save policy`.
+`Review」`をクリックし、`「Save policy」`をクリックします。
 
-> Note: To learn more about RLS and policies, check out [our deep dive video](https://www.youtube.com/watch?v=Ow_Uzedfohk).
+> 注：RLSとポリシーの詳細については、[ディープダイブビデオ](https://www.youtube.com/watch?v=Ow_Uzedfohk)をご覧ください。
 
-The last thing we need to do is update the `user_id` columns for our existing `todos`.
+最後にやるべきことは、既存の`TODO`の`user_id`列を更新することです。
 
-Head back to the Supabase dashboard, and select `Table editor` from the sidebar.
+Supabaseのダッシュボードに戻って、サイドバーから`Table editor`を選択します。
 
 ![User ID null in Supabase Table Editor](/img/guides/integrations/auth0/dLOvhdq.png)
 
-Each of our `user_id` columns are set to `NULL`!
+`user_id`列がすべて`NULL`になっています。
 
-To get the ID for our Auth0 user, head over to the Auth0 dashboard, select `User Management` from the sidebar, click `Users` and select your test user.
+Auth0ユーザーのIDを取得するには、Auth0ダッシュボードに移動します。サイドバーから`「ユーザー管理」`を選択し、`「ユーザー」`をクリックして、テストユーザーを選択します。
 
 ![List of users in Auth0 dashboard](/img/guides/integrations/auth0/GdXS013.png)
 
-Copy their `user_id`.
+そのユーザーの`user_id`をコピーします。
 
 ![User ID in Auth0 dashboard](/img/guides/integrations/auth0/tbvd0Uj.png)
 
-Update each row in Supabase.
+Supabaseの各行を更新します。
 
 ![User ID set to Auth0 user](/img/guides/integrations/auth0/tPu4Tt8.png)
 
-Now when we refresh our application, we should finally see our list of `todos`!
+これで、アプリケーションを更新すると、ようやく`TODO`のリストが表示されるはずです。
 
-> Note: Check out [the repo](https://github.com/dijonmusters/supabase-auth0-example/blob/main/pages/index.js) for an example of writing new `todos` to Supabase.
+> Note: Supabaseに新しい`Todos`を書き込む例はこちら[の](https://github.com/dijonmusters/supabase-auth0-example/blob/main/pages/index.js)リポジトリをご覧ください。
 
-## Resources
+## リソース
 
-- [Auth0](https://auth0.com/) official website.
-- [Auth0 blog](https://auth0.com/blog/).
-- [Using Next.js and Auth0 with Supabase article](https://auth0.com/blog/using-nextjs-and-auth0-with-supabase/).
-- [Auth0 community](https://community.auth0.com/).
-- [Auth0 documentation](https://auth0.com/docs/).
+- [Auth](https://auth0.com/)0の公式サイト
+- [Auth0のブログ](https://auth0.com/blog/)
+- [Using Next.js and Auth0 with Supabase の記事](https://auth0.com/blog/using-nextjs-and-auth0-with-supabase/)を参照
+- [Auth0 コミュニティ](https://community.auth0.com/)
+- Auth0の[ドキュメント](https://auth0.com/docs/)
