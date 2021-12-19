@@ -1,7 +1,7 @@
 ---
 id: full-text-search
 title: "全文検索"
-description: How to use full text search in PostgreSQL.
+description: PostgreSQLでの全文検索の使い方。
 ---
 
 import Tabs from '@theme/Tabs';
@@ -13,7 +13,7 @@ Postgresには、`全文検索`クエリを処理する関数が組み込まれ�
 
 ## 準備
 
-このガイドでは、以下の例のデータを使用します。
+このガイドでは、以下の例をデータとして使用します。
 
 
 <Tabs
@@ -59,30 +59,30 @@ values
 
 ## 使用方法
 
-このガイドで取り上げる関数になります。
+このガイドで次の関数を取り上げます。
 
 ### `to_tsvector()`
 
-データを検索可能な "トークン "に変換します。`to_tsvector()`は "to text search vector "の略です。例えば、以下のようなものです。
+データを検索可能な「トークン（処理上の一単位）」に変換します。`to_tsvector()`は「to text search vector（テキスト検索文書に変換）」の略です。例えば、以下のようなものです。
 
 ```sql
 select to_tsvector("green eggs and ham")
 
--- Returns 'egg':2 'green':1 'ham':4
+-- 'egg':2 'green':1 'ham':4 を返します
 ``` 
 
-これらのトークンをまとめて "ドキュメント"と呼び、Postgresはこれを比較に使用できます。
+これらのトークンをまとめて「ドキュメント」と呼び、Postgresはこれを比較に使用できます。
 
 ### `to_tsquery()`
 
-`to_tsquery()`は "to text search query "の略で、クエリ文字列をマッチする "トークン "に変換します。
+`to_tsquery()`は「to text search query（テキスト検索問い合わせに変換）」の略で、クエリ文字列をマッチする「トークン」に変換します。
 
 
-この変換ステップは、キーワードを「ファジーマッチ」させるために重要です。 
-例えば、ユーザーが"eggs"を検索して、カラムに "egg"という値があったとしても、おそらくマッチしたものを返したくなります。
+この変換ステップは、キーワードを「曖昧にマッチ」させるために重要です。 
+例えば、ユーザーが「eggs」を検索して、カラムに「egg」という値があった場合、マッチしたものを返したくなります。
 
 
-### マッチ`@@`
+### マッチ： `@@`
 
 `@@`記号は、全文検索の「マッチ」記号です。この記号は、`to_tsvector`の結果と`to_tsquery`の結果の間で一致するものを返します。
 
@@ -129,7 +129,7 @@ final result = await client
 </Tabs>
 
 
-上の等号`(=)`は、マッチするものに対して非常に「厳密」です。フルテキスト検索では、「ハリー・ポッター」の本をすべて見つけたい場合がありますので、上記の例を書き換えることができます。
+上の等号記号（`=`）は、マッチするものに対して非常に「厳密」です。フルテキスト検索では、「Harry Potter」の本をすべて見つけたい場合がありますので、上記の例を書き換えることができます。
 
 <Tabs
 defaultValue="SQL"
@@ -170,11 +170,11 @@ final result = await client
 </TabItem>
 </Tabs>
 
-## 基本的なフルテキストクエリ
+## 基本的な全文検索クエリ
 
-### 1つの列を検索する
+### 1つの列を検索
 
-`説明文`に「`big`」という単語が含まれる`書籍`をすべて検索するには次の通りです。
+`description`に「`big`」という単語が含まれる`books`をすべて検索するには次の通りです。
 
 <Tabs
 defaultValue="SQL"
@@ -228,9 +228,9 @@ final result = await client
 </TabItem>
 </Tabs>
 
-### 複数のコラムを検索する
+### 複数の列を検索
 
-`説明文`または`タイトル`に「`little`」という単語が含まれるすべての`書籍`を検索します。
+`description`または`title`に`little`という単語が含まれるすべての`books`を検索します。
 
 <Tabs
 defaultValue="SQL"
@@ -246,7 +246,7 @@ select
 from 
   books
 where 
-  to_tsvector(description || ' ' || title) -- concat columns, but be sure to include a space to separate them!
+  to_tsvector(description || ' ' || title) -- 列を連結する際には、必ずスペースを入れて区切ってください。
   @@ to_tsquery('little');
 ```
 
@@ -261,9 +261,9 @@ where
 </TabItem>
 </Tabs>
 
-### すべての検索ワードに一致する
+### すべての検索ワードに一致
 
-`説明文`に`little`と`big`の両方の単語が含まれている`書籍`をすべて検索するには、`&`記号を使用します。
+`description`に`little`と`big`の両方の単語が含まれている`books`をすべて検索するには、`&`記号を使用します。
 
 <Tabs
 defaultValue="SQL"
@@ -282,7 +282,7 @@ from
   books
 where 
   to_tsvector(description)
-  @@ to_tsquery('little & big'); -- use & for AND in the search query
+  @@ to_tsquery('little & big'); -- 検索条件のANDに&を使います
 ```
 
 </TabItem>
@@ -318,7 +318,7 @@ final result = await client
 
 ### 任意の検索語にマッチ
 
-`説明文`に`little`または`big`のいずれかの単語が含まれている`書籍`をすべて検索するには、`｜`記号を使用します。
+`description`に`little`または`big`のいずれかの単語が含まれている`books`をすべて検索するには、`｜`記号を使用します。
 
 <Tabs
 defaultValue="SQL"
@@ -337,7 +337,7 @@ from
   books
 where 
   to_tsvector(description) 
-  @@ to_tsquery('little | big'); -- use | for OR in the search query
+  @@ to_tsquery('little | big'); -- 検索条件のORに|を使用します
 ```
 
 </TabItem>
@@ -374,15 +374,15 @@ final result = await client
 
 `big`を検索すると、`bigger`（または`bigest`など）という単語を含む結果が表示されることに注目してください。
 
-## インデックスの作成
+## インデックスを作成
 
-さて、フルテキスト検索が動作するようになったので、`インデックス`を作成してみましょう。これにより、Postgresが事前に文書を「構築」でき、クエリの実行時に文書を作成する必要がなくなります。これにより、クエリの実行がより速くなります。
+さて、全文検索が動作するようになったので、`インデックス`を作成してみましょう。これにより、Postgresが事前に文書を「構築」でき、クエリ実行時に文書を作成する必要がなくなります。これにより、クエリの実行がより速くなります。
 
 ### 検索可能な列
 
-`タイトル`と`説明の`列の検索可能なインデックスを格納するために、`books`テーブルの中に新しい列`fts`を作成しましょう。
+`title`と`description`の列の検索可能なインデックスを格納するために、`books`テーブルの中に新しい列`fts`を作成しましょう。
 
-Postgresの特別な機能である[「生成された列](https://www.postgresql.org/docs/current/ddl-generated-columns.html)」を使用して、`タイトル`と`説明の`列の値が変更されるたびにインデックスが更新されるようにします。
+Postgresの特別な機能である、[生成列](https://www.postgresql.org/docs/current/ddl-generated-columns.html)を使用して、`title`と`descriptions`の列の値が変更されるたびにインデックスが更新されるようにします。
 
 <Tabs
 defaultValue="SQL"
@@ -398,7 +398,7 @@ alter table
 add column 
   fts tsvector generated always as (to_tsvector('english', description || ' ' || title)) stored;
   
-create index books_fts on books using gin (fts); -- generate the index
+create index books_fts on books using gin (fts); -- インデックスを生成
 
 select id, fts 
 from books;
@@ -420,7 +420,7 @@ from books;
 
 ### 新しいカラムを使った検索
 
-インデックスを作成して入力したので、これまでと同じ手法で検索してみましょう。
+インデックスを作成して追加したので、これまでと同じ手法で検索してみましょう。
 
 <Tabs
 defaultValue="SQL"
@@ -474,12 +474,12 @@ final result = await client
 
 ## クエリ演算子
 
-[PostgreSQL](https://www.postgresql.org/docs/current/functions-textsearch.html)をご覧ください。「[テキスト検索関数と演算子](https://www.postgresql.org/docs/current/functions-textsearch.html)」を参照してください。ここでは、より高度な`フルテキスト`検索に使用できる、以下のような追加の問い合わせ演算子について説明します。
+次により高度な`全文検索クエリ`に使用できる演算子を紹介します。さらに学ぶには、[PostgreSQLのテキスト検索関数と演算子](https://www.postgresql.org/docs/current/functions-textsearch.html)を参照してください。
 
-### 近接記号`：<->`
+### 近接：`<->`
 
-近接記号は、一定の「距離」を隔てた用語を検索するのに便利です。
-例えば、"big"にマッチした後、"dreams"にマッチした"`big dreams`"というフレーズを検索する場合に使用します。
+近接は、一定の「距離」を隔てた用語を検索するのに便利です。
+例えば、「big」にマッチした後、「dreams」にマッチする「`big dreams`」というフレーズを検索する場合に使用します。
 
 
 <Tabs
@@ -525,7 +525,7 @@ final result = await client
 </Tabs>
 
 
-`<->`を使って、一定の距離内にある単語を探すこともできます。例えば、`「year」`と`「school」`を2語以内で検索するには、次のようにします。
+`<->`を使って、一定の距離内にある単語を探すこともできます。例えば、`year`と`school`を2語以内で検索するには、次のようにします。
 
 <Tabs
 defaultValue="SQL"
@@ -570,9 +570,9 @@ final result = await client
 </Tabs>
 
 
-### 否定`： !`
+### 否定：`!`
 
-否定記号は、検索語を含ま_ない_フレーズを見つけるために使用できます。例えば、`big`という単語を含み、`little`という単語を含まないレコードを見つけるには次の通りになります。
+否定は、検索語を含ま_ない_フレーズを見つけるために使用できます。例えば、`big`という単語を含み、`little`という単語を含まないレコードを見つけるには次の通りになります。
 
 <Tabs
 defaultValue="SQL"
@@ -619,6 +619,6 @@ final result = await client
 
 ## リソース
 
-* [PostgreSQL。テキスト検索関数と演算子](https://www.postgresql.org/docs/12/functions-textsearch.html)
+* [PostgreSQL：テキスト検索関数と演算子](https://www.postgresql.org/docs/12/functions-textsearch.html)
 
 
