@@ -1,30 +1,30 @@
 ---
 id: vercel
 title: 'Vercel'
-description: The fastest way to get up and running with an application that uses Supabase is with Vercel's Next.js starter and Supabase integration.
+description: Supabaseを使用したアプリケーションを立ち上げるには、VercelのNext.jsスターターとSupabaseのインテグレーション（統合）が最も早い方法です。
 ---
 
-このガイドでは、Vercelのダッシュボードを使って、Supabaseと統合されたNext.jsプロジェクトを作成する手順を説明します。Next.jsのスターターテンプレートを使用することで、ダッシュボードにいながらにして自動的にGitHubの新しいリポジトリにフォークできます。
+このガイドでは、Vercelのダッシュボードを使って、Supabaseと統合されたNext.jsプロジェクトを作成する手順を説明します。Next.jsのスターター・テンプレートを使用することで、ダッシュボードから離れることなく、自動的にGitHubの新しいリポジトリにフォークできます。
 
-Vercelのアカウントをお持ちでない方は、[こちらで](https://vercel.com/signup)アカウントを作成してください。
+Vercelのアカウントをお持ちでない方は、[こちら](https://vercel.com/signup)でアカウントを作成してください。
 
-## ステップ1: Supabaseプロジェクトの作成
+## ステップ1：Supabaseプロジェクトを作成
 
-このガイドでは既存のSupabaseプロジェクトを使用できますが、`Todo`デモを最初から作成するには、[Supabase](https://app.supabase.io/)に移動します。`Sign In`をクリックし、GitHubで認証してログインするか新しいアカウントを登録します。
+このガイドでは既存のSupabaseプロジェクトを使用できましたが、スクラッチから`todo`デモを作成します。まず、[Supabase](https://app.supabase.io/)に移動します。`Sign In`をクリックし、GitHubで認証してログインするか、新しいアカウントを登録します。
 
-Supabaseダッシュボードから`[New project`]をクリックし、組織を選択します。
+Supabaseダッシュボードから`New project`をクリックし、組織（organization）を選択します。
 
-> 注：最初に組織を作成する必要がある場合があります。
+> 注：最初に組織を作成する必要がある場合もあります。
 
-プロジェクトに`名前`と`パスワード`を付け、潜在的なユーザーに近い`地域`を選択し、`Create new project`をクリックします。
+プロジェクトに`name`（名前）と`password`（パスワード）を付け、潜在的なユーザーに近い`region`（地域）を選択し、`Create new project`をクリックします。
 
 ![Create a Supabase project](/img/guides/integrations/vercel/create-supabase-project.png)
 
-Supabaseはインフラストラクチャの設定に数分かかります。
+Supabaseはインフラストラクチャを設定するのに数分かかります。
 
 設定が完了したら、サイドバーメニューの`SQL Editor`を開き、`New query`をクリックします。
 
-すると、「新規クエリ」という名前の新しいSQLスニペットが作成されます。以下のコードをコピー＆ペーストし、`「実行」`をクリックします。
+すると、`New query`という名前の新しいSQLスニペットが作成されます。以下のコードをコピー＆ペーストし、`Run`をクリックします。
 
 ```sql
 create table todos (
@@ -49,35 +49,35 @@ values
   ('Install Supabase integration');
 ```
 
-これにより、新しいTodosテーブルが作成され、行レベルのセキュリティーが有効になります。データの選択と挿入のためのポリシーが追加され、いくつかの行の例が追加されます。
+これにより、新しいtodosテーブルが作成され、行単位セキュリティーが有効になります。データの選択と挿入のためのポリシーが追加され、いくつかのサンプルの行が追加されます。
 
-> 注：この例では簡単にするために、誰でも`Todos`テーブルの行`を選択`・`挿入`できるようにしています。通常、これらの操作は、ログインしたユーザーのみが実行できるようにロックされています。行レベルのセキュリティとポリシーの詳細については、[こちらのビデオ](https://www.youtube.com/watch?v=Ow_Uzedfohk)をご覧ください。
+> 注：この例では簡単にするために、誰でも`todos`テーブルの行を`select`や`insert`できるようにしています。通常、これらの操作は、ログインしたユーザーのみが実行できるようにします。行単位セキュリティーとポリシーの詳細については、[こちらのビデオ](https://www.youtube.com/watch?v=Ow_Uzedfohk)をご覧ください。
 
-## ステップ2： Vercelプロジェクトの作成
+## ステップ2：Vercelプロジェクトを作成
 
-[Vercelダッシュボード](https://vercel.com/dashboard)から`［New Project`］をクリックします。
+[Vercelダッシュボード](https://vercel.com/dashboard)から`New Project`をクリックします。
 
 ![Create new Vercel project](/img/guides/integrations/vercel/create-vercel-project.png)
 
-`Clone Template`］メニューで`［Next.js`］をクリックします。
+`Clone Template`メニューで`Next.js`をクリックします。
 
 ![Clone Next.js template](/img/guides/integrations/vercel/clone-next-js-template.png)
 
-`Create Git Repository`セクションで、`GitHub`をクリックします。`GIT SCOPE`でユーザー名を選択し、プロジェクトの名前を入力します。レポを`プライベートに`するか`パブリックに`するかを選択して、`Create`をクリックします。
+`Create Git Repository`セクションで、`GitHub`をクリックします。`GIT SCOPE`でユーザー名を選択し、プロジェクトの名前を入力します。レポジトリーを`private`（プライベート）にするか、`public`（パブリック）にするかを選択して、`Create`をクリックします。
 
 ![New GitHub repo settings](/img/guides/integrations/vercel/repo-settings.png)
 
-これで新しいGitHubリポジトリーが作成され、Next.jsのスタータープロジェクトがクローンされてコミットされ、新しいプロジェクトがビルドされてVercelにデプロイされます。
+これで新しいGitHubリポジトリーが作成され、Next.jsのスターターのプロジェクトがクローンされてコミットされます。それから、新しいプロジェクトがビルドされてVercelにデプロイされます。
 
-`Congratulations`画面にリダイレクトされたら、`Go to Dashboard` をクリックします。
+`Congratulations`画面にリダイレクトされたら、`Go to Dashboard`をクリックします。
 
-`設定` `][統合`]に移動し、`[マーケットプレイスを参照`]をクリックします。
+`Settings`から`Integrations`に移動し、`Browse Marketplace`をクリックします。
 
-`Supabase`を検索し、Supabaseインテグレーションをクリックします。
+`Supabase`を検索し、Supabaseのインテグレーションをクリックします。
 
 ![Supabase integration](/img/guides/integrations/vercel/supabase-integration.png)
 
-`インテグレーションの追加`をクリックします。`Vercel Scope`のドロップダウンからお客様のアカウントを選択し、`続行`をクリックします。
+`Add Integration`をクリックします。`Vercel Scope`のドロップダウンからアカウントを選択し、`CONTINUE`をクリックします。
 
 ![Choose scope](/img/guides/integrations/vercel/choose-scope.png)
 
@@ -85,11 +85,11 @@ values
 
 ![Choose project](/img/guides/integrations/vercel/choose-project.png)
 
-Supabaseポップアップから、ドロップダウンから新しいVercelプロジェクトとSupabaseプロジェクトを選択します。
+Supabaseポップアップのドロップダウンから新しいVercelプロジェクトとSupabaseプロジェクトを選択します。
 
 ![Supabase integration](/img/guides/integrations/vercel/link-vercel-to-supabase.png)
 
-## ステップ4：GitHubリポジトリのクローン作成
+## ステップ4：GitHubリポジトリをクローン
 
 このプロジェクトをローカルで実行するには、Vercelが作成したリポジトリをクローンするのが一番早い方法です。
 
@@ -101,7 +101,7 @@ Vercelプロジェクトの`Overview`ページに戻り、`View Git Repository`�
 
 ![GitHub repo url](/img/guides/integrations/vercel/github-project-url.png)
 
-ターミナルウィンドウまたはCLIを開き、以下のコマンドを実行してGitHubリポジトリをクローンします。
+ターミナルウィンドウまたはCLIを開き、以下のコマンドを実行してGitHubリポジトリーをクローンします。
 
 ```bash
 git clone your-repo-url.git
@@ -123,9 +123,9 @@ export default function Home() {
 npm run dev
 ```
 
-`http://localhost:3000`にアクセスして、プロジェクトが「動作中」であることを確認します。
+`http://localhost:3000`にアクセスして、プロジェクトが動作することを確認します。
 
-## ステップ4： Vercelから環境変数を引き出す
+## ステップ4：Vercelから環境変数を引き出す
 
 まず、VercelのCLIツールを使ってVercelにログインする必要があります。
 
@@ -137,9 +137,9 @@ npx vercel login
 
 次に、`Continue with GitHub`を選択してVercelを認証する必要があります。
 
-すると、ブラウザウィンドウが開き、GitHubアカウントで認証する必要があります。
+すると、ブラウザウィンドウが開き、GitHubアカウントで認証します。
 
-次に、Vercelプロジェクトをリンクする必要があります。
+次に、Vercelプロジェクトをリンクします。
 
 ```bash
 npx vercel link
@@ -157,9 +157,9 @@ npx vercel env pull
 
 Supabaseの環境変数を含む`.env`ファイルが作成されます。このファイルの名前を`.env.local`に変更し、gitから自動的に無視するようにします。
 
-## ステップ5: Supabase.jsのインストール
+## ステップ5：Supabase.jsをインストール
 
-`Supabase-js`ライブラリをインストールします。
+`supabase-js`ライブラリをインストールします。
 
 ```bash
 npm i @supabase/supabase-js
@@ -200,7 +200,7 @@ export default ({ reload }) => {
 }
 ```
 
-このコンポーネントは、Supabaseに新しい`Todo`を書き込む役割を果たします。
+このコンポーネントは、Supabaseに新しい`todo`を書き込む役割を果たします。
 
 `pages/index.js`に新しいコンポーネントをインポートして、Todoのリストを表示してみましょう。
 
@@ -236,6 +236,6 @@ export default function Home() {
 ## リソース
 
 - [Vercel公式サイト](https://vercel.com)
-- Vercelの[ブログ](https://vercel.com/blog)
-- [Vercelのドキュメント](https://vercel.com/docs)
+- [Vercelブログ](https://vercel.com/blog)
+- [Vercelドキュメント](https://vercel.com/docs)
 - [Vercelインテグレーションのドキュメント](https://vercel.com/docs/integrations)
