@@ -1,153 +1,150 @@
 ---
 id: draftbit
 title: 'Draftbit'
-description: 'Connect your Supabase postgres database to your Low-code mobile app.'
+description: 'Supabaseのpostgresデータベースを、ローコードモバイルアプリに接続します。'
 ---
-
 このガイドでは、SupabaseのバックエンドとDraftbitのフロントエンドを接続し、簡単なモバイルアプリを構築するために必要なCRUD操作を設定する方法を説明します。
 
 [Draftbit](https://draftb.it/3Fkbask)は、「プロコード」と呼ばれるローコードのモバイルアプリ構築プラットフォームです。Draftbitは、100%オープンソースの言語とライブラリーで動作するReact Nativeのソースコードをエクスポートします。
 
 Draftbitはバックエンドに依存せず、REST APIを介してSupabaseに接続します。
 
-> 注意：このガイドのデモンストレーションでは、Supabaseにあらかじめ入力されているデータベースを使用します。`Groceries`と呼んでいます。お好きなように名前を変えてみてください。
+> 注意：このガイドのデモンストレーションでは、Supabaseにあらかじめ入力されているデータベースを使用します。`Groceries`（雑貨）と呼んでいます。お好きなように名前を変えてみてください。
 
 ![Prepopulated Database](/img/guides/integrations/draftbit/prepopulated-database.png)
 
-Draftbitのアカウントをお持ちでない方は、[こちらで](https://draftb.it/3Fkbask)アカウントを作成してください。アカウントを作成したら、「Create a New App」をクリックします。このデモでは「`Start From a Blank App`」を選択して、Builderのインターフェースに進みます。
+Draftbitのアカウントをお持ちでない方は、[こちら](https://draftb.it/3Fkbask)でアカウントを作成してください。アカウントを作成したら、「Create a New App」をクリックします。このデモでは`Start From a Blank App`を選択して、Builderインターフェースに進みます。
 
-## ステップ1：RESTfulエンドポイントとProject APIキーの取得
+## ステップ1：RESTfulエンドポイントとProject APIキーを取得
 
 DraftbitアプリでREST APIを接続するには、以下のフィールドが必要です。
 
-- REST APIのベースURLは、`https://.supabase.co/rest/v1`の形式で、`<your-domain>`はSupabaseが生成するユニークなドメイン名です。
+- REST APIのベースURLは、`https://<your-domain>.supabase.co/rest/v1`の形式になります。`<your-domain>`（自身のドメイン）はSupabaseが生成するユニークなドメイン名です。
 - `supabase-key`は秘密鍵です。
 
 これらの固有値は、SupabaseアカウントのAPI設定で確認できます。
 
 - トップメニューバーの「Settings」ボタンをクリックします。
-- 「設定」で**「API」**を選択します。
-- 「Project API Keys」のセクションで、`anon`にあるAPIキーを選択してコピーします。Supabaseのデータベースにリクエストを行う際に必要となります。
-- また、`「Config」`の下にある「URL」を選択してコピーします。これは、Supabase REST APIのベースURLです。Draftbitアプリに接続する際必要となります。
+- 「Settings」で**API**を選択します。
+- 「Project API Keys」セクションで、`anon`にあるAPIキーを選択してコピーします。Supabaseのデータベースにリクエストを行う際に必要となります。
+- また、`Config`の下にある「URL」を選択してコピーします。これは、Supabase REST APIのベースURLです。Draftbitアプリへ接続する際に必要となります。
 
 ![Get Supabase connection string](/img/guides/integrations/draftbit/endpoint.png)
 
-## Step 2: Supabase API keyをDraftbitのAuthorization Headerとして保存する
+## ステップ2：Supabase APIキーをDraftbitのAuthorization Headerとして保存
 
-Supabseを使ってDraftbitアプリを認証するには、ビルダーインターフェイスで、以下の手順を行います。
+Supabseを使ってDraftbitアプリを認証するには、Builderインターフェイスで、以下の手順を行います。
 
-- トップメニューバーから**「Settings**」タブを開きます。
+- トップメニューバーから**Settings**タブを開きます。
 - Project Settingsで、App Variablesに移動します。
-- API Keyにアクセスするための名前（`Authorization_Header`など）を入力します。次のセクションでサービス接続を行う際に、ヘッダ`Authorization`の値として渡されます。
-- このキーの値には、syntax` Bearer  `で始まる認証トークンを入力する必要があります（`Bearer`と``の間にはスペースが必要です）。値を追加したら**［追加］**をクリックします。
+- API Keyにアクセスするための名前（`Authorization_Header`など）を入力します。次のセクションでサービス接続を行う際に、ヘッダの`Authorization`の値として渡されます。
+- このキーの値には、`Bearer <your-api-key>`（`Bearer`と`<your-api-key>`の間にはスペースが必要です）形式で始まる認証トークンを入力する必要があります。値を追加したら**Add**をクリックします。
 - APIキーにアクセスするための別のキー名（`Api_Key_Header`など）を入力します。次のセクションでサービス接続を行う際に、ヘッダーの`apiKey`の値として渡されます。
-- このキーの値には、syntax is``で始まる認証トークンを入力する必要があります。値を追加したら**［追加］**をクリックします。
+- このキーの値には、`<your-api-key>`形式で始まる認証トークンを入力する必要があります。値を追加したら**Add**をクリックします。
 - **Save**をクリックしてこれらのキーを保存し、モーダルを閉じます。
 
 ![Add header values in Draftbit](/img/guides/integrations/draftbit/authheader.png)
 
-## ステップ3：DraftbitでSupabase RESTfulエンドポイントを追加する
+## ステップ3：DraftbitでSupabase RESTfulエンドポイントを追加
 
-Draftbitのビルダーインターフェイスです。
+DraftbitのBuilderインターフェイスで次を行います。
 
 - トップメニューバーから**API & Cloud Services**モーダルを開きます。
-
 - **Connect a service**メニューから、**Rest API**をクリックします。
 
-- ステップ1では、REST APIの名前を入力します。次に、Base URLフィールドに`Base URL`（最初のセクションのもの）を貼り付けます。
+- Step 1では、REST APIの名前を入力します。次に、Base URL欄に`Base URL`（最初のセクションのもの）を貼り付けます。
+- Step 2では、**Key**の下に`Authorization`と`apikey`を追加します。次に、**Value**の下で、（前のセクションで説明した）グローバル変数を選択します。両方のキーに実際の値を追加します。
 
-- ステップ2では、**「Key」**の下に`Authorization`と`apikey`を追加します。次に、**「Value」**の下で、（前のセクションで説明した）グローバル変数を選択します。両方のキーの実際の値を追加します。
-
-- 「保存」をクリックします。
+- Saveをクリックします。
 
 ![Create a API service in Draftbit](/img/guides/integrations/draftbit/service.png)
 
-## SupabaseとDraftbitによるAPIリクエストの作成
+## SupabaseとDraftbitによるAPIリクエストを作成
 
 ### 全レコードを取得するGETリクエスト
 
 ここでは、SupabaseのデータをFetchコンポーネントに取り込み、Supabaseのデータテーブルから取得したデータをListコンポーネントに表示してみます。
 
-参考までに、この画面でのコンポーネントツリーの表示方法を示します。
+参考までに、この画面のComponentsでの表示は次のようになります。
 
 ![Components tree](/img/guides/integrations/draftbit/ctree.png)
 
-次のステップでは、エンドポイントを作成します。ここでは、`GET`HTTPリクエストを使用してすべてのデータを取得してみます。**API & Cloud Services**モダルでSupabaseサービスを選択し、「Add endpoint」をクリックします。
+次のステップでは、エンドポイント（Endpoint）を作成します。ここでは、`GET` HTTPリクエストを使用してすべてのデータを取得します。**API & Cloud Services**モーダルでSupabaseサービスを選択して、次の手順を行います。
 
-- **エンドポイントの追加**をクリックします。
-- ステップ1では、エンドポイントの名前を入力します。**Method**selectが`GET`であることを確認します。
-- ステップ2では、ベースネームのパスを追加します。`/groceries/select=* （` `groceries`はSupabaseのテーブル名）を追加します。
-- Step 4: Endpoint入力の横にある**Test**ボタンをクリックして、Supabaseからのレスポンスを確認します。
-- 「保存」をクリックします。
+- **Add endpoint**をクリックします。
+- Step 1では、Endpointの名前を入力します。**Method**で`GET`が選択されていることを確認します。
+- Step 2では、ベースになるパス、`/groceries/select=*`を追加します。ここで`groceries`はSupabaseのテーブル名になります。
+- Step 4では、Endpoint入力の横にある**Test**ボタンをクリックして、Supabaseからのレスポンスを確認します。
+- Saveをクリックします。
 
 ![Creating a GET request endpoint](/img/guides/integrations/draftbit/get-request.gif)
 
-Builderで、アプリ画面に表示されます。
+Builderの、アプリ画面で次を行います。
 
-- コンポーネントツリーでFetchコンポーネントを選択し、プロパティパネルからデータタブに移動します。
-- **Service** にSupabase Serviceの名前を選択します。
-- **エンドポイント**で、データをフェッチするエンドポイントを選択します。
-- コンポーネントツリーでリストコンポーネントを選択し、プロパティパネルからデータタブに移動します。「データ」では、ドロップダウンメニューから「`トップレベルレスポンス`」を選択します。
-- 次に、「コンポーネント」で「テキスト」コンポーネントを選択し、「プロパティパネル」から「データ」タブを開きます。
-- Supabaseのカラムフィールドを表す`{{varName}}`値（中括弧の中）を追加します。例えば、Supabase Baseからの列名を表すために`{{title}}`を追加します。
+- ComponentsでFetchコンポーネントを選択し、[プロパティパネルからデータタブ](doc:introduction-to-the-builder#properties-panel)に移動します。
+- **Service**にSupabaseのサービス名を選択します。ここでは「Groceries (REST)」を選択します。
+- **Endpoint**で、データを取得するエンドポイントを選択します。
+- ComponentsでListコンポーネントを選択し、[プロパティパネルからデータタブ](doc:introduction-to-the-builder#properties-panel)に移動します。Dataでは、ドロップダウンメニューから`Top-Level Response`を選択します。
+- 次に、ComponentsでTextコンポーネントを選択し、プロパティパネルからデータタブを開きます。
+- Supabaseのカラムフィールドを表す`{{varName}}`値（中括弧の中）を追加します。例えば、Supabaseからの列名を表すために`{{title}}`を追加します。
 - **Variables**の下に、前のステップで定義した変数名が表示されます。ドロップダウンメニューから、データフィールドを表す適切なフィールドを選択します。
 
 ![Fetching data on app screen](/img/guides/integrations/draftbit/fetchall.gif)
 
-### 単一の行を取得するためのGETリクエスト
+### 単一の行を取得するGETリクエスト
 
-トップメニューから「**API & Cloud services**」モーダルを開き、Supabaseサービスを選択します。
+トップメニューから**API & Cloud services**モーダルを開き、Supabaseサービスを選択します。
 
-- **エンドポイントの追加**をクリックします。
-- ステップ1では、エンドポイントの名前を入力します。
-- ステップ2では、`/groceries/column-name=eq.`Kelsieの変数を追加します。`{{column-name}}`変数を追加します。次に、`{{column-name}}`のTest値を追加します。例えば、`タイトル`や`id`などです。
-- ステップ4： Endpoint入力の横にある**Test**ボタンをクリックして、Supabaseからの応答を確認します。
+- **Add endpoint**をクリックします。
+- Step 1では、エンドポイントの名前を入力します。
+- Step 2では、`/groceries/column-name=eq.{{column-name}}`変数を追加します。`{{column-name}}`変数を追加します。次に、`{{column-name}}`のテスト用の値を追加します。例えば、`title`や`id`などを入力します。
+- Step 4では、Endpoint入力の横にある**Test**ボタンをクリックして、Supabaseからのレスポンスを確認します。
 - Saveをクリックします。
 
 ![Creating endpoint to fetch a single row](/img/guides/integrations/draftbit/getsingle.gif)
 
-アプリの画面です。
+アプリの画面で次を行います。
 
-- コンポーネントツリーでFetchコンポーネントを選択し、プロパティパネルのデータタブに移動します。
-- **Service**にはSupabase Serviceの名前を選択します。
-- **エンドポイント**には、データを取得するエンドポイントを選択します。
-- 構成］\[URL構造］セクションの`id`の値を \[ナビゲーション］\[id]に設定します。
-- 「コンポーネント」で「リスト」コンポーネントを選択し、「プロパティパネル」から「データ」タブを開きます。「データ」で、ドロップダウンメニューから「`トップレベルレスポンス`」を選択します。
-- 次に、「コンポーネント」の中の「テキスト」コンポーネントを選択し、「プロパティパネル」から「データ」タブを開きます。
+- Componentsで、Fetchコンポーネントを選択し、プロパティパネルのデータタブに移動します。
+- **Service**にはSupabaseサービス名を選択します。
+- **Endpoint**には、データを取得するエンドポイントを選択します。
+- Configuration → URL StructureセクションからNavigation → idに移動して、`id`の値を設定します。
+- Compoenntsで、Listコンポーネントを選択し、プロパティパネルからデータタブを開きます。Dataで、ドロップダウンメニューから`Top-Level Response`を選択します。
+- 次に、Compoentsで、Textコンポーネントを選択し、プロパティパネルからデータタブを開きます。
 - Supabaseのカラムフィールドを表す`{{varName}}`値（中括弧の中）を追加します。例えば、Supabaseのデータテーブルからフィールドと値を表すために`{{title}}`を追加します。
 - **Variables**の下に、前のステップで定義した変数名が表示されます。ドロップダウンメニューから、データフィールドを表す適切なフィールドを選択します。
 
 ![Displaying data from single row](/img/guides/integrations/draftbit/fetchsingle.png)
 
-### 新しい行を送信するためのPOSTリクエスト
+### 新しい行を送信するPOSTリクエスト
 
-DraftbitアプリからSupabaseのREST APIに新しいDataをサブミットするには、HTTP`POST`メソッドを使ってリクエストを送信する必要があります。
+DraftbitアプリからSupabaseのREST APIに新しいデータをサブミットするには、HTTPの`POST`メソッドを使ってリクエストを送信する必要があります。
 
-このセクションでは、Supabase REST APIを使用してデータをPOSTします。ユーザーの入力を受け付け、Field Name propを持つコンポーネントを1つ以上使用する必要があります。
+このセクションでは、Supabase REST APIを使用してデータをPOSTします。ユーザーの入力を受け付け、Field Name属性を持つコンポーネントを1つ以上使用する必要があります。
 
 Draftbitでは、以下のコンポーネントのいずれかを使用できます。
 
-- テキスト入力
-- テキストエリア/テキストフィールド
-- チェックボックス
-- スライダー
-- ラジオボタングループ
-- ラジオボタン
+- テキスト入力（Text Input）
+- テキストエリア/テキストフィールド（Text Area/Text Field）
+- チェックボックス（Checkbox）
+- スライダー（Slider）
+- ラジオボタングループ（Radio Button Group）
+- ラジオボタン（Radio Button）
 
 さらに、POSTアクションをアタッチするために、ButtonなどのTouchableコンポーネントが必要です。これらのコンポーネントを作成した後、`POST`エンドポイントを作成します。
 
-- **Add endpoint**］をクリックします。
-- ステップ1では、エンドポイントの名前を入力し、「Method to`POST`」を選択します。
-- ステップ2では、ベース名をpathとして入力します。`/groceries`と入力します。
-- ステップ3では、POSTリクエストを送信するための有効なBody構造を追加します。テスト値として1つまたは複数の`{{variable}}`を追加します。「Body Preview」をクリックして、リクエスト内のBodyの構造を確認します。この例では、`{{inputValue}}` という変数を作成してみましょう。
-- ステップ4: Supabaseデータテーブルに追加された新しい行をJSONレスポンスとしてBuilder内で確認します。`Prefer`という新しいヘッダーをその値を`return=representation`として渡す必要があります。
-- Step 5: Endpoint入力の横にある**Test**ボタンをクリックして、Supabaseからのレスポンスを確認し、Saveをクリックします。
+- **Add endpoint**をクリックします。
+- Step 1では、Endpointの名前を入力し、Methodに`POST`を選択します。
+- Step 2では、ベースになるパスを入力します。`/groceries`と入力します。
+- Step 3では、POSTリクエストを送信するための有効な造を追加します。テスト値として1つまたは複数の`{{variable}}`を追加します。Body Previewをクリックして、リクエスト内のボディーの構造を確認します。この例では、`{{inputValue}}`という変数を作成してみます。
+- Step 4では、Supabaseデータテーブルに追加された新しい行をJSONレスポンスとしてBuilder内で確認します。`Prefer`という新しいヘッダーに、`return=representation`を値として一緒に渡す必要があります。
+- Step 5では、Endpoint入力の横にある**Test**ボタンをクリックして、Supabaseからのレスポンスを確認し、Saveをクリックします。
 
 ![Make a POST request to add new data to Supabase database](/img/guides/integrations/draftbit/postrequest.gif)
 
-上記の手順を実行すると、スキーマに入力したJSONとして正確に新しいレコードを含む200 OKレスポンスが得られるはずです。
+上記の手順を実行すると、スキーマに入力したJSONとして正確に新しいレコードを含む200番のOKレスポンスが得られるはずです。
 
-リクエストのBodyの例は次のようになります。
+リクエストのボディーの例は次のようになります。
 
 ```json
 {
@@ -155,80 +152,80 @@ Draftbitでは、以下のコンポーネントのいずれかを使用できま
 }
 ```
 
-`title`はSupabaseデータベースのテーブルのカラム名です。
+`title`はSupabaseデータベースのテーブルのカラム名になります。
 
 Draftbitでは、TouchableやButtonコンポーネントを使って、**API Request**というアクションを起こし、エンドポイントにデータを送信できます。
 
 これで、Draftbitに`POST`リクエストができました。そのレスポンスをDraftbitの画面上のコンポーネントにマッピングします。
 
-まず、各入力コンポーネントについて、フィールド名（Configsタブの左から2番目）がユニークな値に設定されていることを確認します。例えば、下の画面では、TextInputフィールドコンポーネントが1つあり、`Field Name`のpropの値が`textInputValue`になっています。
+まず、各入力コンポーネントについて、フィールド名（Configsタブの左から2番目）がユニークな値に設定されていることを確認します。例えば、下の画面では、TextInputフィールドコンポーネントが1つあり、`Field Name`属性の値が`textInputValue`になっています。
 
 ![Field Name prop on a TextInput component](/img/guides/integrations/draftbit/textinput.png)
 
-次に、Buttonコンポーネントで、右端にあるPropertiesパネルのInteractionsタブを開きます。`APIリクエスト`というアクションを選択します。
+次に、Buttonコンポーネントで、右端にあるプロパティパネルのインタラクションタブを開きます。`API request`というActionを選択します。
 
-APIリクエストのアクションです。
+APIリクエストのアクションで次を行います。
 
-- **サービス**で、Supabase API Serviceの名前を選択します。
+- **Service**で、Supabase APIのサービス名を選択します。
 - **Endpoint**では、エンドポイントの名前を選択します。
-- 次に、`{{inputValue}}`の値を選択して、送信するボディリクエストの設定を追加します。
+- 次に、`{{inputValue}}`の値を選択して、送信するクエストの設定を追加します。
 
 ![Setting up the API Request to send a POST request](/img/guides/integrations/draftbit/postapirequest.png)
 
-以上の手順で、Supabaseデータベースに新しいデータを送信するためのAPIリクエストを起動できます。
+以上の手順で、Supabaseデータベースに新しいデータを送信するためのAPIリクエストを動作できます。
 
-### 新しいレコードを更新するためのPATCHリクエスト
+### 新しいレコードを更新するPATCHリクエスト
 
-DraftbitアプリからSupabaseのREST APIに既存のレコードを更新するには、HTTP`PATCH`メソッドを使ってリクエストを送信する必要があります。
+DraftbitアプリからSupabaseのREST APIに既存のレコードを更新するには、HTTPの`PATCH`メソッドを使ってリクエストを送信する必要があります。
 
-Draftbitビルダーで画面コンポーネントを作成した後、Supabaseサービスを開き、`PATCH`エンドポイントを作成します。
+DraftbitのBuilderで画面コンポーネントを作成した後、Supabaseサービスを開き、`PATCH`エンドポイントを作成します。
 
-- **エンドポイントの追加**をクリックします。
-- ステップ1では、エンドポイントの名前を入力し、Method to`PATCH`を選択します。
-- ステップ2では、ベース名をパスとして入力します。`/groceries?id=eq.Shoes」と入力します。{{id}}`と入力します。ここで、`id`はデータベース内の既存レコードの値です。
-- ステップ3では、PATCHリクエストを送信するための有効なBody構造を追加します。アプリの構造に応じて、テスト値用に1つまたは複数の`{{variable}}`を追加します。「Body Preview」をクリックして、リクエスト内のBodyの構造を検証します。この例では、`{{inputValue}}` という変数を作成してみましょう。
-- ステップ5： Endpoint入力の横にある**Test**ボタンをクリックして、Supabaseから来るレスポンスを確認し、Saveをクリックします。
+- **Add endpoint**をクリックします。
+- Step 1では、Endpointの名前を入力し、Methodには`PATCH`を選択します。
+- Step 2では、ベース名をパスとして入力します。`/groceries?id=eq.{{id}}`と入力します。ここで、`id`はデータベース内の既存レコードの値です。
+- Step 3では、PATCHリクエストを送信するための有効なボディー構造を追加します。アプリの構造に応じて、テスト値用に1つまたは複数の`{{variable}}`を追加します。Body Previewをクリックして、リクエスト内のボディーの構造を検証します。この例では、`{{inputValue}}`という変数を作成しています。
+- ステップ5では、Endpoint入力の横にある**Test**ボタンをクリックして、Supabaseから来るレスポンスを確認し、Saveをクリックします。
 
 ![Creating an endpoint for PATCH request](/img/guides/integrations/draftbit/patch.gif)
 
-次に、Buttonコンポーネントで、右端にあるPropertiesパネルのInteractionsタブに移動します。`APIリクエスト`というアクションを選択します。
+次に、Buttonコンポーネントで、右端にあるプロパティパネルのインタラクションタブに移動します。`API request`というアクションを選択します。
 
-APIリクエストのアクションです。
+APIリクエストのアクションで次を行います。
 
-- **Service**で、Supabase API Serviceの名前を選択します。
-- **エンドポイント**では、エンドポイントの名前を選択します。
-- 次に、クエリパラメーターの設定と、`{{inputValue}}`の値を選択して送信するボディリクエストを追加します。
+- **Service**で、Supabase APIサービス名を選択します。
+- **Endpoint**では、エンドポイントの名前を選択します。
+- 次に、クエリパラメーターの設定と、`{{inputValue}}`の値を選択して送信するクエストを追加します。
 
 ![Setting up the API Request to send a PATCH request](/img/guides/integrations/draftbit/patchapirequest.png)
 
 以上の手順で、Supabaseデータベースの既存データを更新するためのAPIリクエストを実行できます。
 
-### 既存のレコードを削除する DELETE リクエスト
+### 既存のレコードを削除するDELETEリクエスト
 
-`DELETE`リクエストは、Supabaseのテーブルから特定のレコードを削除するために、アイテムの`カラム`名を指定してSupabaseに送信します。Supabase[からフィルター](https://supabase.io/docs/reference/javascript/using-filters)を使用して、特定のカラム`名`の値をフィルタリングできます。
+`DELETE`リクエストは、Supabaseのテーブルから特定のレコードを削除するために、項目の`column-name`を指定してSupabaseに送信します。[Supabaseが提供しているフィルター](https://supabase.io/docs/reference/javascript/using-filters)を使用して、特定の`column-name`の値をフィルターできます。
 
-Draftbitビルダーで画面コンポーネントを作成した後、Supabaseサービスを開き、`DELETE`エンドポイントを作成します。
+DraftbitのBuilder画面でコンポーネントを作成した後、Supabaseサービスを開き、`DELETE`エンドポイントを作成します。
 
-- **エンドポイントの追加**をクリックします。
-- ステップ1では、エンドポイントの名前を入力し、Methodを`DELETE`に選択します。
-- ステップ2では、`/groceries/columnName=eq.{{columnName}}`を追加します。次に、`{{columnName}}`のTest値を追加します。例えば、ここでの`{{columnName}}`はレコードの`id`とできます。
-- ステップ4： Endpoint入力の横にある**Test**ボタンをクリックして、Supabaseからの応答を確認します。
-- 「保存」をクリックします。
+- **Add endpoint**をクリックします。
+- Step 1では、エンドポイントの名前を入力し、Methodに`DELETE`を選択します。
+- Step 2では、`/groceries/columnName=eq.{{columnName}}`を追加します。次に、`{{columnName}}`にテスト用の値を追加します。例えば、ここでの`{{columnName}}`はレコードの`id`とできます。
+- ステップ4では、Endpoint入力の横にある**Test**ボタンをクリックして、Supabaseからのレスポンスを確認します。
+- Saveをクリックします。
 
 ![Creating an endpoint for DELETE request](/img/guides/integrations/draftbit/delete.gif)
 
-次に、Buttonコンポーネントで、右端にあるプロパティパネルの「Interactions」タブに移動します。`APIリクエスト`というアクションを選択します。
+次に、Buttonコンポーネントで、右端にあるプロパティパネルのインタラクションタブに移動します。`API request`というアクションを選択します。
 
-APIリクエストのアクションです。
+APIリクエストのアクションで次を行います。
 
 - **Service**で、Supabase API Serviceという名前を選択します。
 - **Endpoint**では、エンドポイントの名前を選択します。
-- 次に、値を選択して、送信するクエリリクエストの設定を追加します。例えば、ここではNavigationパラメーターから得られるレコードの`ID`を指定します。
+- 次に、値を選択して、送信するクエリリクエストの設定を追加します。例えば、ここではNavigationパラメーターから得られるレコードの`id`を指定します。
 
 ![Setting up the API Request to send a DELETE request](/img/guides/integrations/draftbit/deleteapirequest.gif)
 
 ## リソース
 
-- [Draftbit](https://draftb.it/3Fkbask)の公式サイト
-- Draftbitの[コミュニティ](https://community.draftbit.com/home)
-- [Draftbit](https://docs.draftbit.com/)のドキュメント
+- [Draftbit](https://draftb.it/3Fkbask)公式サイト
+- [Draftbitコミュニティ](https://community.draftbit.com/home)
+- [Draftbit](https://docs.draftbit.com/)ドキュメント
