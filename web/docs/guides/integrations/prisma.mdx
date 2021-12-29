@@ -1,30 +1,31 @@
 ---
 id: prisma
 title: 'Prisma'
-description: 'Connect your Supabase postgres database to your Prisma project.'
+description: 'Supabaseのpostgresデータベースを、Prismaプロジェクトに接続します。'
 ---
 
 このガイドでは、Supabaseが提供するPostgresデータベースを、Prismaプロジェクトに素早く接続する方法を説明します。
 
-[Prisma](https://prisma.io)は、[オープンソースの](https://github.com/prisma/prisma)次世代ORMです。以下のパーツで構成されています。
+[Prisma](https://prisma.io)は、[オープンソース](https://github.com/prisma/prisma)の次世代ORMです。以下のパーツで構成されています。
 
-- **Prismaクライアント**。Prisma Client: Node.jsおよびTypeScript用の、自動生成されたタイプセーフなクエリビルダです。
-- **Prisma Migrate**。マイグレーションシステム。
-- Prisma**Studio**：Prisma Studio。データベースのデータを閲覧・編集するためのGUIです。
+- **Prisma Client**：Node.jsおよびTypeScript用の、自動生成とタイプセーフなクエリビルダ
+- **Prisma Migrate**：マイグレーションシステム
+- **Prisma Studio**：データベースのデータを閲覧、編集するためのGUI
 
-## ステップ1： Supabaseプロジェクトの設定から接続文字列を取得する
+## ステップ1：Supabaseプロジェクトの設定から接続文字列を取得
 
-サイドバーから設定ページに移動し、**「データベース**」タブに移動します。データベースの接続文字列と、プロジェクトの作成時に入力したパスワードのプレースホルダーが表示されます。![Getting the connection string](/img/guides/integrations/prisma/zntcsh3ic91gf1gy8j73.png)
+サイドバーから**Settings**ページに移動し、**Database**タブに移動します。データベースの接続文字列と、プロジェクトの作成時に入力したパスワードのプレースホルダーが表示されます。
+![Getting the connection string](/img/guides/integrations/prisma/zntcsh3ic91gf1gy8j73.png)
 
-## ステップ2： 接続のテスト
+## ステップ2：接続をテスト
 
 すべてが正しく動作していることを確認するために、接続文字列をPrismaプロジェクトで試してみましょう。
 
-既にプロジェクトをお持ちの場合は、`.env`ファイルの`DATABASE_`URLに接続文字列（パスワードを含む）を設定するだけで、すぐに使用できます。
+既にプロジェクトをお持ちの場合は、`.env`ファイルの`DATABASE_URL`に接続文字列（パスワードを含む）を設定するだけで、すぐに使用できます。
 
-Prismaプロジェクトを持っていない場合や、初めてPrismaを使う場合は、[クイックスタート](https://www.prisma.io/docs/getting-started/quickstart)ガイドのレポを使用します。
+Prismaプロジェクトを持っていない場合や、初めてPrismaを使う場合は、[クイックスタート](https://www.prisma.io/docs/getting-started/quickstart)ガイドのリポジトリーを使用します。
 
-### スタータープロジェクトのクローン作成
+### スタータープロジェクトをクローンして作成
 
 任意のディレクトリーに移動し、Windowsマシンの場合はターミナルで以下のコマンドを実行してください。
 
@@ -38,23 +39,23 @@ curl https://pris.ly/quickstart -L -o quickstart-master.tar.gz && tar -zxvf quic
 curl -L https://pris.ly/quickstart | tar -xz --strip=2 quickstart-master/typescript/starter
 ```
 
-これで、そのディレクトリーに移動して、プロジェクトの依存関係をインストールできます。
+それから、作成されたディレクトリーに移動して、プロジェクトの依存関係をインストールします。
 
 ```bash
 cd starter && npm install
 ```
 
-### プロジェクトの構造を見る
+### プロジェクトの構造を確認
 
 このプロジェクトは、TypeScriptが設定されており、以下のような構造になっています。
 
 - `prisma`ディレクトリーには以下が含まれます。
-  - `dev.db`ファイル。これはSQLiteデータベースです。
-  - 1つの`schema.prisma`ファイル。異なるデータベースモデルとそれらの間の関係を定義しています。
-- `.env`ファイル。`DATABASE_URL`変数が含まれており、Prismaがこれを使用します。
-- `script.ts`ファイル： Prisma Clientを使用していくつかのクエリを実行します。このスターターには、以下のパッケージがインストールされています。
-- [`@prisma/client`](https://www.npmjs.com/package/prisma):Prisma: Prismaのデータに_合わせて_自動生成される、型安全なクエリビルダです。
-- [`prisma`](https://www.npmjs.com/package/@prisma/client): Prismaのコマンドラインインターフェイス（CLI）です。新しいプロジェクト資産の初期化、Prismaクライアントの生成します。イントロスペクションによる既存のデータベース構造の分析をし、アプリケーションモデルを自動的に作成できます。
+  - `dev.db`ファイル：これはSQLiteデータベースです。
+  - `schema.prisma`ファイル：さまざまなデータベースモデルとそれらの間の関係を定義します。
+- `.env`ファイル：`DATABASE_URL`変数が含まれており、Prismaはこの変数を使用します。
+- `script.ts`ファイル：Prisma Clientを使用していくつかのクエリを実行します。このスターターには、以下のパッケージがインストールされています。
+- [`@prisma/client`](https://www.npmjs.com/package/prisma)：あたなのデータに_合わせて_、タイプセーフなクエリを自動生成するビルダ。
+- [`prisma`](https://www.npmjs.com/package/@prisma/client)：Prismaのコマンドラインインターフェイス（CLI）です。新しいプロジェクトの初期化やPrismaクライアントを生成できます。また、Introspectionによる既存のデータベース構造を分析し、アプリケーションのモデルを自動的に作成できます。
   > 注：Prismaは、JavaScriptとTypeScriptの両方で動作します。しかし、最高の開発体験を得るためには、TypeScriptの使用を強く推奨します。
 
 ### PostgreSQLを使用するためのプロジェクトの設定
@@ -66,7 +67,8 @@ cd starter && npm install
 postgres://postgres:[YOUR-PASSWORD]@db.vdbnhqozmlzdsaejdxwr.supabase.co:5432/postgres
 ```
 
-最後に、`schema.` `prisma`ファイルの中で、`プロバイダ`を「sqlite」から`「postgresql」`に変更します。
+最後に、`schema.prisma`ファイルの中で、`provider`を「sqlite」から`postgresql`に変更します。
+`schema.prisma`ファイルは次のようになります。
 
 ```go
 datasource db {
@@ -98,7 +100,7 @@ model User {
 prisma migrate dev --name init
 ```
 
-オプションで、行った変更内容に応じてマイグレーションに名前を付けることができます。これはプロジェクトの最初のマイグレーションなので、`--name`フラグを "init "に設定しています。すべてが正しく動作すると、ターミナルに次のようなメッセージが表示されます。
+任意で、どのような変更をしたか、マイグレーションに名前を付けることができます。これはプロジェクトの最初のマイグレーションなので、`--name`フラグに「init」を設定しています。すべてが正しく動作すると、ターミナルに次のようなメッセージが表示されます。
 
 ```text
 Your database is now in sync with your schema.
@@ -107,28 +109,35 @@ Your database is now in sync with your schema.
 
 これにより、`prisma`ディレクトリー内に`prisma/migrations`フォルダーが作成され、Prismaのスキーマとデータベースのスキーマが同期されます。
 
-> Note: 移行履歴を作成するプロセスをスキップしたい場合は、`migrate dev`の代わりに[`db push`](https://www.prisma.io/docs/concepts/components/prisma-migrate/db-push)コマンドを使用することができます。 Supabaseプロジェクトに移動し、テーブルエディタで、`Post`と`User`の2つのテーブルが作成されていることを確認してください。![tables created in the UI](/img/guides/integrations/prisma/7y4qq4wwvfrheti6r09u.png)以上で完了です。Supabase上にホストされたPostgreSQLデータベースにPrismaプロジェクトを接続し、最初のマイグレーションを実行することができました。
+> メモ：マイグレーションの履歴作成のプロセスをスキップしたい場合は、`migrate dev`の代わりに[`db push`](https://www.prisma.io/docs/concepts/components/prisma-migrate/db-push)コマンドを使用することができます。
+> Supabaseプロジェクトに移動し、テーブルエディタで、`Post`と`User`の2つのテーブルが作成されていることを確認してください。
+> ![tables created in the UI](/img/guides/integrations/prisma/7y4qq4wwvfrheti6r09u.png)
+> 以上で完了です。Supabase上にホストされたPostgreSQLデータベースにPrismaプロジェクトを接続し、最初のマイグレーションを実行することができました。
 
 ## Supabaseでのコネクションプーリング
 
-サーバーレス環境（AWS Lambda、Vercel、Netlify FunctionsにホストされているNode.js関数など）で作業している場合は、[コネクションプーリング](https://www.prisma.io/docs/guides/performance-and-optimization/connection-management#serverless-environments-faas)を設定する必要があります。例えば、[PgBouncer](https://www.pgbouncer.org/)のようなツールがあります。それは、関数を呼びだすたびに、[データベースへの新しい接続](https://www.prisma.io/docs/guides/performance-and-optimization/connection-management#the-serverless-challenge)を発生させる可能性があるからです。Supabaseは、[PgBouncerを使用した接続管理をサポートして](https://supabase.io/blog/2021/04/02/supabase-pgbouncer#what-is-connection-pooling)おり、デフォルトで有効になっています。Supabaseダッシュボードのサイドバーから**Database**ページに移動し、**コネクションプール**設定にナビゲートしてください。[Connection pool settings](/img/guides/integrations/prisma/w0oowg8vq435ob5c3gf0.png)移行をする際には、プールされていない接続URL（**ステップ4**で使用したようなもの）を使用する必要があります。また、PostgreSQLの接続URLに`?pgbouncer=true`フラグを追加します。URLは以下のようになります。
+サーバーレス環境（AWS Lambda、Vercel、Netlify FunctionsにホストされているNode.js関数など）で作業している場合は、[コネクションプーリング](https://www.prisma.io/docs/guides/performance-and-optimization/connection-management#serverless-environments-faas)を設定する必要があります。例えば、[PgBouncer](https://www.pgbouncer.org/)のようなツールがあります。それは、関数を呼びだすたびに、[データベースへの新しい接続](https://www.prisma.io/docs/guides/performance-and-optimization/connection-management#the-serverless-challenge)を発生させる可能性があるからです。Supabaseは、[PgBouncerを使用して接続管理をサポート](https://supabase.io/blog/2021/04/02/supabase-pgbouncer#what-is-connection-pooling)しており、デフォルトで有効になっています。
+Supabaseダッシュボードのサイドバーから**Database**ページに移動し、**connection pool**設定に移動してください。
+![Connection pool settings](/img/guides/integrations/prisma/w0oowg8vq435ob5c3gf0.png)
+マイグレーションを実行する際には、プールされていない接続URL（**ステップ4**で使用したようなもの）を使用する必要があります。また、PostgreSQLの接続URLに`?pgbouncer=true`フラグを追加します。URLは以下のようになります。
 
 ```env
 # prisma/.env
 postgres://postgres:[YOUR-PASSWORD]@db.vdbnhqozmlzdsaejdxwr.supabase.co:6543/postgres?pgbouncer=true
 ```
 
-Prisma Migrateは、データベース・トランザクションを使用して、データベースとマイグレーション・テーブルの現在の状態をチェックします。しかし、移行エンジンはデータベースへの単一の接続を使用するように設計されており、PgBouncerによるコネクションプーリングをサポートしていません。コネクションプーリングにPgBouncerを使用している環境でPrisma Migrateコマンドを実行しようとすると、次のようなエラーを表示することがあります。
+Prisma Migrateは、データベース・トランザクションを使用して、データベースとマイグレーション・テーブルの現在の状態をチェックします。しかし、マイグレーションのエンジンはデータベースへの単一の接続を使用するように設計されており、PgBouncerによるコネクションプーリングをサポートしていません。コネクションプーリングにPgBouncerを使用している環境でPrisma Migrateコマンドを実行しようとすると、次のようなエラーを表示することがあります。
 
 ```bash
 Error: undefined: Database error
 Error querying the database: db error: ERROR: prepared statement “s0” already exists
 ```
 
-これは既知の問題であり、現在作業中です。この[GitHub issue](https://github.com/prisma/prisma/issues/6485)で進捗状況を確認できます。Prismaについてさらに詳しく知りたい場合は、[ドキュメント](https://www.prisma.io/docs)をご覧ください。Prismaについてもっと知りたい方は、ドキュメントをチェックしてください。また、質問や問題が発生した場合は、レポの[ディスカッションセクション](https://github.com/prisma/prisma/discussions)で気軽に議論を始めてください。
+これは既知の問題であり、現在作業中です。この[GitHub issue](https://github.com/prisma/prisma/issues/6485)で進捗状況を確認できます。
+Prismaについてさらに詳しく知りたい場合は、[ドキュメント](https://www.prisma.io/docs)をご覧ください。また、質問や問題が発生した場合は、リポジトリーの[ディスカッションセクション](https://github.com/prisma/prisma/discussions)で気軽にディスカッションを始めてください。
 
 ## リソース
 
-- [Prisma](https://prisma.io)の公式サイト
-- Prismaの[GitHub](https://github.com/prisma/prisma)
-- [Prisma](https://www.prisma.io/docs/)のドキュメント
+- [Prisma](https://prisma.io)公式サイト
+- [Prisma GitHub](https://github.com/prisma/prisma)
+- [Prisma](https://www.prisma.io/docs/)ドキュメント
