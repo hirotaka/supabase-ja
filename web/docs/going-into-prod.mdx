@@ -1,50 +1,50 @@
 ---
 id: going-into-prod
 title: 本番稼働前のチェックリスト
-description: 'Things to do before making your app publicly available'
+description: 'アプリを公開する前にするべきこと'
 ---
 
-プロジェクトを開発し、実際のユーザーに公開する時が来たと判断したら、以下のチェックリストを実行して、プロジェクトの安全性を確認する必要があります。
+プロジェクトの開発が終わり、実際のユーザーに公開する時が来たと判断したら、プロジェクトが次のチェックリストを満たしているか確認しましょう。
 
-- 安全であること
-- 予想される負荷に耐えられること
-- 本番環境でも利用可能であること
+- 安全性
+- 予想される負荷への耐久性
+- サービスを提供し続けられるかの可用性
 
 ## セキュリティー
 
-- RLSが有効であること
-    - 妥当なポリシーでRLSを有効にしていないテーブルでは、すべてのクライアントがデータにアクセスして変更できます。これは、ほとんどの場合、お客様が望むことではないでしょう。
-    - [RLSの詳細はこちら](/docs/guides/auth/row-level-security)を参照ください。
-- 機密データを含んだテーブルのレプリケーションを有効にしている場合、行単位セキュリティー（RLS - 行単位セキュリティー）を有効にし、行セキュリティー・ポリシーを設定します。
-    - Supabaseダッシュボードの「Authetication」→「Poilicies」ページでRLSを有効にし、セキュリティポリシーを作成します
-    - Supabaseダッシュボードの「Database」→「Replication」ページでレプリケーション・テーブルを管理します
-- Githubで2FAを有効にする
+- RLSを有効にしていることを確認します。
+    - 妥当なポリシーでRLSを有効にしていないテーブルでは、すべてのクライアントがデータにアクセスして変更できます。これは、ほとんどのケースで期待する挙動ではないことでしょう。
+    - RLSの詳細は[こちら](/docs/guides/auth/row-level-security)を参照してください。
+- 機密データを含んだテーブルのレプリケーションを有効にしている場合、行単位セキュリティー（RLS）を有効にし、行セキュリティー・ポリシーを設定します。
+    - Supabaseダッシュボードの「Authetication」→「Poilicies」ページでRLSを有効にし、セキュリティポリシーを作成します。
+    - Supabaseダッシュボードの「Database」→「Replication」ページでレプリケーション・テーブルを管理します。
+- Githubで2FA（2段階認証）を有効化
     - GithubアカウントにはSupabaseプロジェクトの管理者権限が与えられているため、強力なパスワードとU2FキーやTOTPアプリを使った2FAで保護する必要があります。
-- Auth → Settingsページでメール確認が有効になっていることを確認する。
+- 「Auth」→「Settings」ページでメール確認が有効になっていることを確認します。
 - 認証メールにカスタムSMTPサーバーを使用します。信頼できるドメインからメールが来ていることをユーザーが確認できるようにします（SendGrid、AWS SESなどの主要なメールプロバイダーからSMTP認証情報を取得してください）。メールサーバのドメインはアプリがホストされているのと同じドメインが望ましいです。
-- 攻撃者としてどのようにサービスを悪用*する*かをよく考え、軽減する。
-- これらの[一般的なサイバーセキュリティ上の脅威](https://auth0.com/docs/security/prevent-threats)を確認する。
+- 自分が攻撃者としたら、どのようにサービスを悪用するかをよく考え、対策を検討しましょう。
+- これらの[一般的なサイバーセキュリティ上の脅威](https://auth0.com/docs/security/prevent-threats)を確認します。
 
 ## パフォーマンス
 
-- 一般的なクエリパターンに対応する適切なインデックスを用意する
-    - [Postgresのインデックスについての詳細](https://www.enterprisedb.com/postgres-tutorials/overview-postgresql-indexes)。
-    - pg_stat_statementsは、[ホットまたはスローなクエリを特定する](https://www.virtual-dba.com/blog/postgresql-performance-identifying-hot-and-slow-queries/)のに役立ちます。
+- 一般的なクエリパターンに対応する適切なインデックスを張っていることを確認します。
+    - Postgresのインデックスの詳細は[こちら](https://www.enterprisedb.com/postgres-tutorials/overview-postgresql-indexes)を参照してください。
+    - pg_stat_statementsは、[ホットまたはスローなクエリを特定](https://www.virtual-dba.com/blog/postgresql-performance-identifying-hot-and-slow-queries/)するのに役立ちます。
 - 負荷テストの実施（できればステージング環境で）
     - [k6](https://k6.io/)のようなツールを使用すると、多くの異なるユーザーからのトラフィックをシミュレートできます。
-- より多くのリソースが必要な場合は、<support@supabase.io>に連絡して、より大きなサーバーのPAYGにアップグレードしてください。
+- より多くのリソースが必要な場合は、support@supabase.ioに連絡して、より大きなサーバーのPAYG（使った分だけ支払う方式）にアップグレードしてください。
 
-## 利用可能性
+## 可用性
 
-- 独自のSMTP認証情報を使用することで、トランザクション認証メールの配信を完全にコントロールできます（Auth → Settingsを参照）。
+- 独自のSMTP認証情報を使用することで、認証メール送信の到達性を完全に制御できます（Auth → Settingsを参照）。
     - SMTP認証情報は、SendGridやAWS SESなどの主要なメールプロバイダーから取得できます。
     - Supabaseが提供する認証メールのデフォルトの制限値は、1時間あたり30人の新規ユーザーですが、大規模な公開する場合は、これ以上の数が必要になる可能性があります。
-- お客様のアプリケーションが無料版であり、少なくとも7日に1回の問い合わせが**ない**と予想される場合、Supabaseはサーバーのリソースを節約するためにアプリケーションを一時停止します。
+- アプリケーションをFree tier（無料版）でご利用し、少なくとも7日に1回の問い合わせが**ない**と判断された場合、Supabaseはサーバーのリソースを節約するためにアプリケーションを一時停止します。
     - 一時停止されたプロジェクトは、Supabaseのダッシュボードから復元できます。
     - Proにアップグレードすると、活動していないことを理由にプロジェクトが一時停止されることはありません。
-- 無料版では、データベースのバックアップをダウンロードできません。
-    - [pg_dump](https://www.postgresqltutorial.com/postgresql-backup-database/)や[wal-g](https://github.com/wal-g/wal-g)などのツールを使って独自のバックアップシステムを構築できます。
-    - Pro Tierのプロジェクトのナイトリーバックアップは、Supabaseのダッシュボードで最大7日間利用可能です。
-- Supabase Pro Tierにアップグレードすると、<support@supabase.io>のメールサポートを受けることができます。
+- Free tierでは、データベースのバックアップをダウンロードできません。
+    - [pg_dump](https://www.postgresqltutorial.com/postgresql-backup-database/)や[wal-g](https://github.com/wal-g/wal-g)などのツールを使って自身でバックアップシステムを構築できます。
+    - Pro Tier（プロ版）プロジェクトの夜間バックアップは、Supabaseのダッシュボードで最大7日間利用可能です。
+- Supabase Pro Tierにアップグレードすると、support@supabase.ioでのメールによるサポートを受けることができます。
 
 このチェックリストは常に成長していますので、頻繁にチェックしてください。また、追加や修正を提案する場合は、[Github](https://github.com/supabase/supabase)にPRを作成してください。
