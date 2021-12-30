@@ -6,13 +6,13 @@ description: 'Supabase Auth詳細：パート3 - ユーザー・ベースのア�
 
 ### 概要
 
-テーブルへのアクセスを認証されたユーザーに限定する方法、行レベルポリシー、メールアドレスのドメイン・ベースのアクセスについて解説します。
+テーブルへのアクセスを認証されたユーザーに限定する方法、行単位ポリシー、メールアドレスのドメイン・ベースのアクセスについて解説します。
 
 ### 視聴
 
 <iframe className="w-full video-with-border" width="640" height="385" src="https://www.youtube-nocookie.com/embed/0LvCOlELs5U" frameBorder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen=""/>
 
-### ユーザー・ベースの行レベルポリシー
+### ユーザー・ベースの行単位ポリシー
 
 JWTロールに基づいてテーブルへのアクセスを制限する方法がわかったので、これをユーザー管理と組み合わせて、ユーザーがデータベースに読み書きできるデータをより詳細に制御ができます。
 

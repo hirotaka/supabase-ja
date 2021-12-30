@@ -30,7 +30,7 @@ TLDR; Prismaは現在、スキーマ間の外部キーをサポートしてい�
 - Supabase [Auth](/docs/guides/auth)：ユーザーはマジックリンクでサインインできます（パスワードは不要、メールのみ）。
 - Supabase [Storage](/docs/guides/storage)：ユーザーは写真をアップロードできます。
 - インスタント[API](/docs/guides/api)：データベースのテーブルを作成すると、APIが自動的に生成されます。
-- [行レベルセキュリティー](/docs/guides/auth#row-level-security)：データは保護されており、個人が自分のデータにしかアクセスできないようになっています。
+- [行単位セキュリティー](/docs/guides/auth#row-level-security)：データは保護されており、個人が自分のデータにしかアクセスできないようになっています。
 
 このガイドの最後には、ユーザーがログインして基本的なプロフィール情報を更新できるアプリが完成します。
 
@@ -315,7 +315,7 @@ SUPABASE_JWT_SECRET=YOUR_SUPABASE_JWT_SECRET
 ```
 
 これらの変数は、ブラウザー上で公開されますが、それは全く問題ありません。
-これらの変数は、データベースで[行レベルのセキュリティ](/docs/guides/auth#row-level-security)を有効にしているため、WebアプリがパブリックなanonキーでSupabaseクライアントを初期化するために使用されます。
+これらの変数は、データベースで[行単位セキュリティ](/docs/guides/auth#row-level-security)を有効にしているため、WebアプリがパブリックなanonキーでSupabaseクライアントを初期化するために使用されます。
 
 `web/src/App.js`でSupabaseクライアントの設定に使用されているのがわかります。
 
