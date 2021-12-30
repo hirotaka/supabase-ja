@@ -14,7 +14,7 @@ description: 'アプリを公開する前にするべきこと'
 
 - RLSを有効にしていることを確認します。
     - 妥当なポリシーでRLSを有効にしていないテーブルでは、すべてのクライアントがデータにアクセスして変更できます。これは、ほとんどのケースで期待する挙動ではないことでしょう。
-    - [RLSについてはこちら](/docs/guides/auth/row-level-security)を参照してください。
+    - RLSの詳細は[こちら](/docs/guides/auth/row-level-security)を参照してください。
 - 機密データを含んだテーブルのレプリケーションを有効にしている場合、行単位セキュリティー（RLS）を有効にし、行セキュリティー・ポリシーを設定します。
     - Supabaseダッシュボードの「Authetication」→「Poilicies」ページでRLSを有効にし、セキュリティポリシーを作成します。
     - Supabaseダッシュボードの「Database」→「Replication」ページでレプリケーション・テーブルを管理します。
@@ -28,7 +28,7 @@ description: 'アプリを公開する前にするべきこと'
 ## パフォーマンス
 
 - 一般的なクエリパターンに対応する適切なインデックスを張っていることを確認します。
-    - [Postgresのインデックスについてはこちら](https://www.enterprisedb.com/postgres-tutorials/overview-postgresql-indexes)を参照してください。
+    - Postgresのインデックスの詳細は[こちら](https://www.enterprisedb.com/postgres-tutorials/overview-postgresql-indexes)を参照してください。
     - pg_stat_statementsは、[ホットまたはスローなクエリを特定](https://www.virtual-dba.com/blog/postgresql-performance-identifying-hot-and-slow-queries/)するのに役立ちます。
 - 負荷テストの実施（できればステージング環境で）
     - [k6](https://k6.io/)のようなツールを使用すると、多くの異なるユーザーからのトラフィックをシミュレートできます。
