@@ -473,7 +473,27 @@ pages:
       - name: サードパーティのプロバイダーでサインアップ
         hideCodeBlock: true
         description: |
+<<<<<<< HEAD
           OAuthプロバイダーにサインアップするには、[`signIn()`](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)メソッドを使用します。
+=======
+          You can sign up with OAuth providers using the [`signIn()`](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers) method.
+      - name: Sign up with Phone.
+        description: |
+          Supabase supports Phone Auth. After a user verified thier number, they can use the [`signIn()`](/docs/reference/javascript/auth-signin#sign-in-using-phone) method.
+        js: |
+          ```js
+          const { user, session, error } = await supabase.auth.signIn({
+            phone: '+13334445555',
+            password: 'some-password',
+          })
+          
+          // After receiving an SMS with One Time Password.
+          let { session, error } = await supabase.auth.verifyOTP({
+            phone: '+13334445555',
+            token: '123456',
+          })
+          ```
+>>>>>>> a595af4e1e786baed80a809bbc115c41de195816
 
   auth.signIn():
     title: 'signIn()'
@@ -510,7 +530,20 @@ pages:
             provider: 'github'
           })
           ```
+<<<<<<< HEAD
       - name: リダイレクトでサインイン
+=======
+      - name: Sign in with Phone.
+        description: Supabase supports Phone Auth. 
+        js: |
+          ```js
+          const { user, session, error } = await supabase.auth.signIn({
+            phone: '+13334445555',
+            password: 'some-password',
+          })
+          ```
+      - name: Sign in with redirect.
+>>>>>>> a595af4e1e786baed80a809bbc115c41de195816
         description: |
           ユーザーがログインした後に、どこにリダイレクトされるかをコントロールしたい場合があります。Supabaseはこの機能をサポートしています。
           Webサイト上の任意のURLパス（ベースになるドメインはAuth設定のドメインと同じにする必要があります）。
