@@ -2,7 +2,7 @@
 id: intro
 title: Supabase Auth
 sidebar_label: 紹介
-description: Supabaseを使用したユーザーの認証と権限に関して。
+description: Supabaseを使用したユーザーの認証と認可に関して。
 # hide_table_of_contents: true
 ---
 
@@ -26,7 +26,7 @@ import providers from '@site/src/data/authProviders'
 Supabase Authは、Postgresで動作するように設計されています。すべての認証システムには2つの要素があります。
 
 - **認証**：この人を入れていいのか。許可する場合、その人は誰なのか。
-- **権限**：その人が入った後、何をしてもいいのか。
+- **認可**：その人が入った後、何をしてもいいのか。
 
 ## 認証
 
@@ -74,7 +74,7 @@ Supabase Authは、Postgresで動作するように設計されています。�
 </div>
 
 
-## 権限
+## 認可
 
 
 緻密な認証ルールが必要な場合、PostgreSQLのRLS（行単位セキュリティー）に勝るものはありません。

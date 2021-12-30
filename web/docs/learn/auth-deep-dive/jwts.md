@@ -165,7 +165,7 @@ curl 'https://xscduanzzfseqszwzhcy.supabase.co/rest/v1/colors?select=name' \
 }
 ```
 
-JWTとは何か、そしてSupabaseのどこで使われているかを解説しました。その上で、Postgresデータベースの特定のテーブル、行、列へのアクセスを制限します。そのために、行単位セキュリティーと組み合わせてJWTを使用する方法を「[パート2：行レベルセキュリティー](/docs/learn/auth-deep-dive/auth-row-level-security)」で探ってみましょう。
+JWTとは何か、そしてSupabaseのどこで使われているかを解説しました。その上で、Postgresデータベースの特定のテーブル、行、列へのアクセスを制限します。そのために、行単位セキュリティーと組み合わせてJWTを使用する方法を「[パート2：行単位セキュリティー](/docs/learn/auth-deep-dive/auth-row-level-security)」で探ってみましょう。
 
 ### リソース
 
