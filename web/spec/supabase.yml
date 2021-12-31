@@ -526,11 +526,8 @@ pages:
             provider: 'github'
           })
           ```
-<<<<<<< variant A
-      - name: リダイレクトでサインイン
->>>>>>> variant B
-      - name: Sign in with Phone.
-        description: Supabase supports Phone Auth. 
+      - name: 電話番号でサインイ
+        description: Supabaseは電話番号による認証をサポートしています。 
         js: |
           ```js
           const { user, session, error } = await supabase.auth.signIn({
@@ -538,8 +535,7 @@ pages:
             password: 'some-password',
           })
           ```
-      - name: Sign in with redirect.
-======= end
+      - name: リダイレクトでサインイン
         description: |
           ユーザーがログインした後に、どこにリダイレクトされるかをコントロールしたい場合があります。Supabaseはこの機能をサポートしています。
           Webサイト上の任意のURLパス（ベースになるドメインはAuth設定のドメインと同じにする必要があります）。
