@@ -474,6 +474,22 @@ pages:
         hideCodeBlock: true
         description: |
           OAuthプロバイダーにサインアップするには、[`signIn()`](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)メソッドを使用します。
+      - name: 電話番号によるサインアップ
+        description: |
+          Supabaseは電話番号による認証に対応しています。ユーザーが自分の電話番号を確認した後、[`signIn()`](/docs/reference/javascript/auth-signin#sign-in-using-phone)メソッドを使用することができます。
+        js: |
+          ```js
+          const { user, session, error } = await supabase.auth.signIn({
+            phone: '+13334445555',
+            password: 'some-password',
+          })
+          
+          // After receiving an SMS with One Time Password.
+          let { session, error } = await supabase.auth.verifyOTP({
+            phone: '+13334445555',
+            token: '123456',
+          })
+          ```
 
   auth.signIn():
     title: 'signIn()'
@@ -508,6 +524,15 @@ pages:
           const { user, session, error } = await supabase.auth.signIn({
             // provider can be 'github', 'google', 'gitlab', or 'bitbucket'
             provider: 'github'
+          })
+          ```
+      - name: 電話番号でサインイ
+        description: Supabaseは電話番号による認証をサポートしています。 
+        js: |
+          ```js
+          const { user, session, error } = await supabase.auth.signIn({
+            phone: '+13334445555',
+            password: 'some-password',
           })
           ```
       - name: リダイレクトでサインイン
