@@ -93,6 +93,7 @@ module.exports = {
       collapsed: false,
       items: [
         'guides/database/introduction',
+        'guides/database/connecting-to-postgres',
         'guides/database/tables',
         'guides/database/functions',
         'guides/database/full-text-search',
@@ -113,6 +114,7 @@ module.exports = {
         },
         {
           type: 'category',
+<<<<<<< HEAD
           label: 'Postgresに接続',
           collapsed: true,
           items: [
@@ -124,6 +126,9 @@ module.exports = {
         {
           type: 'category',
           label: '設定',
+=======
+          label: 'Configuration',
+>>>>>>> 12286b741e3100124a20eac29921f6eb2bbb8c22
           collapsed: true,
           items: [
             'guides/database/timeouts',
