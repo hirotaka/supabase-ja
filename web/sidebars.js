@@ -114,21 +114,7 @@ module.exports = {
         },
         {
           type: 'category',
-<<<<<<< HEAD
-          label: 'Postgresに接続',
-          collapsed: true,
-          items: [
-            'guides/database/connecting/connecting-to-postgres',
-            'guides/database/connecting/direct-connections',
-            'guides/database/connecting/connection-pooling',
-          ],
-        },
-        {
-          type: 'category',
           label: '設定',
-=======
-          label: 'Configuration',
->>>>>>> 12286b741e3100124a20eac29921f6eb2bbb8c22
           collapsed: true,
           items: [
             'guides/database/timeouts',
