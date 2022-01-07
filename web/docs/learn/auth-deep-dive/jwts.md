@@ -124,6 +124,7 @@ curl 'https://xscduanzzfseqszwzhcy.supabase.co/rest/v1/colors?select=name' \
 ```js
 {
   "role": "anon",
+  "iss": "supabase",
   "iat": 1614205174,
   "exp": 1929781174
 }
