@@ -133,11 +133,7 @@ Next.jsの開発サーバーを再起動すると、`.env.local`から新しい�
 npm run dev
 ```
 
-<<<<<<< HEAD
-## ステップ5：Auth0 Next.jsライブラリをインストール
-=======
-## Step 6: Install Auth0 Next.js library
->>>>>>> cffa4c0fce4c8090348c05144329faeda599db22
+## ステップ6：Auth0 Next.jsライブラリをインストール
 
 `@auth0/nextjs-auth0`ライブラリをインストールします。
 
@@ -215,11 +211,7 @@ export default Index
 
 ![Landing page](/img/guides/integrations/auth0/YdBKRy6.png)
 
-<<<<<<< HEAD
-## ステップ6：Supabase用のAuth0トークンを登録
-=======
-## Step 7: Sign Auth0 token for Supabase
->>>>>>> cffa4c0fce4c8090348c05144329faeda599db22
+## ステップ7：Supabase用のAuth0トークンを登録
 
 現在のところ、SupabaseとAuth0のどちらも、JWTにカスタムの署名シークレットを設定できません。また、これらは異なる[署名アルゴリズム](https://auth0.com/docs/configure/applications/signing-algorithms)を使用しています。
 
@@ -271,11 +263,7 @@ Supabaseの署名シークレットを使ってこのJWTに署名します。
 
 あとは、このトークンをSupabaseにリクエストと一緒に送信するだけです。
 
-<<<<<<< HEAD
-## ステップ7：Supabaseにデータを要求
-=======
-## Step 8: Requesting data from Supabase
->>>>>>> cffa4c0fce4c8090348c05144329faeda599db22
+## ステップ8：Supabaseにデータを要求
 
 `utils/supabase.js`という新しいファイルを作成し、以下の内容を追加します。
 
@@ -403,11 +391,7 @@ export default Index
 
 これは、デフォルトですべてのリクエストをブロックする行単位セキュリティーを有効にしたからです。ユーザーが`todos`をselectできるようにするには、ポリシーを書く必要があります。
 
-<<<<<<< HEAD
-## ステップ8：selectを許可するためのポリシーを書く
-=======
-## Step 9: Write a policy to allow select
->>>>>>> cffa4c0fce4c8090348c05144329faeda599db22
+## ステップ9：selectを許可するためのポリシーを書く
 
 ポリシーには、現在ログインしているユーザーが誰であるかを知り、そのユーザーにアクセス権を与えるかどうかを決定する必要があります。新しいJWTから現在のユーザーを抽出するために、PostgreSQLの関数を作りましょう。
 
