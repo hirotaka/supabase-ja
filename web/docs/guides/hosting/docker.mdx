@@ -64,16 +64,12 @@ docker-compose up
 - `SITE_URL`: 自身のサイトのベースになるURL。
 - `SMTP_*`: メールサーバーの認証情報。任意のSMTPサーバーを使用できます。
 
-<<<<<<< HEAD
+
+### ダッシュボードをセキュアにする
+
+Dockerのセットアップには、ユーザーやログインを管理するための管理データベースを含んでいません。Studioをウェブに配置する場合は、ベーシック認証を備えたウェブ・プロキシの背後に配置するか、VPNの後ろに隠すことをお勧めします。 
+
 ## 構成
-=======
-
-### Securing the Dashboard
-
-The Docker setup doesn't include a management database for managing users and logins. If you plan to deploy the Studio to the web we suggest you put it behind a web proxy with Basic Auth or hide it behind a VPN. 
-
-## Configuration
->>>>>>> 7b4f8b889881806f6f6d7c8b2a978fc2fb01f1c6
 
 設定をシンプルにするため、プロダクションにおいては最適ではない選択をしています。
 
