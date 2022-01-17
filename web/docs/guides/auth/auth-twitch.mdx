@@ -25,11 +25,11 @@ import TabItem from '@theme/TabItem'
 - 右上の`Log in with Twitch`をクリックしてログインします。
 - Twitchアカウントの2段階認証をまだ有効にしていない場合は、続行する前に[セキュリティとプライバシー](https://www.twitch.tv/settings/security)で有効にする必要があります。
 
-![Twitch Developer Page](/img/guides/twitch-developer-page.png)
+![Twitch Developer Page](/img/guides/auth-twitch/twitch-developer-page.png)
 
 - ログインしたら、[Twitch開発者コンソール](https://dev.twitch.tv/console)にアクセスします。
 
-![Twitch Developer Console](/img/guides/twitch-console.png)
+![Twitch Developer Console](/img/guides/auth-twitch/twitch-console.png)
 
 ### コールバックURLを入手
 
@@ -49,11 +49,11 @@ import TabItem from '@theme/TabItem'
 
 ### Twitchアプリケーションを作成
 
-![Twitch Developer Console](/img/guides/twitch-console.png)
+![Twitch Developer Console](/img/guides/auth-twitch/twitch-console.png)
 
 - 右上の`アプリケーションを登録`をクリックします。
 
-![Register Application](/img/guides/twitch-register-your-application.png)
+![Register Application](/img/guides/auth-twitch/twitch-register-your-application.png)
 
 - アプリケーションの名前を入力します。
 - `OAuthのリダイレクトURL`（前の手順で入手したコールバックURL）を入力または貼り付けます。
@@ -64,13 +64,13 @@ import TabItem from '@theme/TabItem'
 
 - リスト内のアプリケーション欄の右側にある`管理`をクリックします。
 
-![Twitch Applications List](/img/guides/twitch-applications-list.png)
+![Twitch Applications List](/img/guides/auth-twitch/twitch-applications-list.png)
 
 - クライアントIDをコピーします。
 - `新しい秘密`をクリックして、新しいシークレットを作成します。
 - `クライアントの秘密`をコピーします。
 
-![Get Client ID and Secret](/img/guides/twitch-get-keys.png)
+![Get Client ID and Secret](/img/guides/auth-twitch/twitch-get-keys.png)
 
 ### SupabaseのプロジェクトにTwitchの認証情報を入力
 
