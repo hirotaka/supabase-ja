@@ -9,7 +9,17 @@ import TabItem from '@theme/TabItem';
 
 ## 概要
 
+<<<<<<< HEAD
 Supabaseはデータベースのスキーマから直接APIを生成します。そのAPIは以下の特徴があります。
+=======
+Supabase generates three types of API directly from your database schema. 
+
+- REST - interact with your database through a restful interface.
+- Realtime - listen to database changes.
+- GraphQL - [coming soon](https://supabase.com/blog/2021/12/03/pg-graphql).
+
+The APIs are:
+>>>>>>> c7d906b87da150cced005c6efe35f918cbc6edb9
 
 - 即時性と自動生成：データベースを更新すると、その変更内容がAPIを通じてすぐアクセス可能になります。
 - ドキュメントの生成：Supabaseは、データベースを変更した際、ダッシュボードに更新されたドキュメントを生成します。
@@ -32,7 +42,7 @@ Supabaseは、[PostgREST](https://postgrest.org/)を用いたRESTfulなAPIを提
 <iframe
   className="w-full video-with-border"
   width="640"
-  height="385"
+  height="480"
   src="https://www.youtube-nocookie.com/embed/rPAJJFdtPw0"
   frameBorder="1"
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -43,6 +53,11 @@ Supabaseは、[PostgREST](https://postgrest.org/)を用いたRESTfulなAPIを提
 
 Supabaseは[Realtime](https://github.com/supabase/realtime)を使って、リアルタイムAPIを提供しています。これを利用して、データベースの変更をWebSocketで待ち受けることができます。
 RealtimeはPostgreSQLに組み込まれた論理的なレプリケーションを利用しています。Postgresのパブリケーションを管理するだけで、リアルタイムAPIを管できますす。
+
+### GraphQL API
+
+[Coming soon](https://supabase.com/blog/2021/12/03/pg-graphql). We are developing `pg_graphql`, an open source PostgreSQL extension for GraphQL. 
+`pg_graphql` inspects an existing PostgreSQL schema and reflects a GraphQL schema with resolvers. We will expose `pg_graphql` via the existing REST interface.
 
 
 ## はじめに
