@@ -1,6 +1,6 @@
 ---
 id: auth
-title: 認証
+title: Auth
 description: Use Supabase to Authenticate and Authorize your users.
 ---
 
@@ -12,37 +12,65 @@ import providers from '@site/src/data/authProviders'
 <iframe
   className="w-full video-with-border"
   width="640"
-  height="385"
+  height="480"
   src="https://www.youtube-nocookie.com/embed/6ow_jW4epf8"
   frameBorder="1"
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
   allowFullScreen
 ></iframe>
 
-## ユーザー管理
+## 紹介
 
-Supabaseでは、ユーザーの管理を簡単に行うことができます。
+Supabase Authは、Postgresで動作するように設計されています。すべての認証システムには2つの要素があります。
 
-<video width="99%" muted playsInline controls="true">
-  <source src="/docs/videos/auth-zoom2.mp4" type="video/mp4" muted playsInline />
-</video>
+- **認証**：この人を入れていいのか。許可する場合、その人は誰なのか。
+- **認可**：その人が入った後、何をしてもいいのか。
 
-ユーザーがサインアップすると、SupabaseはユーザーにユニークなIDを割り当てます。このIDはデータベース内のどこでも参照できます。例えば、`user_id`フィールドを使って、`auth.users`テーブルの`id`を参照する`profiles`テーブルを作成できます。
+Supabase Authは、単独でも、他のSupabase製品と深く連携しても動作するように設計されています。 
+Postgresは私たちの行うすべてのことの中心であり、Authシステムもこの原則に従っています。私たちは、可能な限りPostgresに組み込まれたAuth機能を活用しています。
 
-Supabaseは、アプリやWebサイトのユーザーを[サインアップ](/docs/reference/javascript/auth-signup)、[ログイン](/docs/reference/javascript/auth-signin)、[ログアウト](/docs/reference/javascript/auth-signout)し、管理するための手段を提供します。
+## 認証
 
-## サードパーティーのログイン
+ユーザーを認証するにはいくつかの方法があります。
 
-現在、以下のOAuthプロバイダをサポートしています。
+- Eメールとパスワードによる認証
+- マジック・リンク（ワンクリックでのログイン）
+- ソーシャル・プロバイダー
+- 電話でのログイン
 
-<div class="container" style={{}}>
+### プロバイダー
+
+プロバイダーやログイン方法を用意しています。
+
+<div class="container" style={{ padding: 0 }}>
   <div class="row is-multiline">
     {providers.map((x) => (
-      <div key={x.name} class="col col--4">
+      <div key={x.name} class="col col--6">
         <Link class="card" to={x.href}>
-          <div class="card__body" style={{ display: 'flex', gap: 20 }}>
-            {x.logo && <img src={x.logo} alt={x.name} width="20" />}
-            <p>{x.name}</p>
+          <div class="card__body">
+            <div class="" style={{ display: 'flex', justifyContent: 'space-between', gap: 10 }}>
+              {x.logo && <img src={x.logo} alt={x.name} width="20" />}
+              <p>{x.name}</p>
+              <p>
+                {x.official ? <span class={`badge badge--official`}>
+                  Official
+                </span>: 
+                <span class={`badge badge--unofficial`}>
+                  Unofficial
+                </span>
+                }
+              </p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+              <div class="code-block" style={{ width: '100%',  display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem' }}>
+                <span>Platform:</span>
+                <span>{x.platform.toString()}</span>
+              </div>
+              <div class="code-block" style={{ width: '100%',  display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem' }}>
+                <span>Self-Hosted:</span>
+                <span>{x.selfHosted.toString()}</span>
+              </div>
+            </div>
           </div>
         </Link>
       </div>
@@ -50,11 +78,24 @@ Supabaseは、アプリやWebサイトのユーザーを[サインアップ](/do
   </div>
 </div>
 
+
+### シンプルなインターフェース
+
 「Authentication」→「Settings」→「External OAuth Providers」と進みます。それぞれに「Client ID」と「Secret」を入力することで、プロバイダーを有効にできます。
 
 ![OAuthログイン](/img/supabase-oauth-logins.png)
 
-## 行単位セキュリティー
+
+## 認可
+
+緻密な認証ルールが必要な場合、PostgreSQLのRLS（行単位セキュリティー）に勝るものはありません。
+
+ポリシーはPostgreSQLのルール・エンジンです。RLSは非常に強力で柔軟性があり、固有のビジネスニーズに合った複雑なSQLルールを書くことができます。
+
+[行単位セキュリティーのガイド](/docs/guides/auth/row-level-security)からはじめてください。
+
+
+### 行単位セキュリティー
 
 認証はそこまでしかできません。緻密な認証ルールが必要な場合、PostgreSQLの[行単位セキュリティー（Row Level Security - RLS）](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)に勝るものはありません。SupabaseではRLSのオン・オフを簡単に設定できます。
 
@@ -62,7 +103,7 @@ Supabaseは、アプリやWebサイトのユーザーを[サインアップ](/do
   <source src="/docs/videos/rls-zoom2.mp4" type="video/mp4" muted playsInline />
 </video>
 
-## ポリシー
+### ポリシー
 
 [ポリシー](https://www.postgresql.org/docs/current/sql-createpolicy.html)はPostgreSQLのルールエンジンです。非常に強力で柔軟性があり、固有のビジネスニーズに合った複雑なSQLルールを書くことができます。
 
@@ -93,7 +134,7 @@ let user = await supabase.from('users').select('user_id, name')
 ```
 
 
-## 仕組み
+### 仕組み
 
 1. ユーザーがサインアップします。Supabaseは、`auth.users`テーブルに新しいユーザーを作成します。
 2. Supabaseは、ユーザーの`UUID`を含む新しいJWTを返します。
@@ -103,37 +144,20 @@ let user = await supabase.from('users').select('user_id, name')
 
 Supabaseは、JWTからユーザーのUIDを抽出するPostgresの特別な関数、`auth.uid()`を提供しています。これは特にポリシーを作成する際に便利です。
 
-## Tips
 
-#### データベースのテーブルのリアルタムを有効化
+## ユーザー管理
 
-Realtime Serverは、行単位セキュリティー（RLS）のポリシーに応じて、データベースの変更を許可されたユーザーにブロードキャストします。
-パブリケーションに追加するテーブルでは、行単位セキュリティーを有効にして行セキュリティーポリシーを設定することをお勧めします。
-ただし、テーブルでRLSを無効にして、接続しているすべてのクライアントに変更をブロードキャストもできます。
+Supabaseでは、ユーザーの管理を簡単に行うことができます。
 
+<video width="99%" muted playsInline controls="true">
+  <source src="/docs/videos/auth-zoom2.mp4" type="video/mp4" muted playsInline />
+</video>
 
-```sql
-/**
- * REALTIME SUBSCRIPTIONS
- * Realtime enables listening to any table in your public schema.
- */
+ユーザーがサインアップすると、SupabaseはユーザーにユニークなIDを割り当てます。このIDはデータベース内のどこでも参照できます。例えば、`user_id`フィールドを使って、`auth.users`テーブルの`id`を参照する`profiles`テーブルを作成できます。
 
-begin;
-  -- リアルタイム・パブリケーションを削除
-  drop publication if exists supabase_realtime;
+Supabaseは、アプリやWebサイトのユーザーを[サインアップ](/docs/reference/javascript/auth-signup)、[ログイン](/docs/reference/javascript/auth-signin)、[ログアウト](/docs/reference/javascript/auth-signout)し、管理するための手段を提供します。
 
-  -- パブリケーションを再作成しますが、どのテーブルに対しても有効にしません
-  create publication supabase_realtime;
-commit;
-
--- パブリケーションにテーブルを追加
-alter publication supabase_realtime add table products;
-
--- 他のテーブルをパブリケーションに追加
-alter publication supabase_realtime add table posts;
-```
 
 ## 次のステップ
 
-- 認証については、[ガイド](/docs/guides/auth/intro)で詳しく解説
 - サインイン：[app.supabase.io](https://app.supabase.io)

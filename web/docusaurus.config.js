@@ -63,13 +63,6 @@ module.exports = {
           position: 'left',
         },
         {
-          label: 'ガイド',
-          to: '/docs/guides',
-          activeBaseRegex:
-            '(^/docs/guides/database/|^/docs/guides/auth/)|(/docs/guides$)|docs/(resources|learn)',
-          position: 'left',
-        },
-        {
           label: 'リファレンス',
           to: '/docs/reference/javascript/supabase-client',
           activeBasePath: '/docs/reference/',

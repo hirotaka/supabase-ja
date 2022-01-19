@@ -43,17 +43,15 @@ module.exports = {
       items: [
         'about',
         'architecture',
-        'guides/database',
-        'guides/auth',
-        'guides/storage',
-        'guides/api',
+        'guides/hosting/platform',
+        'guides/local-development',
         'guides/examples',
       ],
       collapsed: false,
     },
     {
       type: 'category',
-      label: 'チュートリアル',
+      label: 'クイック・スタート',
       collapsed: false,
       items: [
         'guides/with-angular',
@@ -67,32 +65,10 @@ module.exports = {
     },
     {
       type: 'category',
-      label: '関連情報',
-      collapsed: false,
-      items: [
-        'faq',
-        'going-into-prod',
-        'handbook/contributing',
-        'handbook/supasquad',
-        'company/terms',
-        'company/privacy',
-        'company/aup',
-      ],
-    },
-  ],
-  guides: [
-    {
-      type: 'category',
-      label: 'ガイド',
-      items: ['guides', 'guides/local-development'],
-      collapsed: false,
-    },
-    {
-      type: 'category',
       label: 'データベース',
       collapsed: false,
       items: [
-        'guides/database/introduction',
+        'guides/database',
         'guides/database/connecting-to-postgres',
         'guides/database/tables',
         'guides/database/functions',
@@ -127,10 +103,16 @@ module.exports = {
     },
     {
       type: 'category',
-      label: '認証',
+      label: 'API',
+      collapsed: false,
+      items: ['guides/api'],
+    },
+    {
+      type: 'category',
+      label: 'Auth',
       collapsed: false,
       items: [
-        'guides/auth/intro',
+        'guides/auth',
         {
           type: 'category',
           label: '認証',
@@ -176,6 +158,12 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'ストレージ',
+      collapsed: false,
+      items: ['guides/storage'],
+    },
+    {
+      type: 'category',
       label: 'インテグレーション',
       collapsed: false,
       items: [
@@ -195,7 +183,21 @@ module.exports = {
       type: 'category',
       label: 'セルフ・ホスティング',
       collapsed: false,
-      items: ['guides/hosting/overview', 'guides/hosting/platform', 'guides/hosting/docker'],
+      items: ['guides/hosting/overview', 'guides/hosting/docker'],
+    },
+    {
+      type: 'category',
+      label: 'See Also',
+      collapsed: false,
+      items: [
+        'faq',
+        'going-into-prod',
+        'handbook/contributing',
+        'handbook/supasquad',
+        'company/terms',
+        'company/privacy',
+        'company/aup',
+      ],
     },
   ],
   postgresServer: [
