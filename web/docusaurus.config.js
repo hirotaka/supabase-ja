@@ -56,29 +56,14 @@ module.exports = {
       },
       items: [
         {
-<<<<<<< HEAD
           label: '概要',
-=======
-          label: 'Guides',
->>>>>>> c7d906b87da150cced005c6efe35f918cbc6edb9
           to: '/',
           activeBaseRegex:
             '.*.docs/$|^/docs/architecture|(^/docs/guides/(database|auth|storage|api|examples!))|(^/docs/guides/(examples|with-angular|with-flutter|with-nextjs|with-react|with-redwoodjs|with-svelte|with-vue-3)|^/docs/faq|^/docs/going-into-prod|^/docs/handbook|^/docs/company)',
           position: 'left',
         },
         {
-<<<<<<< HEAD
-          label: 'ガイド',
-          to: '/docs/guides',
-          activeBaseRegex:
-            '(^/docs/guides/database/|^/docs/guides/auth/)|(/docs/guides$)|docs/(resources|learn)',
-          position: 'left',
-        },
-        {
           label: 'リファレンス',
-=======
-          label: 'Reference',
->>>>>>> c7d906b87da150cced005c6efe35f918cbc6edb9
           to: '/docs/reference/javascript/supabase-client',
           activeBasePath: '/docs/reference/',
           position: 'left',

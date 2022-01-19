@@ -51,11 +51,7 @@ module.exports = {
     },
     {
       type: 'category',
-<<<<<<< HEAD
-      label: 'チュートリアル',
-=======
-      label: 'Quickstarts',
->>>>>>> c7d906b87da150cced005c6efe35f918cbc6edb9
+      label: 'クイック・スタート',
       collapsed: false,
       items: [
         'guides/with-angular',
@@ -69,33 +65,7 @@ module.exports = {
     },
     {
       type: 'category',
-<<<<<<< HEAD
-      label: '関連情報',
-      collapsed: false,
-      items: [
-        'faq',
-        'going-into-prod',
-        'handbook/contributing',
-        'handbook/supasquad',
-        'company/terms',
-        'company/privacy',
-        'company/aup',
-      ],
-    },
-  ],
-  guides: [
-    {
-      type: 'category',
-      label: 'ガイド',
-      items: ['guides', 'guides/local-development'],
-      collapsed: false,
-    },
-    {
-      type: 'category',
       label: 'データベース',
-=======
-      label: 'Database',
->>>>>>> c7d906b87da150cced005c6efe35f918cbc6edb9
       collapsed: false,
       items: [
         'guides/database',
@@ -133,17 +103,13 @@ module.exports = {
     },
     {
       type: 'category',
-<<<<<<< HEAD
-      label: '認証',
-=======
-      label: 'APIs',
+      label: 'API',
       collapsed: false,
       items: ['guides/api'],
     },
     {
       type: 'category',
       label: 'Auth',
->>>>>>> c7d906b87da150cced005c6efe35f918cbc6edb9
       collapsed: false,
       items: [
         'guides/auth',
@@ -192,17 +158,13 @@ module.exports = {
     },
     {
       type: 'category',
-<<<<<<< HEAD
-      label: 'インテグレーション',
-=======
-      label: 'Storage',
+      label: 'ストレージ',
       collapsed: false,
       items: ['guides/storage'],
     },
     {
       type: 'category',
-      label: 'Integrations',
->>>>>>> c7d906b87da150cced005c6efe35f918cbc6edb9
+      label: 'インテグレーション',
       collapsed: false,
       items: [
         'guides/integrations/auth0',
