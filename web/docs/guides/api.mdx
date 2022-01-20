@@ -227,6 +227,23 @@ curl '[SUPABASE_URL]/rest/v1/todos' \
 
 ### リアルタイムの管理
 
+### Safeguards towards accidental deletes and updates
+
+For new projects, by default, the Postgres extension [safeupdate](https://github.com/eradman/pg-safeupdate) is enabled for all queries coming from the API. 
+This ensures that any `delete()` or `update()` would fail if there are no accompanying filters provided.
+This can be disabled by running the following query on the SQL editor on the dashboard:
+
+```sql
+alter role "authenticator"
+set "session_preload_libraries" to default;
+```
+
+To reenable it :
+```sql
+alter role "authenticator" 
+set "session_preload_libraries" = 'safeupdate';
+```
+The above can also be run to enable it for existing projects. Settings are applied immediately and as such no restarts are needed after running any of the two.
 
 リアルタイムAPIは、PostgreSQLのレプリケーション機能を介して動作します。Postgresはデータベースの変更を、`supabase_realtime`と呼ばれる「パブリケーション」に送信します。
 このパブリケーションを管理することで、どのデータをブロードキャストするかを制御できますす。
