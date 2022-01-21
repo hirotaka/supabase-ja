@@ -52,8 +52,8 @@ RealtimeはPostgreSQLに組み込まれた論理的なレプリケーション�
 
 ### GraphQL API
 
-[Coming soon](https://supabase.com/blog/2021/12/03/pg-graphql). We are developing `pg_graphql`, an open source PostgreSQL extension for GraphQL. 
-`pg_graphql` inspects an existing PostgreSQL schema and reflects a GraphQL schema with resolvers. We will expose `pg_graphql` via the existing REST interface.
+[まもなく公開](https://supabase.com/blog/2021/12/03/pg-graphql)です。オープンソースのPostgreSQLによるGraphQLの拡張機能である`pg_graphql`を開発しています。 
+`pg_graphql`は、既存のPostgreSQLのスキーマを検査し、リゾルバを用いてGraphQLのスキーマを反映します。`pg_graphql`は既存のRESTインターフェイスで公開する予定です。
 
 
 ## はじめに
@@ -67,8 +67,6 @@ APIルートは、Postgresのテーブル、ビュー、または関数を作成
 最初のAPIルートを作成するために、`todos`というテーブル（いくつかユーザーのパブリックな情報を保存します）を作成しましょう。
 これにより、`GET`、`POST`、`PATCH`、`DELETE`のリクエストを受け付けることができる、`todos`に対応したルートが作成されます。
 
-<!-- textlint-disable -->
-
 <Tabs
 defaultValue="UI"
 values={[
@@ -76,8 +74,6 @@ values={[
   {label: 'SQL', value: 'SQL'},
 ]}>
 <TabItem value="UI">
-
-<!-- textlint-enable -->
 
 ```sh
 1. 「Table Editor」セクションに移動します。
@@ -176,7 +172,6 @@ HTTPリクエストを介してAPIを直接操作できますし、当社が提�
 それでは、最初のステップで作成した`todos`テーブルに、取得したAPI URL（`[SUPABASE_URL]`）とキー（`[SUPABASE_ANON_KEY]`）を使ってリクエストする方法を見てみましょう。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-<!-- textlint-disable -->
 
 <Tabs
 defaultValue="Javascript"
@@ -185,8 +180,6 @@ values={[
   {label: 'cURL', value: 'cURL'},
 ]}>
 <TabItem value="Javascript">
-
-<!-- textlint-enable -->
 
 ```javascript
 // JSクライアントを初期化
@@ -225,6 +218,24 @@ curl '[SUPABASE_URL]/rest/v1/todos' \
 [rpc()](/docs/reference/javascript/rpc)（Postgresの関数呼び出し）
 <!-- textlint-enable ja-technical-writing/max-comma -->
 
+### 誤って削除や更新をしてしまわないための保護機能
+
+新しいプロジェクトでは、デフォルトで、APIから来るすべてのクエリに対してPostgres拡張機能の[safeupdate](https://github.com/eradman/pg-safeupdate)が有効になっています。 
+これにより、付随するフィルターが提供されていない場合に、`delete()`または`update()`が失敗することを保証します。
+これを無効にするには、ダッシュボードのSQLエディターで以下のクエリを実行します。
+
+```sql
+alter role "authenticator"
+set "session_preload_libraries" to default;
+```
+
+再度有効にするには次を実行します。
+```sql
+alter role "authenticator" 
+set "session_preload_libraries" = 'safeupdate';
+```
+上記を実行することで、既存のプロジェクトに対しても有効にできます。設定はすぐに適用されますので、無効と有効化のどちらかを実行した後に再起動する必要はありません。
+
 ### リアルタイムの管理
 
 
@@ -233,8 +244,6 @@ curl '[SUPABASE_URL]/rest/v1/todos' \
 
 デフォルトでは、データベースのリアルタイムは無効になっています。それでは、`todos`テーブルのリアルタイムを有効にしてみましょう。
 
-<!-- textlint-disable -->
-
 <Tabs
 defaultValue="UI"
 values={[
@@ -242,8 +251,6 @@ values={[
   {label: 'SQL', value: 'SQL'},
 ]}>
 <TabItem value="UI">
-
-<!-- textlint-enable -->
 
 ```sh
 1. 「Database」セクションに移動します。
@@ -274,8 +281,6 @@ alter publication supabase_realtime add table products;
 
 ### ルートのセキュア化
 
-<!-- textlint-disable -->
-
 <Tabs
 defaultValue="UI"
 values={[
@@ -283,8 +288,6 @@ values={[
   {label: 'SQL', value: 'SQL'},
 ]}>
 <TabItem value="UI">
-
-<!-- textlint-enable -->
 
 ```sh
 1. 「Authentication」セクションに移動します。
