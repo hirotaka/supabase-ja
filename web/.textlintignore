@@ -1,19 +1,9 @@
+# 新規に追加  
+docs/guides/integrations/appsmith.mdx
+docs/guides/auth/auth-notion.mdx
 docs/guides/with-react-native.mdx
-docs/company/aup.md
-docs/company/privacy.md
-docs/company/terms.md
-docs/support.md
-docs/gotrue/server/about.md
-docs/guides/client-libraries.mdx
-docs/guides/database/arrays.mdx
-docs/guides/database/json.mdx
-docs/postgres/server/about.md
-docs/postgres/server/digitalocean.md
-docs/postgres/server/docker.md
-docs/guides/database/arrays.mdx
-docs/guides/database/json.mdx
-docs/guides/database/extensions/pgtap.mdx
-docs/handbook/introduction.mdx
+
+# レファレンス
 docs/reference/cli/index.mdx
 docs/reference/cli/supabase-eject.mdx
 docs/reference/cli/supabase-init.mdx
@@ -142,3 +132,20 @@ docs/reference/javascript/upsert.mdx
 # もし、編集する場合はコメントアウトして、textlintする必要があります。
 docs/reference/javascript/auth-onauthstatechange.mdx
 docs/reference/javascript/auth-signout.mdx
+
+# Obsoletes
+docs/company/aup.md
+docs/company/privacy.md
+docs/company/terms.md
+docs/support.md
+docs/gotrue/server/about.md
+docs/guides/client-libraries.mdx
+docs/guides/database/arrays.mdx
+docs/guides/database/json.mdx
+docs/postgres/server/about.md
+docs/postgres/server/digitalocean.md
+docs/postgres/server/docker.md
+docs/guides/database/arrays.mdx
+docs/guides/database/json.mdx
+docs/guides/database/extensions/pgtap.mdx
+docs/handbook/introduction.mdx

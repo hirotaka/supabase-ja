@@ -139,6 +139,73 @@ alter table your_table replica identity full;
 7. *新しい*プロジェクトのSQLエディターで、`ALTER ROLE postgres NOSUPERUSER`を実行します。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
+#### ストレージのオブジェクトを移行
+
+このスクリプトは、ストレージのオブジェクトをあるプロジェクトから別のプロジェクトに移動させます。1万以上のオブジェクトがある場合は、オブジェクトの移動を代行します。[support@supabase.io](mailto:support@supabase.io)までご連絡ください。
+
+```js
+const { createClient } = require("@supabase/supabase-js");
+
+const OLD_PROJECT_URL = "https://xxx.supabase.co";
+const OLD_PROJECT_SERVICE_KEY = "old-project-service-key-xxx";
+
+const NEW_PROJECT_URL = "https://yyy.supabase.co";
+const NEW_PROJECT_SERVICE_KEY = "new-project-service-key-yyy";
+
+(async () => {
+  const oldSupabaseRestClient = createClient(
+    OLD_PROJECT_URL,
+    OLD_PROJECT_SERVICE_KEY,
+    { schema: "storage" }
+  );
+  const oldSupabaseClient = createClient(
+    OLD_PROJECT_URL,
+    OLD_PROJECT_SERVICE_KEY
+  );
+  const newSupabaseClient = createClient(
+    NEW_PROJECT_URL,
+    NEW_PROJECT_SERVICE_KEY
+  );
+
+  // make sure you update max_rows in postgrest settings if you have a lot of objects
+  // or paginate here
+  const { data: oldObjects, error } = await oldSupabaseRestClient
+    .from("objects")
+    .select();
+  if (error) {
+    console.log("error getting objects from old bucket");
+    throw error;
+  }
+
+  for (const objectData of oldObjects) {
+    console.log(`moving ${objectData.id}`);
+    try {
+      const { data, error: downloadObjectError } =
+        await oldSupabaseClient.storage
+          .from(objectData.bucket_id)
+          .download(objectData.name);
+      if (downloadObjectError) {
+        throw downloadObjectError;
+      }
+
+      const { _, error: uploadObjectError } = await newSupabaseClient.storage
+        .from(objectData.bucket_id)
+        .upload(objectData.name, data, {
+          upsert: true,
+          contentType: objectData.metadata.mimetype,
+          cacheControl: objectData.metadata.cacheControl,
+        });
+      if (uploadObjectError) {
+        throw uploadObjectError;
+      }
+    } catch (err) {
+      console.log("error moving ", objectData);
+      console.log(err);
+    }
+  }
+})();
+```
+
 #### 注意点
 
 - 新しいプロジェクトには、古いプロジェクトのStorageバケットはありますが、オブジェクトはありません。Storageオブジェクトを手動で移行する必要があります。
