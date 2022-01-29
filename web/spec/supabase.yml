@@ -517,12 +517,17 @@ pages:
             email: 'example@email.com'
           })
           ```
+<<<<<<< HEAD
       - name: サードパーティのプロバイダーを使用してサインイン
         description: SupabaseはOAuthによるログインをサポートしています。
+=======
+      - name: Sign in using third-party providers.
+        description: Supabase supports many different [third-party providers](https://supabase.com/docs/guides/auth#providers).
+>>>>>>> 65e8f6a303f2e4752958402bc7672f402360d0e5
         js: |
           ```js
           const { user, session, error } = await supabase.auth.signIn({
-            // provider can be 'github', 'google', 'gitlab', or 'bitbucket'
+            // provider can be 'github', 'google', 'gitlab', and more
             provider: 'github'
           })
           ```
