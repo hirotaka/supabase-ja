@@ -139,12 +139,9 @@ alter table your_table replica identity full;
 7. *新しい*プロジェクトのSQLエディターで、`ALTER ROLE postgres NOSUPERUSER`を実行します。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
-<<<<<<< HEAD
-#### 注意点
-=======
-#### Migrate storage objects
+#### ストレージのオブジェクトを移行
 
-This script moves storage objects from one project to another. If you have more than 10k objects, we can move the objects for you. Just contact us at [support@supabase.io](mailto:support@supabase.io).
+このスクリプトは、ストレージのオブジェクトをあるプロジェクトから別のプロジェクトに移動させます。1万以上のオブジェクトがある場合は、オブジェクトの移動を代行します。[support@supabase.io](mailto:support@supabase.io)までご連絡ください。
 
 ```js
 const { createClient } = require("@supabase/supabase-js");
@@ -209,8 +206,7 @@ const NEW_PROJECT_SERVICE_KEY = "new-project-service-key-yyy";
 })();
 ```
 
-#### Caveats
->>>>>>> 65e8f6a303f2e4752958402bc7672f402360d0e5
+#### 注意点
 
 - 新しいプロジェクトには、古いプロジェクトのStorageバケットはありますが、オブジェクトはありません。Storageオブジェクトを手動で移行する必要があります。
 
