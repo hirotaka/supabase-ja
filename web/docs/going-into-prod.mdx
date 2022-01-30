@@ -12,6 +12,7 @@ description: 'アプリを公開する前にするべきこと'
 
 ## セキュリティー
 
+<<<<<<< HEAD
 - RLSを有効にしていることを確認します。
     - 妥当なポリシーでRLSを有効にしていないテーブルでは、すべてのクライアントがデータにアクセスして変更できます。これは、ほとんどのケースで期待する挙動ではないことでしょう。
     - RLSの詳細は[こちら](/docs/guides/auth/row-level-security)を参照してください。
@@ -24,6 +25,20 @@ description: 'アプリを公開する前にするべきこと'
 - 認証メールにカスタムSMTPサーバーを使用します。信頼できるドメインからメールが来ていることをユーザーが確認できるようにします（SendGrid、AWS SESなどの主要なメールプロバイダーからSMTP認証情報を取得してください）。メールサーバのドメインはアプリがホストされているのと同じドメインが望ましいです。
 - 自分が攻撃者としたら、どのようにサービスを悪用するかをよく考え、対策を検討しましょう。
 - これらの[一般的なサイバーセキュリティ上の脅威](https://auth0.com/docs/security/prevent-threats)を確認します。
+=======
+- Ensure RLS is enabled
+    - Tables that do not have RLS enabled with reasonable policies allow any client to access and modify their data. This is unlikely to be what you want in the majority of cases.
+    - [Learn more about RLS](/docs/guides/auth/row-level-security)
+- Enable replication on tables containing sensitive data by enabling Row Level Security (RLS) and setting row security policies:
+    - Go to the Authentication > Policies page in the Supabase Dashboard to enable RLS and create security policies
+    - Go to the Database > Replication page in the Supabase Dashboard to manage replication tables
+- Enable 2FA on GitHub
+    - Since your GitHub account gives you administrative rights to your Supabase project, you should protect it with a strong password and 2FA using a U2F key or a TOTP app.
+- Ensure email confirmations are enabled in the Auth > Settings page
+- Use a custom SMTP server for auth emails so that your users can see that the mails are coming from a trusted domain (preferably the same domain that your app is hosted on). (grab SMTP credentials from any major email provider such as SendGrid, AWS SES, etc.)
+- Think hard about how *you* would abuse your service as an attacker, and mitigate
+- Review these [common cybersecurity threats](https://auth0.com/docs/security/prevent-threats)
+>>>>>>> 2038f0fd549165f7c305aded8664d207d224b4d8
 
 ## パフォーマンス
 
@@ -47,4 +62,8 @@ description: 'アプリを公開する前にするべきこと'
     - Pro Tier（プロ版）プロジェクトの夜間バックアップは、Supabaseのダッシュボードで最大7日間利用可能です。
 - Supabase Pro Tierにアップグレードすると、support@supabase.ioでのメールによるサポートを受けることができます。
 
+<<<<<<< HEAD
 このチェックリストは常に成長していますので、頻繁にチェックしてください。また、追加や修正を提案する場合は、[Github](https://github.com/supabase/supabase)にPRを作成してください。
+=======
+This checklist is always growing so be sure to check back frequently, and also feel free to suggest additions and amendments by making a PR on [GitHub](https://github.com/supabase/supabase).
+>>>>>>> 2038f0fd549165f7c305aded8664d207d224b4d8
