@@ -14,13 +14,9 @@ SupabaseアプリケーションにGoogle OAuthログインを追加する方法
 
 ### 外部のOAuthプロバイダでログインする
 
-<<<<<<< HEAD
 <!-- textlint-disable ja-technical-writing/max-comma -->
-Google, Github, Facebookなどのソーシャル・ログインと接続するのはとても簡単です。このガイドでは、Googleに接続する手順を説明します。基本的にはazure, bitbucket, github, gitlab, facebook, googleを含むすべてのプロバイダーで同じ手順になります。
+Google, GitHub, Facebookなどのソーシャル・ログインと接続するのはとても簡単です。このガイドでは、Googleに接続する手順を説明します。基本的にはazure, bitbucket, github, gitlab, facebook, googleを含むすべてのプロバイダーで同じ手順になります。
 <!-- textlint-enable ja-technical-writing/max-comma -->
-=======
-Connecting social logins such as Google, GitHub, or Facebook couldn't be easier. In this guide we'll walk you through the process of connecting Google, but the process is basically the same for all of the providers which includes: azure, bitbucket, github, gitlab, facebook, and google.
->>>>>>> 2038f0fd549165f7c305aded8664d207d224b4d8
 
 まず、Googleの[クラウド・コンソール](https://console.cloud.google.com/home/dashboard)内にGoogleプロジェクトを作成する必要があります。他のプロバイダーでは、これを「アプリ」と呼ぶことがあり、通常はそれぞれのプロバイダーの開発者ポータルで利用できます。
 

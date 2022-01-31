@@ -526,13 +526,8 @@ pages:
             provider: 'github'
           })
           ```
-<<<<<<< HEAD
       - name: 電話番号でサインイ
         description: Supabaseは電話番号による認証をサポートしています。 
-=======
-      - name: Sign in with Phone.
-        description: Supabase supports Phone Auth.
->>>>>>> 2038f0fd549165f7c305aded8664d207d224b4d8
         js: |
           ```js
           const { user, session, error } = await supabase.auth.signIn({
@@ -783,36 +778,6 @@ pages:
           )
           ```
 
-<<<<<<< HEAD
-  Reset Password (Email):
-    title: パスワード（Eメール）
-    $ref: '@supabase/gotrue-js.GoTrueApi.resetPasswordForEmail'
-    notes: |
-      Eメールアドレスにリセットのリクエストを送信します。
-
-      ユーザーがメール内のリセットのリンクをクリックすると、次に転送します。
-
-      `<SITE_URL>#access_token=x&refresh_token=y&expires_in=z&token_type=bearer&type=recovery`
-
-      アプリはこのパラメーターの`type=recovery`を判定して、ユーザーにパスワードをリセットするためのフォームを表示する必要があります。
-
-      そして、URLのaccess_tokenと新しいパスワードを使って、以下のようにユーザーを更新する必要があります。
-
-      ```js
-      const { error, data } = await supabase.auth.api
-            .updateUser(access_token, { password : new_password })
-      ```
-    examples:
-      - name: パスワードのリセット
-        isSpotlight: true
-        js: |
-          ```js
-          const { data, error } = supabase.auth.api
-            .resetPasswordForEmail('user@email.com')
-          ```
-
-=======
->>>>>>> 2038f0fd549165f7c305aded8664d207d224b4d8
   auth.api.createUser():
     title: 'createUser()'
     # $ref: '@supabase/gotrue-js.GoTrueApi.createUser'
