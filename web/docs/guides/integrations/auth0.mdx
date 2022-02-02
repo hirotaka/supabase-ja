@@ -401,7 +401,7 @@ Supabaseダッシュボードに戻り、サイドバーメニューから`SQL`�
 
 ```sql
 create or replace function auth.user_id() returns text as $$
-  select nullif(current_setting('request.jwt.claim.userId', true), '')::text;
+  select nullif(current_setting('request.jwt.claims.userId', true), '')::text;
 $$ language sql stable;
 ```
 
