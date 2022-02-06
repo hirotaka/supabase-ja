@@ -476,7 +476,11 @@ pages:
           OAuthプロバイダーにサインアップするには、[`signIn()`](/docs/reference/javascript/auth-signin#sign-in-using-third-party-providers)メソッドを使用します。
       - name: 電話番号によるサインアップ
         description: |
+<<<<<<< HEAD
           Supabaseは電話番号による認証に対応しています。ユーザーが自分の電話番号を確認した後、[`signIn()`](/docs/reference/javascript/auth-signin#sign-in-using-phone)メソッドを使用することができます。
+=======
+          Supabase supports Phone Auth. After a user has verified their number, they can use the [`signIn()`](/docs/reference/javascript/auth-signin#sign-in-using-phone) method.
+>>>>>>> 1475339a8dee38e09b1b8e4a6e194cba4dda7118
         js: |
           ```js
           const { user, session, error } = await supabase.auth.signIn({
