@@ -153,11 +153,7 @@ pages:
         supabase db remote set <remote database connection url>
       ```
     examples:
-<<<<<<< HEAD
-      - name: db remote set command
-=======
       - name: "`db remote set` command"
->>>>>>> 90a8ed9ea1feb952018905495dbf847fb32ddee7
         sh: |
           ```sh
           supabase db remote set postgresql://postgres:[YOUR-PASSWORD]@db.azeazeiqsdiqswdsqdxc.supabase.co:5432/postgres
