@@ -139,7 +139,7 @@ curl 'https://sjvwsaokcugktsdaxxze.supabase.co/rest/v1/my_scores?select=*' \
 
 ```sql
 create or replace function auth.email() returns text as $$
-  select nullif(current_setting('request.jwt.claim.email', true), '')::text;
+  select nullif(current_setting('request.jwt.claims', true)::json->>'email', '')::text;
 $$ language sql;
 
 create policy "Only Blizzard staff can update leaderboard"

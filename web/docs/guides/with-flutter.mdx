@@ -115,7 +115,8 @@ create policy "Anyone can upload an avatar."
 
 ### APIキーの取得
 
-データベースのテーブルをいくつか作成したので、自動生成されたAPIを使ってデータを挿入する準備ができました。API設定からURLと`anon`キーを取得する必要があります。
+データベースのテーブルをいくつか作成したので、自動生成されたAPIを使ってデータを挿入する準備ができました。
+API設定からURLと`anon`キーを取得する必要があります。
 
 <Tabs
 defaultValue="UI"
@@ -636,10 +637,15 @@ flutter run -d web-server --web-hostname localhost --web-port 3000
 
 ![Supabase User Management example](/img/supabase-flutter-account-page.png)
 
-
 ## おまけ：プロフィール写真
 
 Supabaseのプロジェクトには、写真や動画などの大容量ファイルを管理するための[ストレージ](/docs/guides/storage)が設定されています。
+
+### パブリックなバケットにする
+
+パブリックに共有可能な画像として保存する予定です。
+`avatars`のバケットがパブリックに設定されていることを確認し、もしそうでなければ、バケット名にカーソルを合わせたときに表示されるドットメニューをクリックしてパブリックに変更してください。
+バケットがパブリックに設定されている場合は、バケット名の横にオレンジ色の`Public`バッジが表示されます。
 
 ### アカウントページへの画像アップロード機能の追加
 
@@ -742,7 +748,6 @@ class _AvatarState extends State<Avatar> {
   }
 }
 ```
-
 
 ### 新しいウィジェットの追加
 
