@@ -231,6 +231,7 @@ pages:
       //または
       <script src="https://unpkg.com/@supabase/supabase-js"></script>
       ```
+<<<<<<< HEAD
 
       ## Python
 
@@ -240,6 +241,9 @@ pages:
 
       ソースコードは[GitHub](https://github.com/supabase/supabase-py)にあります。
 
+=======
+      
+>>>>>>> b012a92bfe2c840cc1964d4f6cf6920271a7a138
   Initializing:
     title: 初期化
     $ref: '@supabase/supabase-js."SupabaseClient".SupabaseClient.constructor'
