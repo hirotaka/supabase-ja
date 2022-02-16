@@ -1,12 +1,16 @@
 # 新規に追加  
+docs/guides/integrations/snaplet.mdx
 docs/guides/integrations/appsmith.mdx
 docs/guides/auth/auth-notion.mdx
-docs/guides/with-react-native.mdx
+docs/guides/auth/auth-zoom.mdx
+docs/guides/auth/auth-azure.mdx
+docs/guides/with-expo.mdx
 
 # レファレンス
 docs/reference/cli/index.mdx
 docs/reference/cli/supabase-eject.mdx
 docs/reference/cli/supabase-init.mdx
+docs/reference/cli/config-reference.mdx
 docs/reference/dart/auth-onauthstatechange.mdx
 docs/reference/dart/auth-session.mdx
 docs/reference/dart/auth-signin.mdx
@@ -75,6 +79,7 @@ docs/reference/javascript/auth-api-getuser.mdx
 docs/reference/javascript/auth-api-inviteuserbyemail.mdx
 docs/reference/javascript/auth-api-resetpasswordforemail.mdx
 docs/reference/javascript/auth-api-sendmobileotp.mdx
+docs/reference/javascript/auth-signup.mdx
 docs/reference/javascript/containedby.mdx
 docs/reference/javascript/contains.mdx
 docs/reference/javascript/delete-user.mdx
@@ -105,6 +110,7 @@ docs/reference/javascript/rangegt.mdx
 docs/reference/javascript/rangegte.mdx
 docs/reference/javascript/rangelt.mdx
 docs/reference/javascript/rangelte.mdx
+docs/reference/javascript/removeallsubscriptions.mdx
 docs/reference/javascript/removesubscription.mdx
 docs/reference/javascript/rpc.mdx
 docs/reference/javascript/select.mdx

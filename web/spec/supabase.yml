@@ -231,15 +231,7 @@ pages:
       //または
       <script src="https://unpkg.com/@supabase/supabase-js"></script>
       ```
-
-      ## Python
-
-      ```bash
-      pip install supabase-py
-      ```
-
-      ソースコードは[GitHub](https://github.com/supabase/supabase-py)にあります。
-
+      
   Initializing:
     title: 初期化
     $ref: '@supabase/supabase-js."SupabaseClient".SupabaseClient.constructor'
