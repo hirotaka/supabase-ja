@@ -1,4 +1,5 @@
 # 新規に追加  
+docs/guides/integrations/snaplet.mdx
 docs/guides/integrations/appsmith.mdx
 docs/guides/auth/auth-notion.mdx
 docs/guides/with-react-native.mdx
