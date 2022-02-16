@@ -10,7 +10,7 @@ jobs:
         os:
           - ubuntu-latest
         node-version:
-          - 14.x
+          - 16.x
 
     defaults:
       run:
@@ -30,6 +30,18 @@ jobs:
       - name: Get the number of processors currently available
         id: processors
         run: echo "::set-output name=number::$(getconf _NPROCESSORS_ONLN)"
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
       - name: Setup reviewdog
         run: |
