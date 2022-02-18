@@ -7,8 +7,12 @@ import { useRef, useState, useEffect } from 'react'
 import { debounce, isUndefined, values } from 'lodash'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
+<<<<<<< HEAD
 import { Button, Typography, Listbox, IconUsers, IconAlertCircle } from '@supabase/ui'
 import * as Tooltip from '@radix-ui/react-tooltip'
+=======
+import { Button, Typography, Listbox, IconUsers, IconAlertCircle, Loading } from '@supabase/ui'
+>>>>>>> b5fdbb7d02b381e28d5f8090616e61215e8d2c1e
 
 import { API_URL } from 'lib/constants'
 import { post } from 'lib/common/fetch'
@@ -31,6 +35,7 @@ import Panel from 'components/to-be-cleaned/Panel'
 import InformationBox from 'components/ui/InformationBox'
 import { passwordStrength } from 'lib/helpers'
 import PasswordStrengthBar from 'components/ui/PasswordStrengthBar'
+import { useSubscriptionStats } from 'hooks'
 
 interface StripeCustomer {
   paymentMethods: any
@@ -61,8 +66,12 @@ export const Wizard = observer(() => {
   const { slug } = router.query
   const { app, ui } = useStore()
 
+<<<<<<< HEAD
   // TODO Clean up
   const { secret } = router.query
+=======
+  const subscriptionStats = useSubscriptionStats()
+>>>>>>> b5fdbb7d02b381e28d5f8090616e61215e8d2c1e
 
   const [projectName, setProjectName] = useState('')
   const [dbPass, setDbPass] = useState('')
@@ -78,7 +87,7 @@ export const Wizard = observer(() => {
   const currentOrg = organizations.find((o: any) => o.slug === slug)
   const stripeCustomerId = currentOrg?.stripe_customer_id
 
-  const totalFreeProjects = ui.profile?.total_free_projects ?? 0
+  const totalFreeProjects = subscriptionStats.total_free_projects
   const freeProjectsLimit = ui.profile?.free_project_limit ?? DEFAULT_FREE_PROJECTS_LIMIT
 
   const isEmptyOrganizations = organizations.length <= 0
@@ -90,7 +99,10 @@ export const Wizard = observer(() => {
   const isSelectFreeTier = dbPricingPlan === PRICING_PLANS.FREE
 
   const canCreateProject =
-    currentOrg?.is_owner && (!isSelectFreeTier || (isSelectFreeTier && !isOverFreeProjectLimit))
+    currentOrg?.is_owner &&
+    !subscriptionStats.isError &&
+    !subscriptionStats.isLoading &&
+    (!isSelectFreeTier || (isSelectFreeTier && !isOverFreeProjectLimit))
 
   const canSubmit =
     projectName != '' &&
@@ -98,11 +110,6 @@ export const Wizard = observer(() => {
     dbRegion != '' &&
     dbPricingPlan != '' &&
     (isSelectFreeTier || (!isSelectFreeTier && !isEmptyPaymentMethod))
-
-  const passwordErrorMessage =
-    dbPass != '' && passwordStrengthScore < DEFAULT_MINIMUM_PASSWORD_STRENGTH
-      ? 'You need a stronger password'
-      : undefined
 
   const delayedCheckPasswordStrength = useRef(
     debounce((value) => checkPasswordStrength(value), 300)
@@ -350,10 +357,21 @@ export const Wizard = observer(() => {
                 ))}
               </Listbox>
 
-              {isSelectFreeTier && isOverFreeProjectLimit && <FreeProjectLimitWarning />}
+              {isSelectFreeTier && isOverFreeProjectLimit && (
+                <FreeProjectLimitWarning limit={freeProjectsLimit} />
+              )}
               {!isSelectFreeTier && isEmptyPaymentMethod && (
                 <EmptyPaymentMethodWarning stripeCustomerId={stripeCustomerId} />
               )}
+            </Panel.Content>
+          )}
+
+          {subscriptionStats.isLoading && (
+            <Panel.Content>
+              <div className="py-10">
+                {/* @ts-ignore */}
+                <Loading active={true} />
+              </div>
             </Panel.Content>
           )}
         </>
@@ -384,7 +402,7 @@ const NotOrganizationOwnerWarning = () => {
   )
 }
 
-const FreeProjectLimitWarning = () => {
+const FreeProjectLimitWarning = ({ limit }: { limit: number }) => {
   return (
     <div className="mt-4">
       <InformationBox
@@ -396,8 +414,7 @@ const FreeProjectLimitWarning = () => {
         description={
           <div className="space-y-3">
             <p className="text-sm leading-normal">
-              Your account can only have a maximum of 2 free projects. You can only choose paid
-              pricing plan.
+              {`Your account can only have up to ${limit} free projects - to create another free project, you'll need to delete an existing free project first.`}
             </p>
           </div>
         }
