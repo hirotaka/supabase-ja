@@ -7,12 +7,7 @@ import { useRef, useState, useEffect } from 'react'
 import { debounce, isUndefined, values } from 'lodash'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
-<<<<<<< HEAD
-import { Button, Typography, Listbox, IconUsers, IconAlertCircle } from '@supabase/ui'
-import * as Tooltip from '@radix-ui/react-tooltip'
-=======
 import { Button, Typography, Listbox, IconUsers, IconAlertCircle, Loading } from '@supabase/ui'
->>>>>>> 97ad8620812f62f753590daab733b76701bd037f
 
 import { API_URL } from 'lib/constants'
 import { post } from 'lib/common/fetch'
