@@ -8,7 +8,11 @@ Supabaseはデフォルトで、命令文の最大実行時間を、anonキー�
 
 ### デフォルトのタイムアウトを変更
 
+<<<<<<< HEAD
 タイムアウトの値は、大部分のユースケースにおいて妥当なデフォルト値として選択されていますが、[`alter role`](https://www.postgresql.org/docs/13/sql-alterrole.html)文を使用しても変更できます。
+=======
+The timeout values were picked as a reasonable default for the majority of use-cases, but can be modified using the [`alter role`](https://www.postgresql.org/docs/current/sql-alterrole.html) statement:
+>>>>>>> 296cb9c50e6eccf10cbb008510a25add900d42a7
 
 ```sql
 alter role authenticated set statement_timeout = '15s';
@@ -22,6 +26,12 @@ set statement_timeout to 60000; -- 1 minute in milliseconds
 
 ### 命令文の最適化
 
+<<<<<<< HEAD
 すべてのSupabaseプロジェクトには、[`pg_stat_statements`](https://www.postgresql.org/docs/13/pgstatstatements.html)という拡張がインストールされています。この拡張は、プロジェクトに対して実行されたすべての命令文の計画と実行の統計を追跡します。これらの統計は、プロジェクトのパフォーマンスを診断するために使用できます。
 
 このデータはさらに、Postgresの[`explain`](https://www.postgresql.org/docs/13/using-explain.html)機能と組み合わせて使用することで、使用方法を最適化できます。
+=======
+All Supabase projects come with the [`pg_stat_statements`](https://www.postgresql.org/docs/current/pgstatstatements.html) extension installed, which tracks planning and execution statistics for all statements executed against it. These statistics can be used in order to diagnose the performance of your project.
+
+This data can further be used in conjunction with the [`explain`](https://www.postgresql.org/docs/current/using-explain.html) functionality of Postgres to optimize your usage.
+>>>>>>> 296cb9c50e6eccf10cbb008510a25add900d42a7

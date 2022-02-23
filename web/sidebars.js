@@ -129,6 +129,7 @@ module.exports = {
             'guides/auth/auth-github',
             'guides/auth/auth-gitlab',
             'guides/auth/auth-google',
+            'guides/auth/auth-linkedin',
             'guides/auth/auth-notion',
             'guides/auth/auth-slack',
             'guides/auth/auth-spotify',
@@ -173,6 +174,7 @@ module.exports = {
         'guides/integrations/appsmith',
         'guides/integrations/auth0',
         'guides/integrations/draftbit',
+        'guides/integrations/pgmustard',
         'guides/integrations/prisma',
         'guides/integrations/snaplet',
         'guides/integrations/vercel',
@@ -186,7 +188,17 @@ module.exports = {
     // },
     {
       type: 'category',
+<<<<<<< HEAD
       label: 'セルフ・ホスティング',
+=======
+      label: 'Platform',
+      collapsed: false,
+      items: ['guides/platform/logs'],
+    },
+    {
+      type: 'category',
+      label: 'Self Hosting',
+>>>>>>> 296cb9c50e6eccf10cbb008510a25add900d42a7
       collapsed: false,
       items: ['guides/hosting/overview', 'guides/hosting/docker'],
     },
