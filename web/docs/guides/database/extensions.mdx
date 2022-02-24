@@ -44,8 +44,13 @@ values={[
 
 ```sql 
 
+<<<<<<< HEAD
 -- 例：「pgtap」拡張を有効化 
 create extension pgtap;
+=======
+-- Example: enable the "pgtap" extension and ensure it is installed
+create extension pgtap with schema extensions;
+>>>>>>> 29c152ada227f9771b84da3eb2257c830f95aa08
 
 -- 例：「pgtap」拡張を無効化
 drop extension pgtap;
@@ -54,6 +59,8 @@ drop extension pgtap;
 
 SQLコードが`create extension`（拡張を作成）していても、これは「拡張を有効にする」と同じことです。
 拡張を無効にするには、`drop extension`を呼びだします。
+
+Enabling few extensions by the SQL code `create extension <extension-name> with schema extensions` may lead to permission issues (e.g. `dblink`, `http`, `pg_cron`).
 
 </TabItem>
 

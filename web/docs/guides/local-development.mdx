@@ -19,13 +19,30 @@ SupabaseはCLIを提供しているので、実際のプロジェクトに接続
 - Docker（デーモンが起動していることを確認してください）
 - Supabase CLI（手順は[こちら](https://github.com/supabase/cli)を参照）
 
+<<<<<<< HEAD
 ### gitを初期化
+=======
+### Initialize your project 
+>>>>>>> 29c152ada227f9771b84da3eb2257c830f95aa08
 
 ```bash
+# create your project folder
+mkdir your-project
+
+# move into the new folder
+cd your-project
+
+# start a new git repository
 git init
 ```
 
+<<<<<<< HEAD
 ### プロジェクトを初期化
+=======
+This command will create an empty folder for your project and start a new git repository.
+
+### Initialize Supabase
+>>>>>>> 29c152ada227f9771b84da3eb2257c830f95aa08
 
 ```bash
 supabase init
@@ -33,7 +50,11 @@ supabase init
 
 このコマンドを実行すると、ローカルでプロジェクトを開発するためのすべての設定を保持する`supabase`フォルダーが作成されます。
 
+<<<<<<< HEAD
 ### 開始
+=======
+### Start Supabase
+>>>>>>> 29c152ada227f9771b84da3eb2257c830f95aa08
 
 ```bash
 supabase start
@@ -53,7 +74,13 @@ Started local development setup.
 service_role key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIn0.M2d2z4SFn5C7HlJlaSLfrzuYim9nbY_XI40uWFN3hEE
 ```
 
+<<<<<<< HEAD
 ### サービスに直接アクセスする
+=======
+Now you can open a browser and visit the Studio at [http://localhost:54323](http://localhost:54323).
+
+### Accessing Services Directly
+>>>>>>> 29c152ada227f9771b84da3eb2257c830f95aa08
 
 <Tabs
 defaultValue="Postgres"
@@ -102,7 +129,20 @@ http://localhost:54321/auth/v1/           # Auth (GoTrue)
 </TabItem>
 </Tabs>
 
+<<<<<<< HEAD
 ### アプリケーション例
+=======
+### Stop Supabase
+
+```bash
+supabase stop
+```
+
+Stop Supabase services and let's build a real application next.
+
+
+## Example application
+>>>>>>> 29c152ada227f9771b84da3eb2257c830f95aa08
 
 Supabaseをローカルにインストールして起動する方法を学んだところで、フロントエンドのアプリケーションで使用する方法を見ていきましょう。
 このクイックスタート・ガイドでは、Supabaseスタックを使用するReactアプリケーションをどのように構成するかを説明します。
@@ -127,7 +167,11 @@ npm install --save @supabase/supabase-js
 supabase start  # Supabaseを起動
 ```
 
+<<<<<<< HEAD
 Supabaseは、アプリケーションのどこでも使用できます。以下のスニペットを`App.js`にコピーしてください。
+=======
+You can use Supabase anywhere in your application. Copy this snippet into `src/App.js`:
+>>>>>>> 29c152ada227f9771b84da3eb2257c830f95aa08
 
 ```js
 import { createClient } from '@supabase/supabase-js'
@@ -144,11 +188,23 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 npm start       # Reactアプリを起動
 ```
 
+<<<<<<< HEAD
 問題がなければ、`http://localhost:3000`上でReactアプリが動作し、`http://localhost:54321`上でSupabaseサービスが動作しているはずです。
 
 ### 終了
 
 Supabaseを使い終わったら、`Ctrl-C`を押してDockerサービスを停止します。
+=======
+If everything is working, you should have a React app running on `http://localhost:3000` and Supabase services running on `http://localhost:54321`.
+
+When you're finished with Supabase, send <kbd>Ctrl-C</kbd> to stop the application and run
+
+```bash
+supabase stop   # Stop Supabase
+```
+
+to stop Supabase services.
+>>>>>>> 29c152ada227f9771b84da3eb2257c830f95aa08
 
 ## マイグレーション
 
