@@ -188,17 +188,13 @@ module.exports = {
     // },
     {
       type: 'category',
-<<<<<<< HEAD
-      label: 'セルフ・ホスティング',
-=======
       label: 'Platform',
       collapsed: false,
       items: ['guides/platform/logs'],
     },
     {
       type: 'category',
-      label: 'Self Hosting',
->>>>>>> 3b7db97561fdca7880d805dd766f8395564c2d95
+      label: 'セルフ・ホスティング',
       collapsed: false,
       items: ['guides/hosting/overview', 'guides/hosting/docker'],
     },
