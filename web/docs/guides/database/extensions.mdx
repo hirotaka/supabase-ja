@@ -44,8 +44,8 @@ values={[
 
 ```sql 
 
--- 例：「pgtap」拡張を有効化 
-create extension pgtap;
+-- 例：「pgtap」拡張を有効化し、インストールされていることを確認
+create extension pgtap with schema extensions;
 
 -- 例：「pgtap」拡張を無効化
 drop extension pgtap;
@@ -54,6 +54,8 @@ drop extension pgtap;
 
 SQLコードが`create extension`（拡張を作成）していても、これは「拡張を有効にする」と同じことです。
 拡張を無効にするには、`drop extension`を呼びだします。
+
+SQLコード、`create extension <extension-name> with schema extensions`を実行した際、パーミッションの問題を引き起こすことがあります。例えば、`dblink`, `http`, `pg_cron`などがあります。
 
 </TabItem>
 

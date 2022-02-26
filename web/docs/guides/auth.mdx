@@ -127,7 +127,7 @@ let { data, error } = await supabase
 データベースのテーブルに`auth.uid() = user_id`というルールを定義するだけで、ミドルウェアからフィルターを削除しても、リクエストはルールを通過した行を返してくれます。
 
 ```js
-let user = await supabase.from('users').select('user_id, name')
+let { data, error } = await supabase.from('users').select('user_id, name')
 
 // console.log(data)
 // Still => { id: 'd0714948', name: 'Jane' }
