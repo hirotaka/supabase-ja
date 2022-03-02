@@ -60,12 +60,7 @@ export const Wizard = observer(() => {
   const { slug } = router.query
   const { app, ui } = useStore()
 
-<<<<<<< HEAD
-  // TODO Clean up
-  const { secret } = router.query
-=======
   const subscriptionStats = useSubscriptionStats()
->>>>>>> 97ad8620812f62f753590daab733b76701bd037f
 
   const [projectName, setProjectName] = useState('')
   const [dbPass, setDbPass] = useState('')
@@ -205,46 +200,6 @@ export const Wizard = observer(() => {
             <Button type="default" onClick={() => Router.push('/')}>
               Cancel
             </Button>
-<<<<<<< HEAD
-            <div className="space-x-3">
-              <Typography.Text type="secondary" small>
-                You can rename your project later
-              </Typography.Text>
-
-              <Tooltip.Root delayDuration={0}>
-                <Tooltip.Trigger>
-                  <Button onClick={() => {}} loading={newProjectedLoading} disabled={true}>
-                    Create new project
-                  </Button>
-                </Tooltip.Trigger>
-                <Tooltip.Content side="top">
-                  <Tooltip.Arrow className="radix-tooltip-arrow" />
-                  <div
-                    className={[
-                      'shadow px-2 py-1 rounded border',
-                      'bg-white flex flex-col space-y-1 items-center justify-center',
-                      'dark:bg-gray-800 dark:border-gray-700',
-                    ].join(' ')}
-                  >
-                    <Typography.Text small>
-                      Sorry! New projects cannot be created at the moment.{' '}
-                    </Typography.Text>
-                    <Typography.Text small>Check status.supabase.com for updates!</Typography.Text>
-                  </div>
-                </Tooltip.Content>
-              </Tooltip.Root>
-
-              {/* TODO: Revert back after incident is resolved */}
-              {secret == 'inian' && (
-                <Button
-                  onClick={onClickNext}
-                  loading={newProjectedLoading}
-                  disabled={newProjectedLoading || !canSubmit}
-                >
-                  Create new project
-                </Button>
-              )}
-=======
             <div className="space-x-3 items-center">
               <span className="text-scale-900 text-xs">You can rename your project later</span>
               <Button
@@ -254,7 +209,6 @@ export const Wizard = observer(() => {
               >
                 Create new project
               </Button>
->>>>>>> 1f6ab6a78e6245d0dd562a75ef4b6b15c789d61d
             </div>
           </div>
         }
