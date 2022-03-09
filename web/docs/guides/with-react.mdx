@@ -1,11 +1,11 @@
 ---
 id: with-react
-title: "クイックスタート：React"
+title: 'クイックスタート：React'
 description: ReactアプリでSupabaseを使用する方法をご紹介します。
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 ## イントロ
 
@@ -21,7 +21,7 @@ import TabItem from '@theme/TabItem';
 
 ![Supabaseユーザー管理の例](/img/user-management-demo.png)
 
-<!-- ## Video demo 
+<!-- ## Video demo
 
 Coming soon.
 
@@ -29,7 +29,7 @@ Use the annotated timeline to step through this tutorial.
 
 ## Instant deploy
 
-Want to deploy a completed version of this example without following the guide? 
+Want to deploy a completed version of this example without following the guide?
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fsupabase%2Fsupabase%2Ftree%2Fmaster%2Fexamples%2Freact-user-management&project-name=supabase-user-management&repository-name=supabase-user-management&demo-title=Supabase%20User%20Management&demo-description=An%20example%20web%20app%20using%20Supabase%20and%20Next.js&demo-url=https%3A%2F%2Fsupabase-react-user-management.vercel.app&demo-image=https%3A%2F%2Fi.imgur.com%2FZ3HkQqe.png&integration-ids=oac_jUduyjQgOyzev1fjrW83NYOv&external-id=nextjs-user-management)
 
@@ -53,7 +53,6 @@ If you want to do it yourself, let's get started: -->
 1. プロジェクトの詳細を入力します。
 1. 新しいデータベースが起動するのを待ちます。
 
-
 ### データベース・スキーマの設定
 
 これからデータベース・スキーマを設定します。SQLエディターの「User Management Starter」クイック・スターターを使用するか、下記のSQLをコピー/ペーストして自分で実行できます。
@@ -75,7 +74,7 @@ values={[
 ```
 
 <video width="99%" muted playsInline controls="true">
-<source src="/docs/videos/sql-user-management-starter.mp4" type="video/mp4" muted playsInline />
+  <source src="/docs/videos/sql-user-management-starter.mp4" type="video/mp4" muted playsInline />
 </video>
 
 </TabItem>
@@ -135,11 +134,10 @@ create policy "Anyone can upload an avatar."
 </TabItem>
 </Tabs>
 
-
 ### APIキーを取得
 
-
-データベースのテーブルをいくつか作成したので、自動生成されたAPIを使ってデータを挿入する準備ができました。API設定からURLと`anon`キーを取得する必要があります。
+データベースのテーブルをいくつか作成したので、自動生成されたAPIを使ってデータを挿入する準備ができました。
+API設定からURLと`anon`キーを取得する必要があります。
 
 <Tabs
 defaultValue="UI"
@@ -156,7 +154,7 @@ values={[
 ```
 
 <video width="99%" muted playsInline controls="true">
-<source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
+  <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
 </video>
 
 </TabItem>
@@ -168,7 +166,8 @@ values={[
 
 ### Reactアプリの初期化
 
-[Create React App](https://create-react-app.dev/docs/getting-started/)を使って`supabase-react`というアプリを初期化します。
+[Create React App](https://create-react-app.dev/docs/getting-started/)を使って、
+`supabase-react`というアプリを初期化します。
 
 ```bash
 npx create-react-app supabase-react --use-npm
@@ -181,7 +180,8 @@ cd supabase-react
 npm install @supabase/supabase-js
 ```
 
-最後に、環境変数を`.env`に保存します。必要なのは、APIのURLと、[先ほど](#apiキーを取得)コピーした`anon`キーだけです。
+最後に、環境変数を`.env`に保存します。
+必要なのは、APIのURLと、[先ほど](#apiキーを取得)コピーした`anon`キーだけです。
 
 ```bash title=".env"
 REACT_APP_SUPABASE_URL=YOUR_SUPABASE_URL
@@ -215,7 +215,9 @@ export default function Auth() {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
 
-  const handleLogin = async (email) => {
+  const handleLogin = async (e) => {
+    e.preventDefault()
+
     try {
       setLoading(true)
       const { error } = await supabase.auth.signIn({ email })
@@ -230,30 +232,27 @@ export default function Auth() {
 
   return (
     <div className="row flex flex-center">
-      <div className="col-6 form-widget">
+      <div className="col-6 form-widget" aria-live="polite">
         <h1 className="header">Supabase + React</h1>
         <p className="description">Sign in via magic link with your email below</p>
-        <div>
-          <input
-            className="inputField"
-            type="email"
-            placeholder="Your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <button
-            onClick={(e) => {
-              e.preventDefault()
-              handleLogin(email)
-            }}
-            className={'button block'}
-            disabled={loading}
-          >
-            {loading ? <span>Loading</span> : <span>Send magic link</span>}
-          </button>
-        </div>
+        {loading ? (
+          'Sending magic link...'
+        ) : (
+          <form onSubmit={handleLogin}>
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              className="inputField"
+              type="email"
+              placeholder="Your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button className="button block" aria-live="polite">
+              Send magic link
+            </button>
+          </form>
+        )}
       </div>
     </div>
   )
@@ -270,7 +269,7 @@ export default function Auth() {
 import { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
 
-export default function Account({ session }) {
+const Account = ({ session }) => {
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState(null)
   const [website, setWebsite] = useState(null)
@@ -280,7 +279,7 @@ export default function Account({ session }) {
     getProfile()
   }, [session])
 
-  async function getProfile() {
+  const getProfile = async () => {
     try {
       setLoading(true)
       const user = supabase.auth.user()
@@ -307,7 +306,9 @@ export default function Account({ session }) {
     }
   }
 
-  async function updateProfile({ username, website, avatar_url }) {
+  const updateProfile = async (e) => {
+    e.preventDefault()
+
     try {
       setLoading(true)
       const user = supabase.auth.user()
@@ -335,51 +336,46 @@ export default function Account({ session }) {
   }
 
   return (
-    <div className="form-widget">
-      <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={session.user.email} disabled />
-      </div>
-      <div>
-        <label htmlFor="username">Name</label>
-        <input
-          id="username"
-          type="text"
-          value={username || ''}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="website">Website</label>
-        <input
-          id="website"
-          type="website"
-          value={website || ''}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
-
-      <div>
-        <button
-          className="button block primary"
-          onClick={() => updateProfile({ username, website, avatar_url })}
-          disabled={loading}
-        >
-          {loading ? 'Loading ...' : 'Update'}
-        </button>
-      </div>
-
-      <div>
-        <button className="button block" onClick={() => supabase.auth.signOut()}>
-          Sign Out
-        </button>
-      </div>
+    <div aria-live="polite">
+      {loading ? (
+        'Saving ...'
+      ) : (
+        <form onSubmit={updateProfile} className="form-widget">
+          <div>Email: {session.user.email}</div>
+          <div>
+            <label htmlFor="username">Name</label>
+            <input
+              id="username"
+              type="text"
+              value={username || ''}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="website">Website</label>
+            <input
+              id="website"
+              type="url"
+              value={website || ''}
+              onChange={(e) => setWebsite(e.target.value)}
+            />
+          </div>
+          <div>
+            <button className="button block primary" disabled={loading}>
+              Update profile
+            </button>
+          </div>
+        </form>
+      )}
+      <button type="button" className="button block" onClick={() => supabase.auth.signOut()}>
+        Sign Out
+      </button>
     </div>
   )
 }
+
+export default Account
 ```
-
-
 
 ### ローンチ 
 
@@ -392,7 +388,7 @@ import { supabase } from './supabaseClient'
 import Auth from './Auth'
 import Account from './Account'
 
-export default function Home() {
+export default () => {
   const [session, setSession] = useState(null)
 
   useEffect(() => {
@@ -432,8 +428,9 @@ Supabaseのプロジェクトには、写真や動画などの大容量ファイ
 ```jsx title="src/Avatar.js"
 import { useEffect, useState } from 'react'
 import { supabase } from './supabaseClient'
+import VisuallyHidden from '@reach/visually-hidden'
 
-export default function Avatar({ url, size, onUpload }) {
+export default ({ url, size, onUpload }) => {
   const [avatarUrl, setAvatarUrl] = useState(null)
   const [uploading, setUploading] = useState(false)
 
@@ -441,7 +438,7 @@ export default function Avatar({ url, size, onUpload }) {
     if (url) downloadImage(url)
   }, [url])
 
-  async function downloadImage(path) {
+  const downloadImage = async (path) => {
     try {
       const { data, error } = await supabase.storage.from('avatars').download(path)
       if (error) {
@@ -454,8 +451,7 @@ export default function Avatar({ url, size, onUpload }) {
     }
   }
 
-
-  async function uploadAvatar(event) {
+  const uploadAvatar = async (event) => {
     try {
       setUploading(true)
 
@@ -468,9 +464,7 @@ export default function Avatar({ url, size, onUpload }) {
       const fileName = `${Math.random()}.${fileExt}`
       const filePath = `${fileName}`
 
-      let { error: uploadError } = await supabase.storage
-        .from('avatars')
-        .upload(filePath, file)
+      let { error: uploadError } = await supabase.storage.from('avatars').upload(filePath, file)
 
       if (uploadError) {
         throw uploadError
@@ -485,43 +479,35 @@ export default function Avatar({ url, size, onUpload }) {
   }
 
   return (
-    <div>
-      {avatarUrl ? (
-        <img
-          src={avatarUrl}
-          alt="Avatar"
-          className="avatar image"
-          style={{ height: size, width: size }}
-        />
-      ) : (
-        <div className="avatar no-image" style={{ height: size, width: size }} />
-      )}
-      <div style={{ width: size }}>
+    <div style={{ width: size }} aria-live="polite">
+      <img
+        src={avatarUrl ? avatarUrl : `https://place-hold.it/${size}x${size}`}
+        alt={avatarUrl ? 'Avatar' : 'No image'}
+        className="avatar image"
+        style={{ height: size, width: size }}
+      />
+      {uploading ? "Uploading..." : (
         <label className="button primary block" htmlFor="single">
-          {uploading ? 'Uploading ...' : 'Upload'}
+          Upload an avatar
         </label>
-        <input
-          style={{
-            visibility: 'hidden',
-            position: 'absolute',
-          }}
-          type="file"
-          id="single"
-          accept="image/*"
-          onChange={uploadAvatar}
-          disabled={uploading}
-        />
-      </div>
+        <VisuallyHidden>
+          <input
+            type="file"
+            id="single"
+            accept="image/*"
+            onChange={uploadAvatar}
+            disabled={uploading}
+          />
+        </VisuallyHidden>
+      )}
     </div>
   )
 }
 ```
 
-
 ### 新しいウィジェットの追加
 
 そして、このウィジェットをアカウント・ページに追加します。
-
 
 ```jsx title="src/Account.js"
 // Import the new component
@@ -543,7 +529,6 @@ return (
     {/* ... */}
   </div>
 )
-
 ```
 
 ## 次のステップ
