@@ -8,6 +8,7 @@ docs/guides/auth/auth-notion.mdx
 docs/guides/auth/auth-zoom.mdx
 docs/guides/auth/auth-azure.mdx
 docs/guides/with-expo.mdx
+docs/company/sla.md
 
 # レファレンス
 docs/reference/cli/index.mdx
