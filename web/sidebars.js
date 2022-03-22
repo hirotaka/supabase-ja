@@ -57,6 +57,9 @@ module.exports = {
         'guides/with-angular',
         'guides/with-expo',
         'guides/with-flutter',
+        'guides/with-ionic-angular',
+        'guides/with-ionic-react',
+        'guides/with-ionic-vue',
         'guides/with-nextjs',
         'guides/with-react',
         'guides/with-redwoodjs',
@@ -168,7 +171,23 @@ module.exports = {
     },
     {
       type: 'category',
+<<<<<<< HEAD
       label: 'インテグレーション',
+=======
+      label: 'Platform',
+      collapsed: false,
+      items: ['guides/platform/logs'],
+    },
+    {
+      type: 'category',
+      label: 'Self Hosting',
+      collapsed: false,
+      items: ['guides/hosting/overview', 'guides/hosting/docker'],
+    },
+    {
+      type: 'category',
+      label: 'Integrations',
+>>>>>>> 585e9cb4e0133797cc530a4d20b54116bb252ad9
       collapsed: false,
       items: [
         'guides/integrations/appsmith',
@@ -180,6 +199,7 @@ module.exports = {
         'guides/integrations/vercel',
       ],
     },
+<<<<<<< HEAD
     // {
     //   type: 'category',
     //   label: 'Storage',
@@ -198,6 +218,8 @@ module.exports = {
       collapsed: false,
       items: ['guides/hosting/overview', 'guides/hosting/docker'],
     },
+=======
+>>>>>>> 585e9cb4e0133797cc530a4d20b54116bb252ad9
     {
       type: 'category',
       label: 'See Also',
