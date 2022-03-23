@@ -57,6 +57,9 @@ module.exports = {
         'guides/with-angular',
         'guides/with-expo',
         'guides/with-flutter',
+        'guides/with-ionic-angular',
+        'guides/with-ionic-react',
+        'guides/with-ionic-vue',
         'guides/with-nextjs',
         'guides/with-react',
         'guides/with-redwoodjs',
@@ -168,6 +171,7 @@ module.exports = {
     },
     {
       type: 'category',
+<<<<<<< HEAD
       label: 'インテグレーション',
       collapsed: false,
       items: [
@@ -188,6 +192,8 @@ module.exports = {
     // },
     {
       type: 'category',
+=======
+>>>>>>> 312e9776d6c07cbaab3ad80038f9b5fb90bf3b3c
       label: 'Platform',
       collapsed: false,
       items: ['guides/platform/logs'],
@@ -197,6 +203,21 @@ module.exports = {
       label: 'セルフ・ホスティング',
       collapsed: false,
       items: ['guides/hosting/overview', 'guides/hosting/docker'],
+    },
+    {
+      type: 'category',
+      label: 'Integrations',
+      collapsed: false,
+      items: [
+        'guides/integrations/appsmith',
+        'guides/integrations/auth0',
+        'guides/integrations/draftbit',
+        'guides/integrations/pgmustard',
+        'guides/integrations/plasmic',
+        'guides/integrations/prisma',
+        'guides/integrations/snaplet',
+        'guides/integrations/vercel',
+      ],
     },
     {
       type: 'category',
