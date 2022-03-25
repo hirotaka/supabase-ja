@@ -9,27 +9,27 @@ import { toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { Button, Listbox, IconUsers, IconAlertCircle, Input, IconLoader } from '@supabase/ui'
 
-import { API_URL } from 'lib/constants'
+import { getURL, passwordStrength } from 'lib/helpers'
 import { post } from 'lib/common/fetch'
 import {
+  API_URL,
   PROVIDERS,
   REGIONS,
   REGIONS_DEFAULT,
   DEFAULT_MINIMUM_PASSWORD_STRENGTH,
-  PRICING_PLANS,
-  PRICING_PLANS_DEFAULT,
+  PRICING_TIER_LABELS,
+  PRICING_TIER_DEFAULT_KEY,
+  PRICING_TIER_FREE_KEY,
   DEFAULT_FREE_PROJECTS_LIMIT,
+  PRICING_TIER_PRODUCT_IDS,
 } from 'lib/constants'
+import { useStore, withAuth, useSubscriptionStats } from 'hooks'
 
-import { useStore, withAuth } from 'hooks'
 import { WizardLayout } from 'components/layouts'
-import { getURL } from 'lib/helpers'
-
 import Panel from 'components/to-be-cleaned/Panel'
 import InformationBox from 'components/ui/InformationBox'
-import { passwordStrength } from 'lib/helpers'
 import PasswordStrengthBar from 'components/ui/PasswordStrengthBar'
-import { useSubscriptionStats } from 'hooks'
+import { AddNewPaymentMethodModal } from 'components/interfaces/Billing'
 
 interface StripeCustomer {
   paymentMethods: any
@@ -65,7 +65,7 @@ export const Wizard = observer(() => {
   const [projectName, setProjectName] = useState('')
   const [dbPass, setDbPass] = useState('')
   const [dbRegion, setDbRegion] = useState(REGIONS_DEFAULT)
-  const [dbPricingPlan, setDbPricingPlan] = useState(PRICING_PLANS_DEFAULT)
+  const [dbPricingTierKey, setDbPricingTierKey] = useState(PRICING_TIER_DEFAULT_KEY)
   const [newProjectedLoading, setNewProjectLoading] = useState(false)
   const [passwordStrengthMessage, setPasswordStrengthMessage] = useState('')
   const [passwordStrengthWarning, setPasswordStrengthWarning] = useState('')
@@ -86,7 +86,7 @@ export const Wizard = observer(() => {
     : undefined
   const isOverFreeProjectLimit = totalFreeProjects >= freeProjectsLimit
   const isInvalidSlug = isUndefined(currentOrg)
-  const isSelectFreeTier = dbPricingPlan === PRICING_PLANS.FREE
+  const isSelectFreeTier = dbPricingTierKey === PRICING_TIER_FREE_KEY
 
   const canCreateProject =
     currentOrg?.is_owner &&
@@ -98,7 +98,7 @@ export const Wizard = observer(() => {
     projectName != '' &&
     passwordStrengthScore >= DEFAULT_MINIMUM_PASSWORD_STRENGTH &&
     dbRegion != '' &&
-    dbPricingPlan != '' &&
+    dbPricingTierKey != '' &&
     (isSelectFreeTier || (!isSelectFreeTier && !isEmptyPaymentMethod))
 
   const delayedCheckPasswordStrength = useRef(
@@ -120,6 +120,13 @@ export const Wizard = observer(() => {
   if (isInvalidSlug && organizations.length > 0) {
     router.push(`/new/${organizations[0].slug}`)
   }
+
+  useEffect(() => {
+    // User added a new payment method
+    if (router.query.setup_intent && router.query.redirect_status) {
+      ui.setNotification({ category: 'success', message: 'Successfully added new payment method' })
+    }
+  }, [])
 
   useEffect(() => {
     async function loadStripeAccountAsync(id: string) {
@@ -153,7 +160,7 @@ export const Wizard = observer(() => {
   }
 
   function onDbPricingPlanChange(value: string) {
-    setDbPricingPlan(value)
+    setDbPricingTierKey(value)
   }
 
   async function checkPasswordStrength(value: any) {
@@ -171,7 +178,7 @@ export const Wizard = observer(() => {
       name: projectName,
       db_pass: dbPass,
       db_region: dbRegion,
-      db_pricing_plan: dbPricingPlan,
+      db_pricing_tier_id: (PRICING_TIER_PRODUCT_IDS as any)[dbPricingTierKey],
     }
     const response = await post(`${API_URL}/projects`, data)
     if (response.error) {
@@ -322,7 +329,7 @@ export const Wizard = observer(() => {
               <Listbox
                 label="Pricing Plan"
                 layout="horizontal"
-                value={dbPricingPlan}
+                value={dbPricingTierKey}
                 // @ts-ignore
                 onChange={onDbPricingPlanChange}
                 // @ts-ignore
@@ -335,9 +342,9 @@ export const Wizard = observer(() => {
                   </>
                 }
               >
-                {Object.entries(PRICING_PLANS).map(([k, v]) => (
-                  <Listbox.Option key={k} label={v} value={v}>
-                    {`${v}${v === PRICING_PLANS.PRO ? ' - $25/month' : ''}`}
+                {Object.entries(PRICING_TIER_LABELS).map(([k, v]) => (
+                  <Listbox.Option key={k} label={v} value={k}>
+                    {`${v}${k === 'PRO' ? ' - $25/month' : ''}`}
                   </Listbox.Option>
                 ))}
               </Listbox>
@@ -407,39 +414,11 @@ const FreeProjectLimitWarning = ({ limit }: { limit: number }) => {
 
 const EmptyPaymentMethodWarning = observer(
   ({ stripeCustomerId }: { stripeCustomerId: string | undefined }) => {
-    const router = useRouter()
     const { ui } = useStore()
+    const slug = ui.selectedOrganization?.slug
 
-    const [loading, setLoading] = useState<boolean>(false)
+    const [showAddPaymentMethodModal, setShowAddPaymentMethodModal] = useState<boolean>(false)
 
-    /**
-     * Get a link and then redirect them
-     * path is used to determine what path inside billing portal to redirect to
-     */
-    async function redirectToPortal(path?: any) {
-      if (stripeCustomerId) {
-        setLoading(true)
-        const response = await post(`${API_URL}/stripe/checkout`, {
-          stripe_customer_id: stripeCustomerId,
-          returnTo: `${getURL()}${router.asPath}`,
-        })
-        if (response.error) {
-          ui.setNotification({
-            category: 'error',
-            message: `Failed to redirect: ${response.error.message}`,
-          })
-          setLoading(false)
-        } else {
-          const { setupCheckoutPortal } = response
-          window.location.replace(`${setupCheckoutPortal}${path ? path : ''}`)
-        }
-      } else {
-        ui.setNotification({
-          category: 'error',
-          message: `Invalid customer ID`,
-        })
-      }
-    }
     return (
       <div className="mt-4">
         <InformationBox
@@ -453,11 +432,16 @@ const EmptyPaymentMethodWarning = observer(
                 You need to add a payment method for your organization before creating a paid
                 project.
               </p>
-              <Button loading={loading} type="secondary" onClick={() => redirectToPortal()}>
+              <Button type="secondary" onClick={() => setShowAddPaymentMethodModal(true)}>
                 Add a payment method
               </Button>
             </div>
           }
+        />
+        <AddNewPaymentMethodModal
+          visible={showAddPaymentMethodModal}
+          returnUrl={`${getURL()}/new/${slug}`}
+          onCancel={() => setShowAddPaymentMethodModal(false)}
         />
       </div>
     )
