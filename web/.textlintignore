@@ -4,9 +4,11 @@ docs/guides/auth/auth-linkedin.mdx
 docs/guides/platform/logs.mdx
 docs/guides/integrations/snaplet.mdx
 docs/guides/integrations/appsmith.mdx
+docs/guides/integrations/clerk.mdx
 docs/guides/auth/auth-notion.mdx
 docs/guides/auth/auth-zoom.mdx
 docs/guides/auth/auth-azure.mdx
+docs/guides/auth/auth-vonage.mdx
 docs/guides/with-expo.mdx
 docs/company/sla.md
 
