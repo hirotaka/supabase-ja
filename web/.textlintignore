@@ -5,6 +5,8 @@ docs/guides/platform/logs.mdx
 docs/guides/integrations/snaplet.mdx
 docs/guides/integrations/appsmith.mdx
 docs/guides/integrations/clerk.mdx
+docs/guides/integrations/plasmic.mdx
+docs/guides/integrations/stytch.mdx
 docs/guides/auth/auth-notion.mdx
 docs/guides/auth/auth-zoom.mdx
 docs/guides/auth/auth-azure.mdx
