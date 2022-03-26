@@ -1,17 +1,20 @@
 # 新規に追加  
-docs/guides/integrations/pgmustard.mdx
-docs/guides/auth/auth-linkedin.mdx
 docs/guides/platform/logs.mdx
 docs/guides/integrations/snaplet.mdx
 docs/guides/integrations/appsmith.mdx
 docs/guides/integrations/clerk.mdx
 docs/guides/integrations/plasmic.mdx
 docs/guides/integrations/stytch.mdx
+docs/guides/integrations/pgmustard.mdx
+docs/guides/auth/auth-linkedin.mdx
 docs/guides/auth/auth-notion.mdx
 docs/guides/auth/auth-zoom.mdx
 docs/guides/auth/auth-azure.mdx
 docs/guides/auth/auth-vonage.mdx
 docs/guides/with-expo.mdx
+docs/guides/with-ionic-angular.mdx
+docs/guides/with-ionic-react.mdx
+docs/guides/with-ionic-vue.mdx
 docs/company/sla.md
 
 # レファレンス
