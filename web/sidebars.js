@@ -172,29 +172,6 @@ module.exports = {
     },
     {
       type: 'category',
-<<<<<<< HEAD
-      label: 'インテグレーション',
-      collapsed: false,
-      items: [
-        'guides/integrations/appsmith',
-        'guides/integrations/auth0',
-        'guides/integrations/draftbit',
-        'guides/integrations/pgmustard',
-        'guides/integrations/prisma',
-        'guides/integrations/snaplet',
-        'guides/integrations/vercel',
-      ],
-    },
-    // {
-    //   type: 'category',
-    //   label: 'Storage',
-    //   collapsed: false,
-    //   items: ['guides/storage/storage-sample'],
-    // },
-    {
-      type: 'category',
-=======
->>>>>>> f9d80549d9412a66f8b37fcc1045d7a94117d269
       label: 'Platform',
       collapsed: false,
       items: ['guides/platform/logs'],
@@ -207,7 +184,7 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Integrations',
+      label: 'インテグレーション',
       collapsed: false,
       items: [
         'guides/integrations/appsmith',

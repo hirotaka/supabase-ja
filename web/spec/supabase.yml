@@ -534,16 +534,11 @@ pages:
           ```
       - name: リダイレクトでサインイン
         description: |
-<<<<<<< HEAD
+          なお、`redirectTo`パラメーターはOAuthログインにのみ関係し、ログインの流れはAuthサーバによって管理されます。
+          メールや電話によるログインを使用している場合は、独自のリダイレクトを設定（メール／SMSテンプレート内）する必要があります。
+           
           ユーザーがログインした後に、どこにリダイレクトされるかをコントロールしたい場合があります。Supabaseはこの機能をサポートしています。
           Webサイト上の任意のURLパス（ベースになるドメインはAuth設定のドメインと同じにする必要があります）。
-=======
-          Note that the `redirectTo` param is only relevant for OAuth logins, where the login flow is managed by 
-          the Auth server. If you are using email/phone logins you should set up your own redirects (within the email/sms template).
-           
-          Sometimes you want to control where the user is redirected to after they are logged in. Supabase supports this for 
-          any URL path on your website (the base domain must be the same as the domain in your Auth settings).
->>>>>>> f9d80549d9412a66f8b37fcc1045d7a94117d269
         js: |
           ```js
           const { user, session, error } = await supabase.auth.signIn({
