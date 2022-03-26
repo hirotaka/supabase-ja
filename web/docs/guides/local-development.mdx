@@ -7,7 +7,7 @@ description: ローカルの開発マシンでSupabaseを使用する方法。
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-SupabaseはCLIを提供しているので、実際のプロジェクトに接続するのではなく、ローカルでアプリケーションを開発できます。
+SupabaseはCLIを提供しているので、ローカルでアプリケーションを開発し、そのアプリケーションをSupabaseプラットフォームにデプロイできます。
 
 ## はじめに
 
@@ -22,13 +22,13 @@ SupabaseはCLIを提供しているので、実際のプロジェクトに接続
 ### プロジェクトを初期化
 
 ```bash
-# create your project folder
+# プロジェクト・フォルダーを作成
 mkdir your-project
 
-# move into the new folder
+# 作成したフォルダーに移動
 cd your-project
 
-# start a new git repository
+# gitリポジトリを処理化
 git init
 ```
 
@@ -42,27 +42,35 @@ supabase init
 
 このコマンドを実行すると、ローカルでプロジェクトを開発するためのすべての設定を保持する`supabase`フォルダーが作成されます。
 
+### リーモート・プロジェクト
+
+任意のローカルにあるプロジェクトをリモートのデータベースにリンクできます。ここでは、Supabaseプロジェクトの接続文字列を使用します。
+
+```bash
+supabase db remote set 'postgresql://postgres:<your_password>@db.<your_project_ref>.supabase.co:5432/postgres'
+```
+
+その後、次を実行します。
+
+```bash
+supabase db remote commit
+```
+
+このコマンドは、CLIをセットアップする前にデータベースへ加えたすべての変更を取り込みます。
+
+`supabase/migrations`に `..._remote_commit.sql`というマイグレーションが追加されていることを確認できます。
+このマイグレーションは、リモートのSupabaseプロジェクトのスキーマと一致させるために、ローカルのデータベースに加えた必要な変更を取り込みます。
+
 ### Supabaseを開始
 
 ```bash
 supabase start
 ```
 
-このコマンドはDockerを使用して、Supabaseのすべてのオープンソースな[サービス](/docs/#how-it-works)を開始します。このコマンドは、ビルドするサービスが多いため、実行に時間がかかります。
+このコマンドはDockerを使用して、Supabaseのすべてのオープンソースな[サービス](/docs/#how-it-works)を開始します。
+このコマンドは、ビルドするサービスが多いため、実行に時間がかかります。
 
 このコマンドが実行されると、ローカルのSupabaseの認証情報を含む出力が表示されます。
-
-```txt
-Started local development setup.
-
-         API URL: http://localhost:54321
-          DB URL: postgresql://postgres:postgres@localhost:54322/postgres
-      Studio URL: http://localhost:54323
-        anon key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiJ9.ZopqoUt20nEV9cklpv9e3yw3PVyZLmKs5qLD6nGL1SI
-service_role key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIn0.M2d2z4SFn5C7HlJlaSLfrzuYim9nbY_XI40uWFN3hEE
-```
-
-これで、ブラウザーを開いて、[http://localhost:54323](http://localhost:54323)にあるStudioへアクセスできます。
 
 ### サービスに直接アクセスする
 
@@ -79,7 +87,8 @@ values={[
 postgresql://postgres:postgres@localhost:54322/postgres
 ```
 
-ローカルのPostgresインスタンスは、[`psql`](https://www.postgresql.org/docs/current/app-psql.html)や、[pgadmin](https://www.pgadmin.org/)などのPostgresクライアントからアクセスできます。
+ローカルのPostgresインスタンスは、[`psql`](https://www.postgresql.org/docs/current/app-psql.html)や、
+[pgadmin](https://www.pgadmin.org/)などのPostgresクライアントからアクセスできます。
 
 例えば、以下のようになります。
 
@@ -121,65 +130,81 @@ supabase stop
 
 Supabaseのサービスを停止して、次は実際のアプリケーションを構築してみましょう。
 
-
-## アプリケーション例
-
-Supabaseをローカルにインストールして起動する方法を学んだところで、フロントエンドのアプリケーションで使用する方法を見ていきましょう。
-このクイックスタート・ガイドでは、Supabaseスタックを使用するReactアプリケーションをどのように構成するかを説明します。
-
-```bash
-# 新しいReactアプリを作成
-npx create-react-app react-demo --use-npm
-
-# 作成したフォルダーに移動
-cd react-demo
-
-# Supabaseをセットアップ
-supabase init
-
-# supabase-jsライブラリーをインストールして保存
-npm install --save @supabase/supabase-js
-```
-
-アプリケーションの準備ができたら、バックエンドを起動します。
-
-```bash
-supabase start  # Supabaseを起動
-```
-
-Supabaseは、アプリケーションのどこでも使用できます。以下のスニペットを`src/App.js`にコピーしてください。
-
-```js
-import { createClient } from '@supabase/supabase-js'
-
-const SUPABASE_URL = '<your API URL>'
-const SUPABASE_ANON_KEY = '<your anon key>'
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-```
-
-次に、別の端末でフロントエンドを起動します。
-
-```bash
-npm start       # Reactアプリを起動
-```
-
-問題がなければ、`http://localhost:3000`上でReactアプリが動作し、`http://localhost:54321`上でSupabaseサービスが動作しているはずです。
-
-Supabaseを使い終わったら、<kbd>Ctrl-C</kbd>を押してDockerサービスを停止して、次のコマンドを実行します。
-
-```bash
-supabase stop   # Stop Supabase
-```
-
-Supabaseのサービスを停止します。
-
 ## マイグレーション
 
-CLIを使ってマイグレーションを管理できます。[こちらの](https://github.com/supabase/cli/tree/main/examples/tour)ツアーに沿って始めてみましょう。
+また、CLIを使用してマイグレーションを管理できます。 
+
+
+## 2. データベースを変更する
+
+ローカルのデータベースを変更するには、`supabase start`で表示される`DB URL`に対してSQLを実行するだけです。 
+
+この例では、提供されている「Supabase Studio」のリンクを使用して、`employees`という名前のテーブルを作成します。 
+Studioを開き、「SQL Editor」セクションに移動し、以下のSQLコマンドを実行します。
+
+```sql
+create table employees (
+	id serial primary key,
+	name text
+);
+```
+
+さて、ローカルのデータベースに`employees`テーブルがありますが、これをどのようにマイグレーションに組み込むのでしょうか。CLIで次を実行すると自動的に変更を検出できます。
+
+```sh
+supabase db commit create_employees
+```
+
+これは `<タイムスタンプ>_create_employees.sql`という名前の新しいマイグレーションを作成します。そして、`supabase start`以降のローカルのデータベースに対するすべての変更を反映します。
+
+サンプルのデータをテーブルに追加してみましょう。そのためには、`supabase/seed.sql`のシード・スクリプトを利用できます。 
+
+```sql
+-- in supabase/seed.sql
+insert into employees (id, name) 
+values 
+  (1, 'Erlich Backman'), 
+  (2, 'Richard Hendricks'),
+  (3, 'Monica Hall');
+```
+
+ここで、以下を実行して、マイグレーション・スクリプトとシード・スクリプトを再実行します。
+
+```bash
+supabase db reset
+```
+
+Studioでもう一度見てみると、今度は`employees`の中身が見えるはずです。 
+
+## 3. データベースの変更をリセットする
+
+もし、ローカルのデータベース上で実行したSQLを元に戻したい場合には、`reset`コマンドを使用できます。
+
+```sql
+-- ローカルのデータベースで実行
+alter table employees 
+  add department text default 'Hooli';
+```
+
+この変更を元に戻すには、次のように実行します。
+
+```sh
+supabase db reset
+```
+
+そうすると、ローカルのデータベースはリセットされます。
+
+## 4. マイグレーションをデプロイする
+
+最後に、これらのローカルで行った変更をリモートのデータベース（つまり、リモートのSupabaseプロジェクト）にデプロイする必要があります。 
+これを行うには、以下を実行します。 
+
+```sh
+supabase db push
+```
 
 ## 次のステップ
 
-- 何か疑問があれば、[ここで質問](https://github.com/supabase/supabase/discussions)してください
+- 何か疑問があれば、[Diiscussionsで質問](https://github.com/supabase/supabase/discussions)してください
 - CLIのリポジトリ：[GitHub](https://github.com/supabase/cli)
 - サインイン：[app.supabase.io](https://app.supabase.io)

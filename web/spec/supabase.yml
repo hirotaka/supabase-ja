@@ -373,6 +373,9 @@ pages:
         res.status(200).json(allOnlineUsers);
       };
       ```
+      
+      For more advance type-support, check out [`postgrest-js-tools`](https://github.com/mzalevski/postgrest-js-tools).
+
 
       ### GitHub Actionsで型を自動更新する
 
@@ -531,6 +534,9 @@ pages:
           ```
       - name: リダイレクトでサインイン
         description: |
+          なお、`redirectTo`パラメーターはOAuthログインにのみ関係し、ログインの流れはAuthサーバによって管理されます。
+          メールや電話によるログインを使用している場合は、独自のリダイレクトを設定（メール／SMSテンプレート内）する必要があります。
+           
           ユーザーがログインした後に、どこにリダイレクトされるかをコントロールしたい場合があります。Supabaseはこの機能をサポートしています。
           Webサイト上の任意のURLパス（ベースになるドメインはAuth設定のドメインと同じにする必要があります）。
         js: |
@@ -679,7 +685,7 @@ pages:
                withCredentials: true,
                credentials: 'include',
                headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
                 'Authorization': bearer, // Your own auth
                 'X-Supabase-Auth': token, // Set the Supabase user
                }
@@ -803,8 +809,7 @@ pages:
         js: |
           ```js
           const { data: user, error } = await supabase.auth.api.deleteUser(
-            '715ed5db-f090-4b8c-a067-640ecee36aa0',
-            'YOUR_SERVICE_ROLE_KEY'
+            '715ed5db-f090-4b8c-a067-640ecee36aa0'
           )
           ```
 
@@ -863,7 +868,7 @@ pages:
         isSpotlight: true
         js: |
           ```js
-          const { data, error } = supabase.auth.api
+          const { data, error } = await supabase.auth.api
             .resetPasswordForEmail('user@email.com')
           ```
 
@@ -1101,6 +1106,9 @@ pages:
             ])
           ```
       - name: Bulk create
+        description: |
+          When running a bulk create, the operation is handled in a single transaction. If any of the inserts fail, all other operations are 
+          rolled back.
         js: |
           ```js
           const { data, error } = await supabase
