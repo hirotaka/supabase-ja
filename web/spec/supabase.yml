@@ -235,12 +235,8 @@ pages:
       ```
 
   Initializing:
-<<<<<<< HEAD
     title: 初期化
-    $ref: '@supabase/supabase-js."SupabaseClient".SupabaseClient.constructor'
-=======
     $ref: '@supabase/supabase-js.index.SupabaseClient.constructor'
->>>>>>> ebfd338f361723063bd5b6a120f61a97eecc2342
     description: |
       新しくSupabaseクライアントを初期化するには、`createClient()`メソッドを使用します。
 
