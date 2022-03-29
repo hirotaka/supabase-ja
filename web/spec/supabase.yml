@@ -795,6 +795,7 @@ pages:
             password: 'password',
             data: { name: 'Yoda' }
           })
+          ```
       - name: Auto-confirm email.
         isSpotlight: true
         js: |
