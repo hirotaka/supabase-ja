@@ -82,6 +82,11 @@ module.exports = ui({
               padding: 0,
               marginBottom: '32px',
             },
+            'p img': {
+              border: '1px solid var(--colors-scale4)',
+              borderRadius: '4px',
+              overflow: 'hidden',
+            },
           },
         },
 
@@ -217,6 +222,16 @@ module.exports = ui({
           )}"><polygon points="5.5,0 2.5,3 1.1,3 4.1,0"/><polygon points="4,0 6,2 6,0.6 5.4,0"/><polygon points="0,2 1,3 2.4,3 0,0.6"/></svg>`
         )}")`,
       }),
+      keyframes: {
+        'flash-code': {
+          '0%': { backgroundColor: 'rgba(63, 207, 142, 0.1)' },
+          '100%': { backgroundColor: 'transparent' },
+        },
+      },
+      animation: {
+        'flash-code': 'flash-code 1s forwards',
+        'flash-code-slow': 'flash-code 2s forwards',
+      },
     },
   },
   // variants: {

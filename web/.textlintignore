@@ -7,18 +7,22 @@ docs/guides/integrations/plasmic.mdx
 docs/guides/integrations/stytch.mdx
 docs/guides/integrations/pgmustard.mdx
 docs/guides/auth/auth-linkedin.mdx
+docs/guides/auth/auth-keycloak.mdx
 docs/guides/auth/auth-notion.mdx
 docs/guides/auth/auth-zoom.mdx
 docs/guides/auth/auth-azure.mdx
+docs/guides/auth/auth-workos.mdx
 docs/guides/auth/auth-vonage.mdx
 docs/guides/with-expo.mdx
 docs/guides/with-ionic-angular.mdx
 docs/guides/with-ionic-react.mdx
 docs/guides/with-ionic-vue.mdx
+docs/guides/functions.mdx
 docs/company/sla.md
 
 # レファレンス
 docs/reference/cli/index.mdx
+docs/reference/cli/installing-and-updating.mdx
 docs/reference/cli/supabase-eject.mdx
 docs/reference/cli/supabase-init.mdx
 docs/reference/cli/config-reference.mdx
@@ -43,6 +47,7 @@ docs/reference/dart/in_.mdx
 docs/reference/dart/initializing.mdx
 docs/reference/dart/insert.mdx
 docs/reference/dart/installing.mdx
+docs/reference/dart/invoke.mdx
 docs/reference/dart/is_.mdx
 docs/reference/dart/like.mdx
 docs/reference/dart/limit.mdx
@@ -84,12 +89,14 @@ docs/reference/dart/subscribe.mdx
 docs/reference/dart/textsearch.mdx
 docs/reference/dart/update.mdx
 docs/reference/dart/upsert.mdx
+docs/reference/javascript/auth-api-createuser.mdx
 docs/reference/javascript/auth-api-deleteuser.mdx
 docs/reference/javascript/auth-api-generatelink.mdx
 docs/reference/javascript/auth-api-getuser.mdx
 docs/reference/javascript/auth-api-inviteuserbyemail.mdx
 docs/reference/javascript/auth-api-resetpasswordforemail.mdx
 docs/reference/javascript/auth-api-sendmobileotp.mdx
+docs/reference/javascript/auth-signup.mdx
 docs/reference/javascript/auth-signup.mdx
 docs/reference/javascript/containedby.mdx
 docs/reference/javascript/contains.mdx
@@ -104,6 +111,7 @@ docs/reference/javascript/ilike.mdx
 docs/reference/javascript/in.mdx
 docs/reference/javascript/insert.mdx
 docs/reference/javascript/is.mdx
+docs/reference/javascript/invoke.mdx
 docs/reference/javascript/like.mdx
 docs/reference/javascript/limit.mdx
 docs/reference/javascript/lt.mdx

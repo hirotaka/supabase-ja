@@ -9,17 +9,31 @@ import TabItem from '@theme/TabItem';
 
 SupabaseはCLIを提供しているので、ローカルでアプリケーションを開発し、そのアプリケーションをSupabaseプラットフォームにデプロイできます。
 
+## 前提条件
+
+### 依存関係
+
+始める前に、これらがローカルマシンにインストールされていることを確認してください。
+
+- Git。[ドキュメント](https://github.com/git-guides/install-git)
+- Docker（起動していることを確認してください）。[ドキュメント](https://docs.docker.com/engine/install/)
+- Supabase CLI。[ドキュメント](/docs/reference/cli/installing-and-updating)
+
+### Supabase CLIでログイン
+
+Supabase CLIをインストールした後は、Supabaseアカウント（サインアップは[app.supabase.io](https://app.supabase.io)）を使って[ログイン](/docs/reference/cli/supabase-login)できます。
+
+```bash
+supabase login
+```
+
+この操作は一度だけです。ログイン後、CLIはSupabaseプロジェクトを管理するための権限を持つようになります。
+
 ## はじめに
 
-### 前提条件
-
-お使いの環境に以下のものが必要です。
-
-- Git
-- Docker（デーモンが起動していることを確認してください）
-- Supabase CLI（手順は[こちら](https://github.com/supabase/cli)を参照）
-
 ### プロジェクトを初期化
+
+ローカルマシンに新しいフォルダーを作成します。
 
 ```bash
 # プロジェクト・フォルダーを作成
@@ -36,30 +50,15 @@ git init
 
 ### Supabaseを初期化
 
+Let's [initialize](/docs/reference/cli/supabase-init) Supabase inside the folder that you created:
+
 ```bash
 supabase init
 ```
 
 このコマンドを実行すると、ローカルでプロジェクトを開発するためのすべての設定を保持する`supabase`フォルダーが作成されます。
 
-### リーモート・プロジェクト
-
-任意のローカルにあるプロジェクトをリモートのデータベースにリンクできます。ここでは、Supabaseプロジェクトの接続文字列を使用します。
-
-```bash
-supabase db remote set 'postgresql://postgres:<your_password>@db.<your_project_ref>.supabase.co:5432/postgres'
-```
-
-その後、次を実行します。
-
-```bash
-supabase db remote commit
-```
-
-このコマンドは、CLIをセットアップする前にデータベースへ加えたすべての変更を取り込みます。
-
-`supabase/migrations`に `..._remote_commit.sql`というマイグレーションが追加されていることを確認できます。
-このマイグレーションは、リモートのSupabaseプロジェクトのスキーマと一致させるために、ローカルのデータベースに加えた必要な変更を取り込みます。
+## ローカルで開発
 
 ### Supabaseを開始
 
@@ -67,11 +66,12 @@ supabase db remote commit
 supabase start
 ```
 
-このコマンドはDockerを使用して、Supabaseのすべてのオープンソースな[サービス](/docs/#how-it-works)を開始します。
+この[start](/docs/reference/cli/supabase-start)コマンドはDockerを使用して、Supabaseのすべてのオープンソースな[サービス](/docs/#how-it-works)を開始します。
 このコマンドは、ビルドするサービスが多いため、実行に時間がかかります。
 
 このコマンドが実行されると、ローカルのSupabaseの認証情報を含む出力が表示されます。
 
+[stop](/docs/reference/cli/supabase-stop)コマンドでいつでもすべてのサービスを停止できます。
 ### サービスに直接アクセスする
 
 <Tabs
@@ -122,24 +122,22 @@ http://localhost:54321/auth/v1/           # Auth (GoTrue)
 </TabItem>
 </Tabs>
 
-### Supabaseを停止
 
-```bash
-supabase stop
-```
+### データベース・マイグレーション
 
-Supabaseのサービスを停止して、次は実際のアプリケーションを構築してみましょう。
-
-## マイグレーション
-
-また、CLIを使用してマイグレーションを管理できます。 
+データベースの変更は「マイグレーション」によって管理されます。データベースのマイグレーションは、時間の経過に伴うデータベースの変更を追跡する一般的な方法です。 
 
 
-## 2. データベースを変更する
+#### データベースを変更する
 
-ローカルのデータベースを変更するには、`supabase start`で表示される`DB URL`に対してSQLを実行するだけです。 
+このギルドでは、提供されている「Supabase Studio」のリンクを使用して、`employees`というテーブルを作成します。 
 
-この例では、提供されている「Supabase Studio」のリンクを使用して、`employees`という名前のテーブルを作成します。 
+:::note 
+
+データベースに慣れている方なら、`supabase start`で表示される`DB URL`を使って任意のSQLを実行できます。 
+
+::: 
+
 Studioを開き、「SQL Editor」セクションに移動し、以下のSQLコマンドを実行します。
 
 ```sql
@@ -176,7 +174,7 @@ supabase db reset
 
 Studioでもう一度見てみると、今度は`employees`の中身が見えるはずです。 
 
-## 3. データベースの変更をリセットする
+#### データベースの変更をリセットする
 
 もし、ローカルのデータベース上で実行したSQLを元に戻したい場合には、`reset`コマンドを使用できます。
 
@@ -194,17 +192,51 @@ supabase db reset
 
 そうすると、ローカルのデータベースはリセットされます。
 
-## 4. マイグレーションをデプロイする
+## デプロイ 
 
-最後に、これらのローカルで行った変更をリモートのデータベース（つまり、リモートのSupabaseプロジェクト）にデプロイする必要があります。 
-これを行うには、以下を実行します。 
+ローカルでアプリケーションを開発したので、[app.supabase.io](https://app.supabase.io)に移動して、変更をデプロイするプロジェクトを作成します。
+
+### プロジェクトをリンクする
+
+:::note 
+
+プロジェクトのリンクに必要なコマンドはいくつかあります。現在、これらのコマンドを1つのコマンドに統合しているところです。ご容赦ください。
+
+::: 
+
+[supabase link](/docs/guides/local-development)と[db remote set](/docs/reference/cli/supabase-db-remote-set)を使って、プロジェクトとリモートのプロジェクトを関連付けしましょう。
+
+
+```bash
+
+supabase link 
+# Use "supabase link --project-ref your-project-ref" to link your project in one step.
+
+supabase db remote set 'postgresql://postgres:<your_password>@db.<your_project_ref>.supabase.co:5432/postgres'
+# Use the connection string from your Supabase project here.
+
+supabase db remote commit
+# capture any changes that you have made to your database before setting up the CLI
+```
+
+`supabase/migrations`に `..._remote_commit.sql`というマイグレーションが追加されていることを確認できます。
+このマイグレーションは、リモートのSupabaseプロジェクトのスキーマと一致させるために、ローカルのデータベースに加えた必要な変更を取り込みます。
+
+
+### データベースの変更をデプロイ
+
+ローカルのデータベースのマイグレーションをデプロイするには、[`db push`](/docs/reference/cli/supabase-db-push) を使用します。
 
 ```sh
 supabase db push
 ```
 
+### エッジ・ファンクションをデプロイ
+
+近日公開。
+
 ## 次のステップ
 
-- 何か疑問があれば、[Diiscussionsで質問](https://github.com/supabase/supabase/discussions)してください
+- 何か疑問があれば、[Discussionsで質問](https://github.com/supabase/supabase/discussions)してください
 - CLIのリポジトリ：[GitHub](https://github.com/supabase/cli)
 - サインイン：[app.supabase.io](https://app.supabase.io)

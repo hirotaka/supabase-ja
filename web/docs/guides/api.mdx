@@ -11,20 +11,14 @@ import TabItem from '@theme/TabItem';
 
 Supabaseはデータベースのスキーマから直接3つのタイプのAPIを生成します。
 
-- REST - レストフルなインターフェースでやりとりします。
-- Realtime - データベースの更新をリッスンします。
-- GraphQL - [まもなく公開](https://supabase.com/blog/2021/12/03/pg-graphql)です。
+- REST - レストフルなインターフェースでやりとり
+- Realtime - データベースの更新をリッスン
+- GraphQL - [ベータ版](/blog/2021/12/03/pg-graphql)
 
 これらのAPIは次の特徴があります。
 
-- 即時性と自動生成：データベースを更新すると、その変更内容がAPIを通じてすぐアクセス可能になります。
-- ドキュメントの生成：Supabaseは、データベースを変更した際、ダッシュボードに更新されたドキュメントを生成します。
-- セキュア：APIはPostgreSQLの行単位セキュリティーと連動するように設定されており、APIゲートウェイの背後でキーによる認証が有効になっています。
-- 高速： 基本的な読み込みのベンチマークでは、Firebaseと比較して300%以上の高速化を実現しています。APIはPostgres上の非常に薄い層であり、Postgresがほとんどの力仕事をします。
-- スケーラブル：APIは数千の同時リクエストに対応しており、サーバレスの処理にも適しています。
 
-
-### RESTful API
+### REST API 
 
 Supabaseは、[PostgREST](https://postgrest.org/)を用いたRESTfulなAPIを提供しています。これは、Postgresの上の非常に薄いAPI層です。
 これは、CRUDのAPIに必要なすべてを提供します。
@@ -45,20 +39,29 @@ Supabaseは、[PostgREST](https://postgrest.org/)を用いたRESTfulなAPIを提
   allowFullScreen
 ></iframe>
 
+### GraphQL API
+
+:::note
+
+GraphQLはベータ版であり、変更される可能性があります。2022年3月28日以降に作成されたセルフ・ホストでのセットアップとSupabaseプロジェクトでのみ利用可能です。 
+
+:::
+
+SupabaseのGraphQLは、GraphQLのためのオープンソースのPostgreSQL拡張である[pg_graphql](/blog/2021/12/03/pg-graphql)を通じて機能します。 
+GraphQLを使い始めるには、プロジェクトで`pg_graphql`拡張を有効にする必要があります。
+
+<video width="99%" muted playsInline controls="true">
+<source src="/docs/videos/api/api-enable-graphql.mp4" type="video/mp4" muted playsInline />
+</video>
+
 ### リアルタイムAPI
 
 Supabaseは[Realtime](https://github.com/supabase/realtime)を使って、リアルタイムAPIを提供しています。これを利用して、データベースの変更をWebSocketで待ち受けることができます。
 RealtimeはPostgreSQLに組み込まれた論理的なレプリケーションを利用しています。Postgresのパブリケーションを管理するだけで、リアルタイムAPIを管できますす。
 
-### GraphQL API
-
-[まもなく公開](https://supabase.com/blog/2021/12/03/pg-graphql)です。オープンソースのPostgreSQLによるGraphQLの拡張機能である`pg_graphql`を開発しています。 
-`pg_graphql`は、既存のPostgreSQLのスキーマを検査し、リゾルバを用いてGraphQLのスキーマを反映します。`pg_graphql`は既存のRESTインターフェイスで公開する予定です。
-
-
 ## はじめに
 
-テーブルや関数をデータベースに追加した後、APIを利用できます。
+すべてのAPIは、データベースのテーブルから自動作成されます。データベースにテーブルや関数を追加した後、提供されるAPIを使用できます。 
 
 ### APIルートの作成
 
@@ -104,19 +107,10 @@ create table todos (
 </TabItem>
 </Tabs>
 
-
 ### API URLとキー
 
 Supabaseの各プロジェクトには、固有のAPI URLがあります。APIはAPIゲートウェイで保護されており、リクエストごとにAPIキーが必要となります。
 
-キーはダッシュボードで探すことができます。
-
-<Tabs
-defaultValue="UI"
-values={[
-  {label: 'UI', value: 'UI'}
-]}>
-<TabItem value="UI">
 
 ```sh
 1. 「Settings」セクションに移動します。
@@ -129,13 +123,19 @@ values={[
 <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
 </video>
 
-</TabItem>
-</Tabs>
+REST APIとGraphQL APIは、どちらも次のURLよりアクセスできます。 
+
+- REST: `https://<project_ref>.supabase.com/rest/v1`
+- GraphQL: `https://<project_ref>.supabase.com/rest/v1`
+
+これらのルートはどちらも`anon`キーが`apikey`ヘッダーを通して渡されることを必要があります。
+
+#### APIキー
 
 
-#### 詳細とリンク集
+キーは、ダッシュボード内の、上記URLと同じ場所にあります。
 
-最初は2つのキーが用意されています。
+鍵は2つ用意されています。
 
 - `anon`キーはブラウザのコンテキストで使用しても安全です。
 - `service_role`キーはサーバー上でのみ使用します。このキーは行単位セキュリティーを回避できます。
@@ -143,8 +143,9 @@ values={[
 
 ### ドキュメントへのアクセス
 
-Supabaseは、データベースの変更に応じてドキュメントを更新して、ダッシュボードに生成します。
+#### REST API
 
+Supabaseは、データベースの変更に応じてドキュメントを更新して、ダッシュボードに生成します。
 最初のステップで作成した`todos`テーブルのドキュメントを見てみましょう。
 
 <Tabs
@@ -160,11 +161,27 @@ values={[
 3. タブを使用して、JavascriptとcURLのドキュメントを切り替えます。
 ```
 
+<video width="99%" muted playsInline controls="true">
+<source src="/docs/videos/api/api-docs.mp4" type="video/mp4" muted playsInline />
+</video>
+
 </TabItem>
 </Tabs>
 
+#### GraphQL 
 
-### APIの利用
+GraphQLエンドポイント（`https://<project_ref>.supabase.com/rest/v1`）は、`apikey`ヘッダーを渡すことができるGraphiQL実装と互換性があります。
+いくつかの推奨アプリケーションを次に紹介します。
+
+- [paw.cloud](https://paw.cloud)
+- [insomnia.rest](https://insomnia.rest)
+- [postman.com/graphql](https://www.postman.com/graphql/)
+- セルフホスティングのGraphiQL：GraphiQLはシンプルなHTMLファイルを通して提供できます。詳しくは[こちらのDiscussion](https://github.com/supabase/supabase/discussions/6144)を参照
+
+## APIの利用
+
+
+### REST API
 
 HTTPリクエストを介してAPIを直接操作できますし、当社が提供するクライアント・ライブラリーを使用できます。
 
@@ -184,7 +201,7 @@ values={[
 ```javascript
 // JSクライアントを初期化
 import { createClient } from '@supabase/supabase-js'
-const supabase = createClient([SUPABASE_URL], [SUPABASE_ANON_KEY])
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 // リクエストを作成
 let { data: todos, error } = await supabase
@@ -205,10 +222,6 @@ curl '[SUPABASE_URL]/rest/v1/todos' \
 </TabItem>
 </Tabs>
 
-#### 詳細とリンク集
-
-- Postgresでテーブルを作成すると、デフォルトでは行単位セキュリティー（RLS）が無効になっています。[RLSを有効にする](/docs/guides/api#securing-your-routes)ことでセキュリティーを確保してください。
-- `service_role`キーをブラウザやユーザーが見られる場所にさらさないでください。
 <!-- textlint-disable ja-technical-writing/max-comma -->
 - JSリファレンス：[select()](/docs/reference/javascript/select),
 [insert()](/docs/reference/javascript/insert),
@@ -218,31 +231,85 @@ curl '[SUPABASE_URL]/rest/v1/todos' \
 [rpc()](/docs/reference/javascript/rpc)（Postgresの関数呼び出し）
 <!-- textlint-enable ja-technical-writing/max-comma -->
 
-### 誤って削除や更新をしてしまわないための保護機能
 
-新しいプロジェクトでは、デフォルトで、APIから来るすべてのクエリに対してPostgres拡張機能の[safeupdate](https://github.com/eradman/pg-safeupdate)が有効になっています。 
-これにより、付随するフィルターが提供されていない場合に、`delete()`または`update()`が失敗することを保証します。
-これを無効にするには、ダッシュボードのSQLエディターで以下のクエリを実行します。
+### GraphQL API
 
-```sql
-alter role "authenticator"
-set "session_preload_libraries" to default;
+:::note 
+
+pg_graphqlがベータ版である間、GraphQLの自動リフレッシュを無効にしています。GraphQL Introspectionをリフレッシュしたい場合は、`select graphql.rebuild_schema();`を呼び出してGraphQLスキーマを再構築してください。
+
+:::
+
+Supabase GraphQL APIでは、任意のGraphQLクライアントを使用できます。今回のGraphQLの例では、[urlql](https://formidable.com/open-source/urql/docs/)を使用することにします。 
+
+<Tabs
+defaultValue="Javascript"
+values={[
+  {label: 'Javascript', value: 'Javascript'},
+  {label: 'cURL', value: 'cURL'},
+]}>
+<TabItem value="Javascript">
+
+```javascript
+import { createClient, useQuery } from 'urql'
+
+// Prepare API key and Authorization header
+const headers = {
+  apikey: <SUPABASE_ANON_KEY>,
+  authorization: `Bearer: ${<SUPABASE_ANON_KEY}`>
+}
+
+// Create GraphQL client
+// See: https://formidable.com/open-source/urql/docs/basics/react-preact/#setting-up-the-client
+const client = createClient({
+  url: '<SUPABASE_URL>/grapqhl/v1',
+  fetchOptions: function createFetchOptions() { 
+    return { headers }
+  },
+})
+
+// Prepare our GraphQL query
+const TodosQuery = `
+  query {
+    todos {
+      id
+      title
+    }
+  }
+`
+
+// Query for the data (React)
+const [result, reexecuteQuery] = useQuery({
+  query: TodosQuery,
+})
+
+// Read the result
+const { data, fetching, error } = result
+```
+</TabItem>
+<TabItem value="cURL">
+
+```bash
+# Append /grapqhl/v1/ to your URL, and then use the table name as the route
+curl --request POST '<SUPABASE_URL>/grapqhl/v1' \
+-H 'apikey: <SUPABASE_ANON_KEY>' \
+-H 'Authorization: Bearer <SUPABASE_ANON_KEY>' \
+-d '{ "query":"{ todos(first: 3) { edges { node { id } } } }" }'
 ```
 
-再度有効にするには次を実行します。
-```sql
-alter role "authenticator" 
-set "session_preload_libraries" = 'safeupdate';
-```
-上記を実行することで、既存のプロジェクトに対しても有効にできます。設定はすぐに適用されますので、無効と有効化のどちらかを実行した後に再起動する必要はありません。
+</TabItem>
+</Tabs>
+
 
 ### リアルタイムの管理
 
-
-リアルタイムAPIは、PostgreSQLのレプリケーション機能を介して動作します。Postgresはデータベースの変更を、`supabase_realtime`と呼ばれる「パブリケーション」に送信します。
-このパブリケーションを管理することで、どのデータをブロードキャストするかを制御できますす。
-
 デフォルトでは、データベースのリアルタイムは無効になっています。それでは、`todos`テーブルのリアルタイムを有効にしてみましょう。
+
+:::note
+
+Realtime only works for tables in theパブリック・スキーマ。
+
+:::
 
 <Tabs
 defaultValue="UI"
@@ -273,14 +340,46 @@ alter publication supabase_realtime add table products;
 </TabItem>
 </Tabs>
 
-#### 詳細とリンク集
+これで、`todo`テーブルに挿入される新しいデータをリッスンできるようになりました。
 
+<Tabs
+defaultValue="Javascript"
+values={[
+  {label: 'Javascript', value: 'Javascript'}
+]}>
+<TabItem value="Javascript">
 
-- リアルタイムは、publicスキーマのテーブルに対してのみ機能します。
-- [JSリファレンス](/docs/reference/javascript/subscribe)：リアルタイム・クライアントを使ってデータベースの変更を受信します。
+```javascript
+// Initialize the JS client
+import { createClient } from '@supabase/supabase-js'
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+// Create a function to handle inserts
+const handleInserts = (payload) => {
+  console.log('Change received!', payload)
+}
+
+// Listen to unserts
+const { data: todos, error } = await supabase
+  .from('todos')
+  .in('INSERT', handleUpdates)
+  .subscribe()
+```
+
+</TabItem>
+</Tabs>
+
+データベースの変更をリッスンするには、[subscribe()](/docs/reference/javascript/subscribe)を使用します。 
+リアルタイムAPIは、PostgreSQLのレプリケーション機能を介して動作します。Postgresはデータベースの変更を、`supabase_realtime`と呼ばれる「パブリケーション」に送信します。
+
+## APIのセキュリティー
 
 
 ### ルートのセキュア化
+
+APIは、Postgresの行単位セキュリティーと連動するように設計されています。Supabase [Auth](/docs/guides/auth)を使用すれば、ログインしたユーザーに基づいてデータを制限できます。
+データへのアクセスを制御するには、[ポリシー](/docs/guides/auth#policies)を使用します。
+Postgresでテーブルを作成すると、デフォルトでは行単位セキュリティー（RLS）が無効になっています。[RLSを有効にする](/docs/guides/api#securing-your-routes)ことでセキュリティーを確保してください。
 
 <Tabs
 defaultValue="UI"
@@ -306,8 +405,27 @@ alter table todos enable row level security;
 </TabItem>
 </Tabs>
 
+### `service_role`キー
 
-#### 詳細とリンク集
 
-- APIは、Postgresの行単位セキュリティーと連動するように設計されています。Supabaseの[認証](/docs/guides/auth)を使用すれば、ログインしたユーザーに基づいてデータを制限できます。
-- データへのアクセスを制御するには、[ポリシー](/docs/guides/auth#policies)を使用します。
+ブラウザーやユーザーが見ることのできる場所に`service_role`キーを決して公開しないでください。このキーは行単位セキュリティーをバイパスするように設計されています。したがって、公開されていないサーバーでのみ使用するようにしてください。
+
+[GitHubと提携](/blog/2022/03/28/community-day#supabase-is-now-a-github-secret-scanning-partner)し、Supabaseの`service_role`キーが公開リポジトリーにプッシュされていないかスキャンします。GitHubがservice_role権限のあるキーを検出すると、そのキーをSupbaseに転送します。Supabaseは自動的にそのキーを失効してお知らせします。それにより、データを悪質業者から保護します。
+
+### 誤って削除や更新をしてしまわないための保護機能
+
+新しいプロジェクトでは、デフォルトで、APIから来るすべてのクエリに対してPostgres拡張機能の[safeupdate](https://github.com/eradman/pg-safeupdate)が有効になっています。 
+これにより、付随するフィルターが提供されていない場合に、`delete()`または`update()`が失敗することを保証します。
+これを無効にするには、ダッシュボードのSQLエディターで以下のクエリを実行します。
+
+```sql
+alter role "authenticator"
+set "session_preload_libraries" to default;
+```
+
+再度有効にするには次を実行します。
+```sql
+alter role "authenticator" 
+set "session_preload_libraries" = 'safeupdate';
+```
+上記を実行することで、既存のプロジェクトに対しても有効にできます。設定はすぐに適用されますので、無効と有効化のどちらかを実行した後に再起動する必要はありません。
