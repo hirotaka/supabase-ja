@@ -9,45 +9,31 @@ import TabItem from '@theme/TabItem';
 
 SupabaseはCLIを提供しているので、ローカルでアプリケーションを開発し、そのアプリケーションをSupabaseプラットフォームにデプロイできます。
 
-<<<<<<< HEAD
-## はじめに
+## 前提条件
 
-### 前提条件
+### 依存関係
 
-お使いの環境に以下のものが必要です。
+始める前に、これらがローカルマシンにインストールされていることを確認してください。
 
-- Git
-- Docker（デーモンが起動していることを確認してください）
-- Supabase CLI（手順は[こちら](https://github.com/supabase/cli)を参照）
+- Git。[ドキュメント](https://github.com/git-guides/install-git)
+- Docker（起動していることを確認してください）。[ドキュメント](https://docs.docker.com/engine/install/)
+- Supabase CLI。[ドキュメント](/docs/reference/cli/installing-and-updating)
 
-### プロジェクトを初期化
-=======
-## Prerequisites
+### Supabase CLIでログイン
 
-### Dependencies
-
-Before we begin, make sure you have these installed on your local machine:
-
-- Git. [Docs](https://github.com/git-guides/install-git)
-- Docker (make sure this is running). [Docs](https://docs.docker.com/engine/install/)
-- Supabase CLI. [Docs](/docs/reference/cli/installing-and-updating)
-
-### Supabase CLI login
-
-After installing the Supabase CLI you can [log in](/docs/reference/cli/supabase-login) using your Supabase account (sign up at [app.supabase.io](https://app.supabase.io)).
+Supabase CLIをインストールした後は、Supabaseアカウント（サインアップは[app.supabase.io](https://app.supabase.io)）を使って[ログイン](/docs/reference/cli/supabase-login)できます。
 
 ```bash
 supabase login
 ```
 
-This is a one-time operation. After you have logged in the CLI will have permissions to manage your Supabase projects.
+この操作は一度だけです。ログイン後、CLIはSupabaseプロジェクトを管理するための権限を持つようになります。
 
-## Getting started
+## はじめに
 
-### Initialize your project 
->>>>>>> 21f9e79799bdc37278951c1e0cf600422d38cf25
+### プロジェクトを初期化
 
-Let's create a new folder on your local machine:
+ローカルマシンに新しいフォルダーを作成します。
 
 ```bash
 # プロジェクト・フォルダーを作成
@@ -60,11 +46,7 @@ cd your-project
 git init
 ```
 
-<<<<<<< HEAD
 このコマンドにより、プロジェクト用に空のフォルダーを作成し、新しいgitリポジトリーをはじめることができます。
-=======
-These commands will create an empty folder for your project and start a new git repository.
->>>>>>> 21f9e79799bdc37278951c1e0cf600422d38cf25
 
 ### Supabaseを初期化
 
@@ -76,28 +58,7 @@ supabase init
 
 このコマンドを実行すると、ローカルでプロジェクトを開発するためのすべての設定を保持する`supabase`フォルダーが作成されます。
 
-<<<<<<< HEAD
-### リーモート・プロジェクト
-
-任意のローカルにあるプロジェクトをリモートのデータベースにリンクできます。ここでは、Supabaseプロジェクトの接続文字列を使用します。
-
-```bash
-supabase db remote set 'postgresql://postgres:<your_password>@db.<your_project_ref>.supabase.co:5432/postgres'
-```
-
-その後、次を実行します。
-
-```bash
-supabase db remote commit
-```
-
-このコマンドは、CLIをセットアップする前にデータベースへ加えたすべての変更を取り込みます。
-
-`supabase/migrations`に `..._remote_commit.sql`というマイグレーションが追加されていることを確認できます。
-このマイグレーションは、リモートのSupabaseプロジェクトのスキーマと一致させるために、ローカルのデータベースに加えた必要な変更を取り込みます。
-=======
-## Developing Locally
->>>>>>> 21f9e79799bdc37278951c1e0cf600422d38cf25
+## ローカルで開発
 
 ### Supabaseを開始
 
@@ -105,23 +66,13 @@ supabase db remote commit
 supabase start
 ```
 
-<<<<<<< HEAD
-このコマンドはDockerを使用して、Supabaseのすべてのオープンソースな[サービス](/docs/#how-it-works)を開始します。
+この[start](/docs/reference/cli/supabase-start)コマンドはDockerを使用して、Supabaseのすべてのオープンソースな[サービス](/docs/#how-it-works)を開始します。
 このコマンドは、ビルドするサービスが多いため、実行に時間がかかります。
-=======
-The [start](/docs/reference/cli/supabase-start) command uses Docker to start the open source [services](/docs/#how-it-works) of Supabase. 
-This command may take a while to run if this is the first time using the CLI.
->>>>>>> 21f9e79799bdc37278951c1e0cf600422d38cf25
 
 このコマンドが実行されると、ローカルのSupabaseの認証情報を含む出力が表示されます。
 
-<<<<<<< HEAD
+[stop](/docs/reference/cli/supabase-stop)コマンドでいつでもすべてのサービスを停止できます。
 ### サービスに直接アクセスする
-=======
-You can use the [stop](/docs/reference/cli/supabase-stop) command at any time to stop all services.
-
-### Accessing Services Directly
->>>>>>> 21f9e79799bdc37278951c1e0cf600422d38cf25
 
 <Tabs
 defaultValue="Postgres"
@@ -171,43 +122,23 @@ http://localhost:54321/auth/v1/           # Auth (GoTrue)
 </TabItem>
 </Tabs>
 
-<<<<<<< HEAD
-### Supabaseを停止
-=======
->>>>>>> 21f9e79799bdc37278951c1e0cf600422d38cf25
 
-### Database Migrations
+### データベース・マイグレーション
 
-<<<<<<< HEAD
-Supabaseのサービスを停止して、次は実際のアプリケーションを構築してみましょう。
-
-## マイグレーション
-
-また、CLIを使用してマイグレーションを管理できます。 
+データベースの変更は「マイグレーション」によって管理されます。データベースのマイグレーションは、時間の経過に伴うデータベースの変更を追跡する一般的な方法です。 
 
 
-## 2. データベースを変更する
+#### データベースを変更する
 
-ローカルのデータベースを変更するには、`supabase start`で表示される`DB URL`に対してSQLを実行するだけです。 
-
-この例では、提供されている「Supabase Studio」のリンクを使用して、`employees`という名前のテーブルを作成します。 
-Studioを開き、「SQL Editor」セクションに移動し、以下のSQLコマンドを実行します。
-=======
-Database changes are managed through "migrations". Database migrations are a common way of tracking changes to your database over time. 
-
-
-#### Making database changes
-
-For this guild, let's create a table called `employees`, using the "Supabase Studio" link provided. 
+このギルドでは、提供されている「Supabase Studio」のリンクを使用して、`employees`というテーブルを作成します。 
 
 :::note 
 
-If you're familiar with databases, you can also execute any SQL using the `DB URL` shown by `supabase start`. 
+データベースに慣れている方なら、`supabase start`で表示される`DB URL`を使って任意のSQLを実行できます。 
 
 ::: 
 
-Open the Studio, navigate to the "SQL Editor" section, and run the following SQL command:
->>>>>>> 21f9e79799bdc37278951c1e0cf600422d38cf25
+Studioを開き、「SQL Editor」セクションに移動し、以下のSQLコマンドを実行します。
 
 ```sql
 create table employees (
@@ -216,25 +147,15 @@ create table employees (
 );
 ```
 
-<<<<<<< HEAD
 さて、ローカルのデータベースに`employees`テーブルがありますが、これをどのようにマイグレーションに組み込むのでしょうか。CLIで次を実行すると自動的に変更を検出できます。
-=======
-Now we have the `employees` table in the local database, but how do we incorporate this into migrations? The CLI automatically detects changes by running the [commit](/docs/reference/cli/supabase-db-commit) command:
->>>>>>> 21f9e79799bdc37278951c1e0cf600422d38cf25
 
 ```sh
 supabase db commit create_employees
 ```
 
-<<<<<<< HEAD
 これは `<タイムスタンプ>_create_employees.sql`という名前の新しいマイグレーションを作成します。そして、`supabase start`以降のローカルのデータベースに対するすべての変更を反映します。
 
 サンプルのデータをテーブルに追加してみましょう。そのためには、`supabase/seed.sql`のシード・スクリプトを利用できます。 
-=======
-This creates a new migration named `<timestamp>_create_employees.sql`, representing any changes we've made to the local database since `supabase start`.
-
-Let's add some sample data into the table. We can use the seed script in `supabase/seed.sql`. 
->>>>>>> 21f9e79799bdc37278951c1e0cf600422d38cf25
 
 ```sql
 -- in supabase/seed.sql
@@ -253,11 +174,7 @@ supabase db reset
 
 Studioでもう一度見てみると、今度は`employees`の中身が見えるはずです。 
 
-<<<<<<< HEAD
-## 3. データベースの変更をリセットする
-=======
-#### Resetting database changes
->>>>>>> 21f9e79799bdc37278951c1e0cf600422d38cf25
+#### データベースの変更をリセットする
 
 もし、ローカルのデータベース上で実行したSQLを元に戻したい場合には、`reset`コマンドを使用できます。
 
@@ -275,25 +192,19 @@ supabase db reset
 
 そうすると、ローカルのデータベースはリセットされます。
 
-<<<<<<< HEAD
-## 4. マイグレーションをデプロイする
+## デプロイ 
 
-最後に、これらのローカルで行った変更をリモートのデータベース（つまり、リモートのSupabaseプロジェクト）にデプロイする必要があります。 
-これを行うには、以下を実行します。 
-=======
-## Deploying 
+ローカルでアプリケーションを開発したので、[app.supabase.io](https://app.supabase.io)に移動して、変更をデプロイするプロジェクトを作成します。
 
-Now that you've developed an application locally, head over to [app.supabase.io](https://app.supabase.io) and create a project where we can deploy the changes.
-
-### Linking your project 
+### プロジェクトをリンクする
 
 :::note 
 
-There are a few commands required to link your project. We are in the process of consolidating these commands into a single command. Bear with us!
+プロジェクトのリンクに必要なコマンドはいくつかあります。現在、これらのコマンドを1つのコマンドに統合しているところです。ご容赦ください。
 
 ::: 
 
-Let's associate your project with your remote project using [supabase link](/docs/guides/local-development) and [db remote set](/docs/reference/cli/supabase-db-remote-set)
+[supabase link](/docs/guides/local-development)と[db remote set](/docs/reference/cli/supabase-db-remote-set)を使って、プロジェクトとリモートのプロジェクトを関連付けしましょう。
 
 
 ```bash
@@ -308,29 +219,24 @@ supabase db remote commit
 # capture any changes that you have made to your database before setting up the CLI
 ```
 
-You'll notice that `supabase/migrations` is now populated with a migration in `..._remote_commit.sql`. 
-This migration captures any changes required for your local database to match the schema of your remote Supabase project.
+`supabase/migrations`に `..._remote_commit.sql`というマイグレーションが追加されていることを確認できます。
+このマイグレーションは、リモートのSupabaseプロジェクトのスキーマと一致させるために、ローカルのデータベースに加えた必要な変更を取り込みます。
 
 
-### Deploying Database changes
+### データベースの変更をデプロイ
 
-You can deploy any local database migrations using [`db push`](/docs/reference/cli/supabase-db-push):
->>>>>>> 21f9e79799bdc37278951c1e0cf600422d38cf25
+ローカルのデータベースのマイグレーションをデプロイするには、[`db push`](/docs/reference/cli/supabase-db-push) を使用します。
 
 ```sh
 supabase db push
 ```
 
-<<<<<<< HEAD
+### エッジ・ファンクションをデプロイ
+
+近日公開。
+
 ## 次のステップ
-=======
-### Deploying Edge Functions
 
-Coming soon!
-
-## Next steps
->>>>>>> 21f9e79799bdc37278951c1e0cf600422d38cf25
-
-- 何か疑問があれば、[Diiscussionsで質問](https://github.com/supabase/supabase/discussions)してください
+- 何か疑問があれば、[Discussionsで質問](https://github.com/supabase/supabase/discussions)してください
 - CLIのリポジトリ：[GitHub](https://github.com/supabase/cli)
 - サインイン：[app.supabase.io](https://app.supabase.io)

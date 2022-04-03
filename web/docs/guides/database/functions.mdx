@@ -1,12 +1,7 @@
 ---
 id: functions
-<<<<<<< HEAD
-title: 関数
+title: データベース関数
 description: Postgres関数の作成と利用。
-=======
-title: Database Functions
-description: Creating and using Postgres functions.
->>>>>>> 21f9e79799bdc37278951c1e0cf600422d38cf25
 ---
 
 import Tabs from '@theme/Tabs';
@@ -16,17 +11,13 @@ import TabItem from '@theme/TabItem';
 Postgresには、[SQL関数](https://www.postgresql.org/docs/current/sql-createfunction.html)のサポートが組み込まれています。
 これらの関数は、データベース内に存在し、[APIでも使用](/docs/reference/javascript/rpc)できます。
 
-<<<<<<< HEAD
+## データベース・ファンクション vs エッジ・ファンクション
+
+データに関する操作には、データベース内で実行され、RESTやGraphQL APIを使用してリモートで呼びだすことができるデータベース・ファンクションをおすすめします。
+
+グローバルに展開されるTypescriptファンクションをお探しの場合は、[エッジ・ファンクション](/docs/guides/functions) を参照してください。
+
 ## クイック・デモ
-=======
-## Database vs Edge Functions
-
-For data-intensive operations we recommend using Database Functions, which are executed within your database, and can be called remotely using the REST and GraphQL API.
-
-If you are looking for Typescript Functions which are globally deployed, check out [Edge Functions](/docs/guides/functions).
-
-## Quick demo
->>>>>>> 21f9e79799bdc37278951c1e0cf600422d38cf25
 
 <iframe
   className="w-full video-with-border"
