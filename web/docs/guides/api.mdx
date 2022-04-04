@@ -240,7 +240,11 @@ pg_graphqlがベータ版である間、GraphQLの自動リフレッシュを無
 
 :::
 
+<<<<<<< HEAD
 Supabase GraphQL APIでは、任意のGraphQLクライアントを使用できます。今回のGraphQLの例では、[urlql](https://formidable.com/open-source/urql/docs/)を使用することにします。 
+=======
+You can use any GraphQL client with the Supabase GraphQL API. For our GraphQL example we will use [urql](https://formidable.com/open-source/urql/docs/). 
+>>>>>>> 837de63648946ca2044a1139423d8e2a1640b17d
 
 <Tabs
 defaultValue="Javascript"
@@ -271,9 +275,13 @@ const client = createClient({
 // Prepare our GraphQL query
 const TodosQuery = `
   query {
-    todos {
-      id
-      title
+    todosCollection {
+      edges {
+        node {
+          id
+          title
+        }
+      }
     }
   }
 `
