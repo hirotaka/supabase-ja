@@ -126,7 +126,7 @@ Supabaseの各プロジェクトには、固有のAPI URLがあります。API�
 REST APIとGraphQL APIは、どちらも次のURLよりアクセスできます。 
 
 - REST: `https://<project_ref>.supabase.com/rest/v1`
-- GraphQL: `https://<project_ref>.supabase.com/rest/v1`
+- GraphQL: `https://<project_ref>.supabase.com/graphql/v1`
 
 これらのルートはどちらも`anon`キーが`apikey`ヘッダーを通して渡されることを必要があります。
 
@@ -240,7 +240,11 @@ pg_graphqlがベータ版である間、GraphQLの自動リフレッシュを無
 
 :::
 
+<<<<<<< HEAD
 Supabase GraphQL APIでは、任意のGraphQLクライアントを使用できます。今回のGraphQLの例では、[urlql](https://formidable.com/open-source/urql/docs/)を使用することにします。 
+=======
+You can use any GraphQL client with the Supabase GraphQL API. For our GraphQL example we will use [urql](https://formidable.com/open-source/urql/docs/). 
+>>>>>>> d695c05f2fbdfbe21ec1d5c15d76942d52d759fb
 
 <Tabs
 defaultValue="Javascript"
@@ -271,9 +275,13 @@ const client = createClient({
 // Prepare our GraphQL query
 const TodosQuery = `
   query {
-    todos {
-      id
-      title
+    todosCollection {
+      edges {
+        node {
+          id
+          title
+        }
+      }
     }
   }
 `
