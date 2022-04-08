@@ -47,12 +47,16 @@ GraphQLはベータ版であり、変更される可能性があります。2022
 
 :::
 
+<<<<<<< HEAD
 SupabaseのGraphQLは、GraphQLのためのオープンソースのPostgreSQL拡張である[pg_graphql](/blog/2021/12/03/pg-graphql)を通じて機能します。 
 GraphQLを使い始めるには、プロジェクトで`pg_graphql`拡張を有効にする必要があります。
 
 <video width="99%" muted playsInline controls="true">
 <source src="/docs/videos/api/api-enable-graphql.mp4" type="video/mp4" muted playsInline />
 </video>
+=======
+GraphQL in Supabase works through [pg_graphql](/blog/2021/12/03/pg-graphql), an open source PostgreSQL extension for GraphQL. 
+>>>>>>> bec1b8b3a83b1c0756d2c59b96f0c0e3ba4f63c6
 
 ### リアルタイムAPI
 
@@ -126,7 +130,7 @@ Supabaseの各プロジェクトには、固有のAPI URLがあります。API�
 REST APIとGraphQL APIは、どちらも次のURLよりアクセスできます。 
 
 - REST: `https://<project_ref>.supabase.com/rest/v1`
-- GraphQL: `https://<project_ref>.supabase.com/rest/v1`
+- GraphQL: `https://<project_ref>.supabase.com/graphql/v1`
 
 これらのルートはどちらも`anon`キーが`apikey`ヘッダーを通して渡されることを必要があります。
 
@@ -236,11 +240,20 @@ curl '[SUPABASE_URL]/rest/v1/todos' \
 
 :::note 
 
+<<<<<<< HEAD
 pg_graphqlがベータ版である間、GraphQLの自動リフレッシュを無効にしています。GraphQL Introspectionをリフレッシュしたい場合は、`select graphql.rebuild_schema();`を呼び出してGraphQLスキーマを再構築してください。
 
 :::
 
 Supabase GraphQL APIでは、任意のGraphQLクライアントを使用できます。今回のGraphQLの例では、[urlql](https://formidable.com/open-source/urql/docs/)を使用することにします。 
+=======
+To rebuild your GraphQL schema from the SQL schema, call `select graphql.rebuild_schema();`.
+Be sure to rebuild the GraphQL schema after altering the SQL schema.
+
+:::
+
+You can use any GraphQL client with the Supabase GraphQL API. For our GraphQL example we will use [urql](https://formidable.com/open-source/urql/docs/). 
+>>>>>>> bec1b8b3a83b1c0756d2c59b96f0c0e3ba4f63c6
 
 <Tabs
 defaultValue="Javascript"
@@ -271,9 +284,13 @@ const client = createClient({
 // Prepare our GraphQL query
 const TodosQuery = `
   query {
-    todos {
-      id
-      title
+    todosCollection {
+      edges {
+        node {
+          id
+          title
+        }
+      }
     }
   }
 `
@@ -414,18 +431,30 @@ alter table todos enable row level security;
 
 ### 誤って削除や更新をしてしまわないための保護機能
 
+<<<<<<< HEAD
 新しいプロジェクトでは、デフォルトで、APIから来るすべてのクエリに対してPostgres拡張機能の[safeupdate](https://github.com/eradman/pg-safeupdate)が有効になっています。 
 これにより、付随するフィルターが提供されていない場合に、`delete()`または`update()`が失敗することを保証します。
 これを無効にするには、ダッシュボードのSQLエディターで以下のクエリを実行します。
 
+=======
+For all projects, by default, the Postgres extension [safeupdate](https://github.com/eradman/pg-safeupdate) is enabled for all queries coming from the API. 
+This ensures that any `delete()` or `update()` would fail if there are no accompanying filters provided.
+To confirm that safeupdate is enabled for queries going through the API of your project, the following query could be run:
+>>>>>>> bec1b8b3a83b1c0756d2c59b96f0c0e3ba4f63c6
 ```sql
-alter role "authenticator"
-set "session_preload_libraries" to default;
+select usename,useconfig from pg_shadow where usename = 'authenticator' ;
 ```
 
+<<<<<<< HEAD
 再度有効にするには次を実行します。
 ```sql
 alter role "authenticator" 
 set "session_preload_libraries" = 'safeupdate';
 ```
 上記を実行することで、既存のプロジェクトに対しても有効にできます。設定はすぐに適用されますので、無効と有効化のどちらかを実行した後に再起動する必要はありません。
+=======
+The expected value for `useconfig` should be:
+```
+["session_preload_libraries=supautils, safeupdate"]
+```
+>>>>>>> bec1b8b3a83b1c0756d2c59b96f0c0e3ba4f63c6
