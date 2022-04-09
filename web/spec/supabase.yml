@@ -8,15 +8,9 @@ info:
 
     <table style={{tableLayout: 'fixed', whiteSpace: 'nowrap' }}>
       <tr>
-<<<<<<< HEAD
         <th>言語</th>
         <th>クライアント</th>
-        <th colspan="4">クライアント機能（Supabseクライアントに含まれているもの）</th>
-=======
-        <th>Language</th>
-        <th>Client</th>
-        <th colspan="5">Feature-Clients (bundled in Supabase client)</th>
->>>>>>> bec1b8b3a83b1c0756d2c59b96f0c0e3ba4f63c6
+        <th colspan="5">クライアント機能（Supabseクライアントに含まれているもの）</th>
       </tr>
       <tr>
         <th></th>
@@ -37,11 +31,7 @@ info:
         <td><a href="https://github.com/supabase/storage-js" target="_blank" rel="noopener noreferrer">storage-js</a></td>
         <td><a href="https://github.com/supabase/functions-js" target="_blank" rel="noopener noreferrer">functions-js</a></td>
       </tr>
-<<<<<<< HEAD
-      <th colspan="6">💚 コミュニティー 💚</th>
-=======
-      <th colspan="7">💚 Community 💚</th>
->>>>>>> bec1b8b3a83b1c0756d2c59b96f0c0e3ba4f63c6
+      <th colspan="7">💚 コミュニティー 💚</th>
       <tr>
         <td>C#</td>
         <td><a href="https://github.com/supabase-community/supabase-csharp" target="_blank" rel="noopener noreferrer">supabase-csharp</a></td>

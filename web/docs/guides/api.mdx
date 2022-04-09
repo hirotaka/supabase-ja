@@ -17,6 +17,11 @@ Supabaseはデータベースのスキーマから直接3つのタイプのAPI�
 
 これらのAPIは次の特徴があります。
 
+- **即時性と自動生成** <br />データベースを更新すると、その変更内容がAPIを通じてすぐアクセス可能になります。
+- **ドキュメントの生成** <br />Supabaseは、データベースを変更した際、ダッシュボードに更新されたドキュメントを生成します。
+- **セキュア** <br />APIはPostgreSQLの行単位セキュリティーと連動するように設定されており、APIゲートウェイの背後でキーによる認証が有効になっています。
+- **高速** <br />基本的な読み込みのベンチマークでは、Firebaseと比較して300%以上の高速化を実現しています。APIはPostgres上の非常に薄い層であり、Postgresがほとんどの力仕事をします。
+- **スケーラブル** <br />APIは数千の同時リクエストに対応しており、サーバレスの処理にも適しています。
 
 ### REST API 
 
@@ -47,16 +52,7 @@ GraphQLはベータ版であり、変更される可能性があります。2022
 
 :::
 
-<<<<<<< HEAD
 SupabaseのGraphQLは、GraphQLのためのオープンソースのPostgreSQL拡張である[pg_graphql](/blog/2021/12/03/pg-graphql)を通じて機能します。 
-GraphQLを使い始めるには、プロジェクトで`pg_graphql`拡張を有効にする必要があります。
-
-<video width="99%" muted playsInline controls="true">
-<source src="/docs/videos/api/api-enable-graphql.mp4" type="video/mp4" muted playsInline />
-</video>
-=======
-GraphQL in Supabase works through [pg_graphql](/blog/2021/12/03/pg-graphql), an open source PostgreSQL extension for GraphQL. 
->>>>>>> bec1b8b3a83b1c0756d2c59b96f0c0e3ba4f63c6
 
 ### リアルタイムAPI
 
@@ -240,20 +236,12 @@ curl '[SUPABASE_URL]/rest/v1/todos' \
 
 :::note 
 
-<<<<<<< HEAD
-pg_graphqlがベータ版である間、GraphQLの自動リフレッシュを無効にしています。GraphQL Introspectionをリフレッシュしたい場合は、`select graphql.rebuild_schema();`を呼び出してGraphQLスキーマを再構築してください。
+SQLスキーマからGraphQLスキーマを再構築するには、`select graphql.rebuild_schema();`を呼び出します。
+SQLスキーマを変更した後は、必ずGraphQLスキーマを再構築するようにしてください。
 
 :::
 
 Supabase GraphQL APIでは、任意のGraphQLクライアントを使用できます。今回のGraphQLの例では、[urlql](https://formidable.com/open-source/urql/docs/)を使用することにします。 
-=======
-To rebuild your GraphQL schema from the SQL schema, call `select graphql.rebuild_schema();`.
-Be sure to rebuild the GraphQL schema after altering the SQL schema.
-
-:::
-
-You can use any GraphQL client with the Supabase GraphQL API. For our GraphQL example we will use [urql](https://formidable.com/open-source/urql/docs/). 
->>>>>>> bec1b8b3a83b1c0756d2c59b96f0c0e3ba4f63c6
 
 <Tabs
 defaultValue="Javascript"
@@ -313,6 +301,7 @@ curl --request POST '<SUPABASE_URL>/grapqhl/v1' \
 -H 'Authorization: Bearer <SUPABASE_ANON_KEY>' \
 -d '{ "query":"{ todos(first: 3) { edges { node { id } } } }" }'
 ```
+
 
 </TabItem>
 </Tabs>
@@ -427,34 +416,19 @@ alter table todos enable row level security;
 
 ブラウザーやユーザーが見ることのできる場所に`service_role`キーを決して公開しないでください。このキーは行単位セキュリティーをバイパスするように設計されています。したがって、公開されていないサーバーでのみ使用するようにしてください。
 
-[GitHubと提携](/blog/2022/03/28/community-day#supabase-is-now-a-github-secret-scanning-partner)し、Supabaseの`service_role`キーが公開リポジトリーにプッシュされていないかスキャンします。GitHubがservice_role権限のあるキーを検出すると、そのキーをSupbaseに転送します。Supabaseは自動的にそのキーを失効してお知らせします。それにより、データを悪質業者から保護します。
+[GitHubと提携](/blog/2022/03/28/community-day#supabase-is-now-a-github-secret-scanning-partner)し、Supabaseの`service_role`キーが公開リポジトリーにプッシュされていないかスキャンします。
+GitHubがservice_role権限のあるキーを検出すると、そのキーをSupbaseに転送します。Supabaseは自動的にそのキーを失効してお知らせします。それにより、データを悪質業者から保護します。
 
 ### 誤って削除や更新をしてしまわないための保護機能
 
-<<<<<<< HEAD
 新しいプロジェクトでは、デフォルトで、APIから来るすべてのクエリに対してPostgres拡張機能の[safeupdate](https://github.com/eradman/pg-safeupdate)が有効になっています。 
 これにより、付随するフィルターが提供されていない場合に、`delete()`または`update()`が失敗することを保証します。
 これを無効にするには、ダッシュボードのSQLエディターで以下のクエリを実行します。
-
-=======
-For all projects, by default, the Postgres extension [safeupdate](https://github.com/eradman/pg-safeupdate) is enabled for all queries coming from the API. 
-This ensures that any `delete()` or `update()` would fail if there are no accompanying filters provided.
-To confirm that safeupdate is enabled for queries going through the API of your project, the following query could be run:
->>>>>>> bec1b8b3a83b1c0756d2c59b96f0c0e3ba4f63c6
 ```sql
 select usename,useconfig from pg_shadow where usename = 'authenticator' ;
 ```
 
-<<<<<<< HEAD
-再度有効にするには次を実行します。
-```sql
-alter role "authenticator" 
-set "session_preload_libraries" = 'safeupdate';
-```
-上記を実行することで、既存のプロジェクトに対しても有効にできます。設定はすぐに適用されますので、無効と有効化のどちらかを実行した後に再起動する必要はありません。
-=======
-The expected value for `useconfig` should be:
+useconfig` に期待される値は次のとおりです。
 ```
 ["session_preload_libraries=supautils, safeupdate"]
 ```
->>>>>>> bec1b8b3a83b1c0756d2c59b96f0c0e3ba4f63c6
