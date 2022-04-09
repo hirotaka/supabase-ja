@@ -1,6 +1,7 @@
 import {
   cleanQuery,
   Count,
+  Filters,
   genCountQuery,
   genDefaultQuery,
   genQueryParams,
@@ -15,50 +16,36 @@ import useSWRInfinite, { SWRInfiniteKeyLoader } from 'swr/infinite'
 import { API_URL } from 'lib/constants'
 import { get } from 'lib/common/fetch'
 
-interface Data<T> {
+interface Data {
   logData: LogData[]
   error: string | Object | null
   newCount: number
   isLoading: boolean
   pageSize: number
-  filters: T
+  filters: Filters
   params: LogsEndpointParams
   oldestTimestamp?: string
 }
-interface Handlers<T> {
+interface Handlers {
   loadOlder: () => void
   refresh: () => void
-  setFilters: Dispatch<SetStateAction<T>>
+  setFilters: (filters: Filters | ((previous: Filters) => Filters)) => void
   setFrom: (value: string) => void
   setTo: (value: string) => void
 }
-
-interface Options<Filters> {
-  initialFilters: Filters
-  whereStatementFactory: WhereStatementFactory<Filters>
-}
-
-type WhereStatementFactory<T> = (filters: T) => string
-
-function useLogsPreview<Filters>(
+function useLogsPreview(
   projectRef: string,
   table: LogsTableName,
-  opts?: Partial<Options<Filters>>
-): [Data<Filters>, Handlers<Filters>] {
-  const options: Options<Filters> = {
-    initialFilters: {} as Filters,
-    whereStatementFactory: () => '',
-    ...(opts ?? {}),
-  }
-
+  filterOverride?: Filters
+): [Data, Handlers] {
   const [latestRefresh, setLatestRefresh] = useState<string>(new Date().toISOString())
 
-  const [filters, setFilters] = useState<Filters>(options.initialFilters)
+  const [filters, setFilters] = useState<Filters>({ ...filterOverride })
 
   const [params, setParams] = useState<LogsEndpointParams>({
     project: projectRef,
-    sql: cleanQuery(genDefaultQuery(table, options.whereStatementFactory(filters))),
-    rawSql: genDefaultQuery(table, options.whereStatementFactory(filters)),
+    sql: '',
+    rawSql: '',
     period_start: '',
     period_end: '',
     timestamp_start: '',
@@ -96,7 +83,7 @@ function useLogsPreview<Filters>(
     isValidating,
     size,
     setSize,
-  } = useSWRInfinite<Logs>(getKeyLogs, get, { revalidateOnFocus: false })
+  } = useSWRInfinite<Logs>(getKeyLogs, get, { revalidateOnFocus: false, dedupingInterval: 3000 })
   let logData: LogData[] = []
 
   const countUrl = `${API_URL}/projects/${projectRef}/analytics/endpoints/logs.all?${genQueryParams(
@@ -107,11 +94,15 @@ function useLogsPreview<Filters>(
     } as any
   )}`
 
-  const { data: countData } = useSWR<Count>(countUrl, get, { refreshInterval: 5000 })
+  const { data: countData } = useSWR<Count>(countUrl, get, {
+    revalidateOnFocus: false,
+    dedupingInterval: 5000,
+    refreshInterval: 5000,
+  })
   const newCount = countData?.result?.[0]?.count ?? 0
 
   const refresh = async () => {
-    const generatedSql = genDefaultQuery(table, options.whereStatementFactory(filters))
+    const generatedSql = genDefaultQuery(table, filters)
     setParams((prev) => ({ ...prev, sql: cleanQuery(generatedSql), rawSql: generatedSql }))
     setLatestRefresh(new Date().toISOString())
     setSize(1)
@@ -126,7 +117,19 @@ function useLogsPreview<Filters>(
       error = response.error
     }
   })
+
   const oldestTimestamp = logData[logData.length - 1]?.timestamp
+
+  const handleSetFilters: Handlers['setFilters'] = (newFilters) => {
+    if (typeof newFilters === 'function') {
+      setFilters((prev) => {
+        const resolved = newFilters(prev)
+        return { ...resolved, ...filterOverride }
+      })
+    } else {
+      setFilters((prev) => ({ ...prev, ...newFilters, ...filterOverride }))
+    }
+  }
   return [
     {
       newCount,
@@ -141,7 +144,7 @@ function useLogsPreview<Filters>(
     {
       setFrom: (value) => setParams((prev) => ({ ...prev, timestamp_start: value })),
       setTo: (value) => setParams((prev) => ({ ...prev, timestamp_end: value })),
-      setFilters,
+      setFilters: handleSetFilters,
       refresh,
       loadOlder: () => setSize((prev) => prev + 1),
     },
