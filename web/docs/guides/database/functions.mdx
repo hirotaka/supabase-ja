@@ -11,6 +11,7 @@ import TabItem from '@theme/TabItem';
 Postgresには、[SQL関数](https://www.postgresql.org/docs/current/sql-createfunction.html)のサポートが組み込まれています。
 これらの関数は、データベース内に存在し、[APIでも使用](/docs/reference/javascript/rpc)できます。
 
+<<<<<<< HEAD
 ## データベース・ファンクション vs エッジ・ファンクション
 
 データに関する操作には、データベース内で実行され、RESTやGraphQL APIを使用してリモートで呼びだすことができるデータベース・ファンクションをおすすめします。
@@ -18,6 +19,9 @@ Postgresには、[SQL関数](https://www.postgresql.org/docs/current/sql-createf
 グローバルに展開されるTypescriptファンクションをお探しの場合は、[エッジ・ファンクション](/docs/guides/functions) を参照してください。
 
 ## クイック・デモ
+=======
+## Quick demo
+>>>>>>> 677cc27413cacd573e753bd19cadbac9e2f73643
 
 <iframe
   className="w-full video-with-border"
@@ -29,7 +33,11 @@ Postgresには、[SQL関数](https://www.postgresql.org/docs/current/sql-createf
   allowFullScreen
 ></iframe>
 
+<<<<<<< HEAD
 ## 関数を作成
+=======
+## Getting started
+>>>>>>> 677cc27413cacd573e753bd19cadbac9e2f73643
 
 Supabaseは、データベースの関数を作成するためのいくつかの選択肢を提供しています。
 ダッシュボードを使用するか、SQLを使用して直接作成できます。ダッシュボードにはSQLエディターが用意されていますが、データベースに[接続](/docs/guides/database/connecting/connecting-to-postgres)して自分でSQLクエリを実行できます。
@@ -40,12 +48,92 @@ Supabaseは、データベースの関数を作成するためのいくつかの
 3. データベース関数を作成または置き換えるためのSQLを入力します。
 4. 「Run」をクリックするか、cmd+enter（ctrl+enter）を入力します。
 
+<<<<<<< HEAD
 ## 例
 
 ### データの集合
 
 このガイドでは、以下の例のデータを使用します。
+=======
 
+## Simple Functions
+
+Let's create a basic Database Function which returns a string "hello world".
+>>>>>>> 677cc27413cacd573e753bd19cadbac9e2f73643
+
+```sql
+create or replace function hello_world() -- 1
+returns text -- 2
+language sql -- 3
+as $$  -- 4
+  select 'hello world';  -- 5
+$$; --6
+
+```
+
+<details>
+<summary>Show/Hide Details</summary>
+  
+At it's most basic a function has the following parts:
+
+1. `create or replace function hello_world()`: The function declaration, where `hello_world` is the name of the function. You can use either `create` when creating a new function or `replace` when replacing an existing function. Or you can use `create or replace` together to handle either.
+2. `returns text`: The type of data that the function returns. If it returns nothing, you can `returns void`. 
+3. `language sql`: The language used inside the function body. This can also be a procedural language: `plpgsql`, `plv8`, `plpython`, etc.
+4. `as $$`: The function wrapper. Anything enclosed inside the `$$` symbols will be part of the function body.
+5. `select 'hello world';`: A simple function body. The final `select` statement inside a function body will be returned if there are no statements following it.
+6. `$$;`: The closing symbols of the function wrapper.
+
+</details>
+
+<br />
+
+After the Function is created, we have several ways of "executing" the function - either directly inside the database using SQL, or with one of the client libraries.
+
+<Tabs
+defaultValue="SQL"
+values={[
+  {label: 'SQL', value: 'SQL'},
+  {label: 'JS', value: 'JS'},
+  {label: 'Dart', value: 'Dart'},
+]}>
+
+<TabItem value="SQL">
+
+```sql
+select hello_world();
+```
+
+</TabItem>
+<TabItem value="JS">
+
+```js 
+const { data, error } = supabase
+  .rpc('hello_world')
+```
+
+Reference: [rpc()](/docs/reference/javascript/rpc)
+
+</TabItem>
+<TabItem value="Dart">
+
+```dart 
+final res = await supabase
+  .rpc('hello_world')
+  .execute();
+```
+
+Reference: [rpc()](/docs/reference/dart/rpc)
+
+</TabItem>
+
+</Tabs>
+
+
+## Returning data sets
+
+Database Functions can also return data sets from [Tables](/docs/guides/database/tables) or Views.
+
+For example, if we had a database with some Star Wars data inside:
 
 <Tabs
 defaultValue="Data"
@@ -106,6 +194,7 @@ values
 
 </Tabs>
 
+<<<<<<< HEAD
 ### 基本的な関数
 
 「hello world」という文字列を返す基本的な例です。
@@ -179,6 +268,10 @@ final res = await supabase
 ### テーブルの集合を返す
 
 例のデータの集合に含まれるすべての`planets`を返す基本的な例です。
+=======
+
+We could create a function which returns all the planets:
+>>>>>>> 677cc27413cacd573e753bd19cadbac9e2f73643
 
 ```sql
 create or replace function get_planets() 
@@ -189,9 +282,13 @@ as $$
 $$;
 ```
 
+<<<<<<< HEAD
 #### 実行
 
 この関数はテーブルの集合を返すので、フィルタやセレクターを適用できます。例えば、最初の惑星だけが欲しい場合は次のようにします。
+=======
+Because this function returns a table set, we can also apply filters and selectors. For example, if we only wanted the first planet:
+>>>>>>> 677cc27413cacd573e753bd19cadbac9e2f73643
 
 <Tabs
 defaultValue="SQL"
@@ -218,8 +315,11 @@ const { data, error } = supabase
   .eq('id', 1)
 ```
 
+<<<<<<< HEAD
 参考：[rpc()](/docs/reference/javascript/rpc)
 
+=======
+>>>>>>> 677cc27413cacd573e753bd19cadbac9e2f73643
 </TabItem>
 <TabItem value="Dart">
 
@@ -230,16 +330,25 @@ final res = await supabase
   .execute();
 ```
 
+<<<<<<< HEAD
 参考：[rpc()](/docs/reference/dart/rpc)
 
+=======
+>>>>>>> 677cc27413cacd573e753bd19cadbac9e2f73643
 </TabItem>
 
 </Tabs>
 
 
+<<<<<<< HEAD
 ### パラメーター付き
 
 新しい惑星を`planets`に挿入し、新しいIDを返す基本的な例です。今回は`plpgsql`という言語を使っていることに注意してください。
+=======
+## Passing parameters
+
+Let's create a Function to insert a new planet into the `planets` table and return the new ID. Note that this time we're using the `plpgsql` language.
+>>>>>>> 677cc27413cacd573e753bd19cadbac9e2f73643
 
 ```sql
 create or replace function add_planet(name text) 
@@ -258,9 +367,13 @@ end;
 $$;
 ```
 
+<<<<<<< HEAD
 #### 実行
 
 この関数はテーブルの集合を返すので、フィルタやセレクターを適用できます。例えば、最初の惑星の`name`だけが欲しい場合は次のようにします。
+=======
+Once again, you can execute this function either inside your database using a `select` query, or with the client libraries:
+>>>>>>> 677cc27413cacd573e753bd19cadbac9e2f73643
 
 <Tabs
 defaultValue="SQL"
@@ -284,7 +397,10 @@ const { data, error } = await supabase
   .rpc('add_planet', { name: 'Jakku' })
 ```
 
+<<<<<<< HEAD
 参考：[rpc()](/docs/reference/javascript/rpc)
+=======
+>>>>>>> 677cc27413cacd573e753bd19cadbac9e2f73643
 
 </TabItem>
 <TabItem value="Dart">
@@ -295,14 +411,93 @@ final res = await supabase
   .execute();
 ```
 
+<<<<<<< HEAD
 参考：[rpc()](/docs/reference/dart/rpc)
 
+=======
+>>>>>>> 677cc27413cacd573e753bd19cadbac9e2f73643
 </TabItem>
 
 </Tabs>
 
 
+<<<<<<< HEAD
 ## リソース
 
 - PostgreSQL公式ドキュメント：[第9章 関数と演算子](https://www.postgresql.org/docs/current/functions.html)
 - PostgreSQLリファレンス：[CREATE FUNCTION](https://www.postgresql.org/docs/9.1/sql-createfunction.html)
+=======
+## Suggestions
+
+### Database Functions vs Edge Functions
+
+For data-intensive operations we recommend using [Database Functions](/docs/guides/database/functions), which are executed within your database
+and can be called remotely using the [REST and GraphQL API](/docs/guides/database/api).
+
+For use-cases which require low-latency we recommend [Edge Functions](/docs/guides/database/functions), which are globally-distributed and can be written in Typescript.
+
+### Security `definer` vs `invoker`
+
+Postgres allows you to specify whether you want the function to be executed as the user _calling_ the function (`invoker`), or as the _creator_ of the function (`definer`). For example:
+
+```sql
+create function hello_world() 
+returns text 
+language plpgsql 
+security definer set search_path = public
+as $$
+begin
+  select 'hello world';
+end;
+$$;
+```
+
+It is best practice to use `security invoker` (which is also the default). If you ever use `security invoker`, you _must_ set the `search_path`. 
+This limits the potential damage if you allow access to schemas which the user executing the function should not have.
+
+## Resources
+
+
+- Official Client libraries: [JavaScript](/docs/reference/javascript/rpc) and [Dart](/docs/reference/dart/rpc)
+- Community client libraries: [github.com/supabase-community](https://github.com/supabase-community)
+- PostgreSQL Official Docs: [Chapter 9. Functions and Operators](https://www.postgresql.org/docs/current/functions.html)
+- PostgreSQL Reference: [CREATE FUNCTION](https://www.postgresql.org/docs/9.1/sql-createfunction.html)
+
+## Deep Dive 
+
+### Create Database Functions
+
+<iframe
+  className="w-full video-with-border"
+  width="640"
+  height="385"
+  src="https://www.youtube-nocookie.com/embed/MJZCCpCYEqk"
+  frameBorder="1"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+
+### Call Database Functions using JavaScript
+
+<iframe
+  className="w-full video-with-border"
+  width="640"
+  height="385"
+  src="https://www.youtube-nocookie.com/embed/I6nnp9AINJk"
+  frameBorder="1"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+
+### Using Database Functions to call an external API
+
+<iframe
+  className="w-full video-with-border"
+  width="640"
+  height="385"
+  src="https://www.youtube-nocookie.com/embed/I6nnp9AINJk"
+  frameBorder="1"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+>>>>>>> 677cc27413cacd573e753bd19cadbac9e2f73643
