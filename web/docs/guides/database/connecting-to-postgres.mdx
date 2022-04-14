@@ -25,12 +25,29 @@ Supabaseは、Postgresデータベースへの接続にいくつかの選択肢�
 - データベースに接続して、すぐに_切断_するのか（サーバーレス環境など）、そうであれば、接続プールを使用します。
 
 
+<<<<<<< HEAD
 ## HTTP接続
 
 Supabaseは自動更新されるAPIを提供しています。データの管理（取得、挿入、更新）を行う場合には、最も簡単な方法です。
 
 
 しかし、APIを使ってデータベースを管理できません（セキュリティー上の理由のため）。これを行うには、ダッシュボードを使用するか、データベースへダイレクトに接続します。
+=======
+## API
+
+Supabase provides an auto-updating [API](/docs/guides/api). This is the easiest way to get started if you are managing data (fetching, inserting, updating). 
+
+
+### Interfaces 
+
+We provides several types of API to suit your preferences and use-case:
+
+- [REST](/docs/guides/api#rest-api): interact with your database through a REST interface.
+- [GraphQL](/docs/guides/api#graphql-api): interact with your database through a GraphQL interface.
+- [Realtime](/docs/guides/api#realtime-api): listen to database changes over websockets.
+
+You cannot manage the database schema via the API (for security reasons). To do that you can use the dashboard or connect directly to your database.
+>>>>>>> 58864d512225a7d875507eda58265a1470c6aa32
 
 ### APIのURLを取得
 
@@ -95,7 +112,7 @@ values={[
 クライアントのトランザクションまたはセッションが完了すると、接続はプールに戻され、他のクライアントが自由に使用できるようになります。
 
 
-![Connection pooling](/img/guides/connection-pool.png)
+![Connection pooling](/img/guides/database/connection-pool.png)
 
 
 ### プール・モード（Pool modes）

@@ -125,8 +125,8 @@ Supabaseの各プロジェクトには、固有のAPI URLがあります。API�
 
 REST APIとGraphQL APIは、どちらも次のURLよりアクセスできます。 
 
-- REST: `https://<project_ref>.supabase.com/rest/v1`
-- GraphQL: `https://<project_ref>.supabase.com/graphql/v1`
+- REST: `https://<project_ref>.supabase.co/rest/v1`
+- GraphQL: `https://<project_ref>.supabase.co/graphql/v1`
 
 これらのルートはどちらも`anon`キーが`apikey`ヘッダーを通して渡されることを必要があります。
 
@@ -170,8 +170,13 @@ values={[
 
 #### GraphQL 
 
+<<<<<<< HEAD
 GraphQLエンドポイント（`https://<project_ref>.supabase.com/rest/v1`）は、`apikey`ヘッダーを渡すことができるGraphiQL実装と互換性があります。
 いくつかの推奨アプリケーションを次に紹介します。
+=======
+The GraphQL Endpoint that we provide (`https://<project_ref>.supabase.co/rest/v1`) is compatible with any GraphiQL implementation that can pass an `apikey` header.
+Some suggested applications:
+>>>>>>> 58864d512225a7d875507eda58265a1470c6aa32
 
 - [paw.cloud](https://paw.cloud)
 - [insomnia.rest](https://insomnia.rest)
@@ -340,13 +345,17 @@ values={[
 <TabItem value="SQL">
 
 ```sql
-alter publication supabase_realtime add table products;
+alter publication supabase_realtime add table todos;
 ```
 
 </TabItem>
 </Tabs>
 
+<<<<<<< HEAD
 これで、`todo`テーブルに挿入される新しいデータをリッスンできるようになりました。
+=======
+Now we can listen to any new data that is inserted into the `todos` table:
+>>>>>>> 58864d512225a7d875507eda58265a1470c6aa32
 
 <Tabs
 defaultValue="Javascript"
@@ -368,7 +377,7 @@ const handleInserts = (payload) => {
 // Listen to unserts
 const { data: todos, error } = await supabase
   .from('todos')
-  .in('INSERT', handleUpdates)
+  .on('INSERT', handleUpdates)
   .subscribe()
 ```
 
