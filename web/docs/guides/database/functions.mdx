@@ -11,12 +11,6 @@ import TabItem from '@theme/TabItem';
 Postgresには、[SQL関数](https://www.postgresql.org/docs/current/sql-createfunction.html)のサポートが組み込まれています。
 これらの関数は、データベース内に存在し、[APIでも使用](/docs/reference/javascript/rpc)できます。
 
-## データベース・ファンクション vs エッジ・ファンクション
-
-データに関する操作には、データベース内で実行され、RESTやGraphQL APIを使用してリモートで呼びだすことができるデータベース・ファンクションをおすすめします。
-
-グローバルに展開されるTypescriptファンクションをお探しの場合は、[エッジ・ファンクション](/docs/guides/functions) を参照してください。
-
 ## クイック・デモ
 
 <iframe
@@ -29,7 +23,7 @@ Postgresには、[SQL関数](https://www.postgresql.org/docs/current/sql-createf
   allowFullScreen
 ></iframe>
 
-## 関数を作成
+## はじめに
 
 Supabaseは、データベースの関数を作成するためのいくつかの選択肢を提供しています。
 ダッシュボードを使用するか、SQLを使用して直接作成できます。ダッシュボードにはSQLエディターが用意されていますが、データベースに[接続](/docs/guides/database/connecting/connecting-to-postgres)して自分でSQLクエリを実行できます。
@@ -40,12 +34,83 @@ Supabaseは、データベースの関数を作成するためのいくつかの
 3. データベース関数を作成または置き換えるためのSQLを入力します。
 4. 「Run」をクリックするか、cmd+enter（ctrl+enter）を入力します。
 
-## 例
+## シンプルな関数
 
-### データの集合
+文字列「hello world」を返す基本的なデータベース関数を作ってみます。
 
-このガイドでは、以下の例のデータを使用します。
+```sql
+create or replace function hello_world() -- 1
+returns text -- 2
+language sql -- 3
+as $$  -- 4
+  select 'hello world';  -- 5
+$$; --6
 
+```
+
+<details>
+<summary>詳細の表示/非表示</summary>
+
+最も基本的な関数は、以下の部分で構成されています。
+
+1. `create or replace function hello_world()`：`hello_world`は関数の名前です。新規に関数を作成する場合は`create`、既存の関数を置き換える場合は`replace`を使用します。また、`create or replace`を一緒に使用することで、どちらかで処理ができます。
+2. `return text`：この関数が返すデータの種類です。何も返さない場合は、`return void`にします。
+3. `language sql`：関数本体で使用される言語です。`plpgsql`, `plv8`, `plpython`などの手続き型言語も使用できます。
+4. `as $$`：関数のラッパーです。`$$`記号で囲まれたものは、関数本体の一部となります。
+5. `select 'hello world';`：単純な関数本体です。関数本体内の最後の`select`文は、それに続く文がない場合に返されます。
+6. `$$;`：関数ラッパーを閉じるためのシンボルです。
+
+</details>
+
+<br />
+
+関数が作成された後、その関数を「実行」する方法がいくつかあります。SQLを使ってデータベース内で直接実行するか、クライアントライブラリーの1つを使って実行します。
+
+<Tabs
+defaultValue="SQL"
+values={[
+  {label: 'SQL', value: 'SQL'},
+  {label: 'JS', value: 'JS'},
+  {label: 'Dart', value: 'Dart'},
+]}>
+
+<TabItem value="SQL">
+
+```sql
+select hello_world();
+```
+
+</TabItem>
+<TabItem value="JS">
+
+```js 
+const { data, error } = supabase
+  .rpc('hello_world')
+```
+
+参考：[rpc()](/docs/reference/javascript/rpc)
+
+</TabItem>
+<TabItem value="Dart">
+
+```dart 
+final res = await supabase
+  .rpc('hello_world')
+  .execute();
+```
+
+参考：[rpc()](/docs/reference/dart/rpc)
+
+</TabItem>
+
+</Tabs>
+
+
+## データのセットを返す
+
+データベース関数は、[テーブル](/docs/guides/database/tables)やビューからデータのセットを返せます。
+
+例えば、スターウォーズのデータの入ったデータベースがあるとします。
 
 <Tabs
 defaultValue="Data"
@@ -106,77 +171,6 @@ values
 
 </Tabs>
 
-### 基本的な関数
-
-「hello world」という文字列を返す基本的な例です。
-
-```sql
-create or replace function hello_world() -- 1
-returns text -- 2
-language sql -- 3
-as $$  -- 4
-  select 'hello world';  -- 5
-$$; --6
-
-```
-
-<details>
-<summary>詳細の表示/非表示</summary>
-
-最も基本的な関数は、以下の部分で構成されています。
-
-1. `create or replace function hello_world()`：`hello_world`は関数の名前です。新規に関数を作成する場合は`create`、既存の関数を置き換える場合は`replace`を使用します。また、`create or replace`を一緒に使用することで、どちらかで処理ができます。
-2. `return text`：この関数が返すデータの種類です。何も返さない場合は、`return void`にします。
-3. `language sql`：関数本体で使用される言語です。`plpgsql`, `plv8`, `plpython`などの手続き型言語も使用できます。
-4. `as $$`：関数のラッパーです。`$$`記号で囲まれたものは、関数本体の一部となります。
-5. `select 'hello world';`：単純な関数本体です。関数本体内の最後の`select`文は、それに続く文がない場合に返されます。
-6. `$$;`：関数ラッパーを閉じるためのシンボルです。
-
-</details>
-
-#### 実行
-
-<Tabs
-defaultValue="SQL"
-values={[
-  {label: 'SQL', value: 'SQL'},
-  {label: 'JS', value: 'JS'},
-  {label: 'Dart', value: 'Dart'},
-]}>
-
-<TabItem value="SQL">
-
-```sql
-select hello_world();
-```
-
-</TabItem>
-<TabItem value="JS">
-
-```js 
-const { data, error } = supabase
-  .rpc('hello_world')
-```
-
-参考：[rpc()](/docs/reference/javascript/rpc)
-
-</TabItem>
-<TabItem value="Dart">
-
-```dart 
-final res = await supabase
-  .rpc('hello_world')
-  .execute();
-```
-
-参考：[rpc()](/docs/reference/dart/rpc)
-
-</TabItem>
-
-</Tabs>
-
-
-### テーブルの集合を返す
 
 例のデータの集合に含まれるすべての`planets`を返す基本的な例です。
 
@@ -188,8 +182,6 @@ as $$
   select * from planets;
 $$;
 ```
-
-#### 実行
 
 この関数はテーブルの集合を返すので、フィルタやセレクターを適用できます。例えば、最初の惑星だけが欲しい場合は次のようにします。
 
@@ -218,8 +210,6 @@ const { data, error } = supabase
   .eq('id', 1)
 ```
 
-参考：[rpc()](/docs/reference/javascript/rpc)
-
 </TabItem>
 <TabItem value="Dart">
 
@@ -230,14 +220,12 @@ final res = await supabase
   .execute();
 ```
 
-参考：[rpc()](/docs/reference/dart/rpc)
-
 </TabItem>
 
 </Tabs>
 
 
-### パラメーター付き
+## パラメーターを渡す
 
 新しい惑星を`planets`に挿入し、新しいIDを返す基本的な例です。今回は`plpgsql`という言語を使っていることに注意してください。
 
@@ -258,9 +246,7 @@ end;
 $$;
 ```
 
-#### 実行
-
-この関数はテーブルの集合を返すので、フィルタやセレクターを適用できます。例えば、最初の惑星の`name`だけが欲しい場合は次のようにします。
+繰り返しますが、この関数は`select`クエリを用いてデータベース内部で実行するか、クライアントライブラリーで実行します。
 
 <Tabs
 defaultValue="SQL"
@@ -284,7 +270,7 @@ const { data, error } = await supabase
   .rpc('add_planet', { name: 'Jakku' })
 ```
 
-参考：[rpc()](/docs/reference/javascript/rpc)
+
 
 </TabItem>
 <TabItem value="Dart">
@@ -295,14 +281,80 @@ final res = await supabase
   .execute();
 ```
 
-参考：[rpc()](/docs/reference/dart/rpc)
-
 </TabItem>
 
 </Tabs>
 
 
+## Suggestions
+
+### データベース・ファンクション vs エッジ・ファンクション
+
+データに関する操作には、データベース内で実行され、RESTやGraphQL APIを使用してリモートで呼びだすことができるデータベース・ファンクションをおすすめします。
+
+グローバルに展開されるTypescriptファンクションをお探しの場合は、[エッジ・ファンクション](/docs/guides/functions) を参照してください。
+
+### Security `definer` vs `invoker`
+
+Postgresでは、関数を呼び出したユーザー（`invoker`）として実行するか、関数の作成者（`definer`）として実行するかを指定できます。例えば次のようにします。
+
+```sql
+create function hello_world() 
+returns text 
+language plpgsql 
+security definer set search_path = public
+as $$
+begin
+  select 'hello world';
+end;
+$$;
+```
+
+`security invoker`を使用するのがベスト・プラクティスとされています（デフォルトではこちらを使用します）。もし`security invoker`を使う際には、`search_path`を設定する必要があります。
+これにより、関数を実行するユーザーが持つべきでないスキーマへのアクセスを許可した場合、潜在的な損害を抑えることができます。
+
 ## リソース
 
+
+- 公式クライアントライブラリー：[JavaScript](/docs/reference/javascript/rpc)と[Dart](/docs/reference/dart/rpc)
+- コミュニティークライアントライブラリー：[github.com/supabase-community](https://github.com/supabase-community)
 - PostgreSQL公式ドキュメント：[第9章 関数と演算子](https://www.postgresql.org/docs/current/functions.html)
 - PostgreSQLリファレンス：[CREATE FUNCTION](https://www.postgresql.org/docs/9.1/sql-createfunction.html)
+
+## 詳細
+
+### データベース関数を作成
+
+<iframe
+  className="w-full video-with-border"
+  width="640"
+  height="385"
+  src="https://www.youtube-nocookie.com/embed/MJZCCpCYEqk"
+  frameBorder="1"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+
+### JJavaScriptでデータベース関数を呼びだす
+
+<iframe
+  className="w-full video-with-border"
+  width="640"
+  height="385"
+  src="https://www.youtube-nocookie.com/embed/I6nnp9AINJk"
+  frameBorder="1"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+
+### 外部APIをデータベース関数から呼びだす
+
+<iframe
+  className="w-full video-with-border"
+  width="640"
+  height="385"
+  src="https://www.youtube-nocookie.com/embed/I6nnp9AINJk"
+  frameBorder="1"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>

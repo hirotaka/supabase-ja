@@ -63,6 +63,7 @@ module.exports = {
         'guides/with-nextjs',
         'guides/with-react',
         'guides/with-redwoodjs',
+        'guides/with-solidjs',
         'guides/with-svelte',
         'guides/with-vue-3',
       ],
@@ -182,7 +183,7 @@ module.exports = {
       type: 'category',
       label: 'Platform',
       collapsed: false,
-      items: ['guides/platform/logs'],
+      items: ['guides/platform/logs', 'going-into-prod'],
     },
     {
       type: 'category',
@@ -213,7 +214,6 @@ module.exports = {
       collapsed: false,
       items: [
         'faq',
-        'going-into-prod',
         'handbook/contributing',
         'handbook/supasquad',
         'company/terms',
