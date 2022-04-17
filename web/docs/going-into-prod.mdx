@@ -1,18 +1,10 @@
 ---
 id: going-into-prod
-<<<<<<< HEAD
-title: 本番稼働前のチェックリスト
+title: '本番稼働に向けて'
 description: 'アプリを公開する前にするべきこと'
 ---
 
 プロジェクトの開発が終わり、実際のユーザーに公開する時が来たと判断したら、プロジェクトが次のチェックリストを満たしているか確認しましょう。
-=======
-title: 'Production Readiness'
-description: 'Things to do before making your app publicly available'
----
-
-After developing your project and deciding it's time to Go Live With Real Users, you should run through this checklist to ensure that your project is:
->>>>>>> 027869a79fd0b3dc2ac98cc881df63dd5206ad52
 
 - 安全性
 - 予想される負荷への耐久性
@@ -20,56 +12,30 @@ After developing your project and deciding it's time to Go Live With Real Users,
 
 ## セキュリティー
 
-<<<<<<< HEAD
-- RLSを有効にしていることを確認します。
+- RLSを有効にしていることを確認
     - 妥当なポリシーでRLSを有効にしていないテーブルでは、すべてのクライアントがデータにアクセスして変更できます。これは、ほとんどのケースで期待する挙動ではないことでしょう。
     - RLSの詳細は[こちら](/docs/guides/auth/row-level-security)を参照してください。
-- 機密データを含んだテーブルのレプリケーションを有効にしている場合、行単位セキュリティー（RLS）を有効にし、行セキュリティー・ポリシーを設定します。
+- 機密データを含んだテーブルのレプリケーションを有効にしている場合、行単位セキュリティー（RLS）を有効にし、行セキュリティー・ポリシーを設定
     - Supabaseダッシュボードの「Authetication」→「Poilicies」ページでRLSを有効にし、セキュリティポリシーを作成します。
     - Supabaseダッシュボードの「Database」→「Replication」ページでレプリケーション・テーブルを管理します。
-- GitHubで2FA（2段階認証）を有効化
-    - GitHubアカウントにはSupabaseプロジェクトの管理者権限が与えられているため、強力なパスワードとU2FキーやTOTPアプリを使った2FAで保護する必要があります。
+- GitHubで2FA（2段階認証）を有効にします。GitHubアカウントにはSupabaseプロジェクトの管理者権限が与えられているため、強力なパスワードとU2FキーやTOTPアプリを使った2FAで保護する必要があります。
 - 「Auth」→「Settings」ページでメール確認が有効になっていることを確認します。
-- 認証メールにカスタムSMTPサーバーを使用します。信頼できるドメインからメールが来ていることをユーザーが確認できるようにします（SendGrid、AWS SESなどの主要なメールプロバイダーからSMTP認証情報を取得してください）。メールサーバのドメインはアプリがホストされているのと同じドメインが望ましいです。
+- 認証メールにカスタムSMTPサーバーを使用し、信頼できるドメインからメールが来ていることをユーザーが確認できるようにします（アプリをホストしているドメンと同じが好ましいです）。SendGrid、AWS SESなどの主要なメールプロバイダーからSMTP認証情報を取得してください）。
 - 自分が攻撃者としたら、どのようにサービスを悪用するかをよく考え、対策を検討しましょう。
 - これらの[一般的なサイバーセキュリティ上の脅威](https://auth0.com/docs/security/prevent-threats)を確認します。
-=======
-- Ensure RLS is enabled
-    - Tables that do not have RLS enabled with reasonable policies allow any client to access and modify their data. This is unlikely to be what you want in the majority of cases.
-    - [Learn more about RLS](/docs/guides/auth/row-level-security).
-- Enable replication on tables containing sensitive data by enabling Row Level Security (RLS) and setting row security policies:
-    - Go to the Authentication > Policies page in the Supabase Dashboard to enable RLS and create security policies.
-    - Go to the Database > Replication page in the Supabase Dashboard to manage replication tables.
-- Enable 2FA on GitHub. Since your GitHub account gives you administrative rights to your Supabase project, you should protect it with a strong password and 2FA using a U2F key or a TOTP app.
-- Ensure email confirmations are enabled in the `Auth > Settings` page.
-- Use a custom SMTP server for auth emails so that your users can see that the mails are coming from a trusted domain (preferably the same domain that your app is hosted on). Grab SMTP credentials from any major email provider such as SendGrid, AWS SES, etc.
-- Think hard about how *you* would abuse your service as an attacker, and mitigate.
-- Review these [common cybersecurity threats](https://auth0.com/docs/security/prevent-threats).
->>>>>>> 027869a79fd0b3dc2ac98cc881df63dd5206ad52
 
 ## パフォーマンス
 
-<<<<<<< HEAD
-- 一般的なクエリパターンに対応する適切なインデックスを張っていることを確認します。
+- 一般的なクエリパターンに対応する適切なインデックスを張っていることを確認
     - Postgresのインデックスの詳細は[こちら](https://www.enterprisedb.com/postgres-tutorials/overview-postgresql-indexes)を参照してください。
-    - pg_stat_statementsは、[ホットまたはスローなクエリを特定](https://www.virtual-dba.com/blog/postgresql-performance-identifying-hot-and-slow-queries/)するのに役立ちます。
+    - `pg_stat_statements`は、[ホットまたはスローなクエリを特定](https://www.virtual-dba.com/blog/postgresql-performance-identifying-hot-and-slow-queries/)するのに役立ちます。
 - 負荷テストの実施（できればステージング環境で）
     - [k6](https://k6.io/)のようなツールを使用すると、多くの異なるユーザーからのトラフィックをシミュレートできます。
-- より多くのリソースが必要な場合は、support@supabase.ioに連絡して、より大きなサーバーのPAYG（使った分だけ支払う方式）にアップグレードしてください。
-=======
-- Ensure that you have suitable indices to cater to your common query patterns
-    - [Learn more about indexes in Postgres](https://www.enterprisedb.com/postgres-tutorials/overview-postgresql-indexes).
-    - `pg_stat_statements` can help you [identify hot or slow queries](https://www.virtual-dba.com/blog/postgresql-performance-identifying-hot-and-slow-queries/).
-- Perform load testing (preferably on a staging env)
-    - Tools like [k6](https://k6.io/) can simulate traffic from many different users.
-- Upgrade your database if you require more resources. If you need anything beyond what is listed, contact enterprise@supabase.io.
-- If you are expecting a surge in traffic (for a big launch), let the team know by sending your Project Ref to us (support@supabase.io) with more details about your launch. We'll keep an eye on your project.
->>>>>>> 027869a79fd0b3dc2ac98cc881df63dd5206ad52
+- もしトラフィックの急増（大きなローンチをする場合など）が予想される場合はお知らせください。その際に、ローンチの詳細を記載したProject Refを私たち（support@supabase.io）へ送信してチームにお知らせください。私たちはあなたのプロジェクトを注意しておくようにします。
 
 ## 可用性
 
-<<<<<<< HEAD
-- 独自のSMTP認証情報を使用することで、認証メール送信の到達性を完全に制御できます（Auth → Settingsを参照）。
+- 独自のSMTP認証情報を使用することで、認証メール送信の到達性を完全に制御できます（Auth → Settingsを参照）
     - SMTP認証情報は、SendGridやAWS SESなどの主要なメールプロバイダーから取得できます。
     - Supabaseが提供する認証メールのデフォルトの制限値は、1時間あたり30人の新規ユーザーですが、大規模な公開する場合は、これ以上の数が必要になる可能性があります。
 - アプリケーションをFree tier（無料版）でご利用し、少なくとも7日に1回の問い合わせが**ない**と判断された場合、Supabaseはサーバーのリソースを節約するためにアプリケーションを一時停止します。
@@ -79,17 +45,5 @@ After developing your project and deciding it's time to Go Live With Real Users,
     - [pg_dump](https://www.postgresqltutorial.com/postgresql-backup-database/)や[wal-g](https://github.com/wal-g/wal-g)などのツールを使って自身でバックアップシステムを構築できます。
     - Pro Tier（プロ版）プロジェクトの夜間バックアップは、Supabaseのダッシュボードで最大7日間利用可能です。
 - Supabase Pro Tierにアップグレードすると、support@supabase.ioでのメールによるサポートを受けることができます。
-=======
-- Use your own SMTP credentials so that you have full control over the deliverability of your transactional auth emails (see Auth > Settings)
-    - you can grab SMTP credentials from any major email provider such as SendGrid, AWS SES, etc.
-    - The default rate limit for auth emails provided by Supabase is 30 new users per hour, if doing a major public announcement you will likely require more than this.
-- If your application is on the free tier and is **not** expected to be queried at least once every 7 days, then it may be paused by Supabase to save on server resources.
-    - You can restore paused projects from the Supabase dashboard.
-    - Upgrade to Pro to guarantee that your project will not be paused for inactivity.
-- Database backups are not available for download on the free tier.
-    - You can set up your own backup systems using tools like [pg_dump](https://www.postgresqltutorial.com/postgresql-backup-database/) or [wal-g](https://github.com/wal-g/wal-g).
-    - Nightly backups for Pro tier projects are available on the Supabase dashboard for up to 7 days.
-- Upgrading to the Supabase Pro Tier will give you access to email support on support@supabase.io
->>>>>>> 027869a79fd0b3dc2ac98cc881df63dd5206ad52
 
 このチェックリストは常に成長していますので、頻繁にチェックしてください。また、追加や修正を提案する場合は、[GitHub](https://github.com/supabase/supabase)にPRを作成してください。
