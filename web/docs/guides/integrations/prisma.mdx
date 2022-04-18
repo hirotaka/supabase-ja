@@ -114,7 +114,32 @@ Your database is now in sync with your schema.
 > ![tables created in the UI](/img/guides/integrations/prisma/7y4qq4wwvfrheti6r09u.png)
 > 以上で完了です。Supabase上にホストされたPostgreSQLデータベースにPrismaプロジェクトを接続し、最初のマイグレーションを実行することができました。
 
+<<<<<<< HEAD
 ## Supabaseでのコネクションプーリング
+=======
+### Confirming Realtime Functionality
+
+There is an existing issue where Prisma will create Enum Types wrapped in double quotation marks in PostgreSQL. This is not compatible with Realtime-enabled database tables whose columns rely on those Enum Types. We are working on a fix but the workaround is to alter and rename the Enum Types. You can use the following query to find all Types with double quotation marks in the `public` schema:
+
+```sql
+select distinct(a.atttypid::regtype)
+  from pg_class as c
+    join pg_namespace as n
+	    on c.relnamespace = n.oid
+    join pg_attribute as a
+	    on c.oid = a.attrelid
+  where nspname = 'public'
+    and a.atttypid::regtype::text like '"%"';
+```
+
+Then use the following example query to strip the double quotation marks:
+
+```sql
+alter type "Incompatible" rename to compatible;
+```
+
+## Connection pooling with Supabase
+>>>>>>> e23f50ec2fd5361869320a7ed1143265c2767519
 
 サーバーレス環境（AWS Lambda、Vercel、Netlify FunctionsにホストされているNode.js関数など）で作業している場合は、[コネクションプーリング](https://www.prisma.io/docs/guides/performance-and-optimization/connection-management#serverless-environments-faas)を設定する必要があります。例えば、[PgBouncer](https://www.pgbouncer.org/)のようなツールがあります。それは、関数を呼びだすたびに、[データベースへの新しい接続](https://www.prisma.io/docs/guides/performance-and-optimization/connection-management#the-serverless-challenge)を発生させる可能性があるからです。Supabaseは、[PgBouncerを使用して接続管理をサポート](https://supabase.io/blog/2021/04/02/supabase-pgbouncer#what-is-connection-pooling)しており、デフォルトで有効になっています。
 Supabaseダッシュボードのサイドバーから**Database**ページに移動し、**connection pool**設定に移動してください。
