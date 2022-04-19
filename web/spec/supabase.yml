@@ -315,7 +315,11 @@ pages:
   Generating Types:
     title: 型（Type）を生成
     description: |
+<<<<<<< HEAD
       Supabaseは近々、データベースの型を様々な言語用にダンプするネイティブなタイプ・ジェネレーターをリリースする予定です。今のところ、サードパーティー製のツールでTypeScriptをサポートしています。
+=======
+      Supabase will soon release native type generators that dump your database types for various languages. For now, we support TypeScript [through third-party tools](/docs/guides/api/generating-types).
+>>>>>>> 6c40cf3f48fdbb9961c4c644c75b97b988fc6e97
 
       ## TypeScriptの使用
 
@@ -348,6 +352,7 @@ pages:
       response.data // レスポンス・データはArray<any>型となります。
       ```
 
+<<<<<<< HEAD
       ### OpenAPI仕様からデータベースの型を生成する
 
       Supabaseは、データベースのOpenAPI仕様ファイルを生成し、TypeScriptで使用するデータ型を生成します。
@@ -444,7 +449,10 @@ pages:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
                 branch: ${{ github.ref }}
       ```
+=======
+>>>>>>> 6c40cf3f48fdbb9961c4c644c75b97b988fc6e97
 
+      
   auth.signUp():
     title: 'signUp()'
     $ref: '@supabase/gotrue-js.GoTrueClient.signUp'

@@ -1,17 +1,31 @@
 ---
 id: plv8
+<<<<<<< HEAD
 title: "plv8：Javascript言語"
 description: PostgreSQLのためのJavascript言語。
+=======
+title: "plv8: JavaScript Language"
+description: JavaScript language for PostgreSQL.
+>>>>>>> 6c40cf3f48fdbb9961c4c644c75b97b988fc6e97
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+<<<<<<< HEAD
 `plv8`拡張は、Postgres内でJavascriptを使用できるようにします。
+=======
+The `plv8` extension allows you use JavaScript within Postgres. 
+>>>>>>> 6c40cf3f48fdbb9961c4c644c75b97b988fc6e97
 
 ## 概要
 
+<<<<<<< HEAD
 PostgresはネイティブでSQLを実行しますが、他の「手続き型言語」も実行できます。`plv8`はJavascriptのコード、特に[V8 Javascriptエンジン](https://v8.dev)上で実行されるコードを実行できます。
+=======
+While Postgres natively runs SQL, it can also run other "procedural languages". 
+`plv8` allows you to run JavaScript code - specifically any code that runs on the [V8 JavaScript engine](https://v8.dev).
+>>>>>>> 6c40cf3f48fdbb9961c4c644c75b97b988fc6e97
 
 これは、データベース関数、トリガ、クエリなどに使用できます。
 
@@ -63,7 +77,7 @@ SQLコードが`create extension`（拡張を作成）になっていますが�
 ```sql
 create or replace function function_name() 
 returns void as $$
-    // V8 Javascript
+    // V8 JavaScript
     // code
     // here
 $$ language plv8;
@@ -77,7 +91,7 @@ $$ language plv8;
 defaultValue="SQL"
 values={[
   {label: 'SQL', value: 'SQL'},
-  {label: 'Javascript', value: 'JS'},
+  {label: 'JavaScript', value: 'JS'},
 ]}>
 <TabItem value="SQL">
 
