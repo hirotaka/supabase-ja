@@ -388,7 +388,7 @@ import { supabase } from './supabaseClient'
 import Auth from './Auth'
 import Account from './Account'
 
-export default () => {
+export default function App() {
   const [session, setSession] = useState(null)
 
   useEffect(() => {
@@ -422,6 +422,7 @@ npm start
 Supabaseのプロジェクトには、写真や動画などの大容量ファイルを管理するための[ストレージ](/docs/guides/storage)が用意されています。
 
 ### @reach/visually-hiddenを追加
+
 アップロード・ウィジェットは、npmライブラリーを1つ追加して使用します。`npm install @reach/visually-hidden`を実行してインストールします。
 
 ### アップロード・ウィジェットの作成
@@ -433,7 +434,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from './supabaseClient'
 import VisuallyHidden from '@reach/visually-hidden'
 
-export default ({ url, size, onUpload }) => {
+export default function Avatar({ url, size, onUpload }) {
   const [avatarUrl, setAvatarUrl] = useState(null)
   const [uploading, setUploading] = useState(false)
 
