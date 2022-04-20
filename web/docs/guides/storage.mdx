@@ -28,19 +28,13 @@ Supabase Storageは、大容量のファイルを簡単に保存して利用で�
 
 これはSupabase Storageの基本的な機能を示すクイック・ガイドです。デプロイできる完全な[GitHubのサンプルアプリケーション](https://github.com/supabase/supabase/edit/master/examples/nextjs-ts-user-management)をご覧ください。
 
-<<<<<<< HEAD
-[![Vercelにデプロイ](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fsupabase%2Fsupabase%2Ftree%2Fmaster%2Fexamples%2Fnextjs-ts-user-management&project-name=supabase-user-management&repository-name=supabase-user-management&demo-title=Supabase%20User%20Management&demo-description=An%20example%20web%20app%20using%20Supabase%20and%20Next.js&demo-url=https%3A%2F%2Fsupabase-nextjs-ts-user-management.vercel.app&demo-image=https%3A%2F%2Fi.imgur.com%2FZ3HkQqe.png&integration-ids=oac_jUduyjQgOyzev1fjrW83NYOv&external-id=nextjs-user-management)
-=======
-**Note before begin** : File, Folder, and Bucket names **must follow** [AWS Safe Characters naming guideline](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html) and avoid use of any other characters 
+**Note はじめるまえに** : ファイル名、フォルダー名、バケット名は、必ず[AWSのセーフ文字のガイドライン](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html)に従い、他の文字の使用は避けてください。
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fsupabase%2Fsupabase%2Ftree%2Fmaster%2Fexamples%2Fnextjs-ts-user-management&project-name=supabase-user-management&repository-name=supabase-user-management&demo-title=Supabase%20User%20Management&demo-description=An%20example%20web%20app%20using%20Supabase%20and%20Next.js&demo-url=https%3A%2F%2Fsupabase-nextjs-ts-user-management.vercel.app&demo-image=https%3A%2F%2Fi.imgur.com%2FZ3HkQqe.png&integration-ids=oac_jUduyjQgOyzev1fjrW83NYOv&external-id=nextjs-user-management)
->>>>>>> 6c40cf3f48fdbb9961c4c644c75b97b988fc6e97
+[![Vercelにデプロイ](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fsupabase%2Fsupabase%2Ftree%2Fmaster%2Fexamples%2Fnextjs-ts-user-management&project-name=supabase-user-management&repository-name=supabase-user-management&demo-title=Supabase%20User%20Management&demo-description=An%20example%20web%20app%20using%20Supabase%20and%20Next.js&demo-url=https%3A%2F%2Fsupabase-nextjs-ts-user-management.vercel.app&demo-image=https%3A%2F%2Fi.imgur.com%2FZ3HkQqe.png&integration-ids=oac_jUduyjQgOyzev1fjrW83NYOv&external-id=nextjs-user-management)
 
 ### バケットを作成
 
 Supabaseダッシュボードを使ってバケットを作成できます。 ストレージはPostgresデータベースと相互運用性がありますので、SQLやクライアントライブラリーを使用できます。ここでは「avatars」というバケットを作成します。
-
-<!-- textlint-disable -->
 
 <Tabs
 defaultValue="UI"
@@ -60,8 +54,6 @@ values={[
 3. バケット名を入力します。
 4. 「Create Bucket」をクリックします。
 ```
-
-<!-- textlint-disable -->
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/storage/create.mp4" type="video/mp4" muted playsInline />
@@ -321,31 +313,23 @@ from storage.objects;
 ## オブジェクトへのアクセス
 
 プライベートなバケットの場合、[download](/docs/reference/javascript/storage-from-download)メソッドでオブジェクトにアクセスできます。これは`/object/auth/` APIエンドポイントに対応します。あるいは、[createSignedUrl](/docs/reference/javascript/storage-from-createsignedurl)メソッドを使って、有効期限のあるパブリックに共有可能なURLを作成できます。このメソッドは、`/object/sign/` APIを呼び出します。
+また、`/object/sign/` APIを呼びだす[createSignedUrl](/docs/reference/javascript/storage-from-createsignedurl)メソッドを使用して、有効期限付きの公開用URLを作成可能です。
 
-<<<<<<< HEAD
 パブリックなバケットでは、トークンやAuthorisationヘッダーなしでアセットに直接アクセスできます。[getPublicUrl](/docs/reference/javascript/storage-from-getpublicurl)ヘルパーメソッドは、アセットの完全なパブリックURLを返します。これは、`/object/public/` APIエンドポイントを内部的に呼び出します。
-=======
-For private buckets, you can access objects via the [download](/docs/reference/javascript/storage-from-download) method. This corresponds to `/object/auth/` API endpoint. 
-Alternatively, you can create a publicly shareable URL with an expiry date using the [createSignedUrl](/docs/reference/javascript/storage-from-createsignedurl) method 
-which calls the `/object/sign/` API.
-
-For public buckets, you can access the assets directly without a token or an Authorisation header. The [getPublicUrl](/docs/reference/javascript/storage-from-getpublicurl) 
-helper method returns the full public URL for an asset. This calls the `/object/public/` API endpoint internally.
 
 
 <details> 
-<summary>Advanced: reverse proxy</summary>
-The URLs returned are proxied through the API Proxy. They are prefixed by <code>/storage/v1</code>. 
+<summary>上級向け：リバース・プロキシ</summary>
+返されるURLは、APIプロキシを経由してプロキシされたものです。これらのURLには<code>/storage/v1</code>というプレフィックスが付きます。
 
-For example, on the hosted Platform they will be 
+例えば、ホストされたプラットフォームでは、以下のようになります。
 
-<code>https://[project_ref].supabase.co/storage/v1/object/public/[id]</code>
+<code>https://[project_ref].supabase.co/ストレージ/v1/object/public/[id]</code>
 
-You can access the storage API directly with the same endpoint. See the <a href="https://supabase.github.io/storage-api">API docs</a> for a full list of operations available.
+同じエンドポイントを使用して、Storage APIに直接アクセスできます。利用できる操作の一覧は、<a href="https://supabase.github.io/storage-api">APIドキュメント</a>を参照してください。
 
 </details>
 
->>>>>>> 6c40cf3f48fdbb9961c4c644c75b97b988fc6e97
 
 ---
 
@@ -386,6 +370,13 @@ create policy "Individual user Access"
 on storage.objects for select
 using ( auth.uid() = owner );
 ```
+
+## リソース
+
+- GitHubでAPIサーバーを参照：[github.com/supabase/storage-api](https://github.com/supabase/storage-api)
+- Swagger API Docsをオンラインで参照：[supabase.github.io/storage-api](https://supabase.github.io/storage-api)
+- 公式クライアントライブラリーのドキュメント：[JavaScript](/docs/reference/javascript/storage-createbucket)と[Dart](/docs/reference/dart/storage-createbucket)
+- コミュニティーによるライブラリー：[github.com/supabase-community](https://github.com/supabase-community)
 
 ## 次のステップ
 

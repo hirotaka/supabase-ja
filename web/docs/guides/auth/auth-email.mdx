@@ -11,11 +11,10 @@ import TabItem from '@theme/TabItem'
 
 EメールでのログインをSupabaseアプリケーションに設定します。
 
-<<<<<<< HEAD
 - [Supabaseプロジェクト](https://app.supabase.io)にEメール認証機能を追加
-- ログインのコードをアプリケーションに追加 - [Javascript](https://github.com/supabase/supabase-js) | [Dart](https://github.com/supabase/supabase-dart)
+- ログインのコードをアプリケーションに追加 - [JavaScript](https://github.com/supabase/supabase-js) | [Dart](https://github.com/supabase/supabase-dart)
 
-## EメールをSupabaseプロジェクトに追加
+## Eメールを設定
 
 - [Supabaseプロジェクトのダッシュボード](https://app.supabase.io)に移動します。
 - 左側のサイドバーで、`Authentication`アイコンをクリックします（上部付近）。
@@ -24,29 +23,16 @@ EメールでのログインをSupabaseアプリケーションに設定しま�
 - `Email Auth`の項目で`Enable Email Signup`をオンにします。
 - `Save`をクリックします。
 
-### クライアント・アプリにログインのコードを追加
-=======
-- Add Email authenticator to your [Supabase Project](https://app.supabase.io)
-- Add the login code to your application - [JavaScript](https://github.com/supabase/supabase-js) | [Dart](https://github.com/supabase/supabase-dart)
+<!-- textlint-disable ja-technical-writing/ja-no-mixed-period -->
+:::noteセルフ・ホスティング
 
-## Configure email settings
-
-- Go to your [Supabase Project Dashboard](https://app.supabase.io)
-- In the left sidebar, click the `Authentication` icon (near the top)
-- Click `Settings` from the list to go to the `Authentication Settings` page
-- Enter the final (hosted) URL of your app under `Site URL`
-- Under `Email Auth` turn `Enable Email Signup` to ON
-- Click `Save`
-
-:::note Self hosting
-
-For self-hosting, you can update your project configuration using the files and environment variables provided.
-See the [self-hosting docs](/docs/guides/hosting/overview#configuration) for details.
+セルフ・ホスティングの場合、提供されたファイルと環境変数を使ってプロジェクトの設定を更新できます。
+詳しくは[セルフ・ホスティングのドキュメント](/docs/guides/hosting/overview#configuration)を参照してください。
 
 :::
+<!-- textlint-enable ja-technical-writing/ja-no-mixed-period -->
 
-### Add login code to your client app
->>>>>>> 6c40cf3f48fdbb9961c4c644c75b97b988fc6e97
+### クライアント・アプリにログインのコードを追加
 
 ログインを追加するにはクライアント・ライブラリーをご利用ください。
 

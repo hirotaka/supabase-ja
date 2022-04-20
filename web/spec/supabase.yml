@@ -315,11 +315,7 @@ pages:
   Generating Types:
     title: 型（Type）を生成
     description: |
-<<<<<<< HEAD
-      Supabaseは近々、データベースの型を様々な言語用にダンプするネイティブなタイプ・ジェネレーターをリリースする予定です。今のところ、サードパーティー製のツールでTypeScriptをサポートしています。
-=======
-      Supabase will soon release native type generators that dump your database types for various languages. For now, we support TypeScript [through third-party tools](/docs/guides/api/generating-types).
->>>>>>> 6c40cf3f48fdbb9961c4c644c75b97b988fc6e97
+      Supabaseは近々、様々な言語向けにデータベースの型をダンプするネイティブな型ジェネレータをリリースする予定です。今のところ、TypeScriptを[サードパーティツール](/docs/guides/api/generating-types)を通じてサポートしています
 
       ## TypeScriptの使用
 
@@ -352,105 +348,6 @@ pages:
       response.data // レスポンス・データはArray<any>型となります。
       ```
 
-<<<<<<< HEAD
-      ### OpenAPI仕様からデータベースの型を生成する
-
-      Supabaseは、データベースのOpenAPI仕様ファイルを生成し、TypeScriptで使用するデータ型を生成します。
-
-      SupabaseプロジェクトのOpenAPI仕様書は以下のようにすることでアクセスできます。
-
-      ```txt
-      https://your-project.supabase.co/rest/v1/?apikey=your-anon-key
-      ```
-
-      オープンソースの[openapi-typescript](https://github.com/drwpow/openapi-typescript#%EF%B8%8F-reading-specs-from-remote-resource)というツールを使うと、型を生成してローカルに保存できます。
-
-      ```bash
-      npx openapi-typescript https://your-project.supabase.co/rest/v1/?apikey=your-anon-key --output types/supabase.ts
-      ```
-
-      次の重要な注意事項があります。
-
-      - このジェネレーターはJSON APIを使用しているため、カラムが配列であるかどうかを判断する方法がありません。Supabaseが自動的に処理して配列を返すにもかかわらず、ジェネレーターは配列タイプを`string`として生成します。
-        例えば、`names: string`を`names: string[]`のように、型を変更することで、ファイル内で手動によって修正できます。
-      - 型は自動的にはデータベースと同期しませんので、データベースに変更を加えた後は、型を再生成してください。
-
-      型の生成が完了したら、TypeScriptのプロジェクトで使用できます。
-
-      ```ts
-      import { NextApiRequest, NextApiResponse } from "next";
-      import { createClient } from "@supabase/supabase-js";
-      import { definitions } from "../../types/supabase";
-
-      const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL,
-        process.env.SUPABASE_SECRET_KEY
-      );
-
-      export default async (req: NextApiRequest, res: NextApiResponse) => {
-        const allOnlineUsers = await supabase
-          .from<definitions["users"]>("users")
-          .select("*")
-          .eq("status", "ONLINE");
-        res.status(200).json(allOnlineUsers);
-      };
-      ```
-
-      For more advance type-support, check out [`postgrest-js-tools`](https://github.com/mzalevski/postgrest-js-tools).
-
-
-      ### GitHub Actionsで型を自動更新する
-
-      型の定義とデータベースを常に同期させるには、GitHub Actionを設定してスケジュールに沿って実行する方法があります。
-
-      package.jsonにスクリプトを追加して、型を生成します。
-
-      ```
-      "update-types": "npx openapi-typescript https://your-project.supabase.co/rest/v1/?apikey=your-anon-key --output types/database/index.ts"
-      ```
-
-      リポジトリーに、`.github/workflows/update-types.yml`というファイルを作成します。このファイルに以下のスニペットを追加して、アクションを定義します。定義に変更があった場合、このスクリプトはあなたのリポジトリーにその変更をコミットします。
-
-      ```yml
-      name: Update database types
-
-      on:
-        schedule:
-          # アクションを毎日実行するように設定します。この設定を変更して、アクションの実行頻度を増やすことも減らすこともできます。
-          - cron: '0 0 * * *'
-
-      jobs:
-        update:
-          runs-on: ubuntu-latest
-          steps:
-            - uses: actions/checkout@v2
-              with:
-                persist-credentials: false
-                fetch-depth: 0
-            - uses: actions/setup-node@v2.1.5
-              with:
-                node-version: 14
-            - run: npm run update-types
-            - name: check for file changes
-              id: git_status
-              run: |
-                echo "::set-output name=status::$(git status -s)"
-            - name: Commit files
-              if: ${{contains(steps.git_status.outputs.status, ' ')}}
-              run: |
-                git add types/database/index.ts
-                git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-                git config --local user.name "github-actions[bot]"
-                git commit -m "Update database types" -a
-            - name: Push changes
-              if: ${{contains(steps.git_status.outputs.status, ' ')}}
-              uses: ad-m/github-push-action@master
-              with:
-                github_token: ${{ secrets.GITHUB_TOKEN }}
-                branch: ${{ github.ref }}
-      ```
-=======
->>>>>>> 6c40cf3f48fdbb9961c4c644c75b97b988fc6e97
 
       
   auth.signUp():
