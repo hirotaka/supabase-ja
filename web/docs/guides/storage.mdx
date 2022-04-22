@@ -34,7 +34,8 @@ Supabase Storageは、大容量のファイルを簡単に保存して利用で�
 
 ### バケットを作成
 
-Supabaseダッシュボードを使ってバケットを作成できます。 ストレージはPostgresデータベースと相互運用性がありますので、SQLやクライアントライブラリーを使用できます。ここでは「avatars」というバケットを作成します。
+Supabaseダッシュボードを使ってバケットを作成できます。
+ストレージはPostgresデータベースと相互運用性がありますので、SQLやクライアントライブラリーを使用できます。ここでは「avatars」というバケットを作成します。
 
 <Tabs
 defaultValue="UI"
@@ -45,8 +46,6 @@ values={[
   {label: 'Dart', value: 'DART'},
 ]}>
 <TabItem value="UI">
-
-<!-- textlint-enable -->
 
 ```sh
 1. 「Storage」セクションに移動します。
@@ -98,13 +97,9 @@ void main() async {
 </TabItem>
 </Tabs>
 
-<!-- textlint-enable -->
-
 ### ファイルをアップロード
 
 ファイルのアップロードは、ダッシュボードからでも、JSライブラリーを使ってブラウザー内からでも可能です。
-
-<!-- textlint-disable -->
 
 <Tabs
 defaultValue="UI"
@@ -115,16 +110,12 @@ values={[
 ]}>
 <TabItem value="UI">
 
-<!-- textlint-enable -->
-
 ```sh
 1. 「Storage」セクションに移動します。
 2. ファイルをアップロードしたいバケットを選択します。
 3. 「Upload File」をクリックします。
 4. 表示されるダイアログで、アップロードしたいファイルを選択します。
 ```
-
-<!-- textlint-disable -->
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/storage/upload.mp4" type="video/mp4" muted playsInline />
@@ -162,13 +153,9 @@ void main() async {
 </TabItem>
 </Tabs>
 
-<!-- textlint-enable -->
-
 ### ファイルをダウンロード
 
 ファイルのダウンロードは、ダッシュボードからでも、JSライブラリーを使ってブラウザー内からでも可能です。
-
-<!-- textlint-disable -->
 
 <Tabs
 defaultValue="UI"
@@ -178,8 +165,6 @@ values={[
   {label: 'Dart', value: 'DART'},
 ]}>
 <TabItem value="UI">
-
-<!-- textlint-enable -->
 
 ```sh
 1. 「Storage」セクションに移動します。
