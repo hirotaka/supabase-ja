@@ -10,7 +10,11 @@ description: 'Supabaseに関するよくある質問'
 
 ### 価格はいくらですか
 
+<<<<<<< HEAD
 Supabaseのセルフ・ホスティングは無料です。クラウド・プラットフォームをご利用の場合は、[シンプルで予測可能な価格](/pricing)でご提供しています。
+=======
+Self-hosting Supabase is free. If you wish to use our cloud-platform, we provide [simple, predictable pricing](https://supabase.com/pricing).
+>>>>>>> c3048a0ea7a4561a587ca40f4a7b9505de634f90
 
 ### Supabaseをどうやってホストするのですか
 
