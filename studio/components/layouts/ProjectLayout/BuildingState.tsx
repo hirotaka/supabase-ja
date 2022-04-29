@@ -39,14 +39,8 @@ const ProjectBuildingState: FC<ProjectBuildingState> = ({ project }) => {
   }
 
   useEffect(() => {
-<<<<<<< HEAD
-    // check server status every 2s
-    checkServerInterval.current = window.setInterval(checkServer, 2000)
-
-=======
     // check server status every 4s
     checkServerInterval.current = window.setInterval(checkServer, 4000)
->>>>>>> 1f6070568e57619ce037e08ec4da0489becb804d
     return () => {
       clearInterval(checkServerInterval.current)
     }
