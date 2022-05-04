@@ -310,8 +310,13 @@ end;
 $$;
 ```
 
+<<<<<<< HEAD
 `security invoker`を使用するのがベスト・プラクティスとされています（デフォルトではこちらを使用します）。もし`security invoker`を使う際には、`search_path`を設定する必要があります。
 これにより、関数を実行するユーザーが持つべきでないスキーマへのアクセスを許可した場合、潜在的な損害を抑えることができます。
+=======
+It is best practice to use `security invoker` (which is also the default). If you ever use `security definer`, you _must_ set the `search_path`. 
+This limits the potential damage if you allow access to schemas which the user executing the function should not have.
+>>>>>>> 0f34aafdde4f4e8e2fcf504c8ac168da86dcb6e1
 
 ## リソース
 
