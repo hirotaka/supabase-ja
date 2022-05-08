@@ -21,6 +21,7 @@ docs/guides/with-solidjs.mdx
 docs/guides/functions.mdx
 docs/guides/api/generating-types.mdx
 docs/company/sla.md
+docs/guides/platform/metrics.mdx
 
 # レファレンス
 docs/reference/cli/index.mdx
