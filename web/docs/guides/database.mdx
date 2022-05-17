@@ -214,6 +214,7 @@ const NEW_PROJECT_SERVICE_KEY = "new-project-service-key-yyy";
 
 Supabaseで新規プロジェクトを作成する際に、パスワードの入力を求められます。このパスワードを使って、Postgresデータベースに直接接続できます。
 
+<<<<<<< HEAD
 パスワードを忘れてしまった場合は、ダッシュボードのデータベース設定ページ、もしくはSQLエディターでパスワードを再設定できます。
 
 以下のように実行します。
@@ -222,6 +223,9 @@ Supabaseで新規プロジェクトを作成する際に、パスワードの入
 alter user postgres 
 with password 'new_password';
 ```
+=======
+If you forget your password, you can reset it from the Dashboard under the database settings page.
+>>>>>>> 3c4e466f1a54905c8db11662ac8a045da4860318
 
 詳しくは[データベースの設定](/docs/guides/database/managing-passwords)をご覧ください。
 
