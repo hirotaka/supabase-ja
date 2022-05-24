@@ -152,6 +152,14 @@ values={[
 
 [ViteのVue 3テンプレート](https://vitejs.dev/guide/#scaffolding-your-first-vite-project)を使って、`supabase-vue-3`というアプリを初期化します。
 
+<Tabs
+defaultValue="NPM"
+values={[
+  {label: 'npm', value: 'NPM'},
+  {label: 'Yarn', value: 'YARN'},
+]}>
+<TabItem value="NPM">
+
 ```bash
 # npm 6.x
 npm init @vitejs/app supabase-vue-3 --template vue
@@ -162,13 +170,52 @@ npm init @vitejs/app supabase-vue-3 -- --template vue
 cd supabase-vue-3
 ```
 
+<<<<<<< HEAD
 そして、唯一追加する必要がある依存関係の[supbase-js](https://github.com/supabase/supabase-js)をインストールしましょう。
+=======
+</TabItem>
+<TabItem value="YARN">
+
+```bash
+yarn init @vitejs/app supabase-vue-3 --template vue
+
+cd supabase-vue-3
+```
+
+</TabItem>
+</Tabs>
+
+Then let's install the only additional dependency: [supabase-js](https://github.com/supabase/supabase-js)
+>>>>>>> 07a8e1ce2c529ca901d3e81a9ea78550026e95a8
+
+<Tabs
+defaultValue="NPM"
+values={[
+  {label: 'npm', value: 'NPM'},
+  {label: 'Yarn', value: 'YARN'},
+]}>
+<TabItem value="NPM">
 
 ```bash
 npm install @supabase/supabase-js
 ```
 
+<<<<<<< HEAD
 最後に、環境変数を`.env`に保存します。必要なのは、APIのURLと、[先ほど](#apiキーを取得)コピーした`anon`キーだけです。
+=======
+</TabItem>
+<TabItem value="YARN">
+
+```bash
+yarn add @supabase/supabase-js
+```
+
+</TabItem>
+</Tabs>
+
+And finally we want to save the environment variables in a `.env`. 
+All we need are the API URL and the `anon` key that you copied [earlier](#get-the-api-keys).
+>>>>>>> 07a8e1ce2c529ca901d3e81a9ea78550026e95a8
 
 ```bash title=".env"
 VITE_SUPABASE_URL=YOUR_SUPABASE_URL
@@ -448,11 +495,33 @@ export default {
 
 更新が完了したら、ターミナル・ウィンドウでこれを実行します。
 
+<Tabs
+defaultValue="NPM"
+values={[
+  {label: 'npm', value: 'NPM'},
+  {label: 'Yarn', value: 'YARN'},
+]}>
+<TabItem value="NPM">
+
 ```bash
 npm run dev
 ```
 
+<<<<<<< HEAD
 そして、ブラウザーで[localhost:3000](http://localhost:3000)を開くと、完成したアプリを見ることができます。
+=======
+</TabItem>
+<TabItem value="YARN">
+
+```bash
+yarn dev
+```
+
+</TabItem>
+</Tabs>
+
+And then open the browser to [localhost:3000](http://localhost:3000) and you should see the completed app.
+>>>>>>> 07a8e1ce2c529ca901d3e81a9ea78550026e95a8
 
 ![Supabase Vue 3](/img/supabase-vue-3-demo.png)
 
