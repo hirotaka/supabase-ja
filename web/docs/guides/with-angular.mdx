@@ -181,11 +181,6 @@ values={[
 npm install @supabase/supabase-js
 ```
 
-<<<<<<< HEAD
-最終的には、`environment.ts`ファイルに環境変数を保存します。
-必要なのはAPIのURLと[先ほど](#apiキーを取得)コピーした`anon`keyだけです。
-これらの変数はブラウザー上で公開されますが、データベースでは[行単位のセキュリティ](/docs/guides/auth#row-level-security)が有効になっているので、全く問題ありません。
-=======
 </TabItem>
 <TabItem value="YARN">
 
@@ -196,11 +191,10 @@ yarn add @supabase/supabase-js
 </TabItem>
 </Tabs>
 
-And finally we want to save the environment variables in the `environment.ts` file.
-All we need are the API URL and the `anon` key that you copied [earlier](#get-the-api-keys).
-These variables will be exposed on the browser, and that's completely fine since we have [Row Level Security](/docs/guides/auth#row-level-security) enabled on our Database.
+最終的には、`environment.ts`ファイルに環境変数を保存します。
+必要なのはAPIのURLと[先ほど](#apiキーを取得)コピーした`anon`keyだけです。
+これらの変数はブラウザー上で公開されますが、データベースでは[行単位のセキュリティ](/docs/guides/auth#row-level-security)が有効になっているので、全く問題ありません。
 
->>>>>>> 07a8e1ce2c529ca901d3e81a9ea78550026e95a8
 
 ```ts title="environment.ts"
 export const environment = {
@@ -494,9 +488,6 @@ values={[
 npm run start
 ```
 
-<<<<<<< HEAD
-そして、ブラウザーで[localhost:3000](http://localhost:3000)を開くと、完成したアプリを見ることができます。
-=======
 </TabItem>
 <TabItem value="YARN">
 
@@ -507,8 +498,7 @@ yarn start
 </TabItem>
 </Tabs>
 
-And then open the browser to [localhost:4200](http://localhost:4200) and you should see the completed app.
->>>>>>> 07a8e1ce2c529ca901d3e81a9ea78550026e95a8
+そして、ブラウザーで[localhost:3000](http://localhost:3000)を開くと、完成したアプリを見ることができます。
 
 
 ![Supabase Angular](/img/supabase-angular-demo.png)
