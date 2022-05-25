@@ -179,11 +179,30 @@ cd supabase-nextjs
 
 そして、唯一追加する必要がある依存関係の[supbase-js](https://github.com/supabase/supabase-js)をインストールしましょう。
 
+<Tabs
+defaultValue="NPM"
+values={[
+  {label: 'npm', value: 'NPM'},
+  {label: 'Yarn', value: 'YARN'},
+]}>
+<TabItem value="NPM">
+
 ```bash
 npm install @supabase/supabase-js
 ```
 
-最後に、環境変数を`.env.local`に保存します。必要なのは、APIのURLと、[先ほど](#apiキーを取得)コピーした`anon`キーだけです。
+</TabItem>
+<TabItem value="YARN">
+
+```bash
+yarn add @supabase/supabase-js
+```
+
+</TabItem>
+</Tabs>
+
+最後に、環境変数を`.env.local`に保存します。
+必要なのは、APIのURLと、[先ほど](#apiキーを取得)コピーした`anon`キーだけです。
 
 ```bash title=".env.local"
 NEXT_PUBLIC_SUPABASE_URL=YOUR_SUPABASE_URL
@@ -415,11 +434,31 @@ export default function Home() {
 
 更新が完了したら、ターミナル・ウィンドウでこれを実行します。
 
+<Tabs
+defaultValue="NPM"
+values={[
+  {label: 'npm', value: 'NPM'},
+  {label: 'Yarn', value: 'YARN'},
+]}>
+<TabItem value="NPM">
+
 ```bash
 npm run dev
 ```
 
+</TabItem>
+<TabItem value="YARN">
+
+```bash
+yarn dev
+```
+
+</TabItem>
+</Tabs>
+
 そして、ブラウザーで[localhost:3000](http://localhost:3000)を開くと、完成したアプリを見ることができます。
+And then open the browser to [localhost:3000](http://localhost:3000) and you should see the completed app.
+
 
 ![Supabase User demo](/img/supabase-react-demo.png)
 

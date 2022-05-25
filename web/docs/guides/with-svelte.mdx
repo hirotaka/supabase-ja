@@ -160,11 +160,30 @@ cd supabase-svelte
 
 そして、唯一追加する必要がある依存関係の[supbase-js](https://github.com/supabase/supabase-js)をインストールしましょう。
 
+<Tabs
+defaultValue="NPM"
+values={[
+  {label: 'npm', value: 'NPM'},
+  {label: 'Yarn', value: 'YARN'},
+]}>
+<TabItem value="NPM">
+
 ```bash
 npm install @supabase/supabase-js
 ```
 
-最後に、環境変数を`.env`に保存します。必要なのは、APIのURLと、[先ほど](#apiキーを取得)コピーした`anon`キーだけです。
+</TabItem>
+<TabItem value="YARN">
+
+```bash
+yarn add @supabase/supabase-js
+```
+
+</TabItem>
+</Tabs>
+
+最後に、環境変数を`.env`に保存します。
+必要なのは、APIのURLと、[先ほど](#apiキーを取得)コピーした`anon`キーだけです。
 
 ```bash title=".env"
 SVELTE_APP_SUPABASE_URL=YOUR_SUPABASE_URL
@@ -174,15 +193,51 @@ SVELTE_APP_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
 このアプリはほぼ機能していますが、svelteをSupabaseや`.env`ファイルで動作させるためには、まず、`rollup.config.js`ファイルを少し変更する必要があります。
 Supabaseは`json`ファイルをインポートしますが、.jsonファイルをES6モジュールに変換するには、`@rollup/plugin-json`をインストールして実行する必要があります。
 
+<Tabs
+defaultValue="NPM"
+values={[
+  {label: 'npm', value: 'NPM'},
+  {label: 'Yarn', value: 'YARN'},
+]}>
+<TabItem value="NPM">
+
 ```bash
-  npm install --save-dev @rollup/plugin-json
+npm install --save-dev @rollup/plugin-json
 ```
+
+</TabItem>
+<TabItem value="YARN">
+
+```bash
+yarn add --save-dev @rollup/plugin-json
+```
+
+</TabItem>
+</Tabs>
 
 さらに、.envをsvelteで使用するためには、別のrollupプラグインが必要です。そのプラグインをインストールします。
 
+<Tabs
+defaultValue="NPM"
+values={[
+  {label: 'npm', value: 'NPM'},
+  {label: 'Yarn', value: 'YARN'},
+]}>
+<TabItem value="NPM">
+
 ```bash
-  npm install --save-dev dotenv @rollup/plugin-replace
+npm install --save-dev dotenv @rollup/plugin-replace
 ```
+
+</TabItem>
+<TabItem value="YARN">
+
+```bash
+yarn add --save-dev dotenv @rollup/plugin-replace
+```
+
+</TabItem>
+</Tabs>
 
 これらのプラグインを`rollup.config.js`ファイルに追加します。
 
@@ -421,9 +476,27 @@ export const user = writable(false);
 
 更新が完了したら、ターミナル・ウィンドウで次のコマンドを実行します。
 
+<Tabs
+defaultValue="NPM"
+values={[
+  {label: 'npm', value: 'NPM'},
+  {label: 'Yarn', value: 'YARN'},
+]}>
+<TabItem value="NPM">
+
 ```bash
 npm run dev
 ```
+
+</TabItem>
+<TabItem value="YARN">
+
+```bash
+yarn dev
+```
+
+</TabItem>
+</Tabs>
 
 そして、ブラウザーで[localhost:5000](http://localhost:5000)を開くと、完成したアプリを見ることができます。
 

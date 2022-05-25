@@ -169,13 +169,32 @@ cd supabase-angular
 
 そして、唯一追加する必要がある依存関係の[supbase-js](https://github.com/supabase/supabase-js)をインストールしましょう。
 
+<Tabs
+defaultValue="NPM"
+values={[
+  {label: 'npm', value: 'NPM'},
+  {label: 'Yarn', value: 'YARN'},
+]}>
+<TabItem value="NPM">
+
 ```bash
 npm install @supabase/supabase-js
 ```
 
+</TabItem>
+<TabItem value="YARN">
+
+```bash
+yarn add @supabase/supabase-js
+```
+
+</TabItem>
+</Tabs>
+
 最終的には、`environment.ts`ファイルに環境変数を保存します。
 必要なのはAPIのURLと[先ほど](#apiキーを取得)コピーした`anon`keyだけです。
 これらの変数はブラウザー上で公開されますが、データベースでは[行単位のセキュリティ](/docs/guides/auth#row-level-security)が有効になっているので、全く問題ありません。
+
 
 ```ts title="environment.ts"
 export const environment = {
@@ -457,9 +476,27 @@ export class AppComponent implements OnInit {
 
 更新が完了したら、ターミナル・ウィンドウでこれを実行します。
 
+<Tabs
+defaultValue="NPM"
+values={[
+  {label: 'npm', value: 'NPM'},
+  {label: 'Yarn', value: 'YARN'},
+]}>
+<TabItem value="NPM">
+
 ```bash
 npm run start
 ```
+
+</TabItem>
+<TabItem value="YARN">
+
+```bash
+yarn start
+```
+
+</TabItem>
+</Tabs>
 
 そして、ブラウザーで[localhost:3000](http://localhost:3000)を開くと、完成したアプリを見ることができます。
 

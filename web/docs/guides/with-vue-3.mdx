@@ -152,6 +152,14 @@ values={[
 
 [ViteのVue 3テンプレート](https://vitejs.dev/guide/#scaffolding-your-first-vite-project)を使って、`supabase-vue-3`というアプリを初期化します。
 
+<Tabs
+defaultValue="NPM"
+values={[
+  {label: 'npm', value: 'NPM'},
+  {label: 'Yarn', value: 'YARN'},
+]}>
+<TabItem value="NPM">
+
 ```bash
 # npm 6.x
 npm init @vitejs/app supabase-vue-3 --template vue
@@ -162,13 +170,44 @@ npm init @vitejs/app supabase-vue-3 -- --template vue
 cd supabase-vue-3
 ```
 
+</TabItem>
+<TabItem value="YARN">
+
+```bash
+yarn init @vitejs/app supabase-vue-3 --template vue
+
+cd supabase-vue-3
+```
+
+</TabItem>
+</Tabs>
+
 そして、唯一追加する必要がある依存関係の[supbase-js](https://github.com/supabase/supabase-js)をインストールしましょう。
+
+<Tabs
+defaultValue="NPM"
+values={[
+  {label: 'npm', value: 'NPM'},
+  {label: 'Yarn', value: 'YARN'},
+]}>
+<TabItem value="NPM">
 
 ```bash
 npm install @supabase/supabase-js
 ```
 
-最後に、環境変数を`.env`に保存します。必要なのは、APIのURLと、[先ほど](#apiキーを取得)コピーした`anon`キーだけです。
+</TabItem>
+<TabItem value="YARN">
+
+```bash
+yarn add @supabase/supabase-js
+```
+
+</TabItem>
+</Tabs>
+
+最後に、環境変数を`.env`に保存します。
+必要なのは、APIのURLと、[先ほど](#apiキーを取得)コピーした`anon`キーだけです。
 
 ```bash title=".env"
 VITE_SUPABASE_URL=YOUR_SUPABASE_URL
@@ -448,9 +487,27 @@ export default {
 
 更新が完了したら、ターミナル・ウィンドウでこれを実行します。
 
+<Tabs
+defaultValue="NPM"
+values={[
+  {label: 'npm', value: 'NPM'},
+  {label: 'Yarn', value: 'YARN'},
+]}>
+<TabItem value="NPM">
+
 ```bash
 npm run dev
 ```
+
+</TabItem>
+<TabItem value="YARN">
+
+```bash
+yarn dev
+```
+
+</TabItem>
+</Tabs>
 
 そして、ブラウザーで[localhost:3000](http://localhost:3000)を開くと、完成したアプリを見ることができます。
 
