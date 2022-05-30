@@ -24,9 +24,15 @@ SupabaseのSMS OTPトークンを使用する理由は2つあります。
 
 必要なもの次の通りです。
 
+<<<<<<< HEAD
 - MessageBirdアカウント（サインアップはこちら：<https://dashboard.messagebird.com/en/sign-up>）
 - Supabaseプロジェクト（ここで作成してください：<https://app.supabase.io>）
 - SMSを受信できる携帯電話
+=======
+- A MessageBird account (sign up here: https://dashboard.messagebird.com/en/sign-up)
+- A Supabase project (create one here: https://app.supabase.com)
+- A mobile phone capable of receiving SMS
+>>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
 
 ## 手順
 
@@ -49,7 +55,11 @@ SupabaseのSMS OTPトークンを使用する理由は2つあります。
 - 本番用APIキーとテスト用APIキー（Live API Key / Test API Key）
 - MessageBird originator
 
+<<<<<<< HEAD
 SupabaseのダッシュボードのAuth → Settingsページに移動します（<https://app.supabase.io/project/YOUR-PROJECT-REF/auth/settings>）。
+=======
+Now go to the Auth > Settings page in the Supabase dashboard (https://app.supabase.com/project/YOUR-PROJECT-REF/auth/settings).
+>>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
 
 Phone Signup（電話による登録）を有効にするオプションがあります。
 
@@ -68,7 +78,11 @@ MessageBirdの認証情報がはいります。
 
 OTPコードを含む電話に送信されるSMSメッセージをカスタマイズできます。これは、ブランド名を記載したり、ウェブサイトのアドレスを表示したりする場合に便利です。
 
+<<<<<<< HEAD
 SupabaseのダッシュボードのAuth → Templatesページにアクセスします（<https://app.supabase.io/project/YOUR-PROJECT-REF/auth/templates>）。
+=======
+Go to Auth > Templates page in the Supabase dashboard (https://app.supabase.com/project/YOUR-PROJECT-REF/auth/templates).
+>>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
 
 コードを表示するには、テンプレートで変数`.Code`を使用します。
 
@@ -275,6 +289,12 @@ curl -X POST 'https://cvwawazfelidkloqmbma.supabase.co/auth/v1/verify' \
 
 ## リソース
 
+<<<<<<< HEAD
 - [MessageBirdサインアップ](https://dashboard.messagebird.com/en/sign-up)
 - [Supabaseダッシュボード](https://app.supabase.io)
 - [Supabaseの行単位セキュリティー](/docs/guides/auth#row-level-security)
+=======
+- [MessageBird Signup](https://dashboard.messagebird.com/en/sign-up)
+- [Supabase Dashboard](https://app.supabase.com)
+- [Supabase Row Level Security](/docs/guides/auth#row-level-security)
+>>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7

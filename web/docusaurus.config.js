@@ -72,7 +72,11 @@ module.exports = {
           activeBasePath: '/docs/reference/',
           position: 'left',
         },
+<<<<<<< HEAD
         { href: 'https://app.supabase.io', label: 'ログイン', position: 'left' },
+=======
+        { href: 'https://app.supabase.com', label: 'Login', position: 'left' },
+>>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
         {
           href: 'https://github.com/supabase/supabase',
           className: 'navbar-item-github',
@@ -174,8 +178,13 @@ module.exports = {
           title: 'ベータ',
           items: [
             {
+<<<<<<< HEAD
               label: 'ベータ版に参加',
               href: 'https://app.supabase.io',
+=======
+              label: 'Join our beta',
+              href: 'https://app.supabase.com',
+>>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
             },
           ],
         },

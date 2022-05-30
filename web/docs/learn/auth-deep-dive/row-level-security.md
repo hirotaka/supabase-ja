@@ -86,9 +86,11 @@ SQLで次のように実行します。
 ```sql
 CREATE POLICY anon_read_leaderboard ON leaderboard
     FOR SELECT
-    USING (auth.role() = 'anon');
+    TO 'anon'
+    USING (true);
 ```
 
+<<<<<<< HEAD
 ここでの`anon_read_leaderboard`は、ポリシーの内容に合わせて選んだ名前です。`leaderboard`はテーブル名です。`FOR SELECT`は、このポリシーを読み取り（SQLでいうところの「select」）にのみ適用させたいということです。そして最後に、ルール自体は`auth.role() = 'anon'`です。
 
 
@@ -104,6 +106,9 @@ $$ language sql stable;
 この関数の目的は、`Authorization: Bearer`ヘッダーを介してAPIに渡されたJWTから`role`属性情報（claim）を抽出することです。
 
 ここで使用できる他の関数は、`auth.email()`と`auth.uid()`があります。それぞれ`email`と`sub`の属性情報を取得します。
+=======
+`anon_read_leaderboard` here is just a name that you choose for your policy. `leaderboard` is the table name. `FOR SELECT` says that we only want this policy to apply for reads (or rather "selects" in SQL). `TO` means that this policy will only apply to the `anon` Postgres role. And finally the rule itself is `true'`, which means it will _allow_ any `selects` to the `anon` user.
+>>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
 
 ダッシュボードを使ってポリシーを追加したい場合は、「Policy」タブの「Add Policy」をクリックして、以下のようにポリシーを作成します。
 
@@ -124,7 +129,14 @@ $$ language sql stable;
 
 - [パート1：JWT](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)をみる
 <!-- - Watch [Part Two: Row Level Security](/docs/learn/auth-deep-dive/auth-row-level-security) -->
+<<<<<<< HEAD
 - [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)をみる
 - [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)をみる
 - [パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)をみる
 - Supabaseにサインアップ：[app.supabase.io](https://app.supabase.io)
+=======
+- Watch [Part Three: Policies](/docs/learn/auth-deep-dive/auth-policies)
+- Watch [Part Four: GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)
+- Watch [Part Five: Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)
+- Sign up for Supabase: [app.supabase.com](https://app.supabase.com)
+>>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
