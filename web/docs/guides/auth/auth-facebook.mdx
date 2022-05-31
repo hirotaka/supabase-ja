@@ -13,15 +13,9 @@ import TabItem from '@theme/TabItem'
 
 アプリケーションにFacebookログインを設定するための手順は、3つのパートで構成されています。
 
-<<<<<<< HEAD
 - [Facebook Developers Site](https://developers.facebook.com)でFacebookアプリケーションを作成・設定
-- [Supabaseプロジェクト](https://app.supabase.io)にFacebookキーを追加
+- [Supabaseプロジェクト](https://app.supabase.com)にFacebookキーを追加
 - [SupabaseのJSクライアント・アプリ](https://github.com/supabase/supabase-js)にログインのコードを追加
-=======
-- Create and configure a Facebook Application on the [Facebook Developers Site](https://developers.facebook.com)
-- Add your Facebook keys to your [Supabase Project](https://app.supabase.com)
-- Add the login code to your [Supabase JS Client App](https://github.com/supabase/supabase-js)
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
 
 ## 手順
 
@@ -46,19 +40,11 @@ import TabItem from '@theme/TabItem'
 
 `https://<project-ref>.supabase.co/auth/v1/callback`
 
-<<<<<<< HEAD
-- [Supabaseプロジェクトのダッシュボード](https://app.supabase.io)にアクセスします。
+- [Supabaseプロジェクトのダッシュボード](https://app.supabase.com)にアクセスします。
 - 左サイドバーの下部にある`Settings`アイコンをクリックします。
 - リストの中の`API`をクリックします。
 - `Config`の`URL`の下にAPI URLがあるので、`Copy`をクリックしてクリップボードにコピーします。
 - 末尾に`/auth/v1/callback`を追加することで、完全な`OAuth Redirect URI`を取得できます。
-=======
-- Go to your [Supabase Project Dashboard](https://app.supabase.com).
-- Click on the `Settings` icon at the bottom of the left sidebar.
-- Click on `API` in the list.
-- Under Config / URL you'll find your API URL, you can click `Copy` to copy it to the clipboard.
-- Now just add `/auth/v1/callback` to the end of that to get your full `OAuth Redirect URI`.
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
@@ -89,23 +75,13 @@ import TabItem from '@theme/TabItem'
 
 ### SupabaseプロジェクトにFacebookアプリIDとシークレットを入力
 
-<<<<<<< HEAD
-- [Supabaseプロジェクトのダッシュボード](https://api.supabase.io)に移動します。
+- [Supabaseプロジェクトのダッシュボード](https://api.supabase.com)に移動します。
 - 左側のサイドバーで、`Authentication`アイコンをクリックします（上部付近）。
 - リストから`Settings`をクリックし、`Authentication Settings`ページを表示します。
 - `Site URL`にアプリの最終的な（ホストされた）URLを入力します（これは重要です）。
 - `External OAuth Providers`で`Facebook Enabled`をオンにします。
 - 前の手順で保存した`Facebook client ID`と`Facebook secret`を入力します。
 - `Save`をクリックします。
-=======
-- Go to your [Supabase Project Dashboard](https://app.supabase.com)
-- In the left sidebar, click the `Authentication` icon (near the top)
-- Click `Settings` from the list to go to the `Authentication Settings` page
-- Enter the final (hosted) URL of your app under `Site URL` (this is important)
-- Under `External OAuth Providers` turn `Facebook Enabled` to ON
-- Enter your `Facebook client ID` and `Facebook secret` saved in the previous step
-- Click `Save`
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
 
 ### クライアント・アプリにログインのコードを追加
 

@@ -4,11 +4,7 @@ title: 行単位セキュリティー
 description: Postgresの行単位セキュリティーを使用してデータを保護します。
 ---
 
-<<<<<<< HEAD
 細かな認証ルールが必要な場合、PostgreSQLの[行単位セキュリティー（Row Level Security - RLS）](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)に勝るものはありません。
-=======
-When you need granular authorization rules, nothing beats PostgreSQL's [Row Level Security (RLS)](https://www.postgresql.org/docs/current/ddl-rowsecurity.html).
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
 
 [ポリシー](https://www.postgresql.org/docs/current/sql-createpolicy.html)はPostgreSQLのルール・エンジンです。非常に強力で柔軟性があり、固有のビジネス・ニーズに合った複雑なSQLルールを書くことができます。
 
@@ -40,43 +36,34 @@ from todos
 where auth.uid() = todos.user_id; -- ポリシーが暗黙の内に追加されます。
 ```
 
-<<<<<<< HEAD
 ## ヘルパー関数
-=======
-## Helper Functions
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
 
 Supabaseには、ポリシーで使用できる簡単な関数がいくつか用意されています。
 
-<<<<<<< HEAD
-
-=======
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
 ### `auth.uid()`
 
 リクエストを行ったユーザーのIDを返します。
 
 ### `auth.role()`
 
-<<<<<<< HEAD
-リクエストを行ったユーザーのロールを返します。ほとんどの場合、これは`authenticated`（認証済み）または`anon`（匿名）のいずれかです。
-=======
+<!-- textlint-disable ja-technical-writing/ja-no-mixed-period -->
 :::caution
 
-Deprecated
+非推奨
 
 :::
+<!-- textlint-enable ja-technical-writing/ja-no-mixed-period -->
 
-The `auth.role()` function has been deprecated in favour of using the `TO` field, natively supported within Postgres.
+`auth.role()`関数は非推奨となり、Postgresでネイティブにサポートされている`TO`フィールドを使用するようになりました。
 
 ```sql
--- DEPRECATED
+-- 非推奨
 create policy "Public profiles are viewable by everyone."
 on profiles for select using (
   auth.role() = 'authenticated' or auth.role() = 'anon'
 );
 
--- RECOMMENDED
+-- 推奨
 create policy "Public profiles are viewable by everyone."
 on profiles for select
 to authenticated, anon
@@ -84,7 +71,6 @@ using (
   true
 );
 ```
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
 
 ### `auth.email()`
 
@@ -92,11 +78,7 @@ using (
 
 ## 例
 
-<<<<<<< HEAD
 以下に、PostgreSQLのRLSの能力を示す例を示します。
-=======
-Here are some examples to show you the power of PostgreSQL's RLS.
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
 
 ### 読み取りアクセスの許可
 
@@ -146,9 +128,6 @@ create policy "Users can update their own profiles."
 2. RLSを有効にします。
 3. ログインしたユーザーが自分のデータを更新することを許可するポリシーを作成します。
 
-<<<<<<< HEAD
-### 結合を含むポリシー
-=======
 ### Only anon or authenticated access
 
 You can add a Postgres role
@@ -162,8 +141,7 @@ using (
 );
 ```
 
-### Policies with joins
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
+### 結合を含むポリシー
 
 ポリシーには、テーブルの結合を含めることもできます。この例では、より高度なルールを構築するために、「外部」のテーブルにクエリを実行する方法を示しています。
 
@@ -357,33 +335,17 @@ alter publication supabase_realtime add table products;
 alter publication supabase_realtime add table posts;
 ```
 
-<<<<<<< HEAD
 ### ポリシーを使用する必要はありません
-=======
-### You don't have to use policies
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
 
 他の`バックエンド <-> ミドルウェア <-> フロントエンド`のアーキテクチャでセキュリティ・ルールを作成するのと同じように、ミドルウェアに認証ルールを置くこともできます。
 
 ポリシーはツールです。「サーバーレス/Jamstack」による構成の場合は、ミドルウェアを一切導入する必要がないので、特に効果的です。
 
-<<<<<<< HEAD
 しかし、アプリケーションに別の認証方法を使用したい場合は、それも問題ありません。Supabaseは「単なるPostgres」ですので、Postgresで動作するアプリケーションであれば、Supabaseでも動作します。
-=======
-However, if you want to use another authorization method for your applications, that's also fine. Supabase is "just Postgres", so if your application
-works with Postgres, then it also works with Supabase.
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
 
 Tips：すべてのテーブルに対してRLSを有効化して、テーブルへアクセスできないようにしてください。その上で、RLSをバイパスするように設計された私たちの「サービス」をご利用ください。
 
-<<<<<<< HEAD
-
 ### クライアントでサービス・キーを使用しない
 
-Supabaseは、RLSを回避するための特別な「サービス」キーを提供しています。これらのキーは、決してブラウザーで使用したり、ユーザーに公開したりしてはいけませんが、管理作業には便利です。
-=======
-### Never use a service key on the client
-
-Supabase provides special "Service" keys, which can be used to bypass all RLS.
-These should never be used in the browser or exposed to customers, but they are useful for administrative tasks.
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
+Supabaseは、RLSを回避するための特別な「サービス」キーを提供しています。
+これらのキーは、決してブラウザーで使用したり、ユーザーに公開したりしてはいけませんが、管理作業には便利です。

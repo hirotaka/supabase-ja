@@ -68,18 +68,9 @@ const { user, session, error } = await supabase.auth.signIn({
 
 ### 次のステップ
 
-<<<<<<< HEAD
 - [パート1：JWT](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)をみる
 - [パート2：行単位セキュリティー](/docs/learn/auth-deep-dive/auth-row-level-security)をみる
 - [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)をみる
 <!-- - [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)をみる -->
 - [パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)をみる
-- Supabaseにサインアップ：[app.supabase.io](https://app.supabase.io)
-=======
-- Watch [Part One: JWTs](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)
-- Watch [Part Two: Row Level Security](/docs/learn/auth-deep-dive/auth-row-level-security)
-- Watch [Part Three: Policies](/docs/learn/auth-deep-dive/auth-policies)
-<!-- - Watch [Part Four: GoTrue](/docs/learn/auth-deep-dive/auth-gotrue) -->
-- Watch [Part Five: Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)
-- Sign up for Supabase: [app.supabase.com](https://app.supabase.com)
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
+- Supabaseにサインアップ：[app.supabase.com](https://app.supabase.com)

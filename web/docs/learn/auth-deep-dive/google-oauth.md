@@ -76,31 +76,16 @@ https://<自身のを参照>.supabase.co/auth/v1/authorize?provider=google&https
 
 あとはUIを実装するだけですが、あらかじめ用意されているものを使いたい場合は、便利な[認証ウィジェット](https://github.com/supabase/ui/#using-supabase-ui-auth)を用意していますので、サポートしたい認証プロバイダーを有効/無効にしたりできます。
 
-<<<<<<< HEAD
-サポートが必要な場合は、beta at supabase.ioまでご連絡ください。また、機能リクエストについては、[バックエンド](https://github.com/supabase/gotrue)または[フロントエンド](https://github.com/supabase/gotrue-js)のリポジトリーでissueを開いてください。
-=======
-For any support please get in touch at beta at [supabase.com](https://supabase.com) or for feature requests open an issue in the [backend](https://github.com/supabase/gotrue) or [frontend](https://github.com/supabase/gotrue-js) repos.
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
+サポートが必要な場合は、beta at [supabase.com](https://supabase.com)までご連絡ください。また、機能リクエストについては、[バックエンド](https://github.com/supabase/gotrue)または[フロントエンド](https://github.com/supabase/gotrue-js)のリポジトリーでissueを開いてください。
 
 ### リソース
 
 - JWTデバッガー：https://jwt.io/
 
-<<<<<<< HEAD
 ### 次のステップ
 - [パート1：JWT](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)をみる
 - [パート2：行単位セキュリティー](/docs/learn/auth-deep-dive/auth-row-level-security)をみる
 - [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)をみる
 - [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)をみる
 <!-- - [パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)をみる -->
-- Supabaseにサインアップ：[app.supabase.io](https://app.supabase.io)
-=======
-### Next steps
-
-- Watch [Part One: JWTs](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)
-- Watch [Part Two: Row Level Security](/docs/learn/auth-deep-dive/auth-row-level-security)
-- Watch [Part Three: Policies](/docs/learn/auth-deep-dive/auth-policies)
-- Watch [Part Four: GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)
-<!-- - Watch [Part Five: Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth) -->
-- Sign up for Supabase: [app.supabase.com](https://app.supabase.com)
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
+- Supabaseにサインアップ：[app.supabase.com](https://app.supabase.com)

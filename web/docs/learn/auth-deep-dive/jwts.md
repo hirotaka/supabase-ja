@@ -176,17 +176,9 @@ JWTとは何か、そしてSupabaseのどこで使われているかを解説し
 
 <!-- - Watch [Part One: JWTs](/docs/learn/auth-deep-dive/auth-deep-dive-jwts) -->
 
-<<<<<<< HEAD
 <!-- - [パート2：Part Two: Row Level Security](/docs/learn/auth-deep-dive/auth-row-level-security) -->
 - [パート2：行単位セキュリティー](/docs/learn/auth-deep-dive/auth-row-level-security)
 - [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)
 - [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)
 - [パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)
-- Supabaseにサインアップ：[app.supabase.io](https://app.supabase.io)
-=======
-- [Part Two: Row Level Security](/docs/learn/auth-deep-dive/auth-row-level-security)
-- [Part Three: Policies](/docs/learn/auth-deep-dive/auth-policies)
-- [Part Four: GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)
-- [Part Five: Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)
-- Sign up for Supabase: [app.supabase.com](https://app.supabase.com)
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
+- Supabaseにサインアップ：[app.supabase.com](https://app.supabase.com)

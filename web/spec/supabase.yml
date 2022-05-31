@@ -355,25 +355,14 @@ pages:
     title: 'signUp()'
     $ref: '@supabase/gotrue-js.GoTrueClient.signUp'
     notes: |
-<<<<<<< HEAD
-      - デフォルトでは、ユーザーはログインする前にメールアドレスを確認する必要があります。これを変更したい場合は、[app.supabase.io](https://app.supabase.io)の「Authentication」→「Settings」にアクセスします。「Email enable confirmations（Eメールによる確認を有効化）」を無効にします。
+      - デフォルトでは、ユーザーはログインする前にメールアドレスを確認する必要があります。これを変更したい場合は、[app.supabase.com](https://app.supabase.com)の「Authentication」→「Settings」にアクセスします。「Email enable confirmations（Eメールによる確認を有効化）」を無効にします。
       - 「Email enable confirmations」を有効にすると、`user`が返されますが、`session`はnullになります。
       - 「Email Confirmations」を無効にすると、`user`と`session`の両方が返されます。
-      - ユーザーがメールアドレスを確認すると、デフォルトではlocalhost:3000にリダイレクトされます。これを変更するには、[app.supabase.io](https://app.supabase.io)の「Authentication」→「Settings」で変更できます。
+      - ユーザーがメールアドレスを確認すると、デフォルトではlocalhost:3000にリダイレクトされます。これを変更するには、[app.supabase.com](https://app.supabase.com)の「Authentication」→「Settings」で変更できます。
       - 確認済みの既存のユーザーに対してsignUp()が呼び出された場合は次のようになります。
           - もし、「Authentication」→「Settings」ページの「Enable email confirmations」が有効の場合、曖昧な偽のユーザー・オブジェクトを返します。
           - 「Enable email confirmations」を無効にした場合、「ユーザーがすでに登録されています」という内容のエラーが返ってきます。
       - ユーザーがすでに存在しているかどうかを確認するには、getUser()で確認してください。
-=======
-      - By default, the user will need to verify their email address before logging in. If you would like to change this, you can disable "Email Confirmations" by going to Authentication -> Settings on [app.supabase.com](https://app.supabase.com)
-      - If "Email Confirmations" is turned on, a `user` is returned but `session` will be null
-      - If "Email Confirmations" is turned off, both a `user` and a `session` will be returned
-      - When the user confirms their email address, they will be redirected to localhost:3000 by default. To change this, you can go to Authentication -> Settings on [app.supabase.com](https://app.supabase.com)
-      - If signUp() is called for an existing confirmed user:
-          - If "Enable email confirmations" is enabled on the "Authentication" -> "Settings" page, an obfuscated / fake user object will be returned.
-          - If "Enable email confirmations" is disabled, an error with a message "User already registered" will be returned.
-      - To check if a user already exists, refer to getUser().
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
     examples:
       - name: サインアップ
         isSpotlight: true
@@ -426,17 +415,10 @@ pages:
     title: 'signIn()'
     $ref: '@supabase/gotrue-js.GoTrueClient.signIn'
     notes: |
-<<<<<<< HEAD
       - ユーザーはメールかOAuthでサインアップできます。
       - `password`を指定せずに`email`を指定した場合、ユーザーにはマジック・リンクが送られます。
-      - マジック・リンクの送信先URLは、SITE_URLという設定変数で決まります。これを変更するには、[app.supabase.io](https://app.supabase.io)の「Authentication」→「Settings」で行います。
+      - マジック・リンクの送信先URLは、SITE_URLという設定変数で決まります。これを変更するには、[app.supabase.com](https://app.supabase.com)の「Authentication」→「Settings」で行います。
       - `provider`を指定すると、ブラウザーで関連するログイン・ページを開きます。
-=======
-      - A user can sign up either via email or OAuth.
-      - If you provide `email` without a `password`, the user will be sent a magic link.
-      - The magic link's destination URL is determined by the SITE_URL config variable. To change this, you can go to Authentication -> Settings on [app.supabase.com](https://app.supabase.com)
-      - Specifying a `provider` will open the browser to the relevant login page.
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
     examples:
       - name: Eメールでサインイン
         isSpotlight: true

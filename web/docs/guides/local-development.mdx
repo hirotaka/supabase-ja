@@ -21,11 +21,7 @@ SupabaseはCLIを提供しているので、ローカルでアプリケーショ
 
 ### Supabase CLIでログイン
 
-<<<<<<< HEAD
-Supabase CLIをインストールした後は、Supabaseアカウント（サインアップは[app.supabase.io](https://app.supabase.io)）を使って[ログイン](/docs/reference/cli/supabase-login)できます。
-=======
-After installing the Supabase CLI you can [log in](/docs/reference/cli/supabase-login) using your Supabase account (sign up at [app.supabase.com](https://app.supabase.com)).
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
+Supabase CLIをインストールした後は、Supabaseアカウント（サインアップは[app.supabase.com](https://app.supabase.com)）を使って[ログイン](/docs/reference/cli/supabase-login)できます。
 
 ```bash
 supabase login
@@ -158,17 +154,11 @@ create table employees (
 supabase db commit create_employees
 ```
 
-<<<<<<< HEAD
 これは `supabase/migrations/<タイムスタンプ>_create_employees.sql`という名前の新しいマイグレーションを作成します。そして、`supabase start`以降のローカルのデータベースに対するすべての変更を反映します。
 
-サンプルのデータをテーブルに追加してみましょう。そのためには、`supabase/seed.sql`のシード・スクリプトを利用できます。 
-=======
-This creates a new migration named `supabase/migrations/<timestamp>_create_employees.sql`, representing any changes we've made to the local database since `supabase start`.
-	
-#### Adding sample data
+#### サンプルデータを追加
 
-Let's add some sample data into the table. We can use the seed script in `supabase/seed.sql` (which gets created when you run `supabase init`). 
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
+サンプルのデータをテーブルに追加してみましょう。そのためには、`supabase/seed.sql`（`supabase init`を実行した際に生成されたファイル）のシード・スクリプトを利用できます。 
 
 ```sql
 -- in supabase/seed.sql
@@ -207,11 +197,7 @@ supabase db reset
 
 ## デプロイ 
 
-<<<<<<< HEAD
-ローカルでアプリケーションを開発したので、[app.supabase.io](https://app.supabase.io)に移動して、変更をデプロイするプロジェクトを作成します。
-=======
-Now that you've developed an application locally, head over to [app.supabase.com](https://app.supabase.com) and create a project where we can deploy the changes.
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
+ローカルでアプリケーションを開発したので、[app.supabase.com](https://app.supabase.com)に移動して、変更をデプロイするプロジェクトを作成します。
 
 ### プロジェクトをリンク
 
@@ -254,12 +240,6 @@ supabase db push
 
 ## 次のステップ
 
-<<<<<<< HEAD
 - 何か疑問があれば、[Discussionsで質問](https://github.com/supabase/supabase/discussions)してください
 - CLIのリポジトリ：[GitHub](https://github.com/supabase/cli)
-- サインイン：[app.supabase.io](https://app.supabase.io)
-=======
-- Got a question? [Ask in our Discussions](https://github.com/supabase/supabase/discussions).
-- CLI repository: [GitHub](https://github.com/supabase/cli).
-- Sign in: [app.supabase.com](https://app.supabase.com)
->>>>>>> b4d6d8534a9f838d4e363dc509a3d67657e71da7
+- サインイン：[app.supabase.com](https://app.supabase.com)
