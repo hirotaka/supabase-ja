@@ -76,7 +76,7 @@ https://<自身のを参照>.supabase.co/auth/v1/authorize?provider=google&https
 
 あとはUIを実装するだけですが、あらかじめ用意されているものを使いたい場合は、便利な[認証ウィジェット](https://github.com/supabase/ui/#using-supabase-ui-auth)を用意していますので、サポートしたい認証プロバイダーを有効/無効にしたりできます。
 
-サポートが必要な場合は、beta at supabase.ioまでご連絡ください。また、機能リクエストについては、[バックエンド](https://github.com/supabase/gotrue)または[フロントエンド](https://github.com/supabase/gotrue-js)のリポジトリーでissueを開いてください。
+サポートが必要な場合は、beta at [supabase.com](https://supabase.com)までご連絡ください。また、機能リクエストについては、[バックエンド](https://github.com/supabase/gotrue)または[フロントエンド](https://github.com/supabase/gotrue-js)のリポジトリーでissueを開いてください。
 
 ### リソース
 
@@ -88,4 +88,4 @@ https://<自身のを参照>.supabase.co/auth/v1/authorize?provider=google&https
 - [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)をみる
 - [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)をみる
 <!-- - [パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)をみる -->
-- Supabaseにサインアップ：[app.supabase.io](https://app.supabase.io)
+- Supabaseにサインアップ：[app.supabase.com](https://app.supabase.com)

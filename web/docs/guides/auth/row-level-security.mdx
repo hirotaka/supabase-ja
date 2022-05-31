@@ -8,16 +8,23 @@ description: Postgresの行単位セキュリティーを使用してデータ�
 
 [ポリシー](https://www.postgresql.org/docs/current/sql-createpolicy.html)はPostgreSQLのルール・エンジンです。非常に強力で柔軟性があり、固有のビジネス・ニーズに合った複雑なSQLルールを書くことができます。
 
-<iframe className="w-full video-with-border" width="640" height="385" src="https://www.youtube-nocookie.com/embed/Ow_Uzedfohk" frameBorder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-
+<iframe
+  className="video-with-border w-full"
+  width="640"
+  height="385"
+  src="https://www.youtube-nocookie.com/embed/Ow_Uzedfohk"
+  frameBorder="1"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
 
 ## ポリシー
 
 ポリシーはコツをつかめば簡単に理解できます。各ポリシーはテーブルに関連付けられており、テーブルにアクセスするたびポリシーが実行されます。ポリシーは、すべての問い合わせに`WHERE`句を追加するようなものだと考えることができます。例えば、次のようなポリシーがあります。
 
 ```sql
-create policy "Individuals can view their own todos." 
-    on todos for select 
+create policy "Individuals can view their own todos."
+    on todos for select
     using ( auth.uid() = user_id );
 ```
 
@@ -33,14 +40,37 @@ where auth.uid() = todos.user_id; -- ポリシーが暗黙の内に追加され�
 
 Supabaseには、ポリシーで使用できる簡単な関数がいくつか用意されています。
 
-
 ### `auth.uid()`
 
 リクエストを行ったユーザーのIDを返します。
 
 ### `auth.role()`
 
-リクエストを行ったユーザーのロールを返します。ほとんどの場合、これは`authenticated`（認証済み）または`anon`（匿名）のいずれかです。
+<!-- textlint-disable ja-technical-writing/ja-no-mixed-period -->
+:::caution
+
+非推奨
+
+:::
+<!-- textlint-enable ja-technical-writing/ja-no-mixed-period -->
+
+`auth.role()`関数は非推奨となり、Postgresでネイティブにサポートされている`TO`フィールドを使用するようになりました。
+
+```sql
+-- 非推奨
+create policy "Public profiles are viewable by everyone."
+on profiles for select using (
+  auth.role() = 'authenticated' or auth.role() = 'anon'
+);
+
+-- 推奨
+create policy "Public profiles are viewable by everyone."
+on profiles for select
+to authenticated, anon
+using (
+  true
+);
+```
 
 ### `auth.email()`
 
@@ -97,6 +127,19 @@ create policy "Users can update their own profiles."
 1. パブリック・スキーマ（デフォルト・スキーマ）に`profiles`というテーブルを作成します。
 2. RLSを有効にします。
 3. ログインしたユーザーが自分のデータを更新することを許可するポリシーを作成します。
+
+### Only anon or authenticated access
+
+You can add a Postgres role
+
+```sql
+create policy "Public profiles are viewable by everyone."
+on profiles for select
+to authenticated, anon
+using (
+  true
+);
+```
 
 ### 結合を含むポリシー
 
@@ -263,7 +306,6 @@ using (
 );
 ```
 
-
 ## Tips
 
 ### データベースのテーブルのリアルタムを有効化
@@ -303,7 +345,7 @@ alter publication supabase_realtime add table posts;
 
 Tips：すべてのテーブルに対してRLSを有効化して、テーブルへアクセスできないようにしてください。その上で、RLSをバイパスするように設計された私たちの「サービス」をご利用ください。
 
-
 ### クライアントでサービス・キーを使用しない
 
-Supabaseは、RLSを回避するための特別な「サービス」キーを提供しています。これらのキーは、決してブラウザーで使用したり、ユーザーに公開したりしてはいけませんが、管理作業には便利です。
+Supabaseは、RLSを回避するための特別な「サービス」キーを提供しています。
+これらのキーは、決してブラウザーで使用したり、ユーザーに公開したりしてはいけませんが、管理作業には便利です。

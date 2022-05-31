@@ -355,10 +355,10 @@ pages:
     title: 'signUp()'
     $ref: '@supabase/gotrue-js.GoTrueClient.signUp'
     notes: |
-      - デフォルトでは、ユーザーはログインする前にメールアドレスを確認する必要があります。これを変更したい場合は、[app.supabase.io](https://app.supabase.io)の「Authentication」→「Settings」にアクセスします。「Email enable confirmations（Eメールによる確認を有効化）」を無効にします。
+      - デフォルトでは、ユーザーはログインする前にメールアドレスを確認する必要があります。これを変更したい場合は、[app.supabase.com](https://app.supabase.com)の「Authentication」→「Settings」にアクセスします。「Email enable confirmations（Eメールによる確認を有効化）」を無効にします。
       - 「Email enable confirmations」を有効にすると、`user`が返されますが、`session`はnullになります。
       - 「Email Confirmations」を無効にすると、`user`と`session`の両方が返されます。
-      - ユーザーがメールアドレスを確認すると、デフォルトではlocalhost:3000にリダイレクトされます。これを変更するには、[app.supabase.io](https://app.supabase.io)の「Authentication」→「Settings」で変更できます。
+      - ユーザーがメールアドレスを確認すると、デフォルトではlocalhost:3000にリダイレクトされます。これを変更するには、[app.supabase.com](https://app.supabase.com)の「Authentication」→「Settings」で変更できます。
       - 確認済みの既存のユーザーに対してsignUp()が呼び出された場合は次のようになります。
           - もし、「Authentication」→「Settings」ページの「Enable email confirmations」が有効の場合、曖昧な偽のユーザー・オブジェクトを返します。
           - 「Enable email confirmations」を無効にした場合、「ユーザーがすでに登録されています」という内容のエラーが返ってきます。
@@ -417,7 +417,7 @@ pages:
     notes: |
       - ユーザーはメールかOAuthでサインアップできます。
       - `password`を指定せずに`email`を指定した場合、ユーザーにはマジック・リンクが送られます。
-      - マジック・リンクの送信先URLは、SITE_URLという設定変数で決まります。これを変更するには、[app.supabase.io](https://app.supabase.io)の「Authentication」→「Settings」で行います。
+      - マジック・リンクの送信先URLは、SITE_URLという設定変数で決まります。これを変更するには、[app.supabase.com](https://app.supabase.com)の「Authentication」→「Settings」で行います。
       - `provider`を指定すると、ブラウザーで関連するログイン・ページを開きます。
     examples:
       - name: Eメールでサインイン
@@ -1685,7 +1685,7 @@ pages:
     title: 'from.getPublicUrl()'
     $ref: '@supabase/storage-js."lib/StorageFileApi".StorageFileApi.getPublicUrl'
     notes: |
-      - The bucket needs to be set to public, either via [updateBucket()](/docs/reference/javascript/storage-updatebucket) or by going to Storage on [app.supabase.io](https://app.supabase.io), clicking the overflow menu on a bucket and choosing "Make public"
+      - The bucket needs to be set to public, either via [updateBucket()](/docs/reference/javascript/storage-updatebucket) or by going to Storage on [app.supabase.com](https://app.supabase.com), clicking the overflow menu on a bucket and choosing "Make public"
       - Policy permissions required:
         - `buckets` permissions: none 
         - `objects` permissions: none

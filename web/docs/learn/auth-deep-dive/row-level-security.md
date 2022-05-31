@@ -86,24 +86,11 @@ SQLで次のように実行します。
 ```sql
 CREATE POLICY anon_read_leaderboard ON leaderboard
     FOR SELECT
-    USING (auth.role() = 'anon');
+    TO 'anon'
+    USING (true);
 ```
 
-ここでの`anon_read_leaderboard`は、ポリシーの内容に合わせて選んだ名前です。`leaderboard`はテーブル名です。`FOR SELECT`は、このポリシーを読み取り（SQLでいうところの「select」）にのみ適用させたいということです。そして最後に、ルール自体は`auth.role() = 'anon'`です。
-
-
-`auth.role()`とは、Supabaseがデータベースの`auth`スキーマに注入するSQL関数`role`のことです。この関数は実際には次のようなものです。
-
-```sql
--- リクエスト・クッキーからユーザ・ロールを取得
-create or replace function auth.role() returns text as $$
-  select nullif(current_setting('request.jwt.claims', true)::json->>'role', '')::text;
-$$ language sql stable;
-```
-
-この関数の目的は、`Authorization: Bearer`ヘッダーを介してAPIに渡されたJWTから`role`属性情報（claim）を抽出することです。
-
-ここで使用できる他の関数は、`auth.email()`と`auth.uid()`があります。それぞれ`email`と`sub`の属性情報を取得します。
+ここでの`anon_read_leaderboard`は、ポリシーの内容に合わせて選んだ名前です。`leaderboard`はテーブル名です。`FOR SELECT`は、このポリシーを読み取り（SQLでいうところの「select」）にのみ適用させたいということです。`TO`は、このポリシーがPostgresの`anon`ロールにのみ適用されることを意味します。そして最後に、このルール自体は`true'` で、これは`anon`ユーザーの`selects`を許可することを意味します。
 
 ダッシュボードを使ってポリシーを追加したい場合は、「Policy」タブの「Add Policy」をクリックして、以下のようにポリシーを作成します。
 
@@ -127,4 +114,4 @@ $$ language sql stable;
 - [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)をみる
 - [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)をみる
 - [パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)をみる
-- Supabaseにサインアップ：[app.supabase.io](https://app.supabase.io)
+- Supabaseにサインアップ：[app.supabase.com](https://app.supabase.com)

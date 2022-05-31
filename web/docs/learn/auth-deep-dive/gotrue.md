@@ -73,4 +73,4 @@ const { user, session, error } = await supabase.auth.signIn({
 - [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)をみる
 <!-- - [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)をみる -->
 - [パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)をみる
-- Supabaseにサインアップ：[app.supabase.io](https://app.supabase.io)
+- Supabaseにサインアップ：[app.supabase.com](https://app.supabase.com)

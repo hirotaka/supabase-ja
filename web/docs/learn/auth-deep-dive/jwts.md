@@ -181,4 +181,4 @@ JWTとは何か、そしてSupabaseのどこで使われているかを解説し
 - [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)
 - [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)
 - [パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)
-- Supabaseにサインアップ：[app.supabase.io](https://app.supabase.io)
+- Supabaseにサインアップ：[app.supabase.com](https://app.supabase.com)

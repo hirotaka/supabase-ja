@@ -34,7 +34,7 @@ http://localhost:3000/#access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQ
 これを読みやすいように分割してみましょう。
 
 ```jsx
-// ベースのurl - app.supabase.ioダッシュボードのAuth Settingsで設定したものになります
+// ベースのurl - app.supabase.comダッシュボードのAuth Settingsで設定したものになります
 http://localhost:3000/
 
 // クエリ・パラメーターで「?」の代わりに「#（フラグメント）」を使用していることに注意
@@ -168,4 +168,4 @@ PostgreSQLのポリシーに関する完全なドキュメントは次のURLを�
 <!-- - [パート3：ポリシー](/docs/learn/auth-deep-dive/auth-policies)をみる -->
 - [パート4：GoTrue](/docs/learn/auth-deep-dive/auth-gotrue)をみる
 - [パート5：Google Oauth](/docs/learn/auth-deep-dive/auth-google-oauth)をみる
-- Supabaseにサインアップ：[app.supabase.io](https://app.supabase.io)
+- Supabaseにサインアップ：[app.supabase.com](https://app.supabase.com)

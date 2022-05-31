@@ -21,7 +21,7 @@ SupabaseはCLIを提供しているので、ローカルでアプリケーショ
 
 ### Supabase CLIでログイン
 
-Supabase CLIをインストールした後は、Supabaseアカウント（サインアップは[app.supabase.io](https://app.supabase.io)）を使って[ログイン](/docs/reference/cli/supabase-login)できます。
+Supabase CLIをインストールした後は、Supabaseアカウント（サインアップは[app.supabase.com](https://app.supabase.com)）を使って[ログイン](/docs/reference/cli/supabase-login)できます。
 
 ```bash
 supabase login
@@ -156,11 +156,13 @@ supabase db commit create_employees
 
 これは `supabase/migrations/<タイムスタンプ>_create_employees.sql`という名前の新しいマイグレーションを作成します。そして、`supabase start`以降のローカルのデータベースに対するすべての変更を反映します。
 
-サンプルのデータをテーブルに追加してみましょう。そのためには、`supabase/seed.sql`のシード・スクリプトを利用できます。 
+#### サンプルデータを追加
+
+サンプルのデータをテーブルに追加してみましょう。そのためには、`supabase/seed.sql`（`supabase init`を実行した際に生成されたファイル）のシード・スクリプトを利用できます。 
 
 ```sql
 -- in supabase/seed.sql
-insert into employees (name)
+insert into public.employees (name)
 values 
   ('Erlich Backman'),
   ('Richard Hendricks'),
@@ -195,7 +197,7 @@ supabase db reset
 
 ## デプロイ 
 
-ローカルでアプリケーションを開発したので、[app.supabase.io](https://app.supabase.io)に移動して、変更をデプロイするプロジェクトを作成します。
+ローカルでアプリケーションを開発したので、[app.supabase.com](https://app.supabase.com)に移動して、変更をデプロイするプロジェクトを作成します。
 
 ### プロジェクトをリンク
 
@@ -240,4 +242,4 @@ supabase db push
 
 - 何か疑問があれば、[Discussionsで質問](https://github.com/supabase/supabase/discussions)してください
 - CLIのリポジトリ：[GitHub](https://github.com/supabase/cli)
-- サインイン：[app.supabase.io](https://app.supabase.io)
+- サインイン：[app.supabase.com](https://app.supabase.com)

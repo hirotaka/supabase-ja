@@ -17,7 +17,7 @@ Draftbitのアカウントをお持ちでない方は、[こちら](https://draf
 
 ## ステップ1：RESTfulエンドポイントとProject APIキーを取得
 
-DraftbitアプリでREST APIを接続するには、以下のフィールドが必要です。
+DraftbitアプリでREST APIへ接続するには、以下のフィールドが必要です。
 
 - REST APIのベースURLは、`https://<your-domain>.supabase.co/rest/v1`の形式になります。`<your-domain>`（自身のドメイン）はSupabaseが生成するユニークなドメイン名です。
 - `supabase-key`は秘密鍵です。
@@ -26,8 +26,8 @@ DraftbitアプリでREST APIを接続するには、以下のフィールドが�
 
 - トップメニューバーの「Settings」ボタンをクリックします。
 - 「Settings」で**API**を選択します。
-- 「Project API Keys」セクションで、`anon`にあるAPIキーを選択してコピーします。Supabaseのデータベースにリクエストを行う際に必要となります。
-- また、`Config`の下にある「URL」を選択してコピーします。これは、Supabase REST APIのベースURLです。Draftbitアプリへ接続する際に必要となります。
+- **Project URL**セクションで、URLを選択しコピーします。これは、Supabase REST APIのBase URLです。Draftbitアプリに接続する際必要となります。
+- また、`Project API keys`で、`anon`の下にあるAPIキーを選択し、コピーします。これはSupabaseデータベースへのすべてのリクエストに必要です。
 
 ![Get Supabase connection string](/img/guides/integrations/draftbit/endpoint.png)
 
