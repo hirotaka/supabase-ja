@@ -5,6 +5,7 @@ docs/guides/integrations/appsmith.mdx
 docs/guides/integrations/clerk.mdx
 docs/guides/integrations/plasmic.mdx
 docs/guides/integrations/stytch.mdx
+docs/guides/integrations/supertokens.mdx
 docs/guides/integrations/pgmustard.mdx
 docs/guides/auth/auth-linkedin.mdx
 docs/guides/auth/auth-keycloak.mdx
