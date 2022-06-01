@@ -316,7 +316,7 @@ pages:
   Generating Types:
     title: 型（Type）を生成
     description: |
-      Supabaseは近々、様々な言語向けにデータベースの型をダンプするネイティブな型ジェネレータをリリースする予定です。今のところ、TypeScriptを[サードパーティツール](/docs/guides/api/generating-types)を通じてサポートしています
+      Supabaseは近々、様々な言語向けにデータベースの型をダンプするネイティブな型ジェネレータをリリースする予定です。今のところ、TypeScriptを[サードパーティツール](/docs/guides/api/generating-types)を通じてサポートしています。
 
       ## TypeScriptの使用
 
