@@ -116,7 +116,11 @@ Your database is now in sync with your schema.
 
 ### リアルタイム機能の確認
 
+<<<<<<< HEAD
 PostgreSQLにおいてダブル・クオテーションで囲むと、PrismaがEnum型を作成してしまう既知の問題があります。これは、カラムがEnum型に依存しているRealtimeが有効になったデータベースのテーブルと互換性がありません。現在修正していますが、Enum型の名前を変更することで回避できます。以下のクエリで、`public`スキーマにあるダブル・クォーテーションを含む全ての型を見つけることができます。
+=======
+There is an existing issue where Prisma will create Enum Types wrapped in double quotation marks in PostgreSQL. This is not compatible with Realtime-enabled database tables whose columns rely on those Enum Types. We are working on a fix which can be tracked on this [GitHub issue](https://github.com/supabase/supabase/issues/5685), but the workaround is to alter and rename the Enum Types. You can use the following query to find all Types with double quotation marks in the `public` schema:
+>>>>>>> f9142b39943c03a852ce92024a1bef7428642774
 
 ```sql
 select distinct(a.atttypid::regtype)
