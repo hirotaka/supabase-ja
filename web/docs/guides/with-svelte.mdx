@@ -160,18 +160,11 @@ cd supabase-svelte
 
 そして、唯一追加する必要がある依存関係の[supbase-js](https://github.com/supabase/supabase-js)をインストールしましょう。
 
-<Tabs
-defaultValue="NPM"
-values={[
-  {label: 'npm', value: 'NPM'},
-  {label: 'Yarn', value: 'YARN'},
-]}>
-<TabItem value="NPM">
-
 ```bash
 npm install @supabase/supabase-js
 ```
 
+<<<<<<< HEAD
 </TabItem>
 <TabItem value="YARN">
 
@@ -184,6 +177,10 @@ yarn add @supabase/supabase-js
 
 最後に、環境変数を`.env`に保存します。
 必要なのは、APIのURLと、[先ほど](#apiキーを取得)コピーした`anon`キーだけです。
+=======
+And finally we want to save the environment variables in a `.env`. 
+All we need are the API URL and the `anon` key that you copied [earlier](#get-the-api-keys).
+>>>>>>> 47ce53e1dd3947c0838ed6c11469df981b14712e
 
 ```bash title=".env"
 SVELTE_APP_SUPABASE_URL=YOUR_SUPABASE_URL
@@ -193,18 +190,11 @@ SVELTE_APP_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
 このアプリはほぼ機能していますが、svelteをSupabaseや`.env`ファイルで動作させるためには、まず、`rollup.config.js`ファイルを少し変更する必要があります。
 Supabaseは`json`ファイルをインポートしますが、.jsonファイルをES6モジュールに変換するには、`@rollup/plugin-json`をインストールして実行する必要があります。
 
-<Tabs
-defaultValue="NPM"
-values={[
-  {label: 'npm', value: 'NPM'},
-  {label: 'Yarn', value: 'YARN'},
-]}>
-<TabItem value="NPM">
-
 ```bash
-npm install --save-dev @rollup/plugin-json
+  npm install --save-dev @rollup/plugin-json
 ```
 
+<<<<<<< HEAD
 </TabItem>
 <TabItem value="YARN">
 
@@ -216,19 +206,15 @@ yarn add --save-dev @rollup/plugin-json
 </Tabs>
 
 さらに、.envをsvelteで使用するためには、別のrollupプラグインが必要です。そのプラグインをインストールします。
-
-<Tabs
-defaultValue="NPM"
-values={[
-  {label: 'npm', value: 'NPM'},
-  {label: 'Yarn', value: 'YARN'},
-]}>
-<TabItem value="NPM">
+=======
+Furthermore, to use the .env with svelte we need another rollup plugin. Install:
+>>>>>>> 47ce53e1dd3947c0838ed6c11469df981b14712e
 
 ```bash
-npm install --save-dev dotenv @rollup/plugin-replace
+  npm install --save-dev dotenv @rollup/plugin-replace
 ```
 
+<<<<<<< HEAD
 </TabItem>
 <TabItem value="YARN">
 
@@ -240,6 +226,9 @@ yarn add --save-dev dotenv @rollup/plugin-replace
 </Tabs>
 
 これらのプラグインを`rollup.config.js`ファイルに追加します。
+=======
+and add these plugins to the `rollup.config.js` file.
+>>>>>>> 47ce53e1dd3947c0838ed6c11469df981b14712e
 
 ```js title="rollup.config.js"
   import { config } from 'dotenv';
@@ -476,18 +465,11 @@ export const user = writable(false);
 
 更新が完了したら、ターミナル・ウィンドウで次のコマンドを実行します。
 
-<Tabs
-defaultValue="NPM"
-values={[
-  {label: 'npm', value: 'NPM'},
-  {label: 'Yarn', value: 'YARN'},
-]}>
-<TabItem value="NPM">
-
 ```bash
 npm run dev
 ```
 
+<<<<<<< HEAD
 </TabItem>
 <TabItem value="YARN">
 
@@ -499,6 +481,9 @@ yarn dev
 </Tabs>
 
 そして、ブラウザーで[localhost:5000](http://localhost:5000)を開くと、完成したアプリを見ることができます。
+=======
+And then open the browser to [localhost:5000](http://localhost:5000) and you should see the completed app.
+>>>>>>> 47ce53e1dd3947c0838ed6c11469df981b14712e
 
 > ⚠️ 注意：Svelteはデフォルトで`5000番ポート`を使用し、Supabaseは`3000番ポート`を使用します。Supabaseのリダイレクトポートを変更するには、次のようにします。`Authentication > Settings`で`Site Url`を`localhost:5000`に変更してください。
 

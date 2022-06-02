@@ -169,19 +169,12 @@ values={[
 [Create React App](https://create-react-app.dev/docs/getting-started/)を使って、
 `supabase-react`というアプリを初期化します。
 
-<Tabs
-defaultValue="NPM"
-values={[
-  {label: 'npm', value: 'NPM'},
-  {label: 'Yarn', value: 'YARN'},
-]}>
-<TabItem value="NPM">
-
 ```bash
 npx create-react-app supabase-react
 cd supabase-react
 ```
 
+<<<<<<< HEAD
 </TabItem>
 <TabItem value="YARN">
 
@@ -194,19 +187,15 @@ cd supabase-react
 </Tabs>
 
 そして、唯一追加する必要がある依存関係の[supbase-js](https://github.com/supabase/supabase-js)をインストールしましょう。
-
-<Tabs
-defaultValue="NPM"
-values={[
-  {label: 'npm', value: 'NPM'},
-  {label: 'Yarn', value: 'YARN'},
-]}>
-<TabItem value="NPM">
+=======
+Then let's install the only additional dependency: [supabase-js](https://github.com/supabase/supabase-js)
+>>>>>>> 47ce53e1dd3947c0838ed6c11469df981b14712e
 
 ```bash
 npm install @supabase/supabase-js
 ```
 
+<<<<<<< HEAD
 </TabItem>
 <TabItem value="YARN">
 
@@ -219,6 +208,10 @@ yarn add @supabase/supabase-js
 
 最後に、環境変数を`.env`に保存します。
 必要なのは、APIのURLと、[先ほど](#apiキーを取得)コピーした`anon`キーだけです。
+=======
+And finally we want to save the environment variables in a `.env`.
+All we need are the API URL and the `anon` key that you copied [earlier](#get-the-api-keys).
+>>>>>>> 47ce53e1dd3947c0838ed6c11469df981b14712e
 
 ```bash title=".env"
 REACT_APP_SUPABASE_URL=YOUR_SUPABASE_URL
@@ -446,18 +439,11 @@ export default function App() {
 
 更新が完了したら、ターミナル・ウィンドウで次のコマンドを実行します。
 
-<Tabs
-defaultValue="NPM"
-values={[
-  {label: 'npm', value: 'NPM'},
-  {label: 'Yarn', value: 'YARN'},
-]}>
-<TabItem value="NPM">
-
 ```bash
 npm start
 ```
 
+<<<<<<< HEAD
 </TabItem>
 <TabItem value="YARN">
 
@@ -469,6 +455,9 @@ yarn start
 </Tabs>
 
 そして、ブラウザーで[localhost:3000](http://localhost:3000)を開くと、完成したアプリを見ることができます。
+=======
+And then open the browser to [localhost:3000](http://localhost:3000) and you should see the completed app.
+>>>>>>> 47ce53e1dd3947c0838ed6c11469df981b14712e
 
 ![Supabase React](/img/supabase-react-demo.png)
 
@@ -478,6 +467,7 @@ Supabaseのプロジェクトには、写真や動画などの大容量ファイ
 
 ### @reach/visually-hiddenを追加
 
+<<<<<<< HEAD
 アップロード・ウィジェットは、`@reach/visually-hidden`というnpmライブラリーを1つ追加して使用します。次のようにインストールします。
 
 <Tabs
@@ -501,6 +491,9 @@ yarn add @reach/visually-hidden
 
 </TabItem>
 </Tabs>
+=======
+The upload widget uses one additional npm library. You can install it like so: `npm install @reach/visually-hidden`.
+>>>>>>> 47ce53e1dd3947c0838ed6c11469df981b14712e
 
 ### アップロード・ウィジェットの作成
 
