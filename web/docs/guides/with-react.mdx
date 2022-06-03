@@ -169,53 +169,16 @@ values={[
 [Create React App](https://create-react-app.dev/docs/getting-started/)を使って、
 `supabase-react`というアプリを初期化します。
 
-<Tabs
-defaultValue="NPM"
-values={[
-  {label: 'npm', value: 'NPM'},
-  {label: 'Yarn', value: 'YARN'},
-]}>
-<TabItem value="NPM">
-
 ```bash
 npx create-react-app supabase-react
 cd supabase-react
 ```
 
-</TabItem>
-<TabItem value="YARN">
-
-```bash
-yarn create react-app supabase-react
-cd supabase-react
-```
-
-</TabItem>
-</Tabs>
-
 そして、唯一追加する必要がある依存関係の[supbase-js](https://github.com/supabase/supabase-js)をインストールしましょう。
-
-<Tabs
-defaultValue="NPM"
-values={[
-  {label: 'npm', value: 'NPM'},
-  {label: 'Yarn', value: 'YARN'},
-]}>
-<TabItem value="NPM">
 
 ```bash
 npm install @supabase/supabase-js
 ```
-
-</TabItem>
-<TabItem value="YARN">
-
-```bash
-yarn add @supabase/supabase-js
-```
-
-</TabItem>
-</Tabs>
 
 最後に、環境変数を`.env`に保存します。
 必要なのは、APIのURLと、[先ほど](#apiキーを取得)コピーした`anon`キーだけです。
@@ -446,27 +409,9 @@ export default function App() {
 
 更新が完了したら、ターミナル・ウィンドウで次のコマンドを実行します。
 
-<Tabs
-defaultValue="NPM"
-values={[
-  {label: 'npm', value: 'NPM'},
-  {label: 'Yarn', value: 'YARN'},
-]}>
-<TabItem value="NPM">
-
 ```bash
 npm start
 ```
-
-</TabItem>
-<TabItem value="YARN">
-
-```bash
-yarn start
-```
-
-</TabItem>
-</Tabs>
 
 そして、ブラウザーで[localhost:3000](http://localhost:3000)を開くと、完成したアプリを見ることができます。
 
@@ -478,29 +423,7 @@ Supabaseのプロジェクトには、写真や動画などの大容量ファイ
 
 ### @reach/visually-hiddenを追加
 
-アップロード・ウィジェットは、`@reach/visually-hidden`というnpmライブラリーを1つ追加して使用します。次のようにインストールします。
-
-<Tabs
-defaultValue="NPM"
-values={[
-  {label: 'npm', value: 'NPM'},
-  {label: 'Yarn', value: 'YARN'},
-]}>
-<TabItem value="NPM">
-
-```bash
-npm install @reach/visually-hidden
-```
-
-</TabItem>
-<TabItem value="YARN">
-
-```bash
-yarn add @reach/visually-hidden
-```
-
-</TabItem>
-</Tabs>
+アップロード・ウィジェットは、`@reach/visually-hidden`というnpmライブラリーを1つ追加して使用します。`npm install @reach/visually-hidden`を実行してインストールします。
 
 ### アップロード・ウィジェットの作成
 
