@@ -236,9 +236,28 @@ supabase db push
 
 ### エッジ・ファンクションをデプロイ
 
+<<<<<<< HEAD
 近日公開。
 
 ## 次のステップ
+=======
+You can deploy any Edge Functions using [`functions deploy`](/docs/reference/cli/supabase-functions-deploy):
+
+```sh
+supabase functions deploy <function_name>
+```
+
+## Limitations
+	
+The local development environment is not as feature-complete as the Plaform. Here are some of the differences:
+	
+- The Storage interface is coming soon.
+- The Functions interface is coming soon.
+- Logs are not supported though the interface (however you can accesss them via the docker containers).
+- You cannot update your project settings via the Dashboard - this can be done using the CLI instead.
+	
+## Next steps
+>>>>>>> 6784cdaedd354c8facdf9de4f92f7ea9eeeb669b
 
 - 何か疑問があれば、[Discussionsで質問](https://github.com/supabase/supabase/discussions)してください
 - CLIのリポジトリ：[GitHub](https://github.com/supabase/cli)
