@@ -5,12 +5,7 @@ import { observer, useLocalObservable } from 'mobx-react-lite'
 import { makeAutoObservable } from 'mobx'
 import { debounce } from 'lodash'
 import { Button, Input, Listbox, Typography } from '@supabase/ui'
-<<<<<<< HEAD
-import { Dictionary } from '@supabase/grid'
-import * as Tooltip from '@radix-ui/react-tooltip'
-=======
 import { Dictionary } from 'components/grid'
->>>>>>> 47ce53e1dd3947c0838ed6c11469df981b14712e
 
 import { useStore } from 'hooks'
 import { post } from 'lib/common/fetch'
