@@ -236,7 +236,20 @@ supabase db push
 
 ### エッジ・ファンクションをデプロイ
 
-近日公開。
+[`functions deploy`](/docs/reference/cli/supabase-functions-deploy)を使用して、エッジ・ファンクションをデプロイできます。
+
+```sh
+supabase functions deploy <function_name>
+```
+
+## 制限
+	
+ローカル開発環境は、Plaformほど機能が充実していません。以下の違いがあります。
+
+- Storageのインターフェースは近日公開予定です。
+- Functionのインターフェースは近日公開予定です。
+- ログのインターフェースはサポートされていません（ただしdockerコンテナからアクセスできます）。
+- ダッシュボードからプロジェクトの設定を更新できません（代わりにCLIを使って更新します）。
 
 ## 次のステップ
 
