@@ -144,7 +144,7 @@ Supabaseダッシュボードのサイドバーから**Database**ページに移
 
 ```env
 # prisma/.env
-postgres://postgres:[YOUR-PASSWORD]@db.vdbnhqozmlzdsaejdxwr.supabase.co:6543/postgres?pgbouncer=true&connection_limtit=1
+postgres://postgres:[YOUR-PASSWORD]@db.vdbnhqozmlzdsaejdxwr.supabase.co:6543/postgres?pgbouncer=true&connection_limit=1
 ```
 
 Prisma Migrateは、データベース・トランザクションを使用して、データベースとマイグレーション・テーブルの現在の状態をチェックします。しかし、マイグレーションのエンジンはデータベースへの単一の接続を使用するように設計されており、PgBouncerによるコネクションプーリングをサポートしていません。コネクションプーリングにPgBouncerを使用している環境でPrisma Migrateコマンドを実行しようとすると、次のようなエラーを表示することがあります。
