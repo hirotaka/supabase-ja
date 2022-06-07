@@ -67,15 +67,9 @@ module.exports = {
           position: 'left',
         },
         {
-<<<<<<< HEAD
           label: 'リファレンス',
-          to: '/docs/reference/javascript/supabase-client',
-          activeBasePath: '/docs/reference/',
-=======
-          label: 'Reference',
           to: '/docs/reference',
           activeBasePath: '/docs/reference',
->>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
           position: 'left',
         },
         { href: 'https://app.supabase.com', label: 'ログイン', position: 'left' },

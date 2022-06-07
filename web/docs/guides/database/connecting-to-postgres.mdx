@@ -1,61 +1,34 @@
 ---
 id: connecting-to-postgres
-<<<<<<< HEAD
-title: "接続"
+title: '接続'
 description: Postgresデータベースへの接続の様々な方法。
-=======
-title: 'Connecting'
-description: There are various ways to connect to your Postgres database.
->>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
 ---
 
 Supabaseは、Postgresデータベースへの接続にいくつかの選択肢を用意しています。
 
 ## 接続の種類
 
-<<<<<<< HEAD
 - APIを使用したHTTP接続
 - Postgresの標準的な接続システムを使用したダイレクト接続
 - PgBouncerを用いた接続プーリング
-=======
-- HTTP connections using the API.
-- Direct connections using Postgres' standard connection system.
-- Connection pooling using PgBouncer.
->>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
 
-### API vs Direct vs Pooling
-
-<<<<<<< HEAD
 ## ダイレクト接続と接続プーリング
 
-「ダイレクト接続」とは、Postgresのネイティブな接続実装を使用してデータベースへ接続することです。
+- APIは自動生成されたRESTインターフェイスです。ブラウザやアプリケーションとのやりとりは、すべてこれを使う必要があります。
+- 「ダイレクト接続」とは、Postgresのネイティブな接続実装を使用してデータベースへ接続することです。
+- 「接続プール」とは、Postgresのネイティブなシステムではなく、接続を管理するシステム（Postgresの外部）のことです。
 
-「接続プール」とは、Postgresのネイティブなシステムではなく、接続を管理するシステム（Postgresの外部）のことです。
-
-なぜ接続プールを使用するのでしょうか。主に、Postgresが接続を処理する方法は、多数の_一時的な_接続に対してはあまりスケーラブルではないからです。どの接続方法を使用するかを決定するために、以下の簡単な質問を使用できます。
-=======
-- The API is an auto-generated REST inteface. You should use this for all browser and application interactions.
-- A "direct connection" is when a connection is made to the database using Postgres' native connection implementation. You should use this for tools which are always alive - usually installed on a long-running server.
-- A "connection pool" is a system (external to Postgres) which keeps connections "open". You should use this for serverless functions and tools which disconnect from the database frequently.
-
-Why would you use a connection pool? Primarily because the way that Postgres handles connections isn't very scalable for a large number of _temporary_ connections.
-You can use these simple questions to determine which connection method to use:
->>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
+なぜ接続プールを使用するのでしょうか。主に、Postgresが接続を処理する方法は、多数の_一時的な_接続に対してはあまりスケーラブルではないからです。
+どの接続方法を使用するかを決定するために、以下の簡単な質問を使用できます。
 
 - データベースに接続して、接続を_維持_していますか。もしそうであれば、ダイレクト接続を使用してください。
 - データベースに接続して、すぐに_切断_するのか（サーバーレス環境など）、そうであれば、接続プールを使用します。
 
 ## API
 
-<<<<<<< HEAD
 Supabaseは自動更新される[API](/docs/guides/api)を提供しています。データの管理（取得、挿入、更新）を行う場合には、最も簡単な方法です。
 
-### Interfaces 
-=======
-Supabase provides an auto-updating [API](/docs/guides/api). This is the easiest way to get started if you are managing data (fetching, inserting, updating).
-
-### Interfaces
->>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
+### インターフィース 
 
 好みやユースケースに合わせて、数種類のAPIをご用意しています。
 
@@ -89,48 +62,21 @@ values={[
 </TabItem>
 </Tabs>
 
-<<<<<<< HEAD
-
 ## ダイレクト接続
-=======
-## Direct connections
->>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
 
 すべてのSupabaseプロジェクトは、完全なPostgresデータベースを提供します。Postgresをサポートするツールを使ってデータベースに接続できます。
 
 ### 接続文字列を取得
 
-<<<<<<< HEAD
-<Tabs
-defaultValue="UI"
-values={[
-  {label: 'UI', value: 'UI'}
-]}>
-<TabItem value="UI">
-
-```sh
 1. 「Settings」セクションに移動します。
 2. 「Database」をクリックします。
 3. 接続情報と文字列をみつけます。
-```
-=======
-1. Go to the `Settings` section.
-2. Click `Database`.
-3. Find your Connection Info and Connection String. Direct connections are on port `5432`.
->>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/postgres-connection.mp4" type="video/mp4" muted playsInline />
 </video>
 
-<<<<<<< HEAD
-</TabItem>
-</Tabs>
-
 ## 接続プール
-=======
-## Connection Pool
->>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
 
 接続プールは、多数の_一時的_な接続を管理するのに便利です。例えば、Serverless環境にデプロイされた[Prisma](/docs/guides/integrations/prisma)を使用している場合です。
 
@@ -143,39 +89,22 @@ values={[
 
 ![Connection pooling](/img/guides/database/connection-pool.png)
 
-<<<<<<< HEAD
-
 ### プール・モード（Pool modes）
-=======
-### Pool modes
->>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
 
 プール・モードは、PgBouncerがどのように接続を処理するかを決定します。
 
 #### セッション（Session）
 
-<<<<<<< HEAD
 新しいクライアントが接続すると、そのクライアントが切断するまで、そのクライアントに接続が割り当てられます。その後、接続はプールに戻されます。
-=======
-When a new client connects, a connection is assigned to the client until it disconnects. Afterward, the connection is returned back to the pool.
->>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
 
 このオプションでは、すべてのPostgreSQLの機能を使用できます。
 
 #### トランザクション（Transaction）
 
-<<<<<<< HEAD
 これは、サーバーレス機能に推奨されるオプションです。接続は、トランザクションの間だけ、クライアントに割り当てられます。同じクライアントからの連続した2つのトランザクションは、2つの異なる接続で実行できます。
 
 プリペアド文などのPostgreSQLのセッションベースの機能の一部は、このオプションでは使用できません。
 互換性のない機能の包括的なリストは[こちら](https://www.pgbouncer.org/features.html)で確認できます。
-=======
-This is the suggested option for serverless functions. A connection is only assigned to the client for the duration of a transaction. Two consecutive transactions from the same client
-could be executed over two different connections.
-
-Some session-based PostgreSQL features such as prepared statements are not available with this option.
-A comprehensive list of incompatible features can be found [here](https://www.pgbouncer.org/features.html).
->>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
 
 #### 命令文（Statement）
 
@@ -183,24 +112,9 @@ A comprehensive list of incompatible features can be found [here](https://www.pg
 
 ### 接続用の文字列をみつける
 
-<<<<<<< HEAD
-<Tabs
-defaultValue="UI"
-values={[
-  {label: 'UI', value: 'UI'}
-]}>
-<TabItem value="UI">
-
-```sh
 1. 「Database」セクションに移動します。
 2. 「Connection Pooling」をクリックします。
 3. 接続情報と接続のための文字列をみつけます。
-```
-=======
-1. Go to the `Settings` section.
-2. Click `Database`.
-3. Find your Connection Info and Connection String. Connection pooling is on port `6543`.
->>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/postgres-connection.mp4" type="video/mp4" muted playsInline />
