@@ -9,12 +9,21 @@ import TabItem from '@theme/TabItem'
 
 ## 概要
 
+<<<<<<< HEAD
 このガイドでは、SMSベースのOTP（ワンタイム・パスワード）トークンでユーザーを認証する方法を紹介します。
+=======
+In this guide we'll show you how to authenticate your users with SMS based One-Time Password (OTP) tokens.
+>>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
 
 SupabaseのSMS OTPトークンを使用する理由は2つあります。
 
+<<<<<<< HEAD
 - 携帯電話 + パスワードでログインし、携帯電話をSMSで認証したい
 - 携帯電話のみでログインさせたい場合（パスワードなしでのログイン）
+=======
+- You want users to log in with mobile number + password, and the mobile number should be verified via SMS
+- You want users to log in with mobile number ONLY (i.e. passwordless login)
+>>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
 
 以下の内容を説明します。
 
@@ -24,9 +33,15 @@ SupabaseのSMS OTPトークンを使用する理由は2つあります。
 
 必要なものは次の通りです。
 
+<<<<<<< HEAD
 - Twilioアカウント（サインアップはこちら：<https://www.twilio.com/try-twilio>）
 - Supabaseプロジェクト（こちらで作成してください：[https://app.supabase.com](https://app.supabase.io)）
 - SMSを受信できる携帯電話
+=======
+- A Twilio account (sign up here: https://www.twilio.com/try-twilio)
+- A Supabase project (create one here: https://app.supabase.com)
+- A mobile phone capable of receiving SMS
+>>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
 
 ## 動画
 
@@ -55,7 +70,11 @@ SupabaseのSMS OTPトークンを使用する理由は2つあります。
 
 ![Form Fields](/img/guides/auth-twilio/3.png)
 
+<<<<<<< HEAD
 <https://www.twilio.com/console>画面に戻ったら、下にスクロールして「Get a trial phone number」をクリックしてください。
+=======
+When you're back on the [Twilio console screen](https://www.twilio.com/console), you need to scroll down and click 'Get a trial phone number' - this is the number that you'll be sending SMSs from.
+>>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
 
 ![Get a trial phone number](/img/guides/auth-twilio/4.png)
 
@@ -71,7 +90,11 @@ SupabaseのSMS OTPトークンを使用する理由は2つあります。
 
 SupabaseのダッシュボードのAuth → Settingsページに移動します（<https://app.supabase.com/project/YOUR-PROJECT-REF/auth/settings>）。
 
+<<<<<<< HEAD
 Phone Signup（電話による登録）を有効にするオプションがあります。
+=======
+You should see an option to enable Phone Signup:
+>>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
 
 ![Enable Phone Sign-Up](/img/guides/auth-twilio/7.png)
 
@@ -89,11 +112,21 @@ OTPコードを含む電話に送信されるSMSメッセージをカスタマ�
 
 SupabaseのダッシュボードのAuth → Templatesページにアクセスします（<https://app.supabase.com/project/YOUR-PROJECT-REF/auth/templates>）。
 
+<<<<<<< HEAD
 コードを表示するには、テンプレートで変数`.Code`を使用します。
+=======
+Use the variable `.Code` in the template to display the OTP code. Here's an example in the SMS template. 
+
+![example in the SMS template](/img/guides/auth-twilio/9.png)
+>>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
 
 ### パスワード・ベースのログインにOTPを使用
 
+<<<<<<< HEAD
 この使用例では、ユーザーの携帯電話番号をEメールアドレスの代わりに使用して、パスワードと一緒にサインアップします。しかし、この保持の仕方についてはよく考えた方がよいでしょう。携帯電話番号は、ユーザーが携帯電話の契約を解除したり、国を移動したりする際に、電話会社によって再利用されることがよくあります。近日中に多要素認証を追加し、このリスクを軽減する予定ですが、現時点では、緊急時にユーザーが他の方法でアカウントを回復できるようにすることを検討してみてはいかがでしょうか。
+=======
+In this scenario we'll be using the user's mobile phone number and a corresponding password as an alternative to signing up with an email address. Note: please thoroughly consider potential security implications when signing up with a combination of phone number and password. Phone numbers are sometimes recycled by phone networks when users cancel their phone contracts or move countries, thereby granting access to the user's account to the subsequent owner of the phone number. In the near future Supabase will support multifactor authentication, which will mitigate this risk, but for now you may want to consider allowing your users to recover their account by some other means in an emergency.
+>>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
 
 supabase-jsをクライアントで使用する場合、Eメールベースのサインアップに使用するのと同じ`signUp`メソッドを使用します。その際に、`email`の代わりに`phone`パラメーターを使用します。
 

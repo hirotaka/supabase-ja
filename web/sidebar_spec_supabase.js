@@ -2,8 +2,13 @@ module.exports = {
   docs: [
     {
       type: 'category',
+<<<<<<< HEAD
       label: 'はじめに',
       items: ['reference/javascript/index', 'reference/javascript/installing', 'reference/javascript/initializing', 'reference/javascript/generating-types'],
+=======
+      label: 'Getting Started',
+      items: ['reference/javascript/installing', 'reference/javascript/initializing', 'reference/javascript/generating-types'],
+>>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
       collapsed: true,
     },
     {

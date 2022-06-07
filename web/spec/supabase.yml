@@ -4,6 +4,7 @@ info:
   id: reference/supabase-js
   title: Supabase Client
   description: |
+<<<<<<< HEAD
     私たちのクライアント・ライブラリーはモジュール方式です。それぞれのサブ・ライブラリーは、単一の外部システム向けの独立した実装となっています。これは、私たちが提供する、既存のツールをサポートする方法の1つです。
 
     <table style={{tableLayout: 'fixed', whiteSpace: 'nowrap' }}>
@@ -117,6 +118,10 @@ info:
         <td>-</td>
       </tr>
     </table>
+=======
+
+    Supabase JavaScript.
+>>>>>>> 3fb5c524e674c3ed2a40eeb0a0e5b654d9e47ab4
 
   definition: spec/combined.json
   libraries:
@@ -128,7 +133,6 @@ info:
     sidebar:
       - name: 'はじめに'
         items:
-          - index
           - Installing
           - Initializing
           - Generating Types
@@ -349,8 +353,6 @@ pages:
       response.data // レスポンス・データはArray<any>型となります。
       ```
 
-
-      
   auth.signUp():
     title: 'signUp()'
     $ref: '@supabase/gotrue-js.GoTrueClient.signUp'
@@ -1260,7 +1262,7 @@ pages:
 
       That's a fancy way of saying that you can put some logic into your database then call it from anywhere.
       It's especially useful when the logic rarely changes - like password resets and updates.
-      
+
       ```sql
       create or replace function hello_world() returns text as $$
         select 'Hello world';
