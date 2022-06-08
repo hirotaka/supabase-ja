@@ -1,6 +1,6 @@
 ---
 id: connecting-to-postgres
-title: "接続"
+title: '接続'
 description: Postgresデータベースへの接続の様々な方法。
 ---
 
@@ -12,24 +12,23 @@ Supabaseは、Postgresデータベースへの接続にいくつかの選択肢�
 - Postgresの標準的な接続システムを使用したダイレクト接続
 - PgBouncerを用いた接続プーリング
 
-
 ## ダイレクト接続と接続プーリング
 
-「ダイレクト接続」とは、Postgresのネイティブな接続実装を使用してデータベースへ接続することです。
+- APIは自動生成されたRESTインターフェイスです。ブラウザやアプリケーションとのやりとりは、すべてこれを使う必要があります。
+- 「ダイレクト接続」とは、Postgresのネイティブな接続実装を使用してデータベースへ接続することです。
+- 「接続プール」とは、Postgresのネイティブなシステムではなく、接続を管理するシステム（Postgresの外部）のことです。
 
-「接続プール」とは、Postgresのネイティブなシステムではなく、接続を管理するシステム（Postgresの外部）のことです。
-
-なぜ接続プールを使用するのでしょうか。主に、Postgresが接続を処理する方法は、多数の_一時的な_接続に対してはあまりスケーラブルではないからです。どの接続方法を使用するかを決定するために、以下の簡単な質問を使用できます。
+なぜ接続プールを使用するのでしょうか。主に、Postgresが接続を処理する方法は、多数の_一時的な_接続に対してはあまりスケーラブルではないからです。
+どの接続方法を使用するかを決定するために、以下の簡単な質問を使用できます。
 
 - データベースに接続して、接続を_維持_していますか。もしそうであれば、ダイレクト接続を使用してください。
 - データベースに接続して、すぐに_切断_するのか（サーバーレス環境など）、そうであれば、接続プールを使用します。
-
 
 ## API
 
 Supabaseは自動更新される[API](/docs/guides/api)を提供しています。データの管理（取得、挿入、更新）を行う場合には、最も簡単な方法です。
 
-### Interfaces 
+### インターフィース 
 
 好みやユースケースに合わせて、数種類のAPIをご用意しています。
 
@@ -57,12 +56,11 @@ values={[
 ```
 
 <video width="99%" muted playsInline controls="true">
-<source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
+  <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
 </video>
 
 </TabItem>
 </Tabs>
-
 
 ## ダイレクト接続
 
@@ -70,25 +68,13 @@ values={[
 
 ### 接続文字列を取得
 
-<Tabs
-defaultValue="UI"
-values={[
-  {label: 'UI', value: 'UI'}
-]}>
-<TabItem value="UI">
-
-```sh
 1. 「Settings」セクションに移動します。
 2. 「Database」をクリックします。
 3. 接続情報と文字列をみつけます。
-```
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/postgres-connection.mp4" type="video/mp4" muted playsInline />
 </video>
-
-</TabItem>
-</Tabs>
 
 ## 接続プール
 
@@ -101,9 +87,7 @@ values={[
 クライアントがリクエストを行うと、PgBouncerは利用可能な接続をクライアントに「割り当て」ます。
 クライアントのトランザクションまたはセッションが完了すると、接続はプールに戻され、他のクライアントが自由に使用できるようになります。
 
-
 ![Connection pooling](/img/guides/database/connection-pool.png)
-
 
 ### プール・モード（Pool modes）
 
@@ -128,22 +112,10 @@ values={[
 
 ### 接続用の文字列をみつける
 
-<Tabs
-defaultValue="UI"
-values={[
-  {label: 'UI', value: 'UI'}
-]}>
-<TabItem value="UI">
-
-```sh
 1. 「Database」セクションに移動します。
 2. 「Connection Pooling」をクリックします。
 3. 接続情報と接続のための文字列をみつけます。
-```
 
 <video width="99%" muted playsInline controls="true">
-  <source src="/docs/videos/pgbouncer-connection.mp4" type="video/mp4" muted playsInline />
+  <source src="/docs/videos/postgres-connection.mp4" type="video/mp4" muted playsInline />
 </video>
-
-</TabItem>
-</Tabs>

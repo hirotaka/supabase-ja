@@ -13,8 +13,8 @@ import TabItem from '@theme/TabItem'
 
 SupabaseのSMS OTPトークンを使用する理由は2つあります。
 
-- 携帯電話 + パスワードでログインし、携帯電話をSMSで認証したい
-- 携帯電話のみでログインさせたい場合（パスワードなしでのログイン）
+- 携帯電話番号 + パスワードでログインし、携帯電話番号をSMSで認証したい
+- 携帯電話番号のみでログインさせたい場合（パスワードなしでのログイン）
 
 以下の内容を説明します。
 
@@ -55,7 +55,7 @@ SupabaseのSMS OTPトークンを使用する理由は2つあります。
 
 ![Form Fields](/img/guides/auth-twilio/3.png)
 
-<https://www.twilio.com/console>画面に戻ったら、下にスクロールして「Get a trial phone number」をクリックしてください。
+[Twilioコンソール画面］[https://www.twilio.com/console]に戻ったら、下にスクロールして「Get a trial phone number」をクリックしてください。
 
 ![Get a trial phone number](/img/guides/auth-twilio/4.png)
 
@@ -89,7 +89,9 @@ OTPコードを含む電話に送信されるSMSメッセージをカスタマ�
 
 SupabaseのダッシュボードのAuth → Templatesページにアクセスします（<https://app.supabase.com/project/YOUR-PROJECT-REF/auth/templates>）。
 
-コードを表示するには、テンプレートで変数`.Code`を使用します。
+OTPコードを表示するには、テンプレートで変数`.Code`を使用します。次にSMSテンプレートの例を示します。
+
+![example in the SMS template](/img/guides/auth-twilio/9.png)
 
 ### パスワード・ベースのログインにOTPを使用
 
