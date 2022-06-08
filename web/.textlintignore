@@ -27,6 +27,7 @@ docs/guides/platform/metrics.mdx
 docs/guides/platform/performance.mdx
 
 # レファレンス
+docs/reference.mdx
 docs/reference/cli/index.mdx
 docs/reference/cli/installing-and-updating.mdx
 docs/reference/cli/supabase-eject.mdx
