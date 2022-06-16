@@ -49,26 +49,14 @@ cd starter && npm install
 
 このプロジェクトは、TypeScriptが設定されており、以下のような構造になっています。
 
-<<<<<<< HEAD
 - `prisma`ディレクトリーには以下が含まれます。
   - `dev.db`ファイル：これはSQLiteデータベースです。
   - `schema.prisma`ファイル：さまざまなデータベースモデルとそれらの間の関係を定義します。
 - `.env`ファイル：`DATABASE_URL`変数が含まれており、Prismaはこの変数を使用します。
 - `script.ts`ファイル：Prisma Clientを使用していくつかのクエリを実行します。このスターターには、以下のパッケージがインストールされています。
-- [`@prisma/client`](https://www.npmjs.com/package/prisma)：あたなのデータに_合わせて_、タイプセーフなクエリを自動生成するビルダ。
-- [`prisma`](https://www.npmjs.com/package/@prisma/client)：Prismaのコマンドラインインターフェイス（CLI）です。新しいプロジェクトの初期化やPrismaクライアントを生成できます。また、Introspectionによる既存のデータベース構造を分析し、アプリケーションのモデルを自動的に作成できます。
+- [`@prisma/client`](https://www.npmjs.com/package/@prisma/client)：あたなのデータに_合わせて_、タイプセーフなクエリを自動生成するビルダ。
+- [`prisma`](https://www.npmjs.com/package/prisma)：Prismaのコマンドラインインターフェイス（CLI）です。新しいプロジェクトの初期化やPrismaクライアントを生成できます。また、Introspectionによる既存のデータベース構造を分析し、アプリケーションのモデルを自動的に作成できます。
   > 注：Prismaは、JavaScriptとTypeScriptの両方で動作します。しかし、最高の開発体験を得るためには、TypeScriptの使用を強く推奨します。
-=======
-- A `prisma` directory which contains:
-  - A `dev.db` file: This is a SQLite database.
-  - A `schema.prisma` file: Where we define the different database models and relations between them.
-- A `.env` file: Contains the `DATABASE_URL` variable, which Prisma will use.
-- A `script.ts` file: where we will run some queries using Prisma Client.
-  This starter also comes with the following packages installed:
-- [`@prisma/client`](https://www.npmjs.com/package/@prisma/client): An auto-generated and type-safe query builder that’s _tailored_ to your data.
-- [`prisma`](https://www.npmjs.com/package/prisma): Prisma’s command-line interface (CLI). It allows you to initialize new project assets, generate Prisma Client, and analyze existing database structures through introspection to automatically create your application models.
-  > Note: Prisma works with both JavaScript and TypeScript. However, to get the best possible development experience, using TypeScript is highly recommended.
->>>>>>> 790054aef37915e50e0045b28deb23eb1c78cfc6
 
 ### PostgreSQLを使用するためのプロジェクトの設定
 
