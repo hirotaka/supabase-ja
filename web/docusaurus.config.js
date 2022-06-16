@@ -204,11 +204,15 @@ module.exports = {
       },
     ],
   ],
+<<<<<<< HEAD
   //scripts: [{ src: '/scripts/telemetry.js' }],
   i18n: {
     defaultLocale: 'ja',
     locales: ['ja'],
   },
+=======
+  scripts: [{ src: '/docs/scripts/telemetry.js' }],
+>>>>>>> b13345b6391d8d5f2b2e87bc1703490bcb60ec50
   // plugins: [
   //   // [
   //   //   '@docusaurus/plugin-content-docs',

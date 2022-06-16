@@ -28,10 +28,20 @@ Supabaseで使用しているすべてのツールは、MIT、Apache 2.0、ま�
 
 ### `[他のデータベース]`はサポートしていますか
 
+<<<<<<< HEAD
 現時点では、PostgreSQLのみをサポートしています。Postgresから移行することはないでしょう。しかし、開発を開始してほしい場合は、[新しいデータベースに投票する](https://github.com/supabase/supabase/issues/6)ことができます。
+=======
+We only support PostgreSQL. It's unlikely we'll ever move away from Postgres; however, you can [vote on a new database](https://github.com/supabase/supabase/discussions/6) if you want us to start development.
+>>>>>>> b13345b6391d8d5f2b2e87bc1703490bcb60ec50
 
 ### `[他の言語]`用のライブラリーはありますか
 
+<<<<<<< HEAD
 公式にサポートしている、[JavaScript](/docs/reference/javascript/supabase-client)と[Dart](/docs/reference/dart/installing)向けがあります。 
+=======
+We officially support [JavaScript](/docs/reference/javascript/supabase-client) and [Dart](/docs/reference/dart/installing). 
+
+You can find community-supported libraries in our [GitHub Community](https://github.com/supabase-community), and you can also help us to identify the most popular languages by [voting for a new client library](https://github.com/supabase/supabase/discussions/5).
+>>>>>>> b13345b6391d8d5f2b2e87bc1703490bcb60ec50
 
 コミュニティでサポートされているライブラリーは、[GitHubコミュニティー](https://github.com/supabase-community)で見つけることができます。また、[新しいクライアントライブラリへの投票](https://github.com/supabase/supabase/issues/5)により、最も人気のある言語を特定するのをご協力いただけます。
