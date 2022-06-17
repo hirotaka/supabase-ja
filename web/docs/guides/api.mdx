@@ -13,7 +13,7 @@ Supabaseはデータベースのスキーマから直接3つのタイプのAPI�
 
 - REST - レストフルなインターフェースでやりとり
 - Realtime - データベースの更新をリッスン
-- GraphQL - [ベータ版](/blog/2021/12/03/pg-graphql)
+- GraphQL - [ベータ版](https://supabase.com/blog/2021/12/03/pg-graphql)
 
 これらのAPIは次の特徴があります。
 
@@ -52,7 +52,7 @@ GraphQLはベータ版であり、変更される可能性があります。2022
 
 :::
 
-SupabaseのGraphQLは、GraphQLのためのオープンソースのPostgreSQL拡張である[pg_graphql](/blog/2021/12/03/pg-graphql)を通じて機能します。 
+SupabaseのGraphQLは、GraphQLのためのオープンソースのPostgreSQL拡張である[pg_graphql](https://supabase.com/blog/2021/12/03/pg-graphql)を通じて機能します。 
 
 ### リアルタイムAPI
 
@@ -410,7 +410,7 @@ alter table todos enable row level security;
 
 ブラウザーやユーザーが見ることのできる場所に`service_role`キーを決して公開しないでください。このキーは行単位セキュリティーをバイパスするように設計されています。したがって、公開されていないサーバーでのみ使用するようにしてください。
 
-[GitHubと提携](/blog/2022/03/28/community-day#supabase-is-now-a-github-secret-scanning-partner)し、Supabaseの`service_role`キーが公開リポジトリーにプッシュされていないかスキャンします。
+[GitHubと提携](https://supabase.com/blog/2022/03/28/community-day#supabase-is-now-a-github-secret-scanning-partner)し、Supabaseの`service_role`キーが公開リポジトリーにプッシュされていないかスキャンします。
 GitHubがservice_role権限のあるキーを検出すると、そのキーをSupbaseに転送します。Supabaseは自動的にそのキーを失効してお知らせします。それにより、データを悪質業者から保護します。
 
 ### 誤って削除や更新をしてしまわないための保護機能
