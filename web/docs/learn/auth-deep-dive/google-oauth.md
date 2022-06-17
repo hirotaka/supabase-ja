@@ -80,11 +80,7 @@ https://<自身のを参照>.supabase.co/auth/v1/authorize?provider=google&https
 
 ### リソース
 
-<<<<<<< HEAD
 - JWTデバッガー：https://jwt.io/
-=======
-- [JWT debugger](https://jwt.io)
->>>>>>> b13345b6391d8d5f2b2e87bc1703490bcb60ec50
 
 ### 次のステップ
 - [パート1：JWT](/docs/learn/auth-deep-dive/auth-deep-dive-jwts)をみる
