@@ -5,5 +5,10 @@ docs/client
 docs/gotrue/client
 docs/postgrest/client
 docs/realtime/client
+<<<<<<< HEAD
 docs/reference
 .textlintcache
+
+docs/reference/**/*
+!docs/reference/tools/
+!docs/reference/tools/**/*
