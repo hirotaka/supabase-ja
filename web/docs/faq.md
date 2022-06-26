@@ -32,6 +32,12 @@ Supabaseで使用しているすべてのツールは、MIT、Apache 2.0、ま�
 
 ### `[他の言語]`用のライブラリーはありますか
 
+<<<<<<< HEAD
 公式にサポートしている、[JavaScript](/docs/reference/javascript/supabase-client)と[Dart](/docs/reference/dart/installing)向けがあります。 
+=======
+We officially support [JavaScript](/docs/reference/javascript/installing) and [Dart](/docs/reference/dart/installing). 
+
+You can find community-supported libraries in our [GitHub Community](https://github.com/supabase-community), and you can also help us to identify the most popular languages by [voting for a new client library](https://github.com/supabase/supabase/discussions/5).
+>>>>>>> 7d6b89a7799f6ee905a73e74f204082e21a4049d
 
 コミュニティでサポートされているライブラリーは、[GitHubコミュニティー](https://github.com/supabase-community)で見つけることができます。また、[新しいクライアントライブラリへの投票](https://github.com/supabase/supabase/discussions/5)により、最も人気のある言語を特定するのをご協力いただけます。
