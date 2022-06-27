@@ -70,12 +70,40 @@ docker-compose up
 
 Dockerのセットアップには、ユーザーやログインを管理するための管理データベースを含んでいません。Studioをウェブに配置する場合は、ベーシック認証を備えたウェブ・プロキシの背後に配置するか、VPNの後ろに隠すことをお勧めします。 
 
+<<<<<<< HEAD
 ## 構成
 
 設定をシンプルにするため、プロダクションにおいては最適ではない選択をしています。
 
 - データベースは、サーバーと同じマシン上に配置
 - ストレージはS3ではなくファイルシステムをバックエンドとして使用
+=======
+Each system can be [configured](/docs/guides/hosting/overview#configuration) to suit your particular use-case.
+
+To keep the setup simple, we made some choices that may not be optimal for production:
+
+- the database is in the same machine as the servers
+- Storage uses the filesystem backend instead of S3
+- Auth should be configured with a production-ready SMTP server
+
+### Using an external database
+
+We strongly [recommend](/docs/guides/hosting/overview#managing-your-database) that you decouple your database from `docker-compose` before deploying.
+The middleware will run with any PostgreSQL database that has logical replication enabled. The following environment variables should be updated
+in the `.env` file to point to your external database:
+
+```env title=".env"
+POSTGRES_PASSWORD=your-super-secret-and-long-postgres-password
+
+POSTGRES_HOST=db
+POSTGRES_DB=postgres
+POSTGRES_USER=postgres
+POSTGRES_PORT=5432
+```
+
+Once you can done this, you can safely comment out the `db` section of the `docker-compose` file, and remove any instances where the services `depends_on` the `db` image.
+
+>>>>>>> a12c8c33d54a0eb541793e8599432d86cd498938
 
 デプロイする前にデータベースを分離することを強く[お勧め](/docs/guides/hosting/overview#managing-your-database)します。それぞれのシステムは、特定のユースケースに合わせて[構成](/docs/guides/hosting/overview#configuration)できます。
 
