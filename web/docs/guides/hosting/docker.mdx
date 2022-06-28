@@ -72,12 +72,30 @@ Dockerのセットアップには、ユーザーやログインを管理する�
 
 ## 構成
 
+各システムは、それぞれのユースケースに合わせて[設定](/docs/guides/hosting/overview#configuration)が可能です。
+
 設定をシンプルにするため、プロダクションにおいては最適ではない選択をしています。
 
 - データベースは、サーバーと同じマシン上に配置
 - ストレージはS3ではなくファイルシステムをバックエンドとして使用
+- Authは、プロダクションのSMTPサーバーで構成が必要
 
-デプロイする前にデータベースを分離することを強く[お勧め](/docs/guides/hosting/overview#managing-your-database)します。それぞれのシステムは、特定のユースケースに合わせて[構成](/docs/guides/hosting/overview#configuration)できます。
+### 外部データベースの利用
+
+デプロイする前にデータベースを`docker-compose`から分離することを強く[お勧め](/docs/guides/hosting/overview#managing-your-database)します。
+このミドルウェアは、論理レプリケーションが有効になっているPostgreSQLデータベースであれば、どのデータベースでも動作します。`.env` ファイルで、外部データベースを指定するために、以下の環境変数を更新する必要があります。
+
+```env title=".env"
+POSTGRES_PASSWORD=your-super-secret-and-long-postgres-password
+
+POSTGRES_HOST=db
+POSTGRES_DB=postgres
+POSTGRES_USER=postgres
+POSTGRES_PORT=5432
+```
+
+変更をしたら、`docker-compose`ファイルの`db`セクションをコメントアウトして、サービスが`db`イメージに`depends_on`（依存）している箇所をすべて削除してください。
+
 
 ## デプロイ方法
 
