@@ -44,12 +44,20 @@ Supabaseには、ポリシーで使用できる簡単な関数がいくつか用
 
 リクエストを行ったユーザーのIDを返します。
 
+### `auth.jwt()`
+
+Returns the JWT of the user making the request.
+
 ### `auth.role()`
 
 <!-- textlint-disable ja-technical-writing/ja-no-mixed-period -->
 :::caution
 
+<<<<<<< HEAD
 非推奨
+=======
+Deprecated 
+>>>>>>> 83a6294ba7d62c8009dbf590febfa4caed310774
 
 :::
 <!-- textlint-enable ja-technical-writing/ja-no-mixed-period -->
@@ -74,7 +82,17 @@ using (
 
 ### `auth.email()`
 
+<<<<<<< HEAD
 リクエストを行ったユーザーのメール・アドレスを返します。
+=======
+:::caution
+
+Deprecated. Use `auth.role -> 'email'` instead.
+
+:::
+
+Returns the email of the user making the request.
+>>>>>>> 83a6294ba7d62c8009dbf590febfa4caed310774
 
 ## 例
 
