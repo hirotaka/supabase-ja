@@ -44,6 +44,10 @@ Supabaseには、ポリシーで使用できる簡単な関数がいくつか用
 
 リクエストを行ったユーザーのIDを返します。
 
+### `auth.jwt()`
+
+Returns the JWT of the user making the request.
+
 ### `auth.role()`
 
 <!-- textlint-disable ja-technical-writing/ja-no-mixed-period -->
@@ -73,6 +77,12 @@ using (
 ```
 
 ### `auth.email()`
+
+:::caution
+
+非推奨。`auth.role -> 'email'`を代わりに使用ください。
+
+:::
 
 リクエストを行ったユーザーのメール・アドレスを返します。
 
