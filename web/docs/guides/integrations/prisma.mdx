@@ -157,12 +157,9 @@ Error querying the database: db error: ERROR: prepared statement “s0” alread
 これは既知の問題であり、現在作業中です。この[GitHub issue](https://github.com/prisma/prisma/issues/6485)で進捗状況を確認できます。
 Prismaについてさらに詳しく知りたい場合は、[ドキュメント](https://www.prisma.io/docs)をご覧ください。また、質問や問題が発生した場合は、リポジトリーの[ディスカッションセクション](https://github.com/prisma/prisma/discussions)で気軽にディスカッションを始めてください。
 
-<<<<<<< HEAD
-## リソース
-=======
-## Troubleshooting
+## トラブルシューティング
 
-If you run `prisma migrate dev --name init` multiple times, it sometimes asks if you want to recreate the whole schema. If you chose yes, it will delete the public schema and recreates it. The default grants are missing after this. If you run into this problem, add a helper SQL for fixing the grants:
+`prisma migrate dev --name init`を複数回実行すると、スキーマ全体を再作成するか聞いてくることがあります。yesを選ぶと、パブリック・スキーマが削除され、再作成されます。この後、デフォルトの許可（grant）がなくなります。この問題に遭遇した場合は、許可（grant）を修正するためのヘルパーSQLを追加してください。
 
 ```sql
 CREATE SCHEMA IF NOT EXISTS "auth";
@@ -191,8 +188,7 @@ alter role anon set statement_timeout = '3s';
 alter role authenticated set statement_timeout = '8s';
 ```
 
-## Resources
->>>>>>> 83a6294ba7d62c8009dbf590febfa4caed310774
+## リソース
 
 - [Prisma](https://prisma.io)公式サイト
 - [Prisma GitHub](https://github.com/prisma/prisma)
