@@ -76,7 +76,17 @@ const { user, session, error } = await supabase.auth.signIn({
 })
 ```
 
+<<<<<<< HEAD
 ボタン、リンク、またはUI要素から呼びだすための関数を追加します。
+=======
+:::note
+
+If you call `signIn()` when already logged in, Discord will prompt the user again for authorization.
+
+:::
+
+Add this function which you can call from a button, link, or UI element.
+>>>>>>> 0fd0767b2581e2e45d53e85c6b87f90bccf1b5f0
 
 ```js
 async function signInWithDiscord() {
