@@ -76,6 +76,12 @@ const { user, session, error } = await supabase.auth.signIn({
 })
 ```
 
+:::note
+
+すでにログインしている状態で`signIn()`を呼びだすと、Discordは再度ユーザーに認証のプロンプトを表示します。
+
+:::
+
 ボタン、リンク、またはUI要素から呼びだすための関数を追加します。
 
 ```js
