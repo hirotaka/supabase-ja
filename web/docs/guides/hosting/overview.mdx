@@ -22,6 +22,7 @@ Supabaseは、オープンソースのツールを組み合わせたもので、
 
 ![Supabase Architecture](/img/supabase-architecture.png)
 
+<<<<<<< HEAD
 
 - [PostgreSQL](https://www.postgresql.org/)は、30年以上にわたって活発な開発が行われているオブジェクト・リレーショナル・データベースシステムです。信頼性、機能の堅牢性、パフォーマンスの面で高い評価を得ています。
 - [Realtime](https://github.com/supabase/realtime)はElixirのサーバーで、PostgreSQLの挿入、更新、削除をWebsocketを使ってリッスンできます。Realtimeは、Postgresに組み込まれたレプリケーション機能を使ってデータベースの変更をポーリングします。そして、変更内容をJSONに変換し、そのJSONをWebsocket経由で許可されたクライアントにブロードキャストします。
@@ -30,6 +31,18 @@ Supabaseは、オープンソースのツールを組み合わせたもので、
 - [postgres-meta](https://github.com/supabase/postgres-meta)は、Postgresを管理するためのRESTful APIで、テーブルの取得、ロールの追加、およびクエリの実行などが可能です。
 - [GoTrue](https://github.com/netlify/gotrue)はSWTベースのAPIで、ユーザーの管理やSWTトークンの発行ができます。
 - [Kong](https://github.com/Kong/kong)は、クラウド・ネイティブなAPIゲートウェイです。
+=======
+- [Kong](https://github.com/Kong/kong) is a cloud-native API gateway.
+- [GoTrue](https://github.com/netlify/gotrue) is an SWT based API for managing users and issuing SWT tokens.
+- [PostgREST](http://postgrest.org/) is a web server that turns your PostgreSQL database directly into a RESTful API
+- [Realtime](https://github.com/supabase/realtime) is an Elixir server that allows you to listen to PostgreSQL inserts, updates, and deletes using websockets. Realtime polls Postgres' built-in replication functionality for database changes, converts changes to JSON, then broadcasts the JSON over websockets to authorized clients.
+- [Storage](https://github.com/supabase/storage-api) provides a RESTful interface for managing Files stored in S3, using Postgres to manage permissions.
+- [postgres-meta](https://github.com/supabase/postgres-meta) is a RESTful API for managing your Postgres, allowing you to fetch tables, add roles, and run queries, etc.
+- [PostgreSQL](https://www.postgresql.org/) is an object-relational database system with over 30 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance.
+
+
+
+>>>>>>> 19c9d84f11ae661e387ca823c49c16eedd54b2a2
 
 
 ## 構成
@@ -142,7 +155,14 @@ Supabaseは急速に進化しており、私たちのコアなサービスの一
 
 Supabaseは公式にDockerをサポートしていますが、他にもコミュニティーによって管理されているデプロイメントの戦略がいくつかあります。
 
+<<<<<<< HEAD
 - [supabase-docker](/docs/guides/hosting/docker)（公式）
 - [supabase-kubernetes](https://github.com/supabase-community/supabase-kubernetes)（非公式）
 - [supabase-terraform](https://github.com/supabase-community/supabase-terraform)（非公式）
 - [supabase-traefik](https://github.com/supabase-community/supabase-traefik)（非公式）
+=======
+- [supabase-docker](/docs/guides/hosting/docker) (Official)
+- [supabase-kubernetes](https://github.com/supabase-community/supabase-kubernetes) (Unofficial)
+- [supabase-terraform](https://github.com/supabase-community/supabase-terraform) (Unofficial)
+- [supabase-traefik](https://github.com/supabase-community/supabase-traefik) (Unofficial)
+>>>>>>> 19c9d84f11ae661e387ca823c49c16eedd54b2a2
