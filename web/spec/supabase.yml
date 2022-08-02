@@ -284,7 +284,7 @@ pages:
           Supabaseは電話番号による認証に対応しています。ユーザーが自分の電話番号を確認した後、[`signIn()`](/docs/reference/javascript/auth-signin#sign-in-using-phone)メソッドを使用することができます。
         js: |
           ```js
-          const { user, session, error } = await supabase.auth.signIn({
+          const { user, session, error } = await supabase.auth.signUp({
             phone: '+13334445555',
             password: 'some-password',
           })
