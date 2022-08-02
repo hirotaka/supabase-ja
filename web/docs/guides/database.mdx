@@ -4,18 +4,9 @@ title: データベース
 description: Supabaseでデータを管理します。
 ---
 
-<<<<<<< HEAD
-
 すべてのSupabaseプロジェクトには、世界で最も安定した高度なデータベースの1つと考えられている、フリーでオープンソースのPostgresデータベースが搭載されています。
 
-
 ## PostgresかPostgreSQLか
-=======
-Every Supabase project comes with a full [Postgres](https://www.postgresql.org/) database, a free and open source
-database which is considered one of the world's most stable and advanced databases.
-
-## Postgres or PostgreSQL?
->>>>>>> d379eb221f55ca1037b2e65f6419b4a656fa9dc2
 
 Postgresデータベースは、1986年にカリフォルニア大学バークレー校で作成されたパッケージ「POSTGRES Project」から派生したものです。
 このパッケージには「PostQUEL」と呼ばれる問い合わせ言語が含まれていました。
@@ -23,49 +14,26 @@ Postgresデータベースは、1986年にカリフォルニア大学バーク�
 1994年にPOSTGRESのコードを元にPostQUELの代わりにSQL言語のインタープリタを追加したPostgres95が作られました。
 最終的にPostgres95はSQLクエリ機能を反映してPostgreSQLに改名されました。
 
-<<<<<<< HEAD
 その後、多くの人がPostgresと呼ぶようになったのは、混乱を避けるためです。
 Supabaseはシンプルであることを重視しているので、Postgresと表記しています。
 
-
 ## 機能
 
-### テーブル・ビュー 
-=======
-After this, many people referred to it as Postgres since it's less prone to confusion. Supabase is all about
-simplicity, so we also refer to it as Postgres.
-
-## Features
-
-### Table View
->>>>>>> d379eb221f55ca1037b2e65f6419b4a656fa9dc2
+### テーブル・ビュー
 
 Supabaseは、データベースの専門家でなくても使い始めることができます。Supabaseのテーブル・ビューは、Postgresを表計算ソフトのように簡単な操作で使えます。
 
 ![テーブル・ビュー](/img/table-view.png)
 
-<<<<<<< HEAD
-
 ### 関連
 
 データ同士の関連を掘り下げます。
-
-=======
-### Relationships
-
-Dig into the relationships within your data.
->>>>>>> d379eb221f55ca1037b2e65f6419b4a656fa9dc2
 
 <video width="99%" loop="" muted="" playsInline="" controls="true">
   <source src="/docs/videos/relational-drilldown-zoom.mp4" type="video/mp4" />
 </video>
 
-<<<<<<< HEAD
-
 ### テーブルの複製
-=======
-### Clone tables
->>>>>>> d379eb221f55ca1037b2e65f6419b4a656fa9dc2
 
 表計算ソフトのように、テーブルを複製できます。
 
@@ -73,27 +41,15 @@ Dig into the relationships within your data.
   <source src="/docs/videos/duplicate-tables.mp4" type="video/mp4" muted playsInline />
 </video>
 
-<<<<<<< HEAD
-
 ### SQLエディター
 
 Supabaseには、SQLエディターが付属しています。お気に入りのクエリを保存して、後で実行できます。 
-=======
-### The SQL Editor
-
-Supabase comes with a SQL Editor. You can also save your favorite queries to run later!
->>>>>>> d379eb221f55ca1037b2e65f6419b4a656fa9dc2
 
 <video width="99%" muted playsInline controls={true}>
   <source src="/docs/videos/favorites.mp4" type="video/mp4" muted playsInline />
 </video>
 
-<<<<<<< HEAD
-
 ### その他の機能
-=======
-### Additional features
->>>>>>> d379eb221f55ca1037b2e65f6419b4a656fa9dc2
 
 - Supabaseは、私たちの[Realtime](https://github.com/supabase/realtime)を使用して、Postgresにリアルタイム機能を拡張しています。
 - すべてのプロジェクトは完全なPostgresデータベースであり、`postgres`レベルのアクセス権を持っています。
@@ -117,47 +73,26 @@ Supabaseで提供されているすべての拡張機能については、[こ�
 
 ## Tips
 
-<<<<<<< HEAD
 ### リアルタイム
 
-SupabaseはPostgresの上にリアルタイムエンジンを提供しており、変更が発生したときにそれをリッスンできます。 
+SupabaseはPostgresの上にリアルタイムエンジンを提供しており、変更が発生したときにそれをリッスンできます。
 Supabaseのリアルタイム・エンジンは、Postgresに組み込まれたレプリケーション機能を利用しています。
-=======
-### Realtime
-
-Supabase provides a realtime engine on top of Postgres, so that you can listen to changes as they happen.
-Our realtime engine uses the built-in replication functionality of Postgres.
->>>>>>> d379eb221f55ca1037b2e65f6419b4a656fa9dc2
 
 Realtime Serverは、行単位セキュリティー（RLS）ポリシーに応じて、データベースの変更を許可されたユーザーにブロードキャストします。
 パブリケーションに追加するテーブルでは、行単位セキュリティーを有効にして行セキュリティーポリシーを設定することをお勧めします。
 ただし、テーブルでRLSを無効にして、接続しているすべてのクライアントに変更をブロードキャストもできます。
 
-<<<<<<< HEAD
 リアルタイム・システムを管理するには簡単です。`supabase_realtime`パブリケーションを[更新する]((/docs/guides/database/replication))だけです。
-=======
-You can manage the realtime system, simply by
-[updating](/docs/guides/database/replication) the `supabase_realtime` publication.
->>>>>>> d379eb221f55ca1037b2e65f6419b4a656fa9dc2
 
 例えば、次のように個別のテーブルのみリアルタイム性を持たせることができます。
 
 ```sql
-<<<<<<< HEAD
-begin; 
-  -- リアルタイム・パブリケーションを削除
-  drop publication if exists supabase_realtime; 
-
-  -- パブリケーションを再作成しますが、どのテーブルに対しても有効にしません
-  create publication supabase_realtime;  
-=======
 begin;
-  -- remove the realtime publication
+  -- リアルタイム・パブリケーションを削除
   drop publication if exists supabase_realtime;
 
-  -- re-create the publication but don't enable it for any tables
+  -- パブリケーションを再作成しますが、どのテーブルに対しても有効にしません
   create publication supabase_realtime;
->>>>>>> d379eb221f55ca1037b2e65f6419b4a656fa9dc2
 commit;
 
 -- テーブルにパブリケーションを追加
@@ -167,12 +102,7 @@ alter publication supabase_realtime add table products;
 alter publication supabase_realtime add table posts;
 ```
 
-<<<<<<< HEAD
 デフォルトでは「新しい」値のみが送信されます。レコードを`update`や`delete`したときに、古いレコード（以前の値）も受信できます。その場合は、テーブルのレプリカIDを更新して`full`に設定します。
-=======
-By default only "new" values are sent, but if you want to receive the old record (previous values) whenever you `update` or `delete` a record,
-you can update the replica identity of your tables, setting it to `full`:
->>>>>>> d379eb221f55ca1037b2e65f6419b4a656fa9dc2
 
 ```sql
 alter table your_table replica identity full;
@@ -180,47 +110,26 @@ alter table your_table replica identity full;
 
 ### プロジェクト間の移行
 
-<<<<<<< HEAD
-プロジェクトの移行は、PostgreSQLの標準的なツールを使って行うことができます。これは特に古いプロジェクト（例えば、より新しいPostgresバージョンを使用したいとき）に有効です。 
-=======
-Migrating projects can be achieved using standard PostgreSQL tooling. This is particularly useful for older projects (e.g. to use a newer Postgres version).
->>>>>>> d379eb221f55ca1037b2e65f6419b4a656fa9dc2
+プロジェクトの移行は、PostgreSQLの標準的なツールを使って行うことができます。これは特に古いプロジェクト（例えば、より新しいPostgresバージョンを使用したいとき）に有効です。
 
 #### はじめる前に
 
-<<<<<<< HEAD
 - [Postgres](https://www.postgresql.org/download/)がインストールされていて、`psql`と`pg_dump`が実行できることを確認してください。
 - 新しいSupabaseプロジェクトを作成します。
-- 古いプロジェクトでFunction Hooksを有効にしていた場合は、新しいプロジェクトでも有効にしてください。
+- 古いプロジェクトでDatabase Webhooksを有効にしていた場合は、新しいプロジェクトでも有効にしてください。
 - 古いプロジェクトのデータベースのURLを`$OLD_DB_URL`に、新しいプロジェクトのものを`$NEW_DB_URL`に格納します。
-=======
-- Make sure [Postgres](https://www.postgresql.org/download/) is installed so you can run `psql` and `pg_dump`.
-- Create a new Supabase project.
-- If you enabled Database Webhooks on your old project, enable it on your new project.
-- Store the old project's database URL as `$OLD_DB_URL` and the new project's as `$NEW_DB_URL`.
->>>>>>> d379eb221f55ca1037b2e65f6419b4a656fa9dc2
 
 #### データベースの移行
 
-<<<<<<< HEAD
 <!-- textlint-disable ja-technical-writing/sentence-length -->
-1. *古い*プロジェクトのSQLエディターで、`ALTER ROLE postgres SUPERUSER`を実行します。
+1. _古い_プロジェクトのSQLエディターで、`ALTER ROLE postgres SUPERUSER`を実行します。
 2. ターミナルで`pg_dump --clean --if-exists --quote-all-identifiers -h $OLD_DB_URL -U postgres > dump.sql`を実行します。
-3. *古い*プロジェクトのSQLエディターで、`ALTER ROLE postgres NOSUPERUSER`を実行します。
-4. *新しい*プロジェクトのSQLエディターで、`ALTER ROLE postgres SUPERUSER`を実行します。
+3. _古い_プロジェクトのSQLエディターで、`ALTER ROLE postgres NOSUPERUSER`を実行します。
+4. _新しい_プロジェクトのSQLエディターで、`ALTER ROLE postgres SUPERUSER`を実行します。
 5. ターミナルで`psql -h $NEW_DB_URL -U postgre -f dump.sql`を実行します。
-6. *新しい*プロジェクトのSQLエディターで、`TRUNCATE storage.objects`を実行します。
-7. *新しい*プロジェクトのSQLエディターで、`ALTER ROLE postgres NOSUPERUSER`を実行します。
+6. _新しい_プロジェクトのSQLエディターで、`TRUNCATE storage.objects`を実行します。
+7. _新しい_プロジェクトのSQLエディターで、`ALTER ROLE postgres NOSUPERUSER`を実行します。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
-=======
-1. Run `ALTER ROLE postgres SUPERUSER` in the _old_ project's SQL editor
-2. Run `pg_dump --clean --if-exists --quote-all-identifiers -h $OLD_DB_URL -U postgres > dump.sql` from your terminal
-3. Run `ALTER ROLE postgres NOSUPERUSER` in the _old_ project's SQL editor
-4. Run `ALTER ROLE postgres SUPERUSER` in the _new_ project's SQL editor
-5. Run `psql -h $NEW_DB_URL -U postgres -f dump.sql` from your terminal
-6. Run `TRUNCATE storage.objects` in the _new_ project's SQL editor
-7. Run `ALTER ROLE postgres NOSUPERUSER` in the _new_ project's SQL editor
->>>>>>> d379eb221f55ca1037b2e65f6419b4a656fa9dc2
 
 #### ストレージのオブジェクトを移行
 
@@ -304,11 +213,5 @@ alter database postgres set timezone to 'America/New_York';
 
 ## 次のステップ
 
-<<<<<<< HEAD
 - [Postgres](/docs/postgres/server/about)についてもっと理解する
 - サインイン：[app.supabase.com](https://app.supabase.com)
-
-=======
-- Read more about [Postgres](/docs/postgres/server/about)
-- Sign in: [app.supabase.com](https://app.supabase.com)
->>>>>>> d379eb221f55ca1037b2e65f6419b4a656fa9dc2
