@@ -4,9 +4,7 @@ title: データベース
 description: Supabaseでデータを管理します。
 ---
 
-
 すべてのSupabaseプロジェクトには、世界で最も安定した高度なデータベースの1つと考えられている、フリーでオープンソースのPostgresデータベースが搭載されています。
-
 
 ## PostgresかPostgreSQLか
 
@@ -19,43 +17,37 @@ Postgresデータベースは、1986年にカリフォルニア大学バーク�
 その後、多くの人がPostgresと呼ぶようになったのは、混乱を避けるためです。
 Supabaseはシンプルであることを重視しているので、Postgresと表記しています。
 
-
 ## 機能
 
-### テーブル・ビュー 
+### テーブル・ビュー
 
 Supabaseは、データベースの専門家でなくても使い始めることができます。Supabaseのテーブル・ビューは、Postgresを表計算ソフトのように簡単な操作で使えます。
 
 ![テーブル・ビュー](/img/table-view.png)
 
-
 ### 関連
 
 データ同士の関連を掘り下げます。
 
-
 <video width="99%" loop="" muted="" playsInline="" controls="true">
-<source src="/docs/videos/relational-drilldown-zoom.mp4" type="video/mp4" />
+  <source src="/docs/videos/relational-drilldown-zoom.mp4" type="video/mp4" />
 </video>
-
 
 ### テーブルの複製
 
 表計算ソフトのように、テーブルを複製できます。
 
 <video width="99%" muted playsInline controls={true}>
-<source src="/docs/videos/duplicate-tables.mp4" type="video/mp4" muted playsInline />
+  <source src="/docs/videos/duplicate-tables.mp4" type="video/mp4" muted playsInline />
 </video>
-
 
 ### SQLエディター
 
 Supabaseには、SQLエディターが付属しています。お気に入りのクエリを保存して、後で実行できます。 
 
 <video width="99%" muted playsInline controls={true}>
-<source src="/docs/videos/favorites.mp4" type="video/mp4" muted playsInline />
+  <source src="/docs/videos/favorites.mp4" type="video/mp4" muted playsInline />
 </video>
-
 
 ### その他の機能
 
@@ -74,7 +66,7 @@ Postgresデータベースの機能を拡張するために、拡張機能を使
 Supabaseのダッシュボード内のボタンをクリックすることで、Postgresの拡張機能を有効にできます。
 
 <video width="99%" muted playsInline controls={true}>
-<source src="/docs/videos/toggle-extensions.mp4" type="video/mp4" muted playsInline />
+  <source src="/docs/videos/toggle-extensions.mp4" type="video/mp4" muted playsInline />
 </video>
 
 Supabaseで提供されているすべての拡張機能については、[こちら](/docs/guides/database/extensions)を参照してください。
@@ -83,7 +75,7 @@ Supabaseで提供されているすべての拡張機能については、[こ�
 
 ### リアルタイム
 
-SupabaseはPostgresの上にリアルタイムエンジンを提供しており、変更が発生したときにそれをリッスンできます。 
+SupabaseはPostgresの上にリアルタイムエンジンを提供しており、変更が発生したときにそれをリッスンできます。
 Supabaseのリアルタイム・エンジンは、Postgresに組み込まれたレプリケーション機能を利用しています。
 
 Realtime Serverは、行単位セキュリティー（RLS）ポリシーに応じて、データベースの変更を許可されたユーザーにブロードキャストします。
@@ -95,12 +87,12 @@ Realtime Serverは、行単位セキュリティー（RLS）ポリシーに応�
 例えば、次のように個別のテーブルのみリアルタイム性を持たせることができます。
 
 ```sql
-begin; 
+begin;
   -- リアルタイム・パブリケーションを削除
-  drop publication if exists supabase_realtime; 
+  drop publication if exists supabase_realtime;
 
   -- パブリケーションを再作成しますが、どのテーブルに対しても有効にしません
-  create publication supabase_realtime;  
+  create publication supabase_realtime;
 commit;
 
 -- テーブルにパブリケーションを追加
@@ -118,25 +110,25 @@ alter table your_table replica identity full;
 
 ### プロジェクト間の移行
 
-プロジェクトの移行は、PostgreSQLの標準的なツールを使って行うことができます。これは特に古いプロジェクト（例えば、より新しいPostgresバージョンを使用したいとき）に有効です。 
+プロジェクトの移行は、PostgreSQLの標準的なツールを使って行うことができます。これは特に古いプロジェクト（例えば、より新しいPostgresバージョンを使用したいとき）に有効です。
 
 #### はじめる前に
 
 - [Postgres](https://www.postgresql.org/download/)がインストールされていて、`psql`と`pg_dump`が実行できることを確認してください。
 - 新しいSupabaseプロジェクトを作成します。
-- 古いプロジェクトでFunction Hooksを有効にしていた場合は、新しいプロジェクトでも有効にしてください。
+- 古いプロジェクトでDatabase Webhooksを有効にしていた場合は、新しいプロジェクトでも有効にしてください。
 - 古いプロジェクトのデータベースのURLを`$OLD_DB_URL`に、新しいプロジェクトのものを`$NEW_DB_URL`に格納します。
 
 #### データベースの移行
 
 <!-- textlint-disable ja-technical-writing/sentence-length -->
-1. *古い*プロジェクトのSQLエディターで、`ALTER ROLE postgres SUPERUSER`を実行します。
+1. _古い_プロジェクトのSQLエディターで、`ALTER ROLE postgres SUPERUSER`を実行します。
 2. ターミナルで`pg_dump --clean --if-exists --quote-all-identifiers -h $OLD_DB_URL -U postgres > dump.sql`を実行します。
-3. *古い*プロジェクトのSQLエディターで、`ALTER ROLE postgres NOSUPERUSER`を実行します。
-4. *新しい*プロジェクトのSQLエディターで、`ALTER ROLE postgres SUPERUSER`を実行します。
+3. _古い_プロジェクトのSQLエディターで、`ALTER ROLE postgres NOSUPERUSER`を実行します。
+4. _新しい_プロジェクトのSQLエディターで、`ALTER ROLE postgres SUPERUSER`を実行します。
 5. ターミナルで`psql -h $NEW_DB_URL -U postgre -f dump.sql`を実行します。
-6. *新しい*プロジェクトのSQLエディターで、`TRUNCATE storage.objects`を実行します。
-7. *新しい*プロジェクトのSQLエディターで、`ALTER ROLE postgres NOSUPERUSER`を実行します。
+6. _新しい_プロジェクトのSQLエディターで、`TRUNCATE storage.objects`を実行します。
+7. _新しい_プロジェクトのSQLエディターで、`ALTER ROLE postgres NOSUPERUSER`を実行します。
 <!-- textlint-enable ja-technical-writing/sentence-length -->
 
 #### ストレージのオブジェクトを移行
@@ -144,48 +136,37 @@ alter table your_table replica identity full;
 このスクリプトは、ストレージのオブジェクトをあるプロジェクトから別のプロジェクトに移動させます。1万以上のオブジェクトがある場合は、オブジェクトの移動を代行します。[support@supabase.io](mailto:support@supabase.io)までご連絡ください。
 
 ```js
-const { createClient } = require("@supabase/supabase-js");
+const { createClient } = require('@supabase/supabase-js')
 
-const OLD_PROJECT_URL = "https://xxx.supabase.co";
-const OLD_PROJECT_SERVICE_KEY = "old-project-service-key-xxx";
+const OLD_PROJECT_URL = 'https://xxx.supabase.co'
+const OLD_PROJECT_SERVICE_KEY = 'old-project-service-key-xxx'
 
-const NEW_PROJECT_URL = "https://yyy.supabase.co";
-const NEW_PROJECT_SERVICE_KEY = "new-project-service-key-yyy";
+const NEW_PROJECT_URL = 'https://yyy.supabase.co'
+const NEW_PROJECT_SERVICE_KEY = 'new-project-service-key-yyy'
 
-(async () => {
-  const oldSupabaseRestClient = createClient(
-    OLD_PROJECT_URL,
-    OLD_PROJECT_SERVICE_KEY,
-    { schema: "storage" }
-  );
-  const oldSupabaseClient = createClient(
-    OLD_PROJECT_URL,
-    OLD_PROJECT_SERVICE_KEY
-  );
-  const newSupabaseClient = createClient(
-    NEW_PROJECT_URL,
-    NEW_PROJECT_SERVICE_KEY
-  );
+;(async () => {
+  const oldSupabaseRestClient = createClient(OLD_PROJECT_URL, OLD_PROJECT_SERVICE_KEY, {
+    schema: 'storage',
+  })
+  const oldSupabaseClient = createClient(OLD_PROJECT_URL, OLD_PROJECT_SERVICE_KEY)
+  const newSupabaseClient = createClient(NEW_PROJECT_URL, NEW_PROJECT_SERVICE_KEY)
 
   // make sure you update max_rows in postgrest settings if you have a lot of objects
   // or paginate here
-  const { data: oldObjects, error } = await oldSupabaseRestClient
-    .from("objects")
-    .select();
+  const { data: oldObjects, error } = await oldSupabaseRestClient.from('objects').select()
   if (error) {
-    console.log("error getting objects from old bucket");
-    throw error;
+    console.log('error getting objects from old bucket')
+    throw error
   }
 
   for (const objectData of oldObjects) {
-    console.log(`moving ${objectData.id}`);
+    console.log(`moving ${objectData.id}`)
     try {
-      const { data, error: downloadObjectError } =
-        await oldSupabaseClient.storage
-          .from(objectData.bucket_id)
-          .download(objectData.name);
+      const { data, error: downloadObjectError } = await oldSupabaseClient.storage
+        .from(objectData.bucket_id)
+        .download(objectData.name)
       if (downloadObjectError) {
-        throw downloadObjectError;
+        throw downloadObjectError
       }
 
       const { _, error: uploadObjectError } = await newSupabaseClient.storage
@@ -194,16 +175,16 @@ const NEW_PROJECT_SERVICE_KEY = "new-project-service-key-yyy";
           upsert: true,
           contentType: objectData.metadata.mimetype,
           cacheControl: objectData.metadata.cacheControl,
-        });
+        })
       if (uploadObjectError) {
-        throw uploadObjectError;
+        throw uploadObjectError
       }
     } catch (err) {
-      console.log("error moving ", objectData);
-      console.log(err);
+      console.log('error moving ', objectData)
+      console.log(err)
     }
   }
-})();
+})()
 ```
 
 #### 注意点
@@ -234,4 +215,3 @@ alter database postgres set timezone to 'America/New_York';
 
 - [Postgres](/docs/postgres/server/about)についてもっと理解する
 - サインイン：[app.supabase.com](https://app.supabase.com)
-
