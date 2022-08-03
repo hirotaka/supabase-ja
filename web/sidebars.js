@@ -54,12 +54,17 @@ module.exports = {
         'guides/local-development',
         'guides/examples',
       ],
-      collapsed: false,
+      collapsed: true,
     },
     {
       type: 'category',
+<<<<<<< HEAD
       label: 'クイック・スタート',
       collapsed: false,
+=======
+      label: 'Quickstarts',
+      collapsed: true,
+>>>>>>> 0c3804205f62f687e1b0c2dce5c741b6702890e8
       items: [
         'guides/with-angular',
         'guides/with-expo',
@@ -79,8 +84,13 @@ module.exports = {
     },
     {
       type: 'category',
+<<<<<<< HEAD
       label: 'データベース',
       collapsed: false,
+=======
+      label: 'Database',
+      collapsed: true,
+>>>>>>> 0c3804205f62f687e1b0c2dce5c741b6702890e8
       items: [
         'guides/database',
         'guides/database/connecting-to-postgres',
@@ -117,20 +127,25 @@ module.exports = {
     },
     {
       type: 'category',
+<<<<<<< HEAD
       label: 'API',
       collapsed: false,
+=======
+      label: 'APIs',
+      collapsed: true,
+>>>>>>> 0c3804205f62f687e1b0c2dce5c741b6702890e8
       items: ['guides/api', 'guides/api/generating-types'],
     },
     {
       type: 'category',
       label: 'Functions',
-      collapsed: false,
+      collapsed: true,
       items: ['guides/functions'],
     },
     {
       type: 'category',
       label: 'Auth',
-      collapsed: false,
+      collapsed: true,
       items: [
         'guides/auth',
         {
@@ -184,14 +199,19 @@ module.exports = {
     },
     {
       type: 'category',
+<<<<<<< HEAD
       label: 'ストレージ',
       collapsed: false,
+=======
+      label: 'Storage',
+      collapsed: true,
+>>>>>>> 0c3804205f62f687e1b0c2dce5c741b6702890e8
       items: ['guides/storage'],
     },
     {
       type: 'category',
       label: 'Platform',
-      collapsed: false,
+      collapsed: true,
       items: [
         'guides/platform/logs',
         'guides/platform/metrics',
@@ -202,14 +222,24 @@ module.exports = {
     },
     {
       type: 'category',
+<<<<<<< HEAD
       label: 'セルフ・ホスティング',
       collapsed: false,
+=======
+      label: 'Self Hosting',
+      collapsed: true,
+>>>>>>> 0c3804205f62f687e1b0c2dce5c741b6702890e8
       items: ['guides/hosting/overview', 'guides/hosting/docker'],
     },
     {
       type: 'category',
+<<<<<<< HEAD
       label: 'インテグレーション',
       collapsed: false,
+=======
+      label: 'Integrations',
+      collapsed: true,
+>>>>>>> 0c3804205f62f687e1b0c2dce5c741b6702890e8
       items: [
         'guides/integrations/appsmith',
         'guides/integrations/auth0',
@@ -228,7 +258,7 @@ module.exports = {
     {
       type: 'category',
       label: 'See Also',
-      collapsed: false,
+      collapsed: true,
       items: [
         'faq',
         'handbook/contributing',
