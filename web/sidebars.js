@@ -58,13 +58,8 @@ module.exports = {
     },
     {
       type: 'category',
-<<<<<<< HEAD
       label: 'クイック・スタート',
-      collapsed: false,
-=======
-      label: 'Quickstarts',
       collapsed: true,
->>>>>>> 0c3804205f62f687e1b0c2dce5c741b6702890e8
       items: [
         'guides/with-angular',
         'guides/with-expo',
@@ -84,13 +79,8 @@ module.exports = {
     },
     {
       type: 'category',
-<<<<<<< HEAD
       label: 'データベース',
-      collapsed: false,
-=======
-      label: 'Database',
       collapsed: true,
->>>>>>> 0c3804205f62f687e1b0c2dce5c741b6702890e8
       items: [
         'guides/database',
         'guides/database/connecting-to-postgres',
@@ -127,13 +117,8 @@ module.exports = {
     },
     {
       type: 'category',
-<<<<<<< HEAD
       label: 'API',
-      collapsed: false,
-=======
-      label: 'APIs',
       collapsed: true,
->>>>>>> 0c3804205f62f687e1b0c2dce5c741b6702890e8
       items: ['guides/api', 'guides/api/generating-types'],
     },
     {
@@ -199,13 +184,8 @@ module.exports = {
     },
     {
       type: 'category',
-<<<<<<< HEAD
       label: 'ストレージ',
-      collapsed: false,
-=======
-      label: 'Storage',
       collapsed: true,
->>>>>>> 0c3804205f62f687e1b0c2dce5c741b6702890e8
       items: ['guides/storage'],
     },
     {
@@ -217,29 +197,19 @@ module.exports = {
         'guides/platform/metrics',
         'going-into-prod',
         'guides/platform/performance',
-        'guides/platform/permissions'
+        'guides/platform/permissions',
       ],
     },
     {
       type: 'category',
-<<<<<<< HEAD
       label: 'セルフ・ホスティング',
-      collapsed: false,
-=======
-      label: 'Self Hosting',
       collapsed: true,
->>>>>>> 0c3804205f62f687e1b0c2dce5c741b6702890e8
       items: ['guides/hosting/overview', 'guides/hosting/docker'],
     },
     {
       type: 'category',
-<<<<<<< HEAD
       label: 'インテグレーション',
-      collapsed: false,
-=======
-      label: 'Integrations',
       collapsed: true,
->>>>>>> 0c3804205f62f687e1b0c2dce5c741b6702890e8
       items: [
         'guides/integrations/appsmith',
         'guides/integrations/auth0',
