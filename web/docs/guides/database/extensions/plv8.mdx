@@ -17,46 +17,68 @@ PostgresはネイティブでSQLを実行しますが、他の「手続き型言
 
 ## 使用方法
 
+<<<<<<< HEAD
 
 ### 有効化
+=======
+### Enable the extension
+>>>>>>> 818762bbf84c712468d5ba3ca12cfa3404965d90
 
 <Tabs
-defaultValue="UI"
-values={[
-  {label: 'UI', value: 'UI'},
-  {label: 'SQL', value: 'SQL'},
-]}>
-<TabItem value="UI">
+  defaultValue="dashboard"
+  values={[
+    {label: 'Dashboard', value: 'dashboard'},
+    {label: 'SQL', value: 'sql'},
+  ]}>
 
+<<<<<<< HEAD
 ```sh
 1. 「Database」ページに移動します。
 2. サイドバーの「Extensions」をクリックします。
 3. 「plv8」を探します。
 4. トグルをクリックします。
 ```
+=======
+<TabItem value="dashboard">
+
+1. Go to the [Database](https://app.supabase.com/project/_/database/tables) page in the Dashboard.
+2. Click on **Extensions** in the sidebar.
+3. Search for "plv8" and enable the extension.
+>>>>>>> 818762bbf84c712468d5ba3ca12cfa3404965d90
 
 </TabItem>
-<TabItem value="SQL">
+<TabItem value="sql">
 
-```sql 
-
+<<<<<<< HEAD
 -- 例：「plv8」拡張を有効にする 
+=======
+```sql
+-- Example: enable the "plv8" extension 
+>>>>>>> 818762bbf84c712468d5ba3ca12cfa3404965d90
 create extension plv8;
 
 -- 例：「plv8」拡張を無効にする 
 drop extension if exists plv8;
-
 ```
 
+<<<<<<< HEAD
 SQLコードが`create extension`（拡張を作成）になっていますが、「拡張を有効にする」ことと同じです。
 拡張を無効にするには、`drop extension`を呼びだします。
+=======
+Even though the SQL code is `create extension`, this is the equivalent of "enabling the extension". 
+To disable an extension, call `drop extension`.
+>>>>>>> 818762bbf84c712468d5ba3ca12cfa3404965d90
 
 手続き型言語は、`pg_catalog`に自動的にインストールされるので、スキーマを指定する必要はありません。
 
 </TabItem>
 </Tabs>
 
+<<<<<<< HEAD
 ### `plv8`関数の作成
+=======
+### Create `plv8` functions
+>>>>>>> 818762bbf84c712468d5ba3ca12cfa3404965d90
 
 `plv8`で書かれた関数は、他のPostgreSQL関数と同じように書けますが、`language`識別子は`plv8`に設定します。
 
@@ -71,28 +93,24 @@ $$ language plv8;
 
 他のPostgres関数と同様に`plv8`関数を呼びだすことができます。
 
-
-
 <Tabs
-defaultValue="SQL"
-values={[
-  {label: 'SQL', value: 'SQL'},
-  {label: 'JavaScript', value: 'JS'},
-]}>
-<TabItem value="SQL">
+  defaultValue="sql"
+  values={[
+    {label: 'SQL', value: 'sql'},
+    {label: 'JavaScript', value: 'javascript'},
+  ]}>
 
+<TabItem value="sql">
 
 ```sql
 select function_name();
 ```
 
 </TabItem>
-<TabItem value="JS">
+<TabItem value="javascript">
 
-```js 
-
+```js
 const { data, error } = supabase.rpc('function_name')
-
 ```
 
 </TabItem>
@@ -100,7 +118,11 @@ const { data, error } = supabase.rpc('function_name')
 
 ## 例
 
+<<<<<<< HEAD
 ### スカラー関数
+=======
+### Scalar functions
+>>>>>>> 818762bbf84c712468d5ba3ca12cfa3404965d90
 
 [スカラー関数](https://plv8.github.io/#scalar-function-calls)とは、ユーザーの入力を受け取り、1つの結果を返すものです。
 
@@ -131,7 +153,11 @@ returns smallint as $$
 $$ language plv8;
 ```
 
+<<<<<<< HEAD
 ### セット・リターン関数
+=======
+### Set-returning functions
+>>>>>>> 818762bbf84c712468d5ba3ca12cfa3404965d90
 
 [セット・リターン関数](https://plv8.github.io/#set-returning-function-calls)とは、テーブルにある複数の行のような、結果の一式を返す関数です。
 
@@ -147,8 +173,15 @@ returns setof messages as $$
 $$ language plv8;
 ```
 
+<<<<<<< HEAD
 
 ## リソース
 
 - 公式の[`pl8`ドキュメント](https://plv8.github.io/)
 - [plv8のGitHubリポジトリ](https://github.com/plv8/plv8)
+=======
+## Resources 
+
+- Official [`plv8` documentation](https://plv8.github.io/)
+- [plv8 GitHub Repository](https://github.com/plv8/plv8)
+>>>>>>> 818762bbf84c712468d5ba3ca12cfa3404965d90
