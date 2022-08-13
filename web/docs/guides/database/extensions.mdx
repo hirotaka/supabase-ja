@@ -14,16 +14,14 @@ Supabaseには、最も便利なオープンソースの拡張がいくつかプ
 
 ### 拡張の有効化と無効化
 
-
-
 <Tabs
-defaultValue="UI"
-values={[
-  {label: 'UI', value: 'UI'},
-  {label: 'SQL', value: 'SQL'},
-]}>
-<TabItem value="UI">
+  defaultValue="dashboard"
+  values={[
+    {label: 'Dashboard', value: 'dashboard'},
+    {label: 'SQL', value: 'sql'},
+  ]}>
 
+<<<<<<< HEAD
 ```sh
 
 1. データベースのページへ移動
@@ -31,31 +29,47 @@ values={[
 3. 有効化/無効化したい拡張を探す 
 4. トグルをクリック
 ```
+=======
+<TabItem value="dashboard">
+>>>>>>> 27efde1e63444ddfde2e5afc080ba7531d86ca3c
 
+1. Go to the [Database](https://app.supabase.com/project/_/database/tables) page in the Dashboard.
+2. Click **Extensions** in the sidebar.
+3. Enable or disable an extension.
 
 <video width="99%" muted playsInline controls={true}>
 <source src="/docs/videos/toggle-extensions.mp4" type="video/mp4" muted playsInline />
 </video>
 
-
-
 </TabItem>
-<TabItem value="SQL">
 
-```sql 
+<TabItem value="sql">
 
+<<<<<<< HEAD
 -- 例：「pgtap」拡張を有効化し、インストールされていることを確認
+=======
+```sql
+-- Example: enable the "pgtap" extension and ensure it is installed
+>>>>>>> 27efde1e63444ddfde2e5afc080ba7531d86ca3c
 create extension pgtap with schema extensions;
 
 -- 例：「pgtap」拡張を無効化
 drop extension pgtap;
-
 ```
 
+<<<<<<< HEAD
 SQLコードが`create extension`（拡張を作成）していても、これは「拡張を有効にする」と同じことです。
 拡張を無効にするには、`drop extension`を呼びだします。
 
 SQLコード、`create extension <extension-name> with schema extensions`を実行した際、パーミッションの問題を引き起こすことがあります。例えば、`dblink`, `http`, `pg_cron`などがあります。
+=======
+Even though the SQL code is `create extension`, this is the equivalent of "enabling the extension". 
+To disable an extension call `drop extension`.
+
+:::caution
+Enabling some extensions with `create extension <extension-name> with schema extensions` may lead to permission issues (e.g., `dblink`, `http`, `pg_cron`).
+:::
+>>>>>>> 27efde1e63444ddfde2e5afc080ba7531d86ca3c
 
 </TabItem>
 
@@ -64,6 +78,10 @@ SQLコード、`create extension <extension-name> with schema extensions`を実�
 
 ### 拡張の全リスト
 
+<<<<<<< HEAD
 Supabaseには50以上の拡張があらかじめ設定されています。また、独自のSQL拡張を、SQLエディターを使ってデータベースに直接インストールできます。
+=======
+Supabase is pre-configured with over 50 extensions. You can also install your own SQL extensions directly in the database through our SQL editor.
+>>>>>>> 27efde1e63444ddfde2e5afc080ba7531d86ca3c
 
 <ExtensionsComponent />
