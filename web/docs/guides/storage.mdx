@@ -1,7 +1,13 @@
 ---
 id: storage
+<<<<<<< HEAD
 title: ストレージ
 description: ファイルの保存と提供にSupabaseを使用します。
+=======
+title: Storage
+description: Use Supabase to store and serve files.
+sidebar_label: Overview
+>>>>>>> 0d4a75a307a5bb0016b42220fdbcd74c949da0aa
 ---
 
 import Tabs from '@theme/Tabs'
@@ -38,28 +44,35 @@ Supabaseダッシュボードを使ってバケットを作成できます。
 ストレージはPostgresデータベースと相互運用性がありますので、SQLやクライアントライブラリーを使用できます。ここでは「avatars」というバケットを作成します。
 
 <Tabs
-defaultValue="UI"
-values={[
-  {label: 'UI', value: 'UI'},
-  {label: 'SQL', value: 'SQL'},
-  {label: 'JavaScript', value: 'JS'},
-  {label: 'Dart', value: 'DART'},
-]}>
-<TabItem value="UI">
+  groupId="storage-tabs"
+  defaultValue="dashboard"
+  values={[
+    {label: 'Dashboard', value: 'dashboard'},
+    {label: 'SQL', value: 'sql'},
+    {label: 'JavaScript', value: 'javascript'},
+    {label: 'Dart', value: 'dart'},
+  ]}>
+<TabItem value="dashboard">
 
+<<<<<<< HEAD
 ```sh
 1. 「Storage」セクションに移動します。
 2. 「Create Bucket」をクリックします。
 3. バケット名を入力します。
 4. 「Create Bucket」をクリックします。
 ```
+=======
+1. Go to the [Storage](https://app.supabase.com/project/_/storage/buckets) page in the Dashboard.
+2. Click **New Bucket** and enter a name for the bucket.
+3. Click **Create Bucket**.
+>>>>>>> 0d4a75a307a5bb0016b42220fdbcd74c949da0aa
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/storage/create.mp4" type="video/mp4" muted playsInline />
 </video>
 
 </TabItem>
-<TabItem value="SQL">
+<TabItem value="sql">
 
 ```sql
 -- Potgresを使ってバケットを作成します。
@@ -69,7 +82,7 @@ values ('avatars', 'avatars');
 ```
 
 </TabItem>
-<TabItem value="JS">
+<TabItem value="javascript">
 
 ```js
 // JSライブラリを使ってバケットを作成します。
@@ -80,7 +93,7 @@ const { data, error } = await supabase.storage.createBucket('avatars')
 [リファレンス](/docs/reference/javascript/storage-createbucket)
 
 </TabItem>
-<TabItem value="DART">
+<TabItem value="dart">
 
 ```dart
 void main() async {
@@ -102,27 +115,35 @@ void main() async {
 ファイルのアップロードは、ダッシュボードからでも、JSライブラリーを使ってブラウザー内からでも可能です。
 
 <Tabs
-defaultValue="UI"
-values={[
-  {label: 'UI', value: 'UI'},
-  {label: 'JavaScript', value: 'JS'},
-  {label: 'Dart', value: 'DART'},
-]}>
-<TabItem value="UI">
+  groupId="storage-tabs"
+  defaultValue="dashboard"
+  values={[
+    {label: 'Dashboard', value: 'dashboard'},
+    {label: 'JavaScript', value: 'javascript'},
+    {label: 'Dart', value: 'dart'},
+  ]}>
+<TabItem value="dashboard">
 
+<<<<<<< HEAD
 ```sh
 1. 「Storage」セクションに移動します。
 2. ファイルをアップロードしたいバケットを選択します。
 3. 「Upload File」をクリックします。
 4. 表示されるダイアログで、アップロードしたいファイルを選択します。
 ```
+=======
+1. Go to the [Storage](https://app.supabase.com/project/_/storage/buckets) page in the Dashboard.
+2. Select the bucket you want to upload the file to.
+3. Click **Upload File**.
+4. Select the file you want to upload.
+>>>>>>> 0d4a75a307a5bb0016b42220fdbcd74c949da0aa
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/storage/upload.mp4" type="video/mp4" muted playsInline />
 </video>
 
 </TabItem>
-<TabItem value="JS">
+<TabItem value="javascript">
 
 ```js
 const avatarFile = event.target.files[0]
@@ -134,7 +155,7 @@ const { data, error } = await supabase.storage
 [リファレンス](/docs/reference/javascript/storage-from-upload)
 
 </TabItem>
-<TabItem value="DART">
+<TabItem value="dart">
 
 ```dart
 void main() async {
@@ -158,27 +179,35 @@ void main() async {
 ファイルのダウンロードは、ダッシュボードからでも、JSライブラリーを使ってブラウザー内からでも可能です。
 
 <Tabs
-defaultValue="UI"
-values={[
-  {label: 'UI', value: 'UI'},
-  {label: 'JavaScript', value: 'JS'},
-  {label: 'Dart', value: 'DART'},
-]}>
-<TabItem value="UI">
+  groupId="storage-tabs"
+  defaultValue="dashboard"
+  values={[
+    {label: 'Dashboard', value: 'dashboard'},
+    {label: 'JavaScript', value: 'javascript'},
+    {label: 'Dart', value: 'dart'},
+  ]}>
+<TabItem value="dashboard">
 
+<<<<<<< HEAD
 ```sh
 1. 「Storage」セクションに移動します。
 2. ファイルが入っているバケットを選択します。
 3. ダウンロードしたいファイルを選択します。
 4. 「Download」ボタンをクリックします。
 ```
+=======
+1. Go to the [Storage](https://app.supabase.com/project/_/storage/buckets) page in the Dashboard.
+2. Select the bucket that contains the file.
+3. Select the file that you want to download.
+4. Click **Download**.
+>>>>>>> 0d4a75a307a5bb0016b42220fdbcd74c949da0aa
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/storage/download.mp4" type="video/mp4" muted playsInline />
 </video>
 
 </TabItem>
-<TabItem value="JS">
+<TabItem value="javascript">
 
 ```js
 // JSライブラリを使用して、バケットを作成します。
@@ -189,7 +218,7 @@ const { data, error } = await supabase.storage.from('avatars').download('public/
 [リファレンス](/docs/reference/javascript/storage-from-download)
 
 </TabItem>
-<TabItem value="DART">
+<TabItem value="dart">
 
 ```dart
 void main() async {
@@ -210,13 +239,15 @@ void main() async {
 ファイルへのアクセスを制限するには、ダッシュボードまたはSQLを使用します。
 
 <Tabs
-defaultValue="UI"
-values={[
-  {label: 'UI', value: 'UI'},
-  {label: 'SQL', value: 'SQL'}
-]}>
-<TabItem value="UI">
+  groupId="storage-tabs"
+  defaultValue="dashboard"
+  values={[
+    {label: 'Dashboard', value: 'dashboard'},
+    {label: 'SQL', value: 'sql'}
+  ]}>
+<TabItem value="dashboard">
 
+<<<<<<< HEAD
 ```sh
 1. 「Storage」セクションに移動します。
 2. サイドバーの「Policy」をクリックします。
@@ -225,16 +256,28 @@ values={[
 5. ポリシーにはユニークな名前をつけます。
 6. SQLを使ってポリシーを書きます。
 ```
+=======
+1. Go to the [Storage](https://app.supabase.com/project/_/storage/buckets) page in the Dashboard.
+2. Click **Policies** in the sidebar.
+3. Click **Add Policies** in the `OBJECTS` table to add policies for Files. You can also create policies for Buckets.
+4. Choose whether you want the policy to apply to downloads (SELECT), uploads (INSERT), updates (UPDATE), or deletes (DELETE).
+5. Give your policy a unique name.
+6. Write the policy using SQL.
+>>>>>>> 0d4a75a307a5bb0016b42220fdbcd74c949da0aa
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/storage/policies.mp4" type="video/mp4" muted playsInline />
 </video>
 
 </TabItem>
-<TabItem value="SQL">
+<TabItem value="sql">
 
 ```sql
+<<<<<<< HEAD
 -- SQLを使ってポリシーを作成します。
+=======
+-- Use SQL to create a policy.
+>>>>>>> 0d4a75a307a5bb0016b42220fdbcd74c949da0aa
 
 create policy "Public Access"
   on storage.objects for select
@@ -356,6 +399,7 @@ on storage.objects for select
 using ( auth.uid() = owner );
 ```
 
+<<<<<<< HEAD
 ## リソース
 
 - GitHubでAPIサーバーを参照：[github.com/supabase/storage-api](https://github.com/supabase/storage-api)
@@ -368,3 +412,12 @@ using ( auth.uid() = owner );
 - 何か質問がありしたら、[こちら](https://github.com/supabase/supabase/discussions)で質問してください
 - ストレージの詳細は[ブログ記事](https://supabase.com/blog/2021/03/30/supabase-storage)を参照してください
 - サインイン：[app.supabase.com](https://app.supabase.com)
+=======
+## See also
+
+- Read more about Supabase Storage in the [blog post](https://supabase.com/blog/supabase-storage)
+- [Supabase Storage on GitHub](https://github.com/supabase/storage-api)
+- [Swagger API documentation](https://supabase.github.io/storage-api)
+- Official [JavaScript](/docs/reference/javascript/storage-createbucket) and [Dart](/docs/reference/dart/storage-createbucket) documentation
+- [Community libraries](https://github.com/supabase-community)
+>>>>>>> 0d4a75a307a5bb0016b42220fdbcd74c949da0aa

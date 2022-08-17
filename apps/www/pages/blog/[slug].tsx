@@ -40,7 +40,7 @@ const components = {
           className="
           next-image--dynamic-fill 
           to-scale-400  
-          from-scale-500 rounded-md
+          from-scale-500 rounded-lg
           border bg-gradient-to-r
         "
         >
@@ -129,8 +129,9 @@ function BlogPostPage(props: any) {
 
   const NextCard = (props: any) => {
     const { post, label, className } = props
+
     return (
-      <Link href={`/blog/${post.url}`} as={`/blog/${post.url}`}>
+      <Link href={`${post.path}`} as={`${post.path}`}>
         <div className={className}>
           <div className="border-scale-500 hover:bg-scale-100 dark:hover:bg-scale-300 cursor-pointer rounded border p-6 transition">
             <div className="space-y-4">
@@ -162,9 +163,9 @@ function BlogPostPage(props: any) {
         </div>
       </div>
       <div>
-        <p className="text-scale-1200">On this page</p>
         <div>
-          <div className={['prose prose-toc'].join(' ')}>
+          <p className="text-scale-1200 mb-4">On this page</p>
+          <div className="prose-toc">
             <ReactMarkdown plugins={[gfm]}>{props.blog.toc.content}</ReactMarkdown>
           </div>
         </div>
@@ -275,7 +276,7 @@ function BlogPostPage(props: any) {
                 {/* Content */}
                 <div className="col-span-12 lg:col-span-7 xl:col-span-7">
                   {props.blog.thumb && (
-                    <div className="relative mb-8 h-96 w-full overflow-auto rounded border">
+                    <div className="relative mb-8 h-96 w-full overflow-auto rounded-lg border">
                       <Image
                         src={'/images/blog/' + props.blog.thumb}
                         layout="fill"
@@ -348,7 +349,7 @@ function BlogPostPage(props: any) {
                       </div>
                       <div className="space-y-3">
                         {props.relatedPosts.map((post: any) => (
-                          <Link href={`/blog/${post.url}`} as={`/blog/${post.url}`}>
+                          <Link href={`${post.path}`} as={`${post.path}`}>
                             <div>
                               <p className="cursor-pointer">
                                 <div className="flex gap-2">
@@ -405,7 +406,7 @@ function BlogPostPage(props: any) {
                     </h5>
                     <Space direction="vertical">
                       {props.relatedPosts.map((post: any) => (
-                        <Link href={`/blog/${post.url}`} as={`/blog/${post.url}`}>
+                        <Link href={`${post.path}`} as={`${post.path}`}>
                           <div>
                             <p className="cursor-pointer">
                               <Space>

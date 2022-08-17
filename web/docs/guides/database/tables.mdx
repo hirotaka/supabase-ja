@@ -33,17 +33,20 @@ Supabaseには、テーブルを作成するためのいくつかの選択肢が
 ダッシュボードにはSQLエディターが用意されていますが、データベースに[接続して](/docs/guides/database/connecting/connecting-to-postgres)、SQLクエリを実行できます。
 
 <Tabs
-defaultValue="UI"
-values={[
-  {label: 'Dashboard', value: 'UI'},
-  {label: 'SQL', value: 'SQL'},
-]}>
-<TabItem value="UI">
+  groupId="dashboard-or-sql"
+  defaultValue="dashboard"
+  values={[
+    {label: 'Dashboard', value: 'dashboard'},
+    {label: 'SQL', value: 'sql'},
+  ]}>
+
+<TabItem value="dashboard">
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/api/api-create-table-sm.mp4" type="video/mp4" muted playsInline />
 </video>
 
+<<<<<<< HEAD
 ```sh
 1. 「Table editor」のセクションに移動します。
 2. 「New Table」をクリックします。
@@ -53,9 +56,16 @@ values={[
 6. 「task」というカラム名を入力して、タイプを「text」にします。
 7. 「Save」をクリックします。
 ```
+=======
+1. Go to the [Table Editor](https://app.supabase.com/project/_/editor) page in the Dashboard.
+2. Click **New Table** and create a table with the name `todos`.
+3. Click **Save**.
+4. Click **New Column** and create a column with the name `task` and type `text`.
+5. Click **Save**.
+>>>>>>> 0d4a75a307a5bb0016b42220fdbcd74c949da0aa
 
 </TabItem>
-<TabItem value="SQL">
+<TabItem value="sql">
 
 ```sql
 create table movies (
@@ -68,7 +78,13 @@ create table movies (
 </TabItem>
 </Tabs>
 
+<<<<<<< HEAD
 テーブル名を付ける際には、小文字とアンダースコアを使用するのがベストプラクティスです。例えば、`Table Name`ではなく、`table_name`とします。
+=======
+:::note
+When naming tables, use lowercase and underscores instead of spaces (e.g., `table_name`, not `Table Name`).
+:::
+>>>>>>> 0d4a75a307a5bb0016b42220fdbcd74c949da0aa
 
 ## カラム
 
@@ -171,13 +187,14 @@ Supabaseにデータを読み込むには、いくつかの方法があります
 ### 基本的なデータの読み込み
 
 <Tabs
-defaultValue="SQL"
-values={[
-  {label: 'SQL', value: 'SQL'},
-  {label: 'JavaScript', value: 'JS'},
-  {label: 'Dart', value: 'DART'},
-]}>
-<TabItem value="SQL">
+  defaultValue="sql"
+  values={[
+    {label: 'SQL', value: 'sql'},
+    {label: 'JavaScript', value: 'javascript'},
+    {label: 'Dart', value: 'dart'},
+  ]}>
+
+<TabItem value="sql">
 
 ```sql
 insert into movies
@@ -188,7 +205,8 @@ values
 ```
 
 </TabItem>
-<TabItem value="JS">
+
+<TabItem value="javascript">
 
 ```sql
 const { data, error } = await supabase
@@ -203,7 +221,8 @@ const { data, error } = await supabase
 ```
 
 </TabItem>
-<TabItem value="DART">
+
+<TabItem value="dart">
 
 ```sql
 final res = await supabase
@@ -267,12 +286,28 @@ alter table movies
 - `actor`は複数の映画に出演できます。
 
 <Tabs
-defaultValue="SQL"
-values={[
-  {label: 'SQL', value: 'SQL'},
-  {label: 'Dashboard', value: 'UI'},
-]}>
-<TabItem value="SQL">
+  groupId="dashboard-or-sql"
+  defaultValue="dashboard"
+  values={[
+    {label: 'Dashboard', value: 'dashboard'},
+    {label: 'SQL', value: 'sql'},
+  ]}>
+
+<TabItem value="dashboard">
+
+<iframe
+  className="video-with-border w-full"
+  width="640"
+  height="420"
+  src="https://www.youtube-nocookie.com/embed/TKwF3IGij5c"
+  frameBorder="1"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+
+</TabItem>
+
+<TabItem value="sql">
 
 ```sql
 create table movies (
@@ -292,19 +327,6 @@ create table performances (
   actor_id bigint not null references actors
 );
 ```
-
-</TabItem>
-<TabItem value="UI">
-
-<iframe
-  className="video-with-border w-full"
-  width="640"
-  height="420"
-  src="https://www.youtube-nocookie.com/embed/TKwF3IGij5c"
-  frameBorder="1"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-></iframe>
 
 </TabItem>
 </Tabs>
