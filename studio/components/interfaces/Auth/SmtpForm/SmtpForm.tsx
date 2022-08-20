@@ -102,19 +102,19 @@ const SmtpForm = () => {
     delete payload.ENABLE_SMTP
     payload.SMTP_PORT = payload.SMTP_PORT ? payload.SMTP_PORT.toString() : payload.SMTP_PORT
 
-    try {
-      setSubmitting(true)
-      await authConfig.update(payload)
-      ui.setNotification({ category: 'success', message: 'Successfully updated settings' })
+    setSubmitting(true)
+    const { error } = await authConfig.update(payload)
 
+    if (!error) {
       setHidden(true)
       const updatedFormValues = generateFormValues(payload)
       resetForm({ values: updatedFormValues, initialValues: updatedFormValues })
-    } catch (error) {
+      ui.setNotification({ category: 'success', message: 'Successfully updated settings' })
+    } else {
       ui.setNotification({ category: 'error', message: 'Failed to update settings', error })
-    } finally {
-      setSubmitting(false)
     }
+
+    setSubmitting(false)
   }
 
   return (
@@ -243,13 +243,6 @@ const SmtpForm = () => {
                     label="Minimum interval between emails being sent"
                     descriptionText="How long between each email can a new email be sent via your SMTP server."
                     actions={<span className="text-scale-900 mr-3">seconds</span>}
-                  />
-                  <InputNumber
-                    id="RATE_LIMIT_EMAIL_SENT"
-                    name="RATE_LIMIT_EMAIL_SENT"
-                    label="Rate limit for sending emails"
-                    descriptionText="How many emails can be sent per hour."
-                    actions={<span className="text-scale-900 mr-3">emails per hour</span>}
                   />
                   <InputNumber
                     name="RATE_LIMIT_EMAIL_SENT"

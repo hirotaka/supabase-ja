@@ -35,6 +35,7 @@ import TabItem from '@theme/TabItem';
 Postgresからこれらのネットワークへのリクエストをするために、`http`拡張機能を使用できます。
 
 
+<<<<<<< HEAD
 ## 使用方法
 
 
@@ -54,24 +55,45 @@ values={[
 3. 「https」をみつけます。
 4. トグルをクリックします。
 ```
+=======
+### Enable the extension
 
+<Tabs
+  defaultValue="dashboard"
+  values={[
+    {label: 'Dashboard', value: 'dashboard'},
+    {label: 'SQL', value: 'sql'},
+  ]}>
+>>>>>>> b3187fb7f189142e1b2143e578494b77938184ca
 
+<TabItem value="dashboard">
+
+1. Go to the [Database](https://app.supabase.com/project/_/database/tables) page in the Dashboard.
+2. Click on **Extensions** in the sidebar.
+3. Search for "http" and enable the extension.
 
 </TabItem>
-<TabItem value="SQL">
+<TabItem value="sql">
 
-```sql 
-
+<<<<<<< HEAD
 -- 例：「http」拡張機能を有効にする 
+=======
+```sql
+-- Example: enable the "http" extension 
+>>>>>>> b3187fb7f189142e1b2143e578494b77938184ca
 create extension http with schema extensions;
 
 -- 例：「http」拡張機能を無効にする 
 drop extension if exists http;
-
 ```
 
+<<<<<<< HEAD
 SQLコードが`create extension`（拡張を作成）になっていますが、「拡張機能を有効にする」ことと同じです。
 拡張機能を無効にするには、`drop extension`を呼びだします。
+=======
+Even though the SQL code is `create extension`, this is the equivalent of "enabling the extension". 
+To disable an extension, call `drop extension`.
+>>>>>>> b3187fb7f189142e1b2143e578494b77938184ca
 
 データベースをきれいに保つために、拡張機能を（`extensions`のような）別のスキーマ内に作成することは良い習慣です。
 
@@ -126,4 +148,8 @@ from
 
 ## リソース
 
+<<<<<<< HEAD
 - 公式の[`http` GitHubリポジトリ](https://github.com/pramsey/pgsql-http)
+=======
+- Official [`http` GitHub Repository](https://github.com/pramsey/pgsql-http)
+>>>>>>> b3187fb7f189142e1b2143e578494b77938184ca
