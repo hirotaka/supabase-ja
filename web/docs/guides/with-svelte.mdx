@@ -1,7 +1,13 @@
 ---
 id: with-svelte
+<<<<<<< HEAD
 title: "クイックスタート：Svelte"
 description: SvelteアプリでSupabaseを使用する方法をご紹介します。
+=======
+title: "Quickstart: Svelte"
+description: Learn how to use Supabase in your Svelte App.
+sidebar_label: Svelte
+>>>>>>> ed6ed8026585bbd5ebc8c116f3674c06a3ca7f2f
 ---
 
 import Tabs from '@theme/Tabs';
@@ -41,25 +47,31 @@ import TabItem from '@theme/TabItem';
 これからデータベース・スキーマを設定します。SQLエディターの「User Management Starter」クイック・スターターを使用するか、下記のSQLをコピー/ペーストして自分で実行できます。
 
 <Tabs
-defaultValue="UI"
-values={[
-  {label: 'UI', value: 'UI'},
-  {label: 'SQL', value: 'SQL'},
-]}>
-<TabItem value="UI">
+  defaultValue="dashboard"
+  values={[
+    {label: 'Dashboard', value: 'dashboard'},
+    {label: 'SQL', value: 'sql'},
+  ]}>
+<TabItem value="dashboard">
 
+<<<<<<< HEAD
 ```sh
 1. 「SQL」セクションに移動します。
 2. 「User Management Starter」をクリックします。
 3. 「Run」をクリックします。
 ```
+=======
+1. Go to the [SQL Editor](https://app.supabase.com/project/_/sql) page in the Dashboard.
+2. Click **User Management Starter**.
+3. Click **Run**.
+>>>>>>> ed6ed8026585bbd5ebc8c116f3674c06a3ca7f2f
 
 <video width="99%" muted playsInline controls="true">
 <source src="/docs/videos/sql-user-management-starter.mp4" type="video/mp4" muted playsInline />
 </video>
 
 </TabItem>
-<TabItem value="SQL">
+<TabItem value="sql">
 
 ```sql
 -- パブリックで「profiles」テーブルを作成
@@ -120,6 +132,7 @@ create policy "Anyone can upload an avatar."
 データベースのテーブルをいくつか作成したので、自動生成されたAPIを使ってデータを挿入する準備ができました。
 API設定からURLと`anon`キーを取得する必要があります。
 
+<<<<<<< HEAD
 <Tabs
 defaultValue="UI"
 values={[
@@ -133,15 +146,24 @@ values={[
 3. そのページでAPI URLを探します。
 4. 「anon」と「service_role」キーを探します。
 ```
+=======
+1. Go to the [Settings](https://app.supabase.com/project/_/settings) page in the Dashboard.
+2. Click **API** in the sidebar.
+3. Find your API `URL`, `anon`, and `service_role` keys on this page.
+>>>>>>> ed6ed8026585bbd5ebc8c116f3674c06a3ca7f2f
 
 <video width="99%" muted playsInline controls="true">
 <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
 </video>
 
+<<<<<<< HEAD
 </TabItem>
 </Tabs>
 
 ## アプリの構築
+=======
+## Building the App
+>>>>>>> ed6ed8026585bbd5ebc8c116f3674c06a3ca7f2f
 
 それでは早速、Svelteアプリを一から作ってみましょう。
 
@@ -402,8 +424,8 @@ export const user = writable(false);
 
 	user.set(supabase.auth.user())
 
-	supabase.auth.onAuthStateChange((_, session) => {
-		user.set(session.user)
+	supabase.auth.onAuthStateChange((state, session) => {
+		user.set(state === 'SIGNED_IN' && session.user)
 	})
 </script>
 
