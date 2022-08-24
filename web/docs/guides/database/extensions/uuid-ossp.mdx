@@ -19,40 +19,59 @@ import TabItem from '@theme/TabItem';
 
 ## 使用方法
 
+<<<<<<< HEAD
 ### 有効化
+=======
+### Enable the extension
+>>>>>>> 792139f8765b04b3c71e6f6ba41a7922fce10b5d
 
 <Tabs
-defaultValue="UI"
-values={[
-  {label: 'UI', value: 'UI'},
-  {label: 'SQL', value: 'SQL'},
-]}>
-<TabItem value="UI">
+  defaultValue="dashboard"
+  values={[
+    {label: 'Dashboard', value: 'dashboard'},
+    {label: 'SQL', value: 'sql'},
+  ]}>
 
+<TabItem value="dashboard">
+
+1. Go to the [Database](https://app.supabase.com/project/_/database/tables) page in the Dashboard.
+2. Click on **Extensions** in the sidebar.
+3. Search for "uuid-ossp" and enable the extension.
+
+<<<<<<< HEAD
 ```sh
 1. 「Database」ページに移動します。
 2. サイドバーの「Extensions」をクリックします。
 3. 「uuid-ossp」を探します。
 4. トグルをクリックします。
 ```
+=======
+>>>>>>> 792139f8765b04b3c71e6f6ba41a7922fce10b5d
 **Note**:
 現在、`uuid-ossp`拡張はデフォルトで有効になっており、無効にできません。
 
 </TabItem>
-<TabItem value="SQL">
+<TabItem value="sql">
 
-```sql 
-
+<<<<<<< HEAD
 -- 例：「uuid-ossp」拡張を有効にする 
+=======
+```sql
+-- Example: enable the "uuid-ossp" extension 
+>>>>>>> 792139f8765b04b3c71e6f6ba41a7922fce10b5d
 create extension "uuid-ossp" with schema extensions;
 
 -- 例：「uuid-ossp」拡張を無効にする 
 drop extension if exists "uuid-ossp";
-
 ```
 
+<<<<<<< HEAD
 SQLコードが`create extension`（拡張を作成）になっていますが、「拡張を有効にする」ことと同じです。
 拡張を無効にするには、`drop extension`を呼びだします。
+=======
+Even though the SQL code is `create extension`, this is the equivalent of "enabling the extension". 
+To disable an extension, call `drop extension`.
+>>>>>>> 792139f8765b04b3c71e6f6ba41a7922fce10b5d
 
 データベースをきれいに保つために、拡張を（`extensions`のような）別のスキーマ内に作成することは良い習慣です。
 
@@ -100,4 +119,8 @@ create table contacts (
 
 ## リソース
 
+<<<<<<< HEAD
 - [PostgreSQL `UUID`データ型の基礎](https://www.postgresqltutorial.com/postgresql-uuid/)
+=======
+- [The Basics Of PostgreSQL `UUID` Data Type](https://www.postgresqltutorial.com/postgresql-uuid/)
+>>>>>>> 792139f8765b04b3c71e6f6ba41a7922fce10b5d
