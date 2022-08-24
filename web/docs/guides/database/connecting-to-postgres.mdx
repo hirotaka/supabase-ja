@@ -1,7 +1,12 @@
 ---
 id: connecting-to-postgres
+<<<<<<< HEAD
 title: '接続'
 description: Postgresデータベースへの接続の様々な方法。
+=======
+title: 'Database Connections'
+description: There are various ways to connect to your Postgres database.
+>>>>>>> 792139f8765b04b3c71e6f6ba41a7922fce10b5d
 ---
 
 Supabaseは、Postgresデータベースへの接続にいくつかの選択肢を用意しています。
@@ -14,9 +19,15 @@ Supabaseは、Postgresデータベースへの接続にいくつかの選択肢�
 
 ## ダイレクト接続と接続プーリング
 
+<<<<<<< HEAD
 - APIは自動生成されたRESTインターフェイスです。ブラウザやアプリケーションとのやりとりは、すべてこれを使う必要があります。
 - 「ダイレクト接続」とは、Postgresのネイティブな接続実装を使用してデータベースへ接続することです。
 - 「接続プール」とは、Postgresのネイティブなシステムではなく、接続を管理するシステム（Postgresの外部）のことです。
+=======
+- The API is an auto-generated REST interface. You should use this for all browser and application interactions.
+- A "direct connection" is when a connection is made to the database using Postgres' native connection implementation. You should use this for tools which are always alive - usually installed on a long-running server.
+- A "connection pool" is a system (external to Postgres) which keeps connections "open". You should use this for serverless functions and tools which disconnect from the database frequently.
+>>>>>>> 792139f8765b04b3c71e6f6ba41a7922fce10b5d
 
 なぜ接続プールを使用するのでしょうか。主に、Postgresが接続を処理する方法は、多数の_一時的な_接続に対してはあまりスケーラブルではないからです。
 どの接続方法を使用するかを決定するために、以下の簡単な質問を使用できます。
@@ -38,6 +49,7 @@ Supabaseは自動更新される[API](/docs/guides/api)を提供しています�
 
 APIを使用してデータベースのスキーマを管理できません（セキュリティー上の理由による）。これを行うには、ダッシュボードを使用するか、データベースに直接接続する必要があります。
 
+<<<<<<< HEAD
 ### APIのURLを取得
 
 APIのURLとキーはダッシュボード内で確認できます。
@@ -54,15 +66,24 @@ values={[
 2. サイドバーの「API」をクリックします。
 3. ページ内からAPIのURLとキーを取得します。
 ```
+=======
+### API URL and Keys
+
+You can find the API URL and Keys in the [Dashboard](https://app.supabase.com/project/_/settings/api).
+>>>>>>> 792139f8765b04b3c71e6f6ba41a7922fce10b5d
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
 </video>
 
+<<<<<<< HEAD
 </TabItem>
 </Tabs>
 
 ## ダイレクト接続
+=======
+## Direct connections
+>>>>>>> 792139f8765b04b3c71e6f6ba41a7922fce10b5d
 
 すべてのSupabaseプロジェクトは、完全なPostgresデータベースを提供します。Postgresをサポートするツールを使ってデータベースに接続できます。
 
