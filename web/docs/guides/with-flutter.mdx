@@ -1,7 +1,13 @@
 ---
 id: with-flutter
+<<<<<<< HEAD
 title: 'クイックスタート：Flutter'
 description: FlutterアプリでSupabaseを使用する方法をご紹介します。
+=======
+title: 'Quickstart: Flutter'
+description: Learn how to use Supabase in your Flutter App.
+sidebar_label: Flutter
+>>>>>>> 1df5be4f4e00ae8bdb3083059ac1503127556bac
 ---
 
 import Tabs from '@theme/Tabs'
@@ -41,25 +47,31 @@ import TabItem from '@theme/TabItem'
 これからデータベース・スキーマを設定します。SQLエディターの「User Management Starter」クイック・スターターを使用するか、下記のSQLをコピー/ペーストして自分で実行できます。
 
 <Tabs
-defaultValue="UI"
-values={[
-  {label: 'UI', value: 'UI'},
-  {label: 'SQL', value: 'SQL'},
-]}>
-<TabItem value="UI">
+  defaultValue="dashboard"
+  values={[
+    {label: 'Dashboard', value: 'dashboard'},
+    {label: 'SQL', value: 'sql'},
+  ]}>
+<TabItem value="dashboard">
 
+<<<<<<< HEAD
 ```sh
 1. 「SQL」セクションに移動します。
 2. 「User Management Starter」をクリックします。
 3. 「Run」をクリックします。
 ```
+=======
+1. Go to the [SQL Editor](https://app.supabase.com/project/_/sql) page in the Dashboard.
+2. Click **User Management Starter**.
+3. Click **Run**.
+>>>>>>> 1df5be4f4e00ae8bdb3083059ac1503127556bac
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/sql-user-management-starter.mp4" type="video/mp4" muted playsInline />
 </video>
 
 </TabItem>
-<TabItem value="SQL">
+<TabItem value="sql">
 
 ```sql
 -- パブリックで「profiles」テーブルを作成
@@ -114,6 +126,7 @@ create policy "Anyone can upload an avatar."
 データベースのテーブルをいくつか作成したので、自動生成されたAPIを使ってデータを挿入する準備ができました。
 API設定からURLと`anon`キーを取得する必要があります。
 
+<<<<<<< HEAD
 <Tabs
 defaultValue="UI"
 values={[
@@ -127,15 +140,24 @@ values={[
 3. そのページでAPI URLを探します。
 4. 「anon」キーを探します。
 ```
+=======
+1. Go to the [Settings](https://app.supabase.com/project/_/settings) page in the Dashboard.
+2. Click **API** in the sidebar.
+3. Find your API `URL`, `anon`, and `service_role` keys on this page.
+>>>>>>> 1df5be4f4e00ae8bdb3083059ac1503127556bac
 
 <video width="99%" muted playsInline controls="true">
   <source src="/docs/videos/api/api-url-and-key.mp4" type="video/mp4" muted playsInline />
 </video>
 
+<<<<<<< HEAD
 </TabItem>
 </Tabs>
 
 ## アプリの構築
+=======
+## Building the App
+>>>>>>> 1df5be4f4e00ae8bdb3083059ac1503127556bac
 
 それでは、Flutterアプリを一から作ってみましょう。
 
@@ -904,6 +926,7 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
 
 おめでとうございます。これで完成です。これで、FlutterとSupabaseを使った、完全に機能するユーザー管理アプリが完成しました。
 
+<<<<<<< HEAD
 ## 次のステップ
 
 この段階で、完全に機能するアプリケーションが完成しました。
@@ -914,3 +937,8 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
 ## FlutterとSupabaseに関するリソース
 
 - [Flutterチュートリアル：Flutterでチャット・アプリをつくる](https://supabase.com/blog/2022/06/30/flutter-tutorial-building-a-chat-app)
+=======
+## See also
+
+- [Flutter Tutorial: building a Flutter chat app](https://supabase.com/blog/flutter-tutorial-building-a-chat-app)
+>>>>>>> 1df5be4f4e00ae8bdb3083059ac1503127556bac
