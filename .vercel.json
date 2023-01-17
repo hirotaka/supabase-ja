@@ -1,0 +1,8 @@
+{
+  "redirects": [
+    {
+      "source": "/docs",
+      "destination": "https://supabase.com/docs"
+    }
+  ]
+}
