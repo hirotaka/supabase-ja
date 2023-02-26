@@ -138,7 +138,11 @@ Prismaについてさらに詳しく知りたい場合は、[ドキュメント]
 
 ## トラブルシューティング
 
+<<<<<<< HEAD
 `prisma migrate dev --name init`を複数回実行すると、スキーマ全体を再作成するか聞いてくることがあります。yesを選ぶと、パブリック・スキーマが削除され、再作成されます。この後、デフォルトの許可（grant）がなくなります。この問題に遭遇した場合は、許可（grant）を修正するためのヘルパーSQLを追加してください。
+=======
+If you run `prisma migrate dev --name init` multiple times, it sometimes asks if you want to recreate the whole schema. If you chose yes, it will delete the public schema and recreate it. The default grants are missing after this. If you run into this problem, add a helper SQL for fixing the grants:
+>>>>>>> 8102152f87ff56f7073590d22ecc5470b2aefb7f
 
 ```sql
 CREATE SCHEMA IF NOT EXISTS "auth";
